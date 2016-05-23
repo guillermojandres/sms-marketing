@@ -1,0 +1,4 @@
+services:
+#    erp_rrhh.example:
+#        class: ERP\RrhhBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+   
+    <div class="row">
+    {{ form_start(form, {'action': path('invproveedor_new')}) }}
+        <div class="col-md-4">
+            {{ form_row(form.nombre) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_row(form.direccion) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_row(form.crmIndustriaCliente) }}
+        </div>
+        
+        
+        
+     <input type="submit" value="Guardar" class="btn btn-success btn-sm" style="margin-top:10px; display: none;" id="submitInsertar" />
+    {{ form_end(form) }}
+</div>
+<hr>
+    
+    
+  
+{% endblock %}

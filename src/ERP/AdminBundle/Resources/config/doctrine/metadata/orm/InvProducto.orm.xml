@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="InvProducto" table="inv_producto">
+    <indexes>
+      <index name="fk_inv_producto_inv_zona1_idx" columns="inv_zona_id"/>
+      <index name="fk_inv_producto_inv_cat_producto1_idx" columns="inv_cat_producto_id"/>
+      <index name="fk_inv_producto_inv_tipo_inventario1_idx" columns="inv_tipo_inventario_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nombre" type="string" column="nombre" length="100" nullable="false"/>
+    <field name="fecha" type="date" column="fecha" nullable="true"/>
+    <field name="descripcion" type="string" column="descripcion" length="500" nullable="true"/>
+    <field name="precioCompra" type="decimal" column="precio_compra" precision="15" scale="2" nullable="true"/>
+    <field name="precioVenta" type="decimal" column="precio_venta" precision="5" scale="2" nullable="true"/>
+    <field name="sku" type="string" column="sku" length="100" nullable="true"/>
+    <field name="serial" type="string" column="serial" length="100" nullable="true"/>
+    <field name="inventarioBajo" type="integer" column="inventario_bajo" nullable="true"/>
+    <field name="totalExistencia" type="integer" column="total_existencia" nullable="true"/>
+    <many-to-one field="invTipoInventario" target-entity="CtlTipoInventario">
+      <join-columns>
+        <join-column name="inv_tipo_inventario_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="invCatProducto" target-entity="CltCatProducto">
+      <join-columns>
+        <join-column name="inv_cat_producto_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="invZona" target-entity="InvZona">
+      <join-columns>
+        <join-column name="inv_zona_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

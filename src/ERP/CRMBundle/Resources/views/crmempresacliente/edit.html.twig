@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+   {# <h1>InvProveedor edit</h1>#}
+
+<div class="row">
+     {{ form_start(edit_form, {'action': path('empresacliente_edit',{'id':crmEmpresaCliente.id})}) }}
+    {#  {{ form_widget(edit_form) }}#}
+      
+        <div class="col-md-4">
+            {{ form_row(edit_form.nombre, {'attr': {'class': 'form-control empresaTextBoxEdit form-control focus'}}) }}
+           
+        </div>
+        <div class="col-md-4">
+           {{ form_row(edit_form.direccion, {'attr': {'class': 'form-control empresaTextBoxEdit form-control'}}) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_row(edit_form.nrc, {'attr': {'class': 'form-control empresaTextBoxEdit form-control'}}) }}
+           
+        </div> 
+         <div class="col-md-4">
+            {{ form_row(edit_form.nit, {'attr': {'class': 'form-control empresaTextBoxEdit form-control'}}) }}
+           
+        </div> 
+        <div class="col-md-4">
+            {{ form_row(edit_form.giro, {'attr': {'class': 'form-control empresaTextBoxEdit form-control'}}) }}
+           
+        </div> 
+         <div class="col-md-4">
+            {{ form_row(edit_form.tel, {'attr': {'class': 'form-control empresaTextBoxEdit form-control'}}) }}
+           
+        </div>
+         <div class="col-md-4">
+            {{ form_row(edit_form.fax, {'attr': {'class': 'form-control empresaTextBoxEdit form-control'}}) }}
+           
+        </div> 
+         <div class="col-md-4">
+            {{ form_row(edit_form.correo, {'attr': {'class': 'form-control empresaTextBoxEdit form-control'}}) }}
+           
+        </div> 
+        
+        
+    {{ form_end(edit_form) }}
+</div>
+<hr>
+    
+    
+    
+    
+    
+   {# <ul>
+        <li>
+            <a href="{{ path('admin_invproveedor_index') }}">Back to the list</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>#}
+{% endblock %}

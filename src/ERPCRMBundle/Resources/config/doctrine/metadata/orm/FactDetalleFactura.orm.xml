@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="FactDetalleFactura" table="fact_detalle_factura">
+    <indexes>
+      <index name="det_idimpuesto" columns="det_idimpuesto"/>
+      <index name="det_idfactura" columns="det_idfactura"/>
+      <index name="fk_fact_detalle_factura_inv_producto1_idx" columns="inv_producto_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="detDescripcion" type="text" column="det_descripcion" length="65535" nullable="false"/>
+    <field name="detCantidad" type="integer" column="det_cantidad" nullable="false"/>
+    <field name="detPreciounidad" type="float" column="det_preciounidad" precision="10" scale="0" nullable="false"/>
+    <field name="detTotal" type="float" column="det_total" precision="10" scale="0" nullable="false"/>
+    <field name="correlativo" type="integer" column="correlativo" nullable="false"/>
+    <field name="detPocentajeImp" type="float" column="det_pocentaje_imp" precision="10" scale="0" nullable="false"/>
+    <many-to-one field="invProducto" target-entity="InvProducto">
+      <join-columns>
+        <join-column name="inv_producto_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="detfactura" target-entity="FactFactura">
+      <join-columns>
+        <join-column name="det_idfactura" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="detimpuesto" target-entity="CtlImpuesto">
+      <join-columns>
+        <join-column name="det_idimpuesto" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

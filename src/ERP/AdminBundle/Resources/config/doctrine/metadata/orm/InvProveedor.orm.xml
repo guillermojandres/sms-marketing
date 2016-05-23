@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="InvProveedor" table="inv_proveedor">
+    <indexes>
+      <index name="fk_inv_proveedor_crm_industria_cliente1_idx" columns="crm_industria_cliente_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nombre" type="string" column="nombre" length="255" nullable="false"/>
+    <field name="direccion" type="string" column="direccion" length="250" nullable="false"/>
+    <many-to-one field="crmIndustriaCliente" target-entity="CtlIndustriaCliente">
+      <join-columns>
+        <join-column name="crm_industria_cliente_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

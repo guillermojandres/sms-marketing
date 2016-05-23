@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="RhDetalleEmpleo" table="rh_detalle_empleo">
+    <indexes>
+      <index name="fk_detalle_empleado_persona1_idx" columns="rh_persona_id"/>
+      <index name="fk_rh_detalle_empleo_ctl_tipo_empleo1_idx" columns="ctl_tipo_empleo_id"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="id_UNIQUE" columns="id"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id"/>
+    <id name="rhPersona" association-key="true"/>
+    <id name="ctlTipoEmpleo" association-key="true"/>
+    <field name="estado" type="string" column="estado" length="45" nullable="false"/>
+    <field name="fechaInicioContrato" type="date" column="fecha_inicio_contrato" nullable="false"/>
+    <field name="fechaFinContrato" type="date" column="fecha_fin_contrato" nullable="false"/>
+    <one-to-one field="ctlTipoEmpleo" target-entity="CtlTipoEmpleo">
+      <join-columns>
+        <join-column name="ctl_tipo_empleo_id" referenced-column-name="id"/>
+      </join-columns>
+    </one-to-one>
+    <one-to-one field="rhPersona" target-entity="RhPersona">
+      <join-columns>
+        <join-column name="rh_persona_id" referenced-column-name="id"/>
+      </join-columns>
+    </one-to-one>
+  </entity>
+</doctrine-mapping>

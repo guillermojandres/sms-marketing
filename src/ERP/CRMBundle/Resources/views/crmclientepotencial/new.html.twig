@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+   
+    <div class="row">
+    {{ form_start(form, {'action': path('clientepotencial_new')}) }}
+        <div class="col-md-4">
+            {{ form_row(form.nombre, {'attr': {'class': 'form-control clientepotencialTextBox '} }) }} 
+        </div>
+        <div class="col-md-4">
+            {{ form_row(form.emailId, {'attr': {'class': 'form-control clientepotencialTextBox'} }) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_row(form.siguienteFechaContacto, {'attr': {'class': 'form-control clientepotencialTextBox'} }) }}
+        </div>
+         <div class="col-md-4">
+            {{ form_row(form.telefono, {'attr': {'class': 'form-control clientepotencialTextBox'} }) }}
+        </div>
+          <div class="col-md-4">
+            {{ form_row(form.movil, {'attr': {'class': 'form-control clientepotencialTextBox'} }) }}
+        </div>
+          <div class="col-md-4">
+            {{ form_row(form.fax, {'attr': {'class': 'form-control clientepotencialTextBox'} }) }}
+        </div>
+          <div class="col-md-4">
+            {{ form_row(form.sitioWeb, {'attr': {'class': 'form-control clientepotencialTextBox'} }) }}
+        </div>
+         <div class="col-md-4">
+            {{ form_row(form.estadoClientePotencial, {'attr': {'class': 'form-control clientepotencialSelect'} }) }}
+        </div>
+         <div class="col-md-4">
+            {{ form_row(form.industriaCliente, {'attr': {'class': 'form-control clientepotencialSelect'} }) }}
+        </div>
+         <div class="col-md-4">
+            {{ form_row(form.referenciaCliente, {'attr': {'class': 'form-control clientepotencialSelect'} }) }}
+        </div>
+         <div class="col-md-4">
+            {{ form_row(form.territorio, {'attr': {'class': 'form-control clientepotencialSelect'} }) }}
+        </div>
+         <div class="col-md-4">
+            {{ form_row(form.idUsuarioSiguienteContacto, {'attr': {'class': 'form-control clientepotencialSelect'} }) }}
+        </div>
+         <div class="col-md-4">
+            {{ form_row(form.idUsuarioPropietario, {'attr': {'class': 'form-control clientepotencialSelect'} }) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_row(form.crmEmpresaCliente, {'attr': {'class': 'form-control clientepotencialSelect'} }) }}
+        </div>
+         <div class="col-md-4">
+            {{ form_row(form.sector_mercado, {'attr': {'class': 'form-control clientepotencialSelect'} }) }}
+        </div>
+
+     <input type="submit" value="Guardar" class="btn btn-success btn-sm" style="margin-top:10px; display: none;" id="submitInsertar" />
+    {{ form_end(form) }}
+</div>
+<hr>
+    
+    
+  
+{% endblock %}

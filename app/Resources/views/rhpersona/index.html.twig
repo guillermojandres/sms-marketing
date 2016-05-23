@@ -1,0 +1,201 @@
+{% extends ':Layout:layout2.html.twig' %}
+
+{% block descripcion_y_acciones %}
+
+    
+     <div class="row">
+ {% block descripcion %}
+			<div class="col-md-8">
+				<p class="robo" style="font-weight: 300; margin-bottom: 0px; font-size: 30px;">Empleado</p>
+                                <p class="robo" style="font-weight: 300; font-size: 14px; height: 40px;">Gesti&oacute;n de empleados.</p>
+			</div>
+ {% endblock%}
+ {% block acciones %}
+     	<div class="col-md-4" style="margin-top: 50px;">
+				<!-- Boton Delete -->
+				<div class="btn-group pull-right">
+                                   
+					<button class="btn btn-danger btn-sm" style="margin-left: 5px;" type="submit">Delete</button>
+				</div>
+
+				<!-- Boton Ingreso -->
+				<div class="btn-group pull-right">
+                              
+                                     <a class="btn btn-primary btn-sm insertar" style="margin-left: 5px;" href="{{ path('rhpersona_new') }}">Nuevo</a>
+				
+				</div>
+
+				<!-- Boton Normal -->
+				<div class="btn-group pull-right">
+					<button class="btn btn-success btn-sm modificar" style="margin-left: 5px;" type="submit">Editar</button>
+				</div>
+
+				<!-- Boton con Dropdown -->
+				<div class="btn-group pull-right">
+				  <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    Menu <span class="caret"></span>
+				  </button>
+				  <ul class="dropdown-menu">
+				    <li>
+				    	<a href="#">Action</a>
+				    </li>
+				    <li>
+				    	<a href="#">Action</a>
+				    </li>
+				    <li>
+				    	<a href="#">Action</a>
+				    </li>
+				  </ul>
+				</div> 
+				<!-- Small button -->
+			</div>
+     
+ {% endblock %}
+		
+		</div>
+
+{% endblock %}
+{% block navegacion_Y_body %}
+    	<div class="row">
+        {% block navegacion %}
+		<hr style="margin-top: 0px !important;">
+			<div class="col-md-2" style="border-right: 1px solid #f3f3f3;">
+				<!-- Left Navigation -->
+				<ul style="list-style: none; padding: 0;">
+                                    <a href="{{ path('ctlpais_index') }}" class="leftnava"><li class="leftnav left active">Menu<span class="pull-right right"></span></li></a>
+                                   {# <a href="{{ path('ctlpais_configuracion') }}" class="leftnava"><li class="leftnav left">Configuraci&oacute;n</li></a>#}
+                                    <a href="#" class="leftnava"><li class="leftnav left">Reportes</li></a>
+				</ul>
+			</div>
+       {% endblock %}
+
+
+{% block cuerpo %}
+    <div class="col-md-10">
+ <div class="form-group">
+                                        <label class="">
+                                            <div class="icheckbox_minimal checked" aria-checked="false" aria-disabled="false" style="position: relative;"><input type="checkbox" class="minimal" checked="" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div>
+                                        </label>
+                                        <label class="">
+                                            <div class="icheckbox_minimal" aria-checked="false" aria-disabled="false" style="position: relative;"><input type="checkbox" class="minimal" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div>
+                                        </label>
+                                        <label>
+                                            <div class="icheckbox_minimal disabled" aria-checked="false" aria-disabled="true" style="position: relative;"><input type="checkbox" class="minimal" disabled="" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div>
+                                            Minimal skin checkbox
+                                        </label>
+                                    </div>
+        
+        
+                
+    <table id="listaPersonas" class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th><input type="checkbox" ></th>
+                <th>Nombre completo</th>
+                <th>Estado</th>
+                <th>Departamento</th>
+                         
+            </tr>
+        </thead>
+        <!--
+        <tbody>
+        {#% for rhPersona in rhPersonas %}
+    
+            <tr>
+                
+               <td><a href="{{ path('rhpersona_show', { 'id': rhPersona.id }) }}"></a></td>
+                <td> <a href="{{ path('rhpersona_edit', { 'id': rhPersona.id }) }}">{{ rhPersona.nombres ~' '~ rhPersona.apellido }}</a></td>
+                <!-- 
+                <td>{#% if rhPersona.fechaIngreso %}{{ rhPersona.fechaIngreso|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if rhPersona.fechaNacimiento %}{{ rhPersona.fechaNacimiento|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ rhPersona.dui }}</td>
+              <td>{{ rhPersona.nit }}</td>
+                <td>{{ rhPersona.correoelectronico }}</td>
+                <td>{{ rhPersona.direccion }}</td>
+                <td>{{ rhPersona.telefonoFijo }}</td>
+                <td>{{ rhPersona.telefonoMovil }#}</td> 
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{#{ path('rhpersona_show', { 'id': rhPersona.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('rhpersona_edit', { 'id': rhPersona.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %#}
+        </tbody> -->
+    </table>
+
+    </div>
+{% endblock %}
+{% endblock %}
+{% block js_extend %}
+
+  
+      <script  type="text/javascript">
+          
+    
+    
+          $(document).ready(function(){
+          
+         
+            
+            $('#listaPersonas').DataTable({
+                    {#searching:true,
+                    order:[[1,"asc"]],#}
+                    "processing": true,
+                    "serverSide": true,
+                    "ajax": {
+                        "url": '{{path('persona_data')}}',
+                        "type": 'GET'
+                    },
+                    "columns": [
+                         { "data": "link" },
+                         { "data": "nombre" },
+                         { "data": "estado" },
+                         { "data": "puesto" }
+                       
+
+                        {#{ "data": "nombres" },
+                        { "data": "apellidos" },#}
+                        {#{ "data": "dui" },#}
+{#                        { "data": "telefono" },#}
+                        {#{ "data": "email" },
+                        { "data": "lugarTrabajo" },#}
+                       {# { "data": "fechaNacimiento" },
+                        { "data": "link" }#}
+                    ],
+                    "columnDefs": [
+                           { "orderable": false, "targets": 0 }
+                          {# { "orderable": false, "targets": 2 },
+                           { "orderable": false, "targets": 3 },
+                           { "orderable": false, "targets": 4 }#}
+                           {#{ "orderable": false, "targets": 5 },
+                           { "orderable": false, "targets": 6 }#}
+                           
+                           
+                           //{ "orderData": [ 2, 3, 4 ], "targets": 2 }
+                    ],
+                    "language": {
+                    "info": "Mostrando página _PAGE_ de _PAGES_",
+                    "infoEmpty": "",
+                    "emptyTable": "No se encontraron registros",
+                    "paginate": {
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    },
+                    "processing": "Procesando petición...",
+                    "search": "Buscar registros:",
+                    "lengthMenu": "Mostrar _MENU_ registros"
+                },
+        });
+        
+        });
+      </script>
+      
+      
+  {% endblock %} 
+

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+   {# <h4>Insercion de tipo de inventario</h4>
+   #}
+
+    {{ form_start(form, {'action': path('ctltipoinventario_new')}) }}
+        {{ form_widget(form) }}
+        
+        <input type="submit" value="Guardar" class="btn btn-success btn-sm hidden" style="margin-top:10px;" id="submitInsertar" />
+        
+    {{ form_end(form) }}
+
+    
+{% endblock %}

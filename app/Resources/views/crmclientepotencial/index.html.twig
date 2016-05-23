@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>CrmClientePotencial list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Emailid</th>
+                <th>Siguientefechacontacto</th>
+                <th>Telefono</th>
+                <th>Movil</th>
+                <th>Fax</th>
+                <th>Sitioweb</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for crmClientePotencial in crmClientePotencials %}
+            <tr>
+                <td><a href="{{ path('admin_clientepotencial_show', { 'id': crmClientePotencial.id }) }}">{{ crmClientePotencial.id }}</a></td>
+                <td>{{ crmClientePotencial.nombre }}</td>
+                <td>{{ crmClientePotencial.emailId }}</td>
+                <td>{% if crmClientePotencial.siguienteFechaContacto %}{{ crmClientePotencial.siguienteFechaContacto|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ crmClientePotencial.telefono }}</td>
+                <td>{{ crmClientePotencial.movil }}</td>
+                <td>{{ crmClientePotencial.fax }}</td>
+                <td>{{ crmClientePotencial.sitioWeb }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_clientepotencial_show', { 'id': crmClientePotencial.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_clientepotencial_edit', { 'id': crmClientePotencial.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_clientepotencial_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

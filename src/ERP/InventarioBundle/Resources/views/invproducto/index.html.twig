@@ -1,0 +1,497 @@
+{% extends ':Layout:layout2.html.twig' %}
+
+{% block descripcion_y_acciones %}
+
+    
+ <div class="row">
+ {% block descripcion %}
+			<div class="col-md-8">
+				<p class="robo" style="font-weight: 300; margin-bottom: 0px; font-size: 30px;">Crear Producto</p>
+                                <p class="robo" style="font-weight: 300; font-size: 14px; height: 40px;">Gesti&oacute;n de productos de inventario</p>
+			</div>
+ {% endblock%}
+ {% block acciones %}
+     	<div class="col-md-4" style="margin-top: 50px;">
+                                <!-- Boton Modificacion -->
+				<div class="btn-group pull-right">
+					<button class="btn btn-success btn-sm modificar" style="margin-left: 5px;" type="submit">Editar</button>
+				</div>
+                                <div class="btn-group pull-right">
+                                    <button class="btn btn-success btn-sm " style="margin-left: 5px;" id="guardarModificacion">Guardara</button>
+				</div>
+                                
+				<div class="btn-group pull-right">
+                                    <button class="btn btn-warning btn-sm" style="margin-left: 5px;" id="cancelarModificacion">Cancelar</button>
+				</div>
+                                
+                                
+				<!-- Boton Delete -->
+				<div class="btn-group pull-right">
+                                    <button class="btn btn-danger btn-sm delete" style="margin-left: 5px;" type="submit" >Delete</button>
+				</div>
+
+				<!-- Boton Ingreso -->
+				<div class="btn-group pull-right">
+                                    <button class="btn btn-primary btn-sm insertar" style="margin-left: 5px;" id="insertar">Nuevo</button>
+				</div>
+
+				<div class="btn-group pull-right">
+                                    <button class="btn btn-success btn-sm guardar" style="margin-left: 5px;" id="guardar" type="submit">Guardarb</button>
+				</div>
+
+				<div class="btn-group pull-right">
+                                    <button class="btn btn-danger btn-sm cancelar" style="margin-left: 5px;" id="cancelar">Cancelar</button>
+				</div>
+                                <!-- Botones del ingreso -->
+                                
+                                
+				<!-- Boton con Dropdown -->
+				<div class="btn-group pull-right" >
+                                    <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  id="acciones">
+				    Menu <span class="caret"></span>
+				  </button>
+				  <ul class="dropdown-menu">
+				    <li>
+				    	<a href="#">Action</a>
+				    </li>
+				    <li>
+				    	<a href="#">Action</a>
+				    </li>
+				    <li>
+				    	<a href="#">Action</a>
+				    </li>
+				  </ul>
+				</div> 
+				<!-- Small button -->
+			</div>  
+ {% endblock %}
+		
+		</div>
+
+{% endblock %}
+{% block navegacion_Y_body %}
+    	<div class="row">
+        {% block navegacion %}
+		<hr style="margin-top: 0px !important;">
+			<div class="col-md-2" style="border-right: 1px solid #f3f3f3;">
+				<!-- Left Navigation -->
+				<ul style="list-style: none; padding: 0;">
+                                    <a href="" class="leftnava"><li class="leftnav left ">Menu<span class="pull-right right"></span></li></a>
+                                    <a href="" class="leftnava"><li class="leftnav left active">Configuraci&oacute;n</li></a>
+                                    <a href="#" class="leftnava"><li class="leftnav left">Reportes</li></a>
+				</ul>
+			</div>	          
+        {% endblock %}
+{% block cuerpo %}
+    
+    <div class="col-md-10"  >
+        <div id="formularioInsercionTerritorio" style="margin-bottom: 40px;" >
+              {% include 'ERPInventarioBundle:invproducto:new.html.twig' %}
+            
+        </div>
+        
+        <div id="formularioEdicionTerritorio" style="margin-bottom: 40px;" >
+              
+            
+        </div>
+       
+              
+              
+              <div >
+      
+            <table id="lista_territorios" class="table table-bordered table-hover display dt-responsive dataTable no-footer" style="width: 99%;">
+        <thead>
+            <tr>
+                
+                <th><input type="checkbox" name="select_all" id="select_all"></th>
+                <th>Nombre</th>
+               
+                {#<th>Actions</th>#}
+            </tr>
+        </thead>
+        {#<tbody>
+        {% for ctlTerritorio in ctlTerritorios %}
+            <tr>
+                <td><a href="{{ path('ctlterritorio_show', { 'id': ctlTerritorio.id }) }}">{{ ctlTerritorio.id }}</a></td>
+                <td>{{ ctlTerritorio.nombre }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('ctlterritorio_show', { 'id': ctlTerritorio.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('ctlterritorio_edit', { 'id': ctlTerritorio.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>#}
+        
+    </table>
+    </div>
+   </div>
+    
+    
+    
+    
+    
+{% endblock %}
+
+        </div>
+{% endblock %}
+
+{% block js_extend %}
+    
+    <script  type="text/javascript">
+         
+          $(document).ready(function(){
+             
+          {#  $('#lista_territorios').DataTable();#}
+            
+            
+            $('#lista_territorios').DataTable({
+                    {#searching:true,
+                    order:[[1,"asc"]],#}
+                    "processing": true,
+                    "serverSide": true,
+                    "ajax": {
+                        "url": '{{path('admin_tipoinventario_data')}}',
+                        "type": 'GET'
+                    },
+                    "columns": [
+                         { "data": "link" },
+                        { "data": "nombre" }
+                       
+
+                        {#{ "data": "nombres" },
+                        { "data": "apellidos" },#}
+                        {#{ "data": "dui" },#}
+{#                        { "data": "telefono" },#}
+                        {#{ "data": "email" },
+                        { "data": "lugarTrabajo" },#}
+                       {# { "data": "fechaNacimiento" },
+                        { "data": "link" }#}
+                    ],
+                    "columnDefs": [
+                           { "orderable": false, "targets": 0 }
+                          {# { "orderable": false, "targets": 2 },
+                           { "orderable": false, "targets": 3 },
+                           { "orderable": false, "targets": 4 }#}
+                           {#{ "orderable": false, "targets": 5 },
+                           { "orderable": false, "targets": 6 }#}
+                           
+                           
+                           //{ "orderData": [ 2, 3, 4 ], "targets": 2 }
+                    ],
+                    "language": {
+                    "info": "Mostrando pÃ¡gina _PAGE_ de _PAGES_",
+                    "infoEmpty": "",
+                    "emptyTable": "No se encontraron registros",
+                    "paginate": {
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    },
+                    "processing": "Procesando peticiÃ³n...",
+                    "search": "Buscar registros:",
+                    "lengthMenu": "Mostrar _MENU_ registros"
+                },
+                    
+        });
+
+
+        
+        $("#formularioInsercionTerritorio").hide();
+         $("#formularioEdicionTerritorio").hide();
+        
+        
+        
+        
+        //Insercion
+        $("#insertar").on('click', function(e) {
+              $("#formularioInsercionTerritorio").show();
+              
+               $(".guardar").show();
+               $(".cancelar").show();
+               $(".insertar").hide();
+               $("#inv_producto_nombre").focus();
+        
+            });
+
+         $(".delete").hide();
+         $(".modificar").hide();
+         
+         $(".guardar").hide();
+         $(".cancelar").hide();
+         
+          $("#guardarModificacion").hide();
+         $("#cancelarModificacion").hide();
+         
+         
+        $(".cancelar").on('click', function(e) {
+            $(".insertar").show();
+            $("#formularioInsercionTerritorio").hide();
+             $(".guardar").hide();
+             $(".cancelar").hide();
+             
+             
+        });
+            
+            
+            
+        $(".guardar").on('click', function(e) {
+                
+                $("#submitInsertar").click();
+
+        });   
+        //Termina la insercion
+        
+        
+         //Modificacion
+         $(".modificar").on('click', function(e) {
+                $("#formularioEdicionTerritorio").show();
+                $("#guardarModificacion").show();
+                $("#cancelarModificacion").show();
+                $("#insertar").hide();
+                $(".modificar").hide();
+
+              
+
+        });  
+        
+        $("#cancelarModificacion").on("click",function (e){
+            $("#formularioEdicionTerritorio").hide();
+            $(".modificar").show();
+            $(".insertar").show();
+            $(".delete").show();
+             $("#guardarModificacion").hide();
+                $("#cancelarModificacion").hide();
+            
+        });
+        
+        $("#guardarModificacion").on("click",function (e){
+          $("#submitEditar").click();  
+            
+            
+        });
+        
+        
+        
+        //Eventos de los CheckBoxs para poder controlar los seleccionados
+         $(document).on('click',".idterritorio", function(e) {
+             $(".guardar").hide();
+             $(".cancelar").hide();
+             $("#formularioInsercionTerritorio").hide();
+              $(".insertar").show();
+
+             var num =0;
+
+                    $('.idterritorio').each(
+                       function (){
+                        if($(this).prop("checked")){
+                           num++;
+                        }
+                      {#  console.log(num);#}
+
+                       });
+
+                    if(num == 0){
+                            $(".modificar").hide(); 
+                            $(".delete").hide();
+                            $("#formularioEdicionTerritorio").hide();
+                            $("#cancelarModificacion").hide();
+                            $("#guardarModificacion").hide();
+                            $("#insertar").show();
+                         } else if(num==1){
+                             
+                            $(".modificar").show(); 
+                            $(".delete").show();
+                          
+                            
+                          //Para editar 
+                          var numero_edicion = $(this).attr("id");//El valor del id del chechboxs
+                          
+                          
+                          $("#formularioEdicionTerritorio").load(numero_edicion+"/edit");
+                            
+                            
+                         }else{
+                             $(".modificar").hide();
+                             $(".delete").show();
+                             $("#formularioEdicionTerritorio").hide();
+                             $("#guardarModificacion").hide();
+                             $("#cancelarModificacion").hide();
+                         } 
+            
+             
+            
+            });
+            
+            
+            
+            
+  //Envento del search que hace que se escondan los botones cuando busco algo dentro del filtro
+            var table = $('#lista_territorios').DataTable();
+
+            table.on( 'search.dt', function () {
+              $(".delete").hide();
+              $(".modificar").hide();
+              
+                } );
+                
+         // Handle click on "Select all" control
+            $('#select_all').on('click', function(){
+               
+                    if( $(this).is(':checked') ) {
+                        $(".delete").show();
+                        var table = $('#lista_territorios').DataTable();
+                        var rows = table.rows({ 'search': 'applied' }).nodes();
+                        $('input[type="checkbox"]', rows).prop('checked', this.checked);
+                        
+                          
+                   }else{
+                       $(".delete").hide();
+                       var table = $('#lista_territorios').DataTable();
+                        var rows = table.rows({ 'search': 'applied' }).nodes();
+                        $('input[type="checkbox"]', rows).prop('checked', this.checked);
+                       
+                   }
+                   
+                   });  
+       
+           //Eliminar desde la seleccion de los checkboxs
+           //Funcion que prepara el array con todos los id que quiero inabilitar o eliminar
+           $(".delete").on("click",function (){
+               
+               var valor = new Array();
+               $(".idterritorio").each(function (index,value){
+                   
+                   if($(this).prop("checked")){
+                      num = $(this).attr("id");
+                            
+                          valor.push(num);
+                        }
+                        
+                   
+                   
+               });
+               console.log(valor);
+                    //Funcion del POST que me permite inabilitar un Territorio
+                    $.post( "{{path('delete_ctltipoinventario')}}", { id_territorio: valor }, function( data ) {
+                        var par = new Array();
+                        par = data.query;
+
+                        // Si la plantilla contiene campos
+                      
+                        if(data.flag === 0) {
+                            
+                            var table = $('#lista_territorios').DataTable();
+ 
+                            table.ajax.reload( function ( json ) {
+                               {# $('#myInput').val( json.lastInput );#}
+                            } );
+                          
+                            
+                        }
+                        else{
+                            $('#totalOrden').html(totalAnterior);
+                            $(link).html(mas);
+                        }
+                       
+                    }, "json");           
+                              
+           });
+           
+           
+           $(".guardar").on('click', function(e) {
+                
+                
+           
+                    var data = new Array();
+                    var campos = new Array();
+                    //Primer Each me sirve para recorrer todos los text
+                     $(".invproductoTextBox").each(function(k, va) {
+                            var cadena = $(this).siblings().html() +"="+$(this).val();
+                            //campos['"'+cadena+'"']=$(this).val();
+                            //var keyValuePair = cadena.split("=");
+                            //campos[keyValuePair[0]]=keyValuePair[1];
+                            campos.push($(this).val());
+                     });
+
+                        //Primer Each me sirve para recorrer todos los select
+                      $(".invproductoSelect").each(function(k, va) {
+                            //campos[""+$(this).siblings().html()]=$(this).val();
+                            campos.push($(this).val());
+                     });
+                     data.push(campos);
+                     console.log(data);  
+
+                    var request2 = {
+                            request : campos
+                        };
+                    //console.log(request);
+                    $.ajax({
+                      data:request2,
+                      url:"{{path('insert_form_product')}}",
+                      type: "post",
+                      success: function(data){
+                        $("#formularioInsercionTerritorio").hide();
+                        $("#cancelar").hide();
+                        $("#guardar").hide();
+                        
+                        
+                        table.ajax.reload( function ( json ) {
+                               {# $('#myInput').val( json.lastInput );#}
+                            } );
+                        $("#insertar").show();
+                        //$("#formularioInsercionTerritorio").reset();
+                        
+                        
+                        //$("#inv_producto").parent().reset();
+                        //$('#inv_producto').parent().prop('name').reset();
+                        $('#add_prod').parent().reset();
+                      },
+                      error: function(error){
+                          
+                      }
+                    });
+                
+            });  
+                    
+    });
+    
+    
+    
+    jQuery.fn.reset = function () {
+        $(this).each (function() { this.reset(); });
+      }
+         
+    $('#inv_producto').parent().each (function(){
+        this.reset();
+      });
+    
+    
+    $("#guardar").on('click', function(e) {
+        var formData = new FormData(document.getElementById("add_prod"));
+        console.log(formData);
+        alert("asdas");
+        $.ajax({
+            url     : '{{ path('insert_form_product') }}',
+            type    : $("#add_prod").attr('method'),
+            dataType: 'json',
+            data    : $("#add_prod").serialize(),
+            success : function( data ) {
+                         //alertify.success('You registered correctly');
+                         alert("asdasdasda");
+            },
+            error   : function( xhr, err ) {
+                         alert('Error');    
+            }
+        });   
+        return false;
+    });
+
+    
+</script>
+    
+ {% endblock %} 

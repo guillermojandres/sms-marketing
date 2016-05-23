@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>RhPuestoPerfil list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Profesion</th>
+                <th>Experiencia</th>
+                <th>Conocimientos</th>
+                <th>Habilidades</th>
+                <th>Nombrepuesto</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for rhPuestoPerfil in rhPuestoPerfils %}
+            <tr>
+                <td><a href="{{ path('rhpuestoperfil_show', { 'id': rhPuestoPerfil.id }) }}">{{ rhPuestoPerfil.id }}</a></td>
+                <td>{{ rhPuestoPerfil.profesion }}</td>
+                <td>{{ rhPuestoPerfil.experiencia }}</td>
+                <td>{{ rhPuestoPerfil.conocimientos }}</td>
+                <td>{{ rhPuestoPerfil.habilidades }}</td>
+                <td>{{ rhPuestoPerfil.nombrePuesto }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('rhpuestoperfil_show', { 'id': rhPuestoPerfil.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('rhpuestoperfil_edit', { 'id': rhPuestoPerfil.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('rhpuestoperfil_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="CrmEmpresaCliente" table="crm_empresa_cliente">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nombre" type="string" column="nombre" length="250" nullable="false"/>
+    <field name="direccion" type="string" column="direccion" length="250" nullable="false"/>
+    <field name="nrc" type="string" column="NRC" length="25" nullable="true"/>
+    <field name="nit" type="string" column="NIT" length="25" nullable="true"/>
+    <field name="giro" type="string" column="giro" length="100" nullable="true"/>
+    <field name="tel" type="string" column="tel" length="25" nullable="true"/>
+    <field name="fax" type="string" column="fax" length="25" nullable="true"/>
+    <field name="correo" type="string" column="correo" length="50" nullable="true"/>
+  </entity>
+</doctrine-mapping>

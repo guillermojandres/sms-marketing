@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="RhGasto" table="rh_gasto">
+    <indexes>
+      <index name="fk_gasto_persona1_idx" columns="rh_persona_empleado_id"/>
+      <index name="fk_gasto_persona2_idx" columns="rh_persona_supervisor_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id"/>
+    <id name="rhPersonaEmpleado" association-key="true"/>
+    <id name="rhPersonaSupervisor" association-key="true"/>
+    <field name="fechaCotizacion" type="string" column="fecha_cotizacion" length="45" nullable="false"/>
+    <field name="anioFiscal" type="integer" column="anio_fiscal" nullable="false"/>
+    <field name="observaciones" type="string" column="observaciones" length="325" nullable="true"/>
+    <field name="proyecto" type="string" column="proyecto" length="50" nullable="true"/>
+    <field name="tarea" type="string" column="tarea" length="45" nullable="true"/>
+    <field name="idUsuario" type="integer" column="id_usuario" nullable="false"/>
+    <field name="fechaRegistro" type="string" column="fecha_registro" length="45" nullable="false"/>
+    <field name="estado" type="string" column="estado" length="45" nullable="false"/>
+    <one-to-one field="rhPersonaSupervisor" target-entity="RhPersona">
+      <join-columns>
+        <join-column name="rh_persona_supervisor_id" referenced-column-name="id"/>
+      </join-columns>
+    </one-to-one>
+    <one-to-one field="rhPersonaEmpleado" target-entity="RhPersona">
+      <join-columns>
+        <join-column name="rh_persona_empleado_id" referenced-column-name="id"/>
+      </join-columns>
+    </one-to-one>
+  </entity>
+</doctrine-mapping>

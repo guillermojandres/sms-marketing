@@ -1,0 +1,89 @@
+
+           {%if ArrayPersona|default is not empty %}
+                {% for datos in ArrayPersona %}
+<form role="form" id="fPeronaPP">
+    <input type="hidden" name="hIdPPP" id="hIdPPP" value="{{datos.idPPP}}">
+            <div class="form-column col-sm-6">
+                    <div class="form-group" id="divSucursal" name="divSucursal">
+                     <label for="ejemplo_archivo_1">Sucuesal</label>
+                    <select class="form-control"  name="SSucursal" id="SSucursal" onChange="departamentoEmpresa()">
+                       <option></option>
+                     {% for datosSuc in ArraySuc %}
+                        <option id="{{datosSuc.id}}" {%if(datosSuc.nombre==datos.sucursal)%}selected="selected"{%endif%}>{{datosSuc.nombre}}</option>
+                      {%endfor%}
+                   </select>
+                </div>
+                <div class="form-group" id="divDepartamento" name="divDepartamento">
+                    <label for="ejemplo_archivo_1">Departamento</label>
+                    <select class="form-control" name="SDepartamento" id="SDepartamento" onChange="puestoDept()">
+                       <option></option>
+                      {% for datosDep in ArrayDep %}
+                        <option id="{{datosDep.id}}" {%if(datosDep.nombre)==datos.departamento%}selected="selected"{%endif%}>{{datosDep.nombre}}</option>
+                      {%endfor%}
+                   </select>
+                </div>
+                 <div class="form-group" id="divPuesto" name="divPuesto">
+                    <label for="ejemplo_archivo_1">Puesto de trabajo</label>
+                <select class="form-control"  name="SPuesto" id="SPuesto">
+                        <option></option>
+                         {% for datosPP in ArrayPP %}
+                        <option value="{{datosPP.id}}" {%if(datosPP.id)==datos.idPuesto%}selected="selected"{%endif%}>{{datosPP.nombre}}</option>
+                      {%endfor%}
+                   </select>
+                </div>
+
+                  <div class="form-group">
+                    <label for="fecha inicio">Fecha inicio</label>
+                    <input type="text" class="form-control" id="fechaIniPuesto" 
+                           placeholder="Fecha inicio en puesto de trabajo" name="fechaIniPuesto" value="{{datos.fechaIncPerf}}">
+                </div>
+                 <div class="form-group">
+                    <label for="fecha fin">Fecha fin</label>
+                    <input type="text" class="form-control" id="fechaFinPuesto" 
+                           placeholder="Fecha fin en puesto de trabajo" name="fechaFinPuesto" value="{{datos.fechaFinPerf}}">
+                </div>
+            </div>
+        </form>
+  {%endfor%}       
+  {%else%}
+      <form role="form" id="fPeronaPP">
+            <div class="form-column col-sm-6">
+                    <div class="form-group" id="divSucursal" name="divSucursal">
+                     <label for="ejemplo_archivo_1">Sucuesal</label>
+                     <select class="form-control"  name="SSucursal" id="SSucursal" onChange="departamentoEmpresa()">
+                       <option></option>
+                     {% for datosSuc in ArraySuc %}
+                        <option value="{{datosSuc.id}}">{{datosSuc.nombre}}</option>
+                      {%endfor%}
+                   </select>
+                </div>
+                <div class="form-group" id="divDepartamento" name="divDepartamento">
+                    <label for="ejemplo_archivo_1">Departamento</label>
+                   <select class="form-control" name="SDepartamento" id="SDepartamento" onChange="puestoDept()">
+                       <option></option>
+                      {% for datosDep in ArrayDep %}
+                        <option value="{{datosDep.id}}">{{datosDep.nombre}}</option>
+                      {%endfor%}
+                   </select>
+                </div>
+                 <div class="form-group" id="divPuesto" name="divPuesto">
+                    <label for="ejemplo_archivo_1">Puesto de trabajo</label>
+                    <select class="form-control" name="SPuesto" id="SPuesto">
+                       <option></option>
+                    
+                   </select>
+                </div>
+
+                  <div class="form-group">
+                    <label for="fecha inicio">Fecha inicio</label>
+                    <input type="text" class="form-control" id="fechaIniPuesto" 
+                           placeholder="Fecha inicio en puesto de trabajo" name="fechaIniPuesto">
+                </div>
+                 <div class="form-group">
+                    <label for="fecha fin">Fecha fin</label>
+                    <input type="text" class="form-control" id="fechaFinPuesto" 
+                           placeholder="Fecha fin en puesto de trabajo" name="fechaFinPuesto">
+                </div>
+            </div>
+        </form>             
+  {%endif%}

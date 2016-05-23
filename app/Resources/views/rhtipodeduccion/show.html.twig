@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>RhTipoDeduccion</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ rhTipoDeduccion.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombrededuccion</th>
+                <td>{{ rhTipoDeduccion.nombreDeduccion }}</td>
+            </tr>
+            <tr>
+                <th>Descripcion</th>
+                <td>{{ rhTipoDeduccion.descripcion }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('rhtipodeduccion_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('rhtipodeduccion_edit', { 'id': rhTipoDeduccion.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

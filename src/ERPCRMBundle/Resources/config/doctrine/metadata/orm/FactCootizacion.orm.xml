@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="FactCootizacion" table="fact_cootizacion">
+    <indexes>
+      <index name="fk_fact_cootizacion_fact_estado_cootizacion1_idx" columns="fact_estado_cootizacion_id"/>
+      <index name="fk_fact_cootizacion_crm_cliente_potencial1_idx" columns="crm_cliente_potencial_id"/>
+      <index name="fk_fact_cootizacion_crm_cliente1_idx" columns="crm_cliente_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="fechaEmision" type="date" column="fecha_emision" nullable="false"/>
+    <field name="fechaExpiracion" type="date" column="fecha_expiracion" nullable="true"/>
+    <field name="fechaInsercion" type="date" column="fecha_insercion" nullable="true"/>
+    <field name="fechaModificacion" type="date" column="fecha_modificacion" nullable="true"/>
+    <field name="idUsuario" type="integer" column="id_usuario" nullable="true"/>
+    <field name="terminosCondiciones" type="string" column="terminos_condiciones" length="255" nullable="true"/>
+    <field name="notaDestinatarios" type="string" column="nota_destinatarios" length="255" nullable="true"/>
+    <many-to-one field="factEstadoCootizacion" target-entity="CtlEstadoCootizacion">
+      <join-columns>
+        <join-column name="fact_estado_cootizacion_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="crmClientePotencial" target-entity="CrmClientePotencial">
+      <join-columns>
+        <join-column name="crm_cliente_potencial_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="crmCliente" target-entity="CrmCliente">
+      <join-columns>
+        <join-column name="crm_cliente_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

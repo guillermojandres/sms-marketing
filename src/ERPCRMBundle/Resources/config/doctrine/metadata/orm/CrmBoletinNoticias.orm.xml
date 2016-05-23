@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="CrmBoletinNoticias" table="crm_boletin_noticias">
+    <indexes>
+      <index name="fk_boletin_noticias_boletin_nombres1_idx" columns="boletin_nombres_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="remitente" type="string" column="remitente" length="100" nullable="true"/>
+    <field name="mensaje" type="text" column="mensaje" length="65535" nullable="false"/>
+    <field name="asunto" type="string" column="asunto" length="250" nullable="true"/>
+    <many-to-one field="boletinNombres" target-entity="CtlBoletinNombres">
+      <join-columns>
+        <join-column name="boletin_nombres_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

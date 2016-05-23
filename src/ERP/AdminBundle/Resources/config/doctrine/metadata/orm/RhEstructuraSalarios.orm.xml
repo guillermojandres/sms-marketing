@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="RhEstructuraSalarios" table="rh_estructura_salarios">
+    <indexes>
+      <index name="fk_rh_salarios_rh_persona1_idx" columns="rh_persona_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id"/>
+    <id name="rhPersona" association-key="true"/>
+    <field name="fechaInicio" type="string" column="fecha_inicio" length="45" nullable="false"/>
+    <field name="fechaFin" type="string" column="fecha_fin" length="45" nullable="true"/>
+    <one-to-one field="rhPersona" target-entity="RhPersona">
+      <join-columns>
+        <join-column name="rh_persona_id" referenced-column-name="id"/>
+      </join-columns>
+    </one-to-one>
+  </entity>
+</doctrine-mapping>

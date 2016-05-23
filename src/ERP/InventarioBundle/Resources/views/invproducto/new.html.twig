@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+   {# <h4>Insercion de tipo de inventario</h4>
+   #}
+   {#<div id="form_producto">#}
+   
+    <form id="add_prod" action="{{ path('insert_form_product') }}" method="post" {{ form_enctype(form) }} >
+    {{ form_start(form)  }}
+    {#{{ form_start(form , {'attr' : {'id' : 'add_prod' }  }  ) }}#}
+    {#{{ form_start(form, {'action': path('insert_form_product')}, {'attr' : {'id' : 'task-form'} } ) }}#}
+        {#{{ form_widget(form) }}#}
+        {{ form_errors(form) }}  
+            <div class="col-md-4" style="margin-bottom: 4px;">
+                {{ form_label(form.nombre) }}
+                {{ form_widget(form.nombre) }}                
+            </div>
+            
+            <div class="col-md-4" style="margin-bottom: 4px;">
+                {{ form_label(form.descripcion) }}
+                {{ form_widget(form.descripcion) }}
+            </div>
+            <div class="col-md-4" style="margin-bottom: 4px;">
+                {{ form_label(form.precioCompra) }}
+                {{ form_widget(form.precioCompra) }}
+            </div>
+            
+            <div class="col-md-4" style="margin-bottom: 4px;">
+                {{ form_label(form.precioVenta) }}
+                {{ form_widget(form.precioVenta) }}
+            </div>
+            
+            <div class="col-md-4" style="margin-bottom: 4px;">
+                {{ form_label(form.sku) }}
+                {{ form_widget(form.sku) }}
+            </div>
+            
+            <div class="col-md-4" style="margin-bottom: 4px;">
+                {{ form_label(form.serial) }}
+                {{ form_widget(form.serial) }}
+            </div>
+            
+            <div class="col-md-4" style="margin-bottom: 4px;">
+                {{ form_label(form.inventarioBajo) }}
+                {{ form_widget(form.inventarioBajo) }}
+            </div>                                                              
+            
+            <div class="col-md-4" style="margin-bottom: 4px;">
+                {{ form_label(form.totalExistencia) }}
+                {{ form_widget(form.totalExistencia) }}
+            </div>
+            
+            <div class="col-md-4" style="margin-bottom: 4px;">
+                {{ form_label(form.invCatProducto) }}
+                {{ form_widget(form.invCatProducto) }}
+            </div>
+            
+            <div class="col-md-4" style="margin-bottom: 4px;">
+                {{ form_label(form.invTipoInventario) }}
+                {{ form_widget(form.invTipoInventario) }}
+            </div>
+            
+            <div class="col-md-4" style="margin-bottom: 4px;">
+                {{ form_label(form.invZona) }}
+                {{ form_widget(form.invZona) }}
+            </div>
+      
+            <div class="clearfix"></div>    
+        {#<input type="submit" value="Guardar" class="btn btn-success btn-sm hidden" style="margin-top:10px;" id="submitInsertar" />#}
+    {{ form_end(form) }}
+    {# </div>#}
+    </form>
+    
+{% endblock %}
+
+
+

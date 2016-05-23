@@ -1,0 +1,55 @@
+ {%if ArrayPersona|default is not empty %}
+                {% for datos in ArrayPersona %}
+        <form role="form" id="fContacto">
+             <input type="hidden" name="hIdContacto" id="hIdContacto" value="{{datos.idContacto}}">
+            <div class="form-column col-sm-6">
+                  <div class="form-group">
+                    <label for="fecha inicio">Contacto de emergencia</label>
+                    <input type="text" class="form-control" id="txtcontacto" 
+                           placeholder="Nombre del contacto" name="txtcontacto" value="{{datos.contacto}}">
+                </div>
+                  <div class="form-group">
+                    <label for="fecha inicio">Relacion</label>
+                    <input type="text" class="form-control" id="txtrelacion" 
+                           placeholder="Relacion de contacto" name="txtrelacion" value="{{datos.relacion}}">
+                </div>
+                  <div class="form-group">
+                    <label for="telefono">Telefono Fijo</label>
+                    <input type="text" class="form-control" id="txtTelefono" 
+                           placeholder="Telefono fijo" name="txtTelefono" value="{{datos.tcel}}">
+                </div>
+                 <div class="form-group">
+                    <label for="fecha fin">Telefono movil</label>
+                    <input type="text" class="form-control" id="txtMovil" 
+                           placeholder="Celular" name="txtMovil" value="{{datos.tfijo}}">
+                </div>
+            </div>
+        </form>
+    {%endfor%}       
+               {%else%}
+                   
+                     <form role="form" id="fContacto">
+            <div class="form-column col-sm-6">
+                  <div class="form-group">
+                    <label for="fecha inicio">Contacto de emergencia</label>
+                    <input type="text" class="form-control" id="txtcontacto" 
+                           placeholder="Nombre del contacto" name="txtcontacto">
+                </div>
+                  <div class="form-group">
+                    <label for="fecha inicio">Relacion</label>
+                    <input type="text" class="form-control" id="txtrelacion" 
+                           placeholder="Relacion de contacto" name="txtrelacion">
+                </div>
+                  <div class="form-group">
+                    <label for="telefono">Telefono Fijo</label>
+                    <input type="text" class="form-control" id="txtTelefono" 
+                           placeholder="Telefono fijo" name="txtTelefono">
+                </div>
+                 <div class="form-group">
+                    <label for="fecha fin">Telefono movil</label>
+                    <input type="text" class="form-control" id="txtMovil" 
+                           placeholder="Celular" name="txtMovil">
+                </div>
+            </div>
+        </form>
+                           {%endif%}

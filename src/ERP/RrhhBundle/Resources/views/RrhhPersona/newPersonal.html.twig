@@ -1,0 +1,278 @@
+{% extends ':Layout:layout2.html.twig' %}
+
+{% block descripcion_y_acciones %}
+
+
+    <div class="row">
+        {% block descripcion %}
+            <div class="col-md-8">
+                <p class="robo" style="font-weight: 300; margin-bottom: 0px; font-size: 30px;">Nuevo Empleado</p>
+                <p class="robo" style="font-weight: 300; font-size: 14px; height: 40px;"> </p>
+            </div>
+        {% endblock%}
+        {% block acciones %}
+            <div class="col-md-4" style="margin-top: 50px;">
+                <!-- Boton Delete -->
+                <div class="btn-group pull-right">
+                    <button class="btn btn-danger btn-sm" style="margin-left: 5px;" type="submit">Delete</button>
+                </div>
+
+                <!-- Boton Ingreso -->
+                <div class="btn-group pull-right">
+                    <a class="btn btn-primary btn-sm insertar" style="margin-left: 5px;" onClick="enviarf()">Guardar</a>
+                </div>
+                <!-- Small button -->
+            </div>
+
+        {% endblock %}
+
+    </div>
+
+{% endblock %}
+{% block js_extend %}
+
+  
+           
+      
+  {% endblock %} 
+
+{% block navegacion_Y_body %}
+    <div class="row">
+        {% block navegacion %}
+            <hr style="margin-top: 0px !important;">
+            <div class="col-md-2" style="border-right: 1px solid #f3f3f3;">
+                <!-- Left Navigation -->
+                <ul style="list-style: none; padding: 0;">
+                    <a href="{{ path('ctlpais_index') }}" class="leftnava"><li class="leftnav left active">Menu<span class="pull-right right"></span></li></a>
+                            {# <a href="{{ path('ctlpais_configuracion') }}" class="leftnava"><li class="leftnav left">Configuraci&oacute;n</li></a>#}
+                    <a href="#" class="leftnava"><li class="leftnav left">Reportes</li></a>
+                </ul>
+            </div>
+        {% endblock %}
+        {% block cuerpo %}
+            {# Definicion de variables#}
+
+                <div  class="col-md-10 border_tab">
+                            <div class="panel-body" id="tabContenedor">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" role="tablist" >
+                                    <li class="active"><a href="#datos_personales" role="tab" data-toggle="tab">Datos personales</a></li>
+                                    <li><a href="#detalle_empleo" role="tab" data-toggle="tab"  >Datlle del empleo</a></li>
+                                    <li><a href="#perfilPuesto" role="tab" data-toggle="tab" >Perfil del puesto</a></li>
+                                    <li><a href="#detalle_contacto" role="tab" data-toggle="tab" >Detalles de contacto</a></li>
+                                    <li><a href="#formacion_academica" role="tab" data-toggle="tab" onClick="formacionA()">Formación académica</a></li>
+                                    <li><a href="#experiencia_laboral" role="tab" data-toggle="tab" >Experiencia laboral previa</a></li>
+                                <!--    <li><a href="#expediente" role="tab" data-toggle="tab" onClick="con_expediente('')" >Historia en la Compañia</a></li> -->   
+                                 </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content"  ><!-- style="border:1px solid silver; border-top: 0px;"-->
+                                    <div class="tab-pane fade in active" id="datos_personales" >
+                                     
+                                         {%if ArrayPersona|default is not empty %}
+                                        {% for datos in ArrayPersona %}
+                                            
+                                           
+              
+                                 <form role="form" id="fdatos">
+                                     <input type="hidden" name="hIdPersona" id="hIdPersona" value="{{datos.id}}">
+                                     <div class="form-column col-sm-6">
+                                         <div class="form-group">
+                                             <label for="nombreEmpleado">Nombre</label>
+                                             <input type="text" value="{{datos.nombre}}" class="form-control" id="txtnombre" name="txtnombre"
+                                                    placeholder="Nombre del empleado">
+                                         </div>
+                                         <div class="form-group">
+                                             <label for="ejemplo_password_1">Apellido</label>
+                                             <input type="text" value="{{datos.apellido}}" class="form-control"  id="txtapellido" name="txtapellido" 
+                                                    placeholder="Apellido empleado">
+                                         </div>
+                                          <div class="form-group">
+                                             <label for="ejemplo_password_1">Genero</label>
+                                            <select class="form-control" id="genero" name="genero">
+                                                <option {%if(datos.genero)=='Masculino'%}selected="selected"{%endif%}>Masculino</option>
+                                                <option {%if(datos.genero)=='Femenino'%}selected="selected"{%endif%}>Femenino</option>
+                                            </select>
+                                         </div>
+                                          <div class="form-group">
+                                             <label for="ejemplo_password_1">Dui</label>
+                                             <input type="text" class="form-control" value="{{datos.dui}}" 
+                                                    placeholder="Apellido empleado"  id="txtdui" name="txtdui">
+                                         </div>
+                                          <div class="form-group">
+                                             <label for="ejemplo_password_1">Nit</label>
+                                             <input type="text" class="form-control" value="{{datos.nit}}" 
+                                                    placeholder="Apellido empleado"  id="txtnit" name="txtnit">
+                                         </div>
+                                           <div class="form-group">
+                                             <label for="ejemplo_password_1">Fecha de nacimiento</label>
+                                             <input type="text" class="form-control" id="fechaNacimiento" 
+                                                    placeholder="Fecha de nacimiento" name="fechaNacimiento" value="{{datos.fechaNacimiento}}">
+                                         </div>
+                                        
+                                     </div>
+                                     
+                                     <div class="form-column col-sm-6">
+                                     
+                                          <div class="form-group" id="divEsatdo">
+                                              <label for="ejemplo_archivo_1">Estado</label>
+                                             <select class="form-control"  name="sEstado" id="sEstado" onChange="ciudad()">
+                                                  <option></option>
+                                                   {% for datos in ArrayEstado %}
+                                                <option id="{{datos.id}}" {%if(datos.id==idEstado)%}selected="selected"{%endif%}> {{datos.nombre}}</option>
+                                                {%endfor%}
+                                            </select>
+                                         </div>
+                                         <div class="form-group" id="divCiudad">
+                                             <label for="ejemplo_archivo_1">Ciudad</label>
+                                             <select class="form-control"  name="sCiudad" id="sCiudad">
+                                                <option></option>
+                                                 {% for datos in ArrayCiudad %}
+                                                <option value="{{datos.id}}" {%if(datos.id==idCiudad)%}selected="selected"{%endif%}> {{datos.nombre}}</option>
+                                                {%endfor%}
+                                            </select>
+                                         </div>
+                                         <div class="form-group">
+                                             <label for="ejemplo_password_1">Direccion</label>
+                                             <input type="text" class="form-control" id="txtdireccion" name="txtdireccion"
+                                                    placeholder="Direccion" value="{{datos.direccion}}">
+                                         </div>
+                                         <div class="form-group">
+                                             <label for="ejemplo_archivo_1">Telefono</label>
+                                              <input type="text" class="form-control" id="txtfijo" name="txtfijo"
+                                                    placeholder="Telefono de casa" value="{{datos.telefonoFijo}}" >
+                                         </div>
+                                          <div class="form-group">
+                       
+                                             <label for="ejemplo_archivo_1">Celular</label>
+                                              <input type="text" class="form-control" id="txtmovil" name="txtmovil"
+                                                    placeholder="Telefono movil" value="{{datos.telefonoMovil}}">
+                                         </div>
+                                      <div class="form-group">
+                       
+                                             <label for="ejemplo_archivo_1">Correoelectronico</label>
+                                               <input type="email" name="txtcorreo" id="txtcorreo" class="form-control required text-input email ignore error" 
+                                                      placeholder="user@example.com" value="{{datos.correo}}">
+                                         </div>
+                                     
+                                        
+                                     </div>
+                                 </form>
+                                         
+                                        {%endfor%}  
+                                            
+                                                 {%else%}
+                                                                              
+                                               <form role="form" id="fdatos">
+                                    
+                                     <div class="form-column col-sm-6">
+                                         <div class="form-group">
+                                             <label for="nombreEmpleado">Nombre</label>
+                                             <input type="text" class="form-control" id="txtnombre" name="txtnombre"
+                                                    placeholder="Nombre del empleado">
+                                         </div>
+                                         <div class="form-group">
+                                             <label for="ejemplo_password_1">Apellido</label>
+                                             <input type="text" class="form-control"  id="txtapellido" name="txtapellido" 
+                                                    placeholder="Apellido empleado">
+                                         </div>
+                                          <div class="form-group">
+                                             <label for="ejemplo_password_1">Genero</label>
+                                            <select class="form-control" id="genero" name="genero">
+                                                <option>Masculino</option>
+                                                <option>Femenino</option>
+                                            </select>
+                                         </div>
+                                          <div class="form-group">
+                                             <label for="ejemplo_password_1">Dui</label>
+                                             <input type="text" class="form-control"  
+                                                    placeholder="Apellido empleado"  id="txtdui" name="txtdui">
+                                         </div>
+                                          <div class="form-group">
+                                             <label for="ejemplo_password_1">Nit</label>
+                                             <input type="text" class="form-control" 
+                                                    placeholder="Apellido empleado"  id="txtnit" name="txtnit">
+                                         </div>
+                                           <div class="form-group">
+                                             <label for="ejemplo_password_1">Fecha de nacimiento</label>
+                                             <input type="text" class="form-control" id="fechaNacimiento" 
+                                                    placeholder="Fecha de nacimiento" name="fechaNacimiento">
+                                         </div>
+                                        
+                                     </div>
+                                     
+                                     <div class="form-column col-sm-6">
+                                     
+                                          <div class="form-group" id="divEsatdo">
+                                              <label for="ejemplo_archivo_1">Estado</label>
+                                            <select class="form-control"  name="sEstado" id="sEstado" onChange="ciudad()">
+                                                  <option></option>
+                                                   {% for datos in ArrayEstado %}
+                                                <option id="{{datos.id}}"> {{datos.nombre}}</option>
+                                                {%endfor%}
+                                            </select>
+                                         </div>
+                                         <div class="form-group" id="divCiudad">
+                                             <label for="ejemplo_archivo_1">Ciudad</label>
+                                             <select class="form-control" name="sCiudad" id="sCiudad" >
+                                                <option></option>
+                                              
+                                            </select>
+                                         </div>
+                                         <div class="form-group">
+                                             <label for="ejemplo_password_1">Direccion</label>
+                                             <input type="text" class="form-control" id="txtdireccion" name="txtdireccion"
+                                                    placeholder="Direccion">
+                                         </div>
+                                         <div class="form-group">
+                                             <label for="ejemplo_archivo_1">Telefono</label>
+                                              <input type="text" class="form-control" id="txtfijo" name="txtfijo"
+                                                    placeholder="Telefono de casa">
+                                         </div>
+                                          <div class="form-group">
+                       
+                                             <label for="ejemplo_archivo_1">Celular</label>
+                                              <input type="text" class="form-control" id="txtmovil" name="txtmovil"
+                                                    placeholder="Telefono movil">
+                                         </div>
+                                      <div class="form-group">
+                       
+                                             <label for="ejemplo_archivo_1">Correoelectronico</label>
+                                               <input type="email" name="txtcorreo" id="txtcorreo" class="form-control required text-input email ignore error" 
+                                                      placeholder="user@example.com">
+                                         </div>
+                                     
+                                        
+                                     </div>
+                                 </form>
+                                                 
+                                      {%endif%}          
+                      </div>            
+                                     <div class="tab-pane fade" id="detalle_empleo" >
+                                      {% embed 'ERPRrhhBundle:RrhhPersona:newDetalleEmpleo.html.twig' %}{% endembed %}
+                                    </div>          
+                                     <div class="tab-pane fade" id="perfilPuesto" >
+                                      {% embed 'ERPRrhhBundle:RrhhPersona:newPersonaPuestoPerfil.html.twig' %}{% endembed %}
+                                    </div>
+                                     <div class="tab-pane fade " id="detalle_contacto" >
+                                      {% embed 'ERPRrhhBundle:RrhhPersona:newContacto.html.twig' %}{% endembed %}
+                                    </div>
+                                    <div class="tab-pane fade" id="formacion_academica">
+                                          {% embed 'ERPRrhhBundle:RrhhPersona:newFormacionAcademica.html.twig' %}{% endembed %}
+                                       </div>
+                                    
+                                    <div class="tab-pane fade" id="experiencia_laboral">
+                                       
+                                         {% embed 'ERPRrhhBundle:RrhhPersona:newExperienciaLaboral.html.twig' %}{% endembed %}
+                                             </div>
+                                    </div>
+                                      <!-- fin panel tab -->
+                                </div>             
+                              
+                            </div>                            
+                <!-- Fin de Tab conten-->
+             </div>
+
+    {% endblock %}
+{% endblock %}
+
+ 

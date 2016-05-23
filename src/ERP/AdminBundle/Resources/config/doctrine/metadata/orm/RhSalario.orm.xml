@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="RhSalario" table="rh_salario">
+    <indexes>
+      <index name="fk_rh_salario_rh_tipo_ingreso1_idx" columns="rh_tipo_ingreso_id"/>
+      <index name="fk_rh_salario_rh_estructura_salarios1_idx" columns="rh_estructura_salarios_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id"/>
+    <id name="rhTipoIngreso" association-key="true"/>
+    <id name="rhEstructuraSalarios" association-key="true"/>
+    <field name="importe" type="float" column="importe" precision="10" scale="0" nullable="false"/>
+    <one-to-one field="rhEstructuraSalarios" target-entity="RhEstructuraSalarios">
+      <join-columns>
+        <join-column name="rh_estructura_salarios_id" referenced-column-name="id"/>
+      </join-columns>
+    </one-to-one>
+    <one-to-one field="rhTipoIngreso" target-entity="RhTipoIngreso">
+      <join-columns>
+        <join-column name="rh_tipo_ingreso_id" referenced-column-name="id"/>
+      </join-columns>
+    </one-to-one>
+  </entity>
+</doctrine-mapping>

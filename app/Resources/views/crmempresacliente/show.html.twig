@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>CrmEmpresaCliente</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ crmEmpresaCliente.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ crmEmpresaCliente.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Direccion</th>
+                <td>{{ crmEmpresaCliente.direccion }}</td>
+            </tr>
+            <tr>
+                <th>Nrc</th>
+                <td>{{ crmEmpresaCliente.nrc }}</td>
+            </tr>
+            <tr>
+                <th>Nit</th>
+                <td>{{ crmEmpresaCliente.nit }}</td>
+            </tr>
+            <tr>
+                <th>Giro</th>
+                <td>{{ crmEmpresaCliente.giro }}</td>
+            </tr>
+            <tr>
+                <th>Tel</th>
+                <td>{{ crmEmpresaCliente.tel }}</td>
+            </tr>
+            <tr>
+                <th>Fax</th>
+                <td>{{ crmEmpresaCliente.fax }}</td>
+            </tr>
+            <tr>
+                <th>Correo</th>
+                <td>{{ crmEmpresaCliente.correo }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_empresacliente_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_empresacliente_edit', { 'id': crmEmpresaCliente.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

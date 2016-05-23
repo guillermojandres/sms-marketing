@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+   {# <h1>InvProveedor edit</h1>#}
+
+<div class="row">
+     {{ form_start(edit_form, {'action': path('contacto_edit',{'id':crmContacto.id})}) }}
+    {#  {{ form_widget(edit_form) }}#}
+      <div class="col-md-4">
+            {{ form_row(edit_form.nombre, {'attr': {'class': 'form-control contactoTextBoxEdit'} }) }} 
+        </div>
+        <div class="col-md-4">
+            {{ form_row(edit_form.apellido, {'attr': {'class': 'form-control contactoTextBoxEdit '} }) }} 
+        </div>
+         <div class="col-md-4">
+            {{ form_row(edit_form.telefono, {'attr': {'class': 'form-control contactoTextBoxEdit '} }) }} 
+        </div>
+         <div class="col-md-4">
+            {{ form_row(edit_form.emailId, {'attr': {'class': 'form-control contactoTextBoxEdit '} }) }} 
+        </div>
+         <div class="col-md-4">
+            {{ form_row(edit_form.numeroMovil, {'attr': {'class': 'form-control contactoTextBoxEdit '} }) }} 
+        </div>
+         <div class="col-md-4">
+            {{ form_row(edit_form.departamento, {'attr': {'class': 'form-control contactoTextBoxEdit '} }) }} 
+        </div>
+        <div class="col-md-4">
+            {{ form_row(edit_form.puesto, {'attr': {'class': 'form-control contactoTextBoxEdit '} }) }} 
+        </div>
+         <div class="col-md-4">
+            {{ form_row(edit_form.contactoProveedorId, {'attr': {'class': 'form-control contactoSelectEdit '} }) }} 
+        </div>
+         <div class="col-md-4">
+            {{ form_row(edit_form.contactoClientePotencialId, {'attr': {'class': 'form-control contactoSelectEdit '} }) }} 
+        </div>
+         <div class="col-md-4">
+            {{ form_row(edit_form.contactoClienteId, {'attr': {'class': 'form-control contactoSelectEdit '} }) }} 
+        </div>
+        
+        
+       
+ 
+    {{ form_end(edit_form) }}
+</div>
+<hr>
+    
+    
+    
+    
+    
+   {# <ul>
+        <li>
+            <a href="{{ path('admin_invproveedor_index') }}">Back to the list</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>#}
+{% endblock %}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="CtlDepartamentoEmpresa" table="ctl_departamento_empresa">
+    <indexes>
+      <index name="fk_departamento_empresa_sucursal1_idx" columns="ctl_sucursal_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id"/>
+    <id name="ctlSucursal" association-key="true"/>
+    <field name="departamentoEmpresacol" type="string" column="departamento_empresacol" length="45" nullable="false"/>
+    <one-to-one field="ctlSucursal" target-entity="CtlSucursal">
+      <join-columns>
+        <join-column name="ctl_sucursal_id" referenced-column-name="id"/>
+      </join-columns>
+    </one-to-one>
+  </entity>
+</doctrine-mapping>

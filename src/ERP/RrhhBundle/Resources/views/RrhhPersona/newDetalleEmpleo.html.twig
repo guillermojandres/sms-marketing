@@ -1,0 +1,70 @@
+<!-- Si la persona existe-->
+             {%if ArrayPersona|default is not empty %}
+                {% for datos in ArrayPersona %}
+                                       
+                                                    <form role="form" id="fDetalleEmpleo">
+                                                          <input type="hidden" name="hIdDetalle" id="hIdDetalle" value="{{datos.idDetalle}}">
+            <div class="form-column col-sm-6">
+                    <div class="form-group" id="divEsatdo">
+                     <label for="ejemplo_archivo_1">Estado</label>
+                    <select class="form-control" id="SEstado" name="SEstado">
+                       <option></option>
+                       <option value="Activo"  {%if(datos.estado)=='Activo'%}selected="selected"{%endif%}>Activo</option>
+                       <option value="Inactivo" {%if(datos.estado)=='Inactivo'%}selected="selected"{%endif%}>Inactivo</option>
+                   </select>
+                </div>
+                <div class="form-group" id="divTipoEmpleo" name="divTipoEmpleo">
+                    <label for="ejemplo_archivo_1">Tipo empleo</label>
+                  <select class="form-control"  name="divTipoEmpleo" id="divTipoEmpleo">
+                        <option></option>
+                         {% for datosTE in ArrayTipoemp %}
+                        <option value="{{datosTE.id}}" {%if(datos.idTE)==datosTE.id%}selected="selected"{%endif%}>{{datosTE.nombre}}</option>
+                      {%endfor%}
+                   </select>
+                </div>
+                  <div class="form-group">
+                    <label for="fecha inicio">Fecha inicio</label>
+                    <input type="text" class="form-control" id="fechaIniC" 
+                           placeholder="Fecha inicio de contrato" name="fechaIniC" value="{{datos.fechaIncC}}">
+                </div>
+                 <div class="form-group">
+                    <label for="fecha fin">Fecha fin</label>
+                    <input type="text" class="form-control" id="fechaFinC" 
+                           placeholder="Fecha fin de contrato" name="fechaFinC"  value="{{datos.fechaFinC}}">
+                </div>
+            </div>
+        </form>
+    {%endfor%}       
+               {%else%}
+                                            <form role="form" id="fDetalleEmpleo">
+            <div class="form-column col-sm-6">
+                    <div class="form-group" id="divEsatdo">
+                     <label for="ejemplo_archivo_1">Estado</label>
+                    <select class="form-control" id="SEstado" name="SEstado">
+                      
+                       <option>Activo</option>
+                       <option selected="selected">Inactivo</option>
+                   </select>
+                </div>
+                <div class="form-group" id="divTipoEmpleo" name="divTipoEmpleo">
+                    <label for="ejemplo_archivo_1">Tipo empleo</label>
+                     <select class="form-control"  name="divTipoEmpleo" id="divTipoEmpleo">
+                        <option></option>
+                         {% for datosTE in ArrayTipoemp %}
+                        <option value="{{datosTE.id}}">{{datosTE.nombre}}</option>
+                      {%endfor%}
+                   </select>
+                </div>
+                  <div class="form-group">
+                    <label for="fecha inicio">Fecha inicio</label>
+                    <input type="text" class="form-control" id="fechaIniC" 
+                           placeholder="Fecha inicio de contrato" name="fechaIniC">
+                </div>
+                 <div class="form-group">
+                    <label for="fecha fin">Fecha fin</label>
+                    <input type="text" class="form-control" id="fechaFinC" 
+                           placeholder="Fecha fin de contrato" name="fechaFinC">
+                </div>
+            </div>
+        </form>
+             {%endif%}

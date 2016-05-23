@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="CrmClientePotencial" table="crm_cliente_potencial">
+    <indexes>
+      <index name="fk_cliente_potencial_estado_cliente_potencial1_idx" columns="estado_cliente_potencial_id"/>
+      <index name="fk_cliente_potencial_referencia_cliente1_idx" columns="referencia_cliente_id"/>
+      <index name="fk_cliente_potencial_usuario1_idx" columns="id_usuario_siguiente_contacto"/>
+      <index name="fk_cliente_potencial_usuario2_idx" columns="id_usuario_propietario"/>
+      <index name="fk_cliente_potencial_territorio1_idx" columns="territorio_id"/>
+      <index name="fk_cliente_potencial_industria_cliente1_idx" columns="industria_cliente_id"/>
+      <index name="fk_crm_cliente_potencial_crm_empresa_cliente1_idx" columns="crm_empresa_cliente_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nombre" type="string" column="nombre" length="255" nullable="false"/>
+    <field name="emailId" type="string" column="email_id" length="100" nullable="false"/>
+    <field name="siguienteFechaContacto" type="date" column="siguiente_fecha_contacto" nullable="true"/>
+    <field name="telefono" type="string" column="telefono" length="20" nullable="true"/>
+    <field name="movil" type="string" column="movil" length="20" nullable="true"/>
+    <field name="fax" type="string" column="fax" length="20" nullable="true"/>
+    <field name="sitioWeb" type="string" column="sitio_web" length="255" nullable="true"/>
+    <many-to-one field="idUsuarioPropietario" target-entity="Usuario">
+      <join-columns>
+        <join-column name="id_usuario_propietario" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="crmEmpresaCliente" target-entity="CrmEmpresaCliente">
+      <join-columns>
+        <join-column name="crm_empresa_cliente_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idUsuarioSiguienteContacto" target-entity="Usuario">
+      <join-columns>
+        <join-column name="id_usuario_siguiente_contacto" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="territorio" target-entity="CtlTerritorio">
+      <join-columns>
+        <join-column name="territorio_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="industriaCliente" target-entity="CtlIndustriaCliente">
+      <join-columns>
+        <join-column name="industria_cliente_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="referenciaCliente" target-entity="CtlReferenciaCliente">
+      <join-columns>
+        <join-column name="referencia_cliente_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="estadoClientePotencial" target-entity="CtlEstadoClientePotencial">
+      <join-columns>
+        <join-column name="estado_cliente_potencial_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

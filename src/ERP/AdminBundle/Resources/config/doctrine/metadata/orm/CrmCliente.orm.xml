@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="CrmCliente" table="crm_cliente">
+    <indexes>
+      <index name="fk_cliente_categoria_cliente1_idx" columns="categoria_cliente_id"/>
+      <index name="fk_cliente_territorio1_idx" columns="territorio_id"/>
+      <index name="fk_cliente_cliente_potencial1_idx" columns="cliente_potencial_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="tipo" type="string" column="tipo" length="50" nullable="false"/>
+    <field name="datosCliente" type="string" column="datos_cliente" length="255" nullable="true"/>
+    <field name="sitioWeb" type="string" column="sitio_web" length="255" nullable="true"/>
+    <field name="nombreCompleto" type="string" column="nombre_completo" length="255" nullable="true"/>
+    <many-to-one field="clientePotencial" target-entity="CrmClientePotencial">
+      <join-columns>
+        <join-column name="cliente_potencial_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="territorio" target-entity="CtlTerritorio">
+      <join-columns>
+        <join-column name="territorio_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="categoriaCliente" target-entity="CtlCategoriaCliente">
+      <join-columns>
+        <join-column name="categoria_cliente_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

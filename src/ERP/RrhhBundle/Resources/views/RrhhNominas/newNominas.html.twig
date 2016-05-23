@@ -1,0 +1,348 @@
+{% extends ':Layout:layout2.html.twig' %}
+
+{% block descripcion_y_acciones %}
+
+
+    <div class="row">
+        {% block descripcion %}
+            <div class="col-md-8">
+                <p class="robo" style="font-weight: 300; margin-bottom: 0px; font-size: 30px;">Estructura de salario</p>
+                <p class="robo" style="font-weight: 300; font-size: 14px; height: 40px;"> </p>
+            </div>
+        {% endblock%}
+        {% block acciones %}
+            <div class="col-md-4" style="margin-top: 50px;">
+                <!-- Boton Delete -->
+                <div class="btn-group pull-right">
+                    <button class="btn btn-danger btn-sm" style="margin-left: 5px;" type="submit">Delete</button>
+                </div>
+
+                <!-- Boton Ingreso -->
+                <div class="btn-group pull-right">
+                    <a class="btn btn-primary btn-sm insertar" style="margin-left: 5px;" onClick="enviarEstructura()">Guardar</a>
+                </div>
+                <!-- Small button -->
+            </div>
+
+        {% endblock %}
+
+    </div>
+
+{% endblock %}
+{% block js_extend %}
+
+<style type="text/css">
+.fila-base{ display: none; } /* fila base oculta */
+.eliminar{ cursor: pointer; color: #000; }
+.altura{ max-height:100px;}
+/*#ModalTamaño{
+  width: 35% !important;
+}*/
+</style>
+<script  type="text/javascript">
+       
+             jQuery(document).ready(function ($) {
+              
+            
+          $("#addIngreso").click( function()
+             { 
+                   var contenido, bootom;
+            $('#mbodyIngreso').empty();
+            $('#botom').empty();
+                  contenido = '<div class="form-group id="divIngreso"></div>';
+               $.ajax({
+                async: false,
+                dataType: 'json',
+                url:Routing.generate('tipo_ingreso'),
+                success: function(data) 
+                {
+                    contenido = '<label for="ejemplo_archivo_1">Tipo ingreso</label>\
+                            <select class="form-control"  name="sIngreso" id="sIngreso">';
+                    contenido+= '<option value="0">Seleccione Estado --></option>';
+                     $.each(data.ArrayTingreso, function (indice, val) {
+                          contenido+= '<option value="' + val.id + '">' + val.nombre + '</option>';
+                     });
+                      contenido += ' </select></div></div> ';
+                }
+            });
+                    contenido += '<label for="fecha fin">Importe</label>';
+                    contenido += '<input type="text" class="form-control" id="txtIngreso" ';
+                    contenido += 'placeholder="Importe" name="txtIngreso"></div>';
+                    contenido += '</div></form></div>';
+                    bootom= '<input type="button" value="Agregar fila" style="margin-top:-8px;" class="btn btn-success btn-sm" onClick="FilaIngreso()"/>';
+                     
+            $('#mbodyIngreso').append(contenido);
+            $('#botom').append(bootom);
+            $("#mIngreso").modal();
+           }
+    );    
+    
+         $("#addDeduccion").click( function()
+             { 
+                   var contenido, bootom;
+            $('#mbodyDeduccion').empty();
+            $('#botomD').empty();
+                  contenido = '<div class="form-group id="divIngreso"></div>';
+               $.ajax({
+                async: false,
+                dataType: 'json',
+                url:Routing.generate('tipo_deduccion'),
+                success: function(data) 
+                {
+                    contenido = '<label for="ejemplo_archivo_1">Tipo de Deduccion</label>\
+                            <select class="form-control"  name="sDeduccion" id="sDeduccion">';
+                    contenido+= '<option value="0">Seleccione Estado --></option>';
+                     $.each(data.ArrayDeduccion, function (indice, val) {
+                          contenido+= '<option value="' + val.id + '">' + val.nombre + '</option>';
+                     });
+                      contenido += ' </select></div></div> ';
+                }
+            });
+                    contenido += '<label for="fecha fin">Importe</label>';
+                    contenido += '<input type="text" class="form-control" id="txtDeduccion" ';
+                    contenido += 'placeholder="Importe" name="txtDeduccion"></div>';
+                    contenido += '</div></form></div>';
+                    bootom= '<input type="button" value="Agregar fila" style="margin-top:-8px;" class="btn btn-success btn-sm" onClick="FilaDeduccion()"/>';
+                     
+            $('#mbodyDeduccion').append(contenido);
+            $('#botomD').append(bootom);
+            $("#mDeduccion").modal();
+           }
+    ); 
+});
+
+    function FilaIngreso()
+     {
+        var tds=$("#tIngreso tr:first th").length;
+         trs=$("#tIngreso tr").length-1;
+ 
+        var nuevaFila='<tr id="'+trs+'">';
+          ingresos.push(trs);
+      
+         for(var i=0;i<tds;i++)
+         {
+            switch(i) 
+            {
+                      case 0:
+                             nuevaFila+='<td id="txtEscuela'+trs+'">'+$("#sIngreso option:selected").text()+'</td>';
+                             ingresos.push($("#sIngreso").val());
+                              break;
+                      case 1:
+                             nuevaFila+='<td id="txtIngreso'+trs+'">'+$("#txtIngreso").val()+'</td>';
+                                  ingresos.push($("#txtIngreso").val());
+                              break;
+                      case 2:
+                     
+                            nuevaFila += '<td id="'+i+'"><a onClick="eliminarFilaIngreso('+trs+','+trs+' )"><i class="fa fa-trash-o fa-lg"></i></a> </td>';
+                      break;
+              }
+         }
+                   
+        datosIngresos.push(ingresos);
+        ingresos=[];
+
+            nuevaFila+="</tr>";
+            $('#tIngreso tr#001').remove();
+            $("#tIngreso").append(nuevaFila);
+             jQuery(document).ready(function ($) {
+            $('#mIngreso').modal('toggle');
+        });
+     }
+     
+function eliminarFilaIngreso(id,n)
+{   
+   $('#tIngreso tr#'+id).remove();
+   
+           
+   ingresos.splice(id,1);
+   datosIngresos.splice(n,1);
+  
+}
+function FilaDeduccion()
+     {
+        var tds=$("#tDeduccion tr:first th").length;
+         trs=$("#tDeduccion tr").length-1;
+ 
+        var nuevaFila='<tr id="'+trs+'">';
+          deduccion.push(trs);
+      
+         for(var i=0;i<tds;i++)
+         {
+            switch(i) 
+            {
+                      case 0:
+                             nuevaFila+='<td id="txtEscuela'+trs+'">'+$("#sDeduccion option:selected").text()+'</td>';
+                             deduccion.push($("#sDeduccion").val());
+                              break;
+                      case 1:
+                             nuevaFila+='<td id="sNivel'+trs+'">'+$("#txtDeduccion").val()+'</td>';
+                                  deduccion.push($("#txtDeduccion").val());
+                              break;
+                      case 2:
+                     
+                            nuevaFila += '<td id="'+i+'"><a onClick="eliminarFilaDeduccion('+trs+','+trs+')"><i class="fa fa-trash-o fa-lg"></i></a> </td>';
+                      break;
+              }
+         }
+                   
+        datosDeduccion.push(deduccion);
+        deduccion=[];
+
+            nuevaFila+="</tr>";
+            $("#tDeduccion").append(nuevaFila);
+             jQuery(document).ready(function ($) {
+            $('#mDeduccion').modal('toggle');
+        });
+     }
+     function eliminarFilaDeduccion(id,n)
+{   
+   $('#tDeduccion tr#'+id).remove();
+   deduccion.splice(id,1);
+   datosDeduccion.splice(n,1);
+  
+}
+ </script>
+
+
+{% endblock %} 
+
+{% block navegacion_Y_body %}
+    <div class="row">
+        {% block navegacion %}
+            <hr style="margin-top: 0px !important;">
+            <div class="col-md-2" style="border-right: 1px solid #f3f3f3;">
+                <!-- Left Navigation -->
+                <ul style="list-style: none; padding: 0;">
+                    <a href="{{ path('ctlpais_index') }}" class="leftnava"><li class="leftnav left active">Menu<span class="pull-right right"></span></li></a>
+                            {# <a href="{{ path('ctlpais_configuracion') }}" class="leftnava"><li class="leftnav left">Configuraci&oacute;n</li></a>#}
+                    <a href="#" class="leftnava"><li class="leftnav left">Reportes</li></a>
+                </ul>
+            </div>
+        {% endblock %}
+        {% block cuerpo %}
+            {# Definicion de variables#}
+
+            <div  class="col-md-10 border_tab">
+                <form role="form" id="fdatos">
+
+                    <div class="form-column col-sm-6">
+                        <div class="form-group">
+                            <label for="ejemplo_archivo_1">Empleado</label>
+                            <select class="form-control"  name="sPersona" id="sPersona" >
+                                <option></option>
+                                {% for datos in ArrayPersona %}
+                                    <option id="{{datos.id}}">{{datos.nombre}}</option>
+                                {%endfor%}
+                            </select>
+                        </div>                               
+
+                    </div>
+
+                </form>  
+                     </div>  
+                            <div  class="col-md-10 border_tab">
+             <p class="robo" style="font-weight: 300; margin-bottom: 0px; font-size: 20px;">Ingresos y Deducciones</p>             
+  <div class="panel panel-default">
+    <div class="panel-body">
+                            
+                <div class="row form-section visible-section shaded-section">
+                    <div class="col-sm-12">
+                     
+                    </div>
+                    <div class="section-body">
+                        <div class="form-column col-sm-6">  
+                            <label class="control-label">Ingresos</label>
+
+                            <table WIDTH="100%" id="tIngreso" class="table table-bordered table-hover" style="font-size:13px;" align="center">
+                                <!-- Cabecera de la tabla -->
+                                <thead>
+                                    <tr align="center">
+                                        <th align="center">Tipo</th>
+                                        <th align="center">Importe</th>	
+                                         <th align="center"></th>	
+                                    </tr>
+                                </thead>
+                                        
+                                  
+                                <!-- Cuerpo de la tabla con los campos -->
+                                {%if ArrayPersona|default is not empty %}
+                                    <tbody style=" background-color: #FFF;" class="" id="trFormacion">
+                                          
+                                    </tbody>
+                                {%else%}
+                                    <tbody style=" background-color: #FFF;" class="">
+
+                                    </tbody>
+                                {%endif%}
+                            </table>   
+                            <a href="#" id="addIngreso" class="btn btn-success btn-sm insertar">Agregar nueva fila</a></th>
+                                      
+                        </div>
+
+                        <div class="form-column col-sm-6">  
+                            <label class="control-label">Deducción</label>
+                            <table WIDTH="100%" id="tDeduccion" class="table table-bordered table-hover" style="font-size:13px;" align="center">
+                                <!-- Cabecera de la tabla -->
+                                <thead>
+                                    <tr align="center">
+                                        <th align="center">Tipo</th>
+                                        <th align="center">Importe</th>	
+                                        <th align="center"></th>	
+                                    </tr>
+                                </thead>
+                           
+
+                                <!-- Cuerpo de la tabla con los campos -->
+                                {%if ArrayPersona|default is not empty %}
+                                    <tbody style=" background-color: #FFF;" class="" id="trFormacion">
+
+                                    </tbody>
+                                {%else%}
+                                    <tbody style=" background-color: #FFF;" class="">
+
+                                    </tbody>
+                                {%endif%}
+                            </table>   
+                             <a href="#" id="addDeduccion" class="btn btn-success btn-sm insertar">Agregar nueva fila</a>
+                        </div>
+                    </div>
+                </div>
+  </div>
+  </div>
+ </div>
+            </div>
+                            <!-- Modal ingreso-->
+       <div class="modal fade modal" id="mIngreso" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+           <div class="modal-dialog modal-md" id="ModalTamaño">
+               <div class="modal-content">
+                   <div class="modal-header " Style="height:45px;">
+                       <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                       <span class="robo" style="font-weight: 300; margin-bottom: 0px; font-size: 20px;">Nomina de Salario-Ingresos</span> 
+                   </div>
+                   <div class="modal-body" id="mbodyIngreso" ></div>
+                   <div class="modal-footer" id="botom" Style="height:45px;">
+                   </div>
+
+               </div>
+           </div> 
+       </div>
+                              <!-- Modal deduccion-->
+       <div class="modal fade modal" id="mDeduccion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+           <div class="modal-dialog modal-md" id="ModalTamaño">
+               <div class="modal-content">
+                   <div class="modal-header " Style="height:45px;">
+                       <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                       <span class="robo" style="font-weight: 300; margin-bottom: 0px; font-size: 20px;">Nomina de Salario-Deducción</span> 
+                   </div>
+                   <div class="modal-body" id="mbodyDeduccion" ></div>
+                   <div class="modal-footer" id="botomD" Style="height:45px;">
+                   </div>
+
+               </div>
+           </div> 
+       </div>
+        {% endblock %}
+    {% endblock %}
+
+
+

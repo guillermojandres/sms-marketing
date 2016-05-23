@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>CtlReferenciaCliente list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ctlReferenciaCliente in ctlReferenciaClientes %}
+            <tr>
+                <td><a href="{{ path('admin_referenciacliente_show', { 'id': ctlReferenciaCliente.id }) }}">{{ ctlReferenciaCliente.id }}</a></td>
+                <td>{{ ctlReferenciaCliente.nombre }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_referenciacliente_show', { 'id': ctlReferenciaCliente.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_referenciacliente_edit', { 'id': ctlReferenciaCliente.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_referenciacliente_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

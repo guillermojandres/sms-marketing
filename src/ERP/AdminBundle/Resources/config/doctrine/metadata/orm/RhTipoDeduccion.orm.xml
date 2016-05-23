@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="RhTipoDeduccion" table="rh_tipo_deduccion">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nombreDeduccion" type="string" column="nombre_deduccion" length="60" nullable="false"/>
+    <field name="descripcion" type="string" column="descripcion" length="255" nullable="true"/>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+   
+    <div class="row">
+    {{ form_start(form, {'action': path('empresacliente_new')}) }}
+        <div class="col-md-4">
+            {{ form_row(form.nombre, {'attr': {'class': 'empresaTextBox form-control empresaTextBox', 'data-bvalidator':'number,required', 'data-bvalidator-msg':'Number please'} }) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_row(form.direccion, {'attr': {'class': 'empresaTextBox form-control empresaTextBox'} }) }}
+        </div>
+        
+        <div class="col-md-4">
+            {{ form_row(form.nrc, {'attr': {'class': 'empresaTextBox form-control empresaTextBox'} }) }}
+        </div>
+        
+        
+   
+        
+         <div class="col-md-4">
+            {{ form_row(form.nit, {'attr': {'class': 'empresaTextBox form-control empresaTextBox'} }) }}
+        </div>
+         <div class="col-md-4">
+            {{ form_row(form.giro, {'attr': {'class': 'empresaTextBox form-control empresaTextBox'} }) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_row(form.tel, {'attr': {'class': 'empresaTextBox form-control empresaTextBox'} }) }}
+        </div>
+        
+        
+        
+        <div class="col-md-4">
+            {{ form_row(form.fax, {'attr': {'class': 'empresaTextBox form-control empresaTextBox'} }) }}
+        </div>
+         <div class="col-md-4">
+            {{ form_row(form.correo, {'attr': {'class': 'empresaTextBox form-control empresaTextBox'} }) }} 
+        </div>
+        
+        
+        
+     <input type="submit" value="Guardar" class="btn btn-success btn-sm" style="margin-top:10px; display: none;" id="submitInsertar" />
+    {{ form_end(form) }}
+</div>
+<hr>
+    
+    
+  
+{% endblock %}

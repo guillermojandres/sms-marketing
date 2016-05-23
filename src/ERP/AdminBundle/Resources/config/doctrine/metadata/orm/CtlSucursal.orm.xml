@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="CtlSucursal" table="ctl_sucursal">
+    <indexes>
+      <index name="fk_sucursal_empresa1_idx" columns="ctl_empresa_id"/>
+      <index name="fk_ctl_sucursal_ctl_ciudad1_idx" columns="ctl_ciudad_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id"/>
+    <id name="ctlEmpresa" association-key="true"/>
+    <id name="ctlCiudad" association-key="true"/>
+    <field name="nombreSucursal" type="string" column="nombre_sucursal" length="45" nullable="false"/>
+    <field name="telefonoFijo" type="string" column="telefono_fijo" length="10" nullable="false"/>
+    <field name="fax" type="string" column="fax" length="20" nullable="true"/>
+    <field name="correoelectronico" type="string" column="correoelectronico" length="45" nullable="true"/>
+    <field name="direccionSucursal" type="string" column="direccion_sucursal" length="205" nullable="false"/>
+    <one-to-one field="ctlCiudad" target-entity="CtlCiudad">
+      <join-columns>
+        <join-column name="ctl_ciudad_id" referenced-column-name="id"/>
+      </join-columns>
+    </one-to-one>
+    <one-to-one field="ctlEmpresa" target-entity="CtlEmpresa">
+      <join-columns>
+        <join-column name="ctl_empresa_id" referenced-column-name="id"/>
+      </join-columns>
+    </one-to-one>
+  </entity>
+</doctrine-mapping>

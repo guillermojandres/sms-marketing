@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+   
+    <div class="row">
+    {{ form_start(form, {'action': path('cliente_new')}) }}
+        <div class="col-md-4">
+            {{ form_row(form.nombreCompleto, {'attr': {'class': 'form-control clienteTextBox '} }) }} 
+        </div>
+        <div class="col-md-4">
+            {{ form_row(form.sitioWeb, {'attr': {'class': 'form-control clienteTextBox '} }) }} 
+        </div>
+        <div class="col-md-4">
+            {{ form_row(form.datosCliente, {'attr': {'class': 'form-control clienteTextBox '} }) }} 
+        </div>
+        <div class="col-md-4">
+            {{ form_row(form.categoriaCliente, {'attr': {'class': 'form-control clienteSelect '} }) }} 
+        </div>
+        <div class="col-md-4">
+            {{ form_row(form.clientePotencial, {'attr': {'class': 'form-control clienteSelect '} }) }} 
+        </div>
+        <div class="col-md-4">
+            {{ form_row(form.territorio, {'attr': {'class': 'form-control clienteSelect '} }) }} 
+        </div>
+        <div class="col-md-4">
+            {{ form_row(form.tipo, {'attr': {'class': 'form-control clienteSelect '} }) }} 
+        </div>
+        
+     <input type="submit" value="Guardar" class="btn btn-success btn-sm" style="margin-top:10px; display: none;" id="submitInsertar" />
+    {{ form_end(form) }}
+</div>
+<hr>
+    
+    
+  
+{% endblock %}

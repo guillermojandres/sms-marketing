@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="InvAtributoPersonalizado" table="inv_atributo_personalizado">
+    <indexes>
+      <index name="fk_inv_atributo_personalizado_inv_producto_inv_idx" columns="inv_producto_id"/>
+      <index name="fk_inv_atributo_personalizado_inv_tipo_producto_idx" columns="inv_tipo_atributo_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nombre" type="string" column="nombre" length="100" nullable="false"/>
+    <field name="alias" type="string" column="alias" length="50" nullable="false"/>
+    <field name="valor" type="string" column="valor" length="50" nullable="false"/>
+    <field name="estado" type="boolean" column="estado" nullable="false"/>
+    <many-to-one field="invTipoAtributo" target-entity="InvTipoAtributo">
+      <join-columns>
+        <join-column name="inv_tipo_atributo_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="invProducto" target-entity="InvProducto">
+      <join-columns>
+        <join-column name="inv_producto_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

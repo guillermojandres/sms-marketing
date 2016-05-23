@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="RhOportunidadEmpleo" table="rh_oportunidad_empleo">
+    <indexes>
+      <index name="fk_rh_oportunidad_empleo_rh_puesto_perfil1_idx" columns="rh_puesto_perfil_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="tituloEmpleo" type="string" column="titulo_empleo" length="45" nullable="false"/>
+    <field name="estado" type="string" column="estado" length="45" nullable="false"/>
+    <field name="descripcion" type="string" column="descripcion" length="450" nullable="true"/>
+    <field name="publicar" type="boolean" column="publicar" nullable="true"/>
+    <many-to-one field="rhPuestoPerfil" target-entity="RhPuestoPerfil">
+      <join-columns>
+        <join-column name="rh_puesto_perfil_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

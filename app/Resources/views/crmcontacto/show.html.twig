@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>CrmContacto</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ crmContacto.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ crmContacto.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Apellido</th>
+                <td>{{ crmContacto.apellido }}</td>
+            </tr>
+            <tr>
+                <th>Telefono</th>
+                <td>{{ crmContacto.telefono }}</td>
+            </tr>
+            <tr>
+                <th>Emailid</th>
+                <td>{{ crmContacto.emailId }}</td>
+            </tr>
+            <tr>
+                <th>Numeromovil</th>
+                <td>{{ crmContacto.numeroMovil }}</td>
+            </tr>
+            <tr>
+                <th>Departamento</th>
+                <td>{{ crmContacto.departamento }}</td>
+            </tr>
+            <tr>
+                <th>Puesto</th>
+                <td>{{ crmContacto.puesto }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_contacto_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_contacto_edit', { 'id': crmContacto.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

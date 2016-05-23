@@ -1,0 +1,26 @@
+erp_admin:
+    resource: "@ERPAdminBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+erp_rrhh:
+    resource: "@ERPRrhhBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+erp_inventario:
+    resource: "@ERPInventarioBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+erpcrm: 
+    resource: "@ERPCRMBundle/Controller/" 
+    type:     annotation 
+    prefix:   /
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+# app/config/routing.yml
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

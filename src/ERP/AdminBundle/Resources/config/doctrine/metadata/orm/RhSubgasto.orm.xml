@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="RhSubgasto" table="rh_subgasto">
+    <indexes>
+      <index name="fk_sub_gastos_gastos1_idx" columns="rh_gastos_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id"/>
+    <id name="rhGastos" association-key="true"/>
+    <field name="fechaGasto" type="date" column="fecha_gasto" nullable="false"/>
+    <field name="importeReembolso" type="float" column="importe_reembolso" precision="10" scale="0" nullable="false"/>
+    <field name="descripcion" type="string" column="descripcion" length="350" nullable="true"/>
+    <field name="montoSancionado" type="float" column="monto_sancionado" precision="10" scale="0" nullable="true"/>
+    <field name="tipoGasto" type="string" column="tipo_gasto" length="45" nullable="false"/>
+    <one-to-one field="rhGastos" target-entity="RhGasto">
+      <join-columns>
+        <join-column name="rh_gastos_id" referenced-column-name="id"/>
+      </join-columns>
+    </one-to-one>
+  </entity>
+</doctrine-mapping>

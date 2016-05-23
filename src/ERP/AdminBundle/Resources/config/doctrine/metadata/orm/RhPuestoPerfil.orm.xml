@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="RhPuestoPerfil" table="rh_puesto_perfil">
+    <indexes>
+      <index name="fk_perfil_puesto_departamento_empresa1_idx" columns="ctl_departamento_empresa_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id"/>
+    <id name="ctlDepartamentoEmpresa" association-key="true"/>
+    <field name="profesion" type="string" column="profesion" length="45" nullable="false"/>
+    <field name="experiencia" type="integer" column="experiencia" nullable="false"/>
+    <field name="conocimientos" type="string" column="conocimientos" length="45" nullable="false"/>
+    <field name="habilidades" type="string" column="habilidades" length="45" nullable="false"/>
+    <field name="nombrePuesto" type="string" column="nombre_puesto" length="45" nullable="false"/>
+    <one-to-one field="ctlDepartamentoEmpresa" target-entity="CtlDepartamentoEmpresa">
+      <join-columns>
+        <join-column name="ctl_departamento_empresa_id" referenced-column-name="id"/>
+      </join-columns>
+    </one-to-one>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>CtlIndustriaCliente</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ ctlIndustriaCliente.id }}</td>
+            </tr>
+            <tr>
+                <th>Descripcion</th>
+                <td>{{ ctlIndustriaCliente.descripcion }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('industriacliente_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('industriacliente_edit', { 'id': ctlIndustriaCliente.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

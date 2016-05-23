@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>CtlSucursal</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ ctlSucursal.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombresucursal</th>
+                <td>{{ ctlSucursal.nombreSucursal }}</td>
+            </tr>
+            <tr>
+                <th>Telefonofijo</th>
+                <td>{{ ctlSucursal.telefonoFijo }}</td>
+            </tr>
+            <tr>
+                <th>Fax</th>
+                <td>{{ ctlSucursal.fax }}</td>
+            </tr>
+            <tr>
+                <th>Correoelectronico</th>
+                <td>{{ ctlSucursal.correoelectronico }}</td>
+            </tr>
+            <tr>
+                <th>Direccionsucursal</th>
+                <td>{{ ctlSucursal.direccionSucursal }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('ctlsucursal_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('ctlsucursal_edit', { 'id': ctlSucursal.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

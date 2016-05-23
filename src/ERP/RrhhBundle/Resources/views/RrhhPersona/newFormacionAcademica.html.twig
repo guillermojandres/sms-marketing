@@ -1,0 +1,164 @@
+<style type="text/css">
+.fila-base{ display: none; } /* fila base oculta */
+.eliminar{ cursor: pointer; color: #000; }
+.altura{ max-height:100px;}
+/*#ModalTamaño{
+  width: 35% !important;
+}*/
+</style>
+<script  type="text/javascript">
+       
+             jQuery(document).ready(function ($) {
+                var contenido, bootom;
+     
+            
+          $("#addFormacion").click( function()
+             {
+               $("#mbodyFormacionAcad").empty();
+                 $('#botom').empty(bootom);
+                    contenido = '<div class="row"><form role="form"><div class="form-column col-sm-6">';
+                    contenido += '<div class="form-group">';
+                    contenido += '<label for="fecha inicio">Escuela/Universidad</label>';
+                    contenido += '<input type="text" class="form-control" id="txtEscuela"';
+                    contenido += 'placeholder="Nombre del contacto" name="txtEscuela"></div>';
+                    contenido += '<div class="form-group">';
+                    contenido += '<label for="fecha inicio">Nivel</label>';
+                    contenido += '<select class="form-control" id="sNivel"><option>-- Seleccione Nivel --</option>\
+                                  <option>Estudiante</option>\
+                                  <option>Graduado</option>\
+                                  <option>Posgrado</option>\
+                                  </select></div>';
+                    contenido += '<div class="form-group">';
+                    contenido += '<label for="telefono">Año de graduacion</label>';
+                    contenido += '<input  type="number" name="txtAnio" min="1990" max="2050" class="form-control" id="txtAnio"';
+                    contenido += 'placeholder="Año de titulacion" ></div>';
+                    contenido += '<div class="form-group">';
+                    contenido += '<label for="fecha fin">Calificacion</label>';
+                    contenido += '<input type="text" class="form-control" id="txtCalificacion" ';
+                    contenido += 'placeholder="Calificacion" name="txtCalificacion"></div>';
+                    contenido += '<div class="form-group">';
+                    contenido += '<label for="fecha fin">Titulo</label>';
+                    contenido += '<input type="text" class="form-control" id="txtTitulo" ';
+                    contenido += 'placeholder="Titulo" name="txtTitulo"></div>';
+                    contenido += '</div></form></div>';
+                    bootom= '<input type="button" value="Agregar fila" style="margin-top:-8px;" class="btn btn-success btn-sm" onClick="agregarFila()"/>';
+                $('#mbodyFormacionAcad').append(contenido);
+                $('#botom').append(bootom);
+             $("#mFormacionAcademica").modal();
+           }
+    ); 
+                
+});
+
+    function agregarFila()
+     {
+       
+        var tds=$("#tabla tr:first th").length;
+         trs=$("#tabla tr").length-1;
+ 
+
+        var nuevaFila='<tr id="'+trs+'">';
+          formacion.push(trs);
+      
+         for(var i=0;i<tds;i++)
+         {
+            switch(i) 
+            {
+                      case 0:
+                             nuevaFila+='<td id="txtEscuela'+trs+'">'+$("#txtEscuela").val()+'</td>';
+                             formacion.push($("#txtEscuela").val());
+                              break;
+                      case 1:
+                             nuevaFila+='<td id="sNivel'+trs+'">'+$("#sNivel").val()+'</td>';
+                                  formacion.push($("#sNivel").val());
+                              break;
+                      case 2:
+                            nuevaFila += '<td id="txtAnio'+trs+'">' + $("#txtAnio").val() + '</td>';
+                            //  datosPersona={"txtAnio":$("#txtAnio").val()};
+                                  formacion.push($("#txtAnio").val());
+                                  
+                             break;
+                      case 3:
+                            nuevaFila += '<td id="txtCalificacion'+trs+'">' + $("#txtCalificacion").val() + '</td>';
+                            //  datosPersona={"txtCalificacion":$("#txtCalificacion").val()};
+                                  formacion.push($("#txtCalificacion").val());
+                             
+                             break;
+                      case 4:
+                            nuevaFila += '<td id="txtTitulo'+ trs+'">' + $("#txtTitulo").val() + '</td>';
+                           //     datosPersona={"txtTitulo":$("#txtTitulo").val()};
+                                  formacion.push($("#txtTitulo").val());
+                            break;
+                      case 5:
+                            nuevaFila += '<td id="'+i+'"><a onClick="eliminarFila('+trs+')"><i class="fa fa-trash-o fa-lg"></i></a> </td>';
+                      break;
+              }
+         }
+           
+        
+      datosFormacion.push(formacion);
+
+formacion=[];
+
+            nuevaFila+="</tr>";
+            $("#tabla").append(nuevaFila);
+             jQuery(document).ready(function ($) {
+            $('#mFormacionAcademica').modal('toggle');
+        });
+     }
+function eliminarFila(id,n)
+{   
+   $('#tabla tr#'+id).remove();
+   formacion.splice(id,1);
+   datosFormacion.splice(n,1);
+
+}
+ </script>
+ 
+<form role="form" class=" col-md-12">  
+       <br>
+       <div class="table-responsive ">
+    <table id="tabla" class="table table-bordered table-hover" style="font-size:13px;" align="center">
+	<!-- Cabecera de la tabla -->
+	<thead>
+		<tr align="center">
+			<th align="center">Escuela/universidad</th>
+			<th align="center">Nivel</th>
+			<th align="center">Año de gradución</th>
+                        <th align="center">Calificación</th>
+                        <th align="center">Titulo</th>
+			<th align="center">&nbsp;</th>
+		</tr>
+	</thead>
+ 
+	<!-- Cuerpo de la tabla con los campos -->
+         {%if ArrayPersona|default is not empty %}
+         <tbody style=" background-color: #FFF;" class="" id="trFormacion">
+            
+        </tbody>
+        {%else%}
+            <tbody style=" background-color: #FFF;" class="">
+
+	</tbody>
+        {%endif%}
+</table>     
+       </div>
+       <a href="#" id="addFormacion" class="btn btn-success btn-sm insertar">Agregar nueva fila</a>
+       <!-- Modal formacion academica-->
+       <div class="modal fade modal" id="mFormacionAcademica" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+           <div class="modal-dialog modal-lg" id="ModalTamaño">
+               <div class="modal-content">
+                   <div class="modal-header " Style="height:45px;">
+                       <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                       <span class="robo" style="font-weight: 300; margin-bottom: 0px; font-size: 20px;">Formación Academica</span> 
+                   </div>
+                   <div class="modal-body" id="mbodyFormacionAcad" ></div>
+                   <div class="modal-footer" id="botom" Style="height:45px;">
+                   </div>
+
+               </div>
+           </div> 
+       </div>
+   
+</form>
+   

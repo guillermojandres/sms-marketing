@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="FactFactura" table="fact_factura">
+    <indexes>
+      <index name="fact_fecha_idUsuario" columns="fact_fecha_idUsuario"/>
+      <index name="fact_idterminopago" columns="fact_idterminopago"/>
+      <index name="fat_id_estado_factura" columns="fat_id_estado_factura"/>
+      <index name="fk_fact_factura_crm_cliente_potencial1_idx" columns="crm_cliente_potencial_id"/>
+      <index name="fk_fact_factura_crm_cliente1_idx" columns="crm_cliente_id"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="correlativo" columns="correlativo"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="correlativo" type="integer" column="correlativo" nullable="false"/>
+    <field name="factFechaEmision" type="date" column="fact_fecha_emision" nullable="false"/>
+    <field name="factFechaPago" type="date" column="fact_fecha_pago" nullable="false"/>
+    <field name="factFechaInsercion" type="datetime" column="fact_fecha_insercion" nullable="false"/>
+    <field name="factFechaModificacion" type="datetime" column="fact_fecha_modificacion" nullable="false"/>
+    <field name="factIdterminopago" type="integer" column="fact_idterminopago" nullable="false"/>
+    <field name="factTerminosCondisiones" type="text" column="fact_terminos_condisiones" length="65535" nullable="false"/>
+    <field name="factNotaDestinatarios" type="text" column="fact_nota_destinatarios" length="65535" nullable="false"/>
+    <field name="factOtraNota" type="text" column="fact_otra_nota" length="65535" nullable="false"/>
+    <field name="factOtroArchivo" type="text" column="fact_otro_archivo" length="65535" nullable="false"/>
+    <field name="fatIdEstadoFactura" type="integer" column="fat_id_estado_factura" nullable="false"/>
+    <many-to-one field="crmClientePotencial" target-entity="CrmClientePotencial">
+      <join-columns>
+        <join-column name="crm_cliente_potencial_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="crmCliente" target-entity="CrmCliente">
+      <join-columns>
+        <join-column name="crm_cliente_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="factFechausuario" target-entity="Usuario">
+      <join-columns>
+        <join-column name="fact_fecha_idUsuario" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

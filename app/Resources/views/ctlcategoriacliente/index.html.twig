@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>CtlCategoriaCliente list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ctlCategoriaCliente in ctlCategoriaClientes %}
+            <tr>
+                <td><a href="{{ path('admin_categoriacliente_show', { 'id': ctlCategoriaCliente.id }) }}">{{ ctlCategoriaCliente.id }}</a></td>
+                <td>{{ ctlCategoriaCliente.nombre }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_categoriacliente_show', { 'id': ctlCategoriaCliente.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_categoriacliente_edit', { 'id': ctlCategoriaCliente.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_categoriacliente_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

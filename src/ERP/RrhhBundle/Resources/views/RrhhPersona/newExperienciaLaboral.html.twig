@@ -1,0 +1,217 @@
+<style type="text/css">
+.fila-base{ display: none; } /* fila base oculta */
+.eliminar{ cursor: pointer; color: #000; }
+.altura{ max-height:100px;}
+</style>
+  <!-- Calendar -->
+                    <link rel="stylesheet" href="{{ asset('Resources/zebra/css/bootstrap.css') }}">
+                    <script type="text/javascript" src="{{ asset('Resources/zebra/js/zebra_datepicker.js')}}" ></script>
+<script  type="text/javascript">
+          
+            $(document).on('ready',function(){
+               
+      
+                
+           });
+             jQuery(document).ready(function ($) {
+                var contenido, bootom;
+                
+                
+                
+                
+          $("#addExperiencia").click( function()
+             {
+                
+               $("#mbodyExperiencia").empty();
+                 $('#botomExperiencia').empty(bootom);
+                 
+                    contenido = '<div class="row"><form role="form"><div class="form-column col-sm-6">';
+                    contenido += '<div class="form-group">';
+                    contenido += '<label for="fecha inicio">Compañía</label>';
+                    contenido += '<input type="text" class="form-control" id="txtCompania"';
+                    contenido += 'placeholder="Nombre de la Compañía" name="txtCompania"></div>';
+                    contenido += '<div class="form-group">';
+                    contenido += '<label for="fecha inicio">Puesto</label>';
+                    contenido += '<input type="text" class="form-control" id="txtPuesto"';
+                    contenido += 'placeholder="Nombre del puesto" name="txtPuesto"></div>';
+                    contenido += '<div class="form-group">';
+                    contenido += '<label for="telefono">Salario</label>';
+                    contenido += '<input  type="number" name="txtSalario" class="form-control" id="txtSalario"';
+                    contenido += 'placeholder="Salario" ></div>';
+                    contenido += '<div class="form-group">';
+                    contenido += '<label for="fecha fin">Contacto</label>';
+                    contenido += '<input type="text" class="form-control" id="txtContacto" ';
+                    contenido += 'placeholder="Nombre del contacto" name="txtContacto"></div>';
+                     contenido += '<div class="form-group">';
+                    contenido += '<label for="telefono">Telefono</label>';
+                    contenido += '<input type="text" class="form-control" id="txtTelefonoContacto"';
+                    contenido += 'placeholder="Telefono de contacto" name="txtTelefonoContacto"></div>';
+                    contenido += '</div>';
+                    
+                    contenido += '<div class="form-column col-sm-4">';
+                    contenido += '<div class="form-group">';
+                    contenido += '<label for="fecha fin">Fecha inicio</label>';
+                    contenido += '<input type="text" class="form-control txtFechaIniTrabajo" id="txtFechaIniTrabajo" ';
+                    contenido += 'placeholder="Fecha inicio de trabajo" name="txtFechaIniTrabajo"></div>';
+                    
+                    contenido += '<div class="form-group">';
+                    contenido += '<label for="fecha fin">Fecha fin</label>';
+                    contenido += '<input type="text" class="form-control" id="txtFechaFinTrabajo" ';
+                    contenido += 'placeholder="Fecha fin de trabajo" name="txtFechaFinTrabajo">';
+                    contenido += '</div>';
+                    
+                    contenido += '</div> </form></div>';
+                    bootom= '<input type="button" value="Agregar fila" style="margin-top:-8px;" class="btn btn-success btn-sm" onClick="agregarFilaExperiencia()"/>';
+                    
+                $('#mbodyExperiencia').append(contenido);
+                $('#botomExperiencia').append(bootom);
+             $("#mExperiencia").modal();
+                            // Fechas de trabajo en experiencia laboral
+                                $("#txtTelefonoContacto").mask("9999-9999");
+                      $('#txtFechaIniTrabajo').Zebra_DatePicker({
+                            months:['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                            days: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                            format: 'd-m-Y',
+                            direction:false,
+                            show_clear_date:false,
+                            show_select_today: "Hoy",
+                              pair: $('#txtFechaFinTrabajo'),
+                        });
+              $('#txtFechaFinTrabajo').Zebra_DatePicker({
+                            months:['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                            days: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                            format: 'd-m-Y',
+                             direction:true,
+                            show_clear_date:false,
+                            show_select_today: "Hoy",
+                         
+                        });
+           }
+    ); 
+});
+
+    function agregarFilaExperiencia()
+     {
+       
+        var tds=$("#tExperiencia tr:first th").length;
+         trs=$("#tExperiencia tr").length-1;
+ 
+
+        var nuevaFila='<tr id="'+trs+'">';
+          experiencia.push(trs);
+      
+         for(var i=0;i<tds;i++)
+         {
+            switch(i) 
+            {
+                      case 0:
+                             nuevaFila+='<td id="txtCompania'+trs+'">'+$("#txtCompania").val()+'</td>';
+                             experiencia.push($("#txtCompania").val());
+                              break;
+                      case 1:
+                             nuevaFila+='<td id="txtPuesto'+trs+'">'+$("#txtPuesto").val()+'</td>';
+                                  experiencia.push($("#txtPuesto").val());
+                              break;
+                      case 2:
+                            nuevaFila += '<td id="txtSalario'+trs+'">' + $("#txtSalario").val() + '</td>';
+                            //  datosPersona={"txtAnio":$("#txtAnio").val()};
+                                  experiencia.push($("#txtSalario").val());
+                                  
+                             break;
+                      case 3:
+                            nuevaFila += '<td id="txtContacto'+trs+'">' + $("#txtContacto").val() + '</td>';
+                            //  datosPersona={"txtCalificacion":$("#txtCalificacion").val()};
+                                  experiencia.push($("#txtContacto").val());
+                             
+                             break;
+                      case 4:
+                            nuevaFila += '<td id="txtTelefonoContacto'+ trs+'">' + $("#txtTelefonoContacto").val() + '</td>';
+                           //     datosPersona={"txtTitulo":$("#txtTitulo").val()};
+                                  experiencia.push($("#txtTelefonoContacto").val());
+                            break;
+                      case 5:
+                            nuevaFila += '<td id="txtFechaIniTrabajo'+ trs+'">' + $("#txtFechaIniTrabajo").val() + '</td>';
+                           //     datosPersona={"txtTitulo":$("#txtTitulo").val()};
+                                  experiencia.push($("#txtFechaIniTrabajo").val());
+                            break;
+                      case 6:
+                            nuevaFila += '<td id="txtFechaFinTrabajo'+ trs+'">' + $("#txtFechaFinTrabajo").val() + '</td>';
+                           //     datosPersona={"txtTitulo":$("#txtTitulo").val()};
+                                  experiencia.push($("#txtFechaFinTrabajo").val());
+                            break;
+                      
+                      case 7:
+                            nuevaFila += '<td id="'+i+'"><a onClick="eliminarFilaExperiencia('+trs+')"><i class="fa fa-trash-o fa-lg"></i></a> </td>';
+                      break;
+              }
+         }
+           
+        
+      datosExperiencia.push(experiencia);
+
+experiencia=[];
+
+            nuevaFila+="</tr>";
+            $("#tExperiencia").append(nuevaFila);
+             jQuery(document).ready(function ($) {
+            $('#mExperiencia').modal('toggle');
+        });
+     }
+function eliminarFilaExperiencia(id,m)
+{   
+   $('#tExperiencia tr#'+id).remove();
+   experiencia.splice(id,1);
+   datosExperiencia.splice(m,1);
+   console.log(id);
+   console.log( experiencia);
+   console.log(datosExperiencia);
+}
+ </script>
+<form role="form"  class=" col-md-12">  
+    <br>
+       <div class="table-responsive ">
+    <table id="tExperiencia" class="table table-bordered table-hover" style="font-size:13px;" align="center">
+<!-- Cabecera de la tabla -->
+	<thead >
+		<tr align="center">
+			<th align="center">Compañía</th>
+			<th align="center">Puesto</th>
+			<th align="center">Salario</th>
+                        <th align="center">Contacto</th>
+                        <th align="center">Telefono</th>
+                        <th align="center">Fecha inicio</th>
+                        <th align="center">Fecha Fin</th>
+			<th align="center">&nbsp;</th>
+		</tr>
+	</thead>
+ 
+	<!-- Cuerpo de la tabla con los campos -->
+	<tbody style=" background-color: #FFF;" id="trExperiencia">
+
+	</tbody>
+</table>
+  <a href="#" id="addExperiencia" class="btn btn-success btn-sm insertar">Agregar nueva fila</a>
+
+
+   <!-- Modal Experiencia-->
+                <div class="modal fade modal" id="mExperiencia" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header " Style="height:45px;">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                                <span class="robo" style="font-size: 20px;">Experiencia laboral</span> 
+                            </div>
+                            <div class="modal-body" id="mbodyExperiencia" >
+                              
+                                    
+                             
+                            </div>
+                            <div class="modal-footer" id="botomExperiencia" Style="height:45px;">
+                            </div>
+
+                        </div>
+                    </div> 
+                     </div>
+    </div>
+</form>
+

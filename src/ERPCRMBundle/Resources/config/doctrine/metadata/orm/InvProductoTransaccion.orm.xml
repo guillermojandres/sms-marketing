@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="InvProductoTransaccion" table="inv_producto_transaccion">
+    <indexes>
+      <index name="fk_inv_producto_transaccion_inv_producto1_idx" columns="inv_producto_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="fecha" type="string" column="fecha" length="45" nullable="true"/>
+    <field name="cantidad" type="string" column="cantidad" length="45" nullable="true"/>
+    <field name="tipoTransaccion" type="text" column="tipo_transaccion" length="255" nullable="true"/>
+    <field name="productoId" type="integer" column="producto_id" nullable="true"/>
+    <many-to-one field="invProducto" target-entity="InvProducto">
+      <join-columns>
+        <join-column name="inv_producto_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
