@@ -66,8 +66,8 @@
  <div class="row">
  {% block descripcion %}
 			<div class="col-md-8">
-				<p class="robo" style="font-weight: 300; margin-bottom: 0px; font-size: 30px;">Cliente </p>
-                                <p class="robo" style="font-weight: 300; font-size: 14px; height: 40px;">Gesti&oacute;n  de clientes </p>
+				<p class="robo" style="font-weight: 300; margin-bottom: 0px; font-size: 30px;">Cliente Distribuidores</p>
+                                <p class="robo" style="font-weight: 300; font-size: 14px; height: 40px;">Gesti&oacute;n  de clientes distribuidores</p>
 			</div>
  {% endblock%}
  {% block acciones %}
@@ -173,9 +173,9 @@
                 
                 <th><input type="checkbox" name="select_all" id="select_all"></th>
                 <th>Nombre</th>
-                <th>Datos del cliente</th>
-                <th>Categoria</th>
-                <th>Sitio Web</th>
+                <th>Porcentaje</th>
+                <th>Credito</th>
+             
                
                
                 {#<th>Actions</th>#}
@@ -227,15 +227,15 @@ var numero_edicion =0;
                     "processing": true,
                     "serverSide": true,
                     "ajax": {
-                        "url": '{{path('cliente_data')}}',
+                        "url": '{{path('cliente_distribuidores_data')}}',
                         "type": 'GET'
                     },
                     "columns": [
                          { "data":"link" },
                          { "data":"nombreCompleto" },
-                         {"data":"datosCliente"},
-                         {"data":"nombrecat"},
-                         {"data":"sitioWeb"}
+                         {"data":"porcentaje"},
+                         {"data":"credito"}
+                    
                         
                          
               
@@ -583,7 +583,7 @@ var numero_edicion =0;
             //Primer Each me sirve para recorrer todos los text
             campos.push(numero_edicion);
              $(".clienteTextBoxEdit").each(function(k, va) {
-                    var cadena = $(this).siblings().html() +"="+$(this).val();
+               
                     campos.push($(this).val());
              });
              
@@ -592,6 +592,9 @@ var numero_edicion =0;
                     
                     campos.push($(this).val());
              });
+             
+             var dato= $("input[name='crm_cliente[credito]']:checked").val();
+            campos.push(dato);
              
              data.push(campos);
              console.log(data);  

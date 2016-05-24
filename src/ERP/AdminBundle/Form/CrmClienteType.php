@@ -27,10 +27,24 @@ class CrmClienteType extends AbstractType
             ->add('datosCliente', null ,array('label'=>'Otros Datos '))
             ->add('sitioWeb', null ,array('label'=>' Sitio Web '))
             ->add('nombreCompleto', null ,array('label'=>' Nombre completo '))
+                
+//            ->add('categoriaCliente', null ,array('label'=>' Categoria de cliente '))
+                
+                       
             ->add('categoriaCliente', null ,array('label'=>' Categoria de cliente '))
+                  ->add('categoriaCliente','entity', array( 'label' => 'Categoria de cliente','required'=>true,
+                         'empty_value'   => 'Seleccione una categoria del cliente...',
+                         'class'         => 'ERPAdminBundle:CtlCategoriaCliente',
+                         'query_builder' => function(EntityRepository $repository) {
+                                                return $repository->obtenerNombreActivo();
+                                             }, 
+                         'attr'=>array(
+                         'class'=>'form-control input-sm busqueda'
+                         )
+                       ))     
+                
             ->add('clientePotencial', null ,array('label'=>' Desde cliente potencial '))
-                
-                
+            
                 
                 
                 
@@ -41,11 +55,22 @@ class CrmClienteType extends AbstractType
                          'class'         => 'ERPAdminBundle:CtlTerritorio',
                          'query_builder' => function(EntityRepository $repository) {
                                                 return $repository->obtenerNombreActivo();
-                                             },  
+                                             }, 
                          'attr'=>array(
                          'class'=>'form-control input-sm busqueda'
                          )
                        ))     
+                 ->add('porcentaje', null ,array('label'=>' Porcentaje Descuento'))   
+               
+              ->add('credito', 'choice', array(
+                    'label'=> 'Acceso a credito',
+                    'choices'  => array('0' => 'No ', '1' => ' Si '),
+                    'multiple' => false,
+                    'expanded'=>'true',
+                  
+                   
+                 
+                ))
 
                                                      
         ;

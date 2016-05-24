@@ -29,6 +29,12 @@
         <div class="col-md-4">
             {{ form_row(edit_form.tipo, {'attr': {'class': 'form-control clienteSelectEdit '} }) }} 
         </div>
+         <div class="col-md-4" id="idPorcentaje">
+            {{ form_row(edit_form.porcentaje, {'attr': {'class': 'form-control clienteTextBoxEdit  '} }) }} 
+        </div>
+        <div class="col-md-4" id="idCredito">
+            {{ form_row(edit_form.credito, {'attr': {'class': 'checkbox clienteCheckbox'} }) }} 
+        </div>
  
     {{ form_end(edit_form) }}
 </div>

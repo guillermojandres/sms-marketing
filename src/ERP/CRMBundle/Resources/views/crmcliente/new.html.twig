@@ -14,7 +14,7 @@
             {{ form_row(form.datosCliente, {'attr': {'class': 'form-control clienteTextBox '} }) }} 
         </div>
         <div class="col-md-4">
-            {{ form_row(form.categoriaCliente, {'attr': {'class': 'form-control clienteSelect '} }) }} 
+            {{ form_row(form.categoriaCliente, {'attr': {'class': 'form-control clienteSelect tipoC'} }) }} 
         </div>
         <div class="col-md-4">
             {{ form_row(form.clientePotencial, {'attr': {'class': 'form-control clienteSelect '} }) }} 
@@ -23,7 +23,13 @@
             {{ form_row(form.territorio, {'attr': {'class': 'form-control clienteSelect '} }) }} 
         </div>
         <div class="col-md-4">
-            {{ form_row(form.tipo, {'attr': {'class': 'form-control clienteSelect '} }) }} 
+            {{ form_row(form.tipo, {'attr': {'class': 'form-control clienteSelect'} }) }} 
+        </div>
+        <div class="col-md-4" id="idPorcentaje">
+            {{ form_row(form.porcentaje, {'attr': {'class': 'form-control clienteTextBox  '} }) }} 
+        </div>
+        <div class="col-md-4" id="idCredito">
+            {{ form_row(form.credito, {'attr': {'class': 'checkbox clienteCheckbox'} }) }} 
         </div>
         
      <input type="submit" value="Guardar" class="btn btn-success btn-sm" style="margin-top:10px; display: none;" id="submitInsertar" />

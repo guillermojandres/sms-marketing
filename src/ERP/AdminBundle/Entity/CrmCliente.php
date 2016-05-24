@@ -85,7 +85,20 @@ class CrmCliente
      * @ORM\Column(name="estado", type="integer", nullable=false) 
      */
     private $estado;
-
+    
+     /**
+     * @var integer
+     * @ORM\Column(name="porcentaje", type="float", nullable=false) 
+     */
+    private $porcentaje;
+    
+    
+    /**
+     * @var integer
+     * @ORM\Column(name="credito", type="integer", nullable=false) 
+     */
+    private $credito;
+    
 
 
     /**
@@ -290,6 +303,54 @@ class CrmCliente
         
          return $this->nombreCompleto;
     }  
+    
+    
+     /**
+     * Set porcentaje
+     *
+     * @param float $porcentaje
+     * @return CrmCliente
+     */
+    public function setPorcentaje($porcentaje)
+    {
+        $this->porcentaje = $porcentaje;
+
+        return $this;
+    }
+
+    /**
+     * Get porcentaje
+     *
+     * @return float 
+     */
+    public function getPorcentaje()
+    {
+        return $this->porcentaje;
+    }
+    
+    
+     /**
+     * Set credito
+     *
+     * @param integer $credito
+     * @return CrmCliente
+     */
+    public function setCredito($credito)
+    {
+        $this->credito = $credito;
+
+        return $this;
+    }
+
+    /**
+     * Get estado
+     *
+     * @return integer 
+     */
+    public function getCredito()
+    {
+        return $this->credito;
+    }
     
     
     
