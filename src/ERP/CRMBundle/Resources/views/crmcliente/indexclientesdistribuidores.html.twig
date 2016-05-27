@@ -59,15 +59,28 @@
         }
 
     </style>
+      <link rel="stylesheet" href="{{ asset('Resources/select2/dist/css/select2.css')}}">
+          <link rel="stylesheet" href="{{ asset('Resources/sweetalert-master/dist/sweetalert.css')}}"> 
 {% endblock css%}
+{% block js %}
+       {{parent()}}
+       <script src="{{ asset('Resources/sweetalert-master/dist/sweetalert.min.js') }}"></script>
+       <script src="{{ asset('Resources/select2/dist/js/select2.js') }}"></script>   
+       <script src="{{ asset('Resources/js/distribuidores/distribuidores.js')}}" ></script>  
+       <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+    
+    
+{% endblock %}
 {% block descripcion_y_acciones %}
 
     
  <div class="row">
  {% block descripcion %}
 			<div class="col-md-8">
+                            <input type="hidden" id="idDistribuidor">
 				<p class="robo" style="font-weight: 300; margin-bottom: 0px; font-size: 30px;">Cliente Distribuidores</p>
-                                <p class="robo" style="font-weight: 300; font-size: 14px; height: 40px;">Gesti&oacute;n  de clientes distribuidores</p>
+                                <p class="robo" style="font-weight: 300; font-size: 14px; height: 40px;">Gesti&oacute;n  de clientes distribuidores.<br>Selecciona a tus clientes para ver  las distintas opciones</p>
+                                   
 			</div>
  {% endblock%}
  {% block acciones %}
@@ -79,10 +92,10 @@
 				</div>
                                 <div class="btn-group pull-right">
                                     <button class="btn btn-primary  btn-sm " style="margin-left: 5px;" id="guardarModificacion">Guardar</button>
-				</div>
-                                
+                                </div>
+
 				<div class="btn-group pull-right">
-                                    <button class="btn btn-default btn-sm" style="margin-left: 5px;" id="cancelarModificacion">Cancelar</button>
+                                                                        <button class="btn btn-default btn-sm" style="margin-left: 5px;" id="cancelarModificacion">Cancelar</button>
 				</div>
                                 
                                 
@@ -93,37 +106,27 @@
 
 				<!-- Boton Ingreso -->
 				<div class="btn-group pull-right">
-                                    <button class="btn btn-primary btn-sm insertar" style="margin-left: 5px;" id="insertar">Nuevo</button>
+                                                                    <button class="btn btn-primary btn-sm insertar" style="margin-left: 5px;" id="insertar">Nuevo Cliente</button>
+				</div>
+                                                                <div class="btn-group pull-left">
+                                                                    <button class="btn btn-primary btn-sm nuevoRegistroCompra" style="margin-left: -30px;" id="nuevoRC" title="Nuevo Registro de compra">Nuevo Registro Compra</button>
+				</div>
+                                                                <div class="btn-group pull-right">
+                                                                        <button class="btn btn-default btn-sm cancelarRC" style="margin-left: 5px;" id="cancelarRC">Cancelar Registro</button>
 				</div>
 
 				<div class="btn-group pull-right">
-                                    <button class="btn btn-primary  btn-sm guardar" style="margin-left: 5px;" id="guardar">Guardar</button>
+                                                                    <button class="btn btn-primary  btn-sm guardar" style="margin-left: 5px;" id="guardar">Guardar</button>
 				</div>
 
 				<div class="btn-group pull-right">
-                                    <button class="btn btn-default btn-sm cancelar" style="margin-left: 5px;" id="cancelar">Cancelar</button>
+                                                                        <button class="btn btn-default btn-sm cancelar" style="margin-left: 5px;" id="cancelar">Cancelar</button>
 				</div>
                                 <!-- Botones del ingreso -->
                                 
                                 
 				<!-- Boton con Dropdown -->
-				<div class="btn-group pull-right" >
-                                    <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  id="acciones">
-				    Menu <span class="caret"></span>
-				  </button>
-				  <ul class="dropdown-menu">
-				    <li>
-				    	<a href="#">Action</a>
-				    </li>
-				    <li>
-				    	<a href="#">Action</a>
-				    </li>
-				    <li>
-				    	<a href="#">Action</a>
-				    </li>
-				  </ul>
-				</div> 
-				<!-- Small button -->
+				
 			</div>
      
  {% endblock %}
@@ -150,7 +153,8 @@
 
 {% block cuerpo %}
     
-    <div class="col-md-10">
+    <div class="col-md-10" id="contenidoIndexDistribuidores">
+        <div id="datadistribuidores">
         <div class="col-md-12" id="formularioInsercion" style="margin-bottom: 40px;" >
       {% include 'ERPCRMBundle:crmcliente:new.html.twig' %}
             
@@ -165,7 +169,7 @@
        
               
               
-              <div >
+     
       
             <table id="lista_cliente" class="table table-bordered table-hover display dt-responsive dataTable no-footer" style="width: 99%;">
         <thead>
@@ -201,10 +205,72 @@
         </tbody>#}
         
     </table>
-    </div>
-   </div>
-    
-    
+    </div>    
+
+        <div class="clearfix"></div>
+       
+
+           
+             
+      <div class="row"  style="margin-top: 10px;">
+       
+             <div id="contenidoFormularioRegistroCompra">
+                 <div class="form-column col-md-3"><div class="form-group" style="margin-right: 2%;" >
+                         <label for="nombreCliente" class="control-label">Nombre Cliente</label>
+                         <input type="text" class="form-control cle" id="nombreCliente"  name="nombreCliente"  readonly>
+                     </div>
+                 </div>
+                 <div class="form-column col-md-3" style="padding-top: 0%;">
+                     <div class="form-group">
+                         <label for="fechaRC" class="control-label">Fecha</label></br>
+                         <input type="text" name="fechaRC" id="fechaRC"  required class="form-control">
+
+                     </div>
+                 </div>
+                 <div class="form-column col-md-3"><div class="form-group" style="margin-right: 2%;" >
+                         <label for="tipoEstado" class="control-label">Tipo de pago</label>
+                         <select name="tipoEstado" id="tipoEstado" style="width: 100%" class="form-control" required>
+                            <option value="2">Entregado</option>
+                             <option value="1">Procesado</option>
+                         </select>
+                     </div>
+                 </div>
+                  <div class="form-column col-md-3"><div class="form-group" style="margin-right: 2%;" >
+                         <label for="costo" class="control-label">Estado</label>
+                         <select name="tipoPago" id="tipoPago" style="width: 100%" class="form-control" required>
+                             <option value="Efectivo">Efectivo</option>
+                             <option value="Credito">Credito</option>
+                                
+                         </select>
+                     </div>
+                 </div>
+                 <div class="clearfix"></div>
+                 <div style="margin-bottom: 10px;margin-top: 10px;margin-left: 10px;" class="col-md-2">
+                     <img src="{{ asset('Resources/src/img/add.png') }}" title="Nuevo" class="addCompraProducto">
+                     <b class="addDatosMantenimiento">Agregar detalle</b><br><br>
+                </div>
+                <div class="col-md-10"></div>
+                
+             </div>
+                     <div class="form-column col-md-4" id="botonesInsercion">
+                       
+                             <div class="btn-group">
+                                 <a class="btn btn-default  btn-sm " style="margin-left: 0px;margin-top: 35px;" id="cancelarInsercionRC">Cancelar</a>
+                             </div>
+                             <div class="btn-group">
+                                 <button class="btn btn-primary  btn-sm " style="margin-left: 0px;margin-top: 35px;" id="guardarInsercionRC">Guardar</button>
+                             </div>                                                                              
+                         
+                     </div>
+                     <div class="col-md-4"></div>
+                     <div class="col-md-4">
+                         <div class="btn-group totalRC">
+                             <label for="totalRC" class="control-label totalRC" >Total</label>
+                             <input type="text" class="form-control cle" id="totalRC"  name="totalRC"  placeholder="$ " readonly>
+                         </div>
+                     </div>
+        </div>
+        </div> 
     
     
     
@@ -284,6 +350,8 @@ var numero_edicion =0;
          
          $(".guardar").hide();
          $(".cancelar").hide();
+         
+             $(".cancelarRC").hide();
          
           $("#guardarModificacion").hide();
          $("#cancelarModificacion").hide();
@@ -666,33 +734,20 @@ var numero_edicion =0;
     $(document).on('change',".tipoC", function() {
     
             var valor =$(this).val();
-           if(valor==3){
-                 $("#idPorcentaje").show();
-               $("#idCredito").show();
+     
+           if(valor==10){
+                 $(".idPorcentaje").show();
+               $(".idCredito").show();
               
            }else{
-                  $("#idPorcentaje").hide();
-               $("#idCredito").hide();
+                  $(".idPorcentaje").hide();
+               $(".idCredito").hide();
                
            }
            
     
     
     });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

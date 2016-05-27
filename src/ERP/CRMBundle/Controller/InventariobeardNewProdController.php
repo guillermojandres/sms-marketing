@@ -151,4 +151,45 @@ class InventariobeardNewProdController extends Controller
         //return $this->render('ERPCRMBundle:inventariobeard:newprod.html.twig', array('categoriaproducto'=>$catprod));
         return $this->render('ERPCRMBundle:inventariobeard:dashboard.html.twig');
     }
+    
+    
+    
+      /**
+    * Ajax utilizado para buscar informacion de abogados
+    * 
+    * @Route("/buscarProducto", name="buscarProducto",options={"expose"=true})
+    */
+    public function BuscarProyectoAction(Request $request)
+    {
+        $busqueda = $request->query->get('q');
+        $page = $request->query->get('page');
+       
+        $em = $this->getDoctrine()->getEntityManager();
+        $dql = "SELECT abo.id abogadoid, abo.nombre  "
+                        . "FROM ERPAdminBundle:BeardProducto abo "
+                        . "WHERE upper(abo.nombre) LIKE upper(:busqueda)"
+                        . " ORDER BY abo.nombre ASC ";
+       
+        $abogado['data'] = $em->createQuery($dql)
+                ->setParameters(array('busqueda'=>"%".$busqueda."%"))
+                ->setMaxResults( 10 )
+                ->getResult();
+       
+        return new Response(json_encode($abogado));
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

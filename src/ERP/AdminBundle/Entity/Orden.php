@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Orden
  *
- * @ORM\Table(name="orden", indexes={@ORM\Index(name="fk_orden_crm_cliente1", columns={"crm_cliente_id"})})
+ * @ORM\Table(name="orden", indexes={@ORM\Index(name="fk_orden_encabezado_orden1", columns={"encabezado_orden_id"}), @ORM\Index(name="fk_producto_orden1", columns={"id_producto"})})
  * @ORM\Entity
  */
 class Orden
@@ -33,9 +33,18 @@ class Orden
      /**
      * @var decimal
      *
-     * @ORM\Column(name="precio", type="decimal", nullable=false)
+     * @ORM\Column(name="precio", type="float", nullable=false)
      */
     private $precio;
+    
+    
+     
+     /**
+     * @var decimal
+     *
+     * @ORM\Column(name="descuento", type="float", nullable=false)
+     */
+    private $descuento;
     
      /**
      * @var integer
@@ -46,9 +55,9 @@ class Orden
     
     
      /**
-     * @var tinyint
+     * @var integer
      *
-     * @ORM\Column(name="estado", type="tinyint", nullable=false)
+     * @ORM\Column(name="estado", type="integer", nullable=false)
      */
     private $estado;
     
@@ -89,15 +98,35 @@ class Orden
      */
     private $fechaRegistro;
 
-    /**
-     * @var \CrmCliente
+  /**
+     * @var \EncabezadoOrden
      *
-     * @ORM\ManyToOne(targetEntity="CrmCliente")
+     * @ORM\ManyToOne(targetEntity="EncabezadoOrden")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="crm_cliente_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="encabezado_orden_id", referencedColumnName="id")
      * })
      */
-    private $crmClienteId;
+    private $encabezadoOrdenId;
+    
+   
+    
+     /**
+     * @var \BeardProducto
+     *
+     * @ORM\ManyToOne(targetEntity="BeardProducto")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_producto", referencedColumnName="id")
+     * })
+     */
+    private $productoId;
+    
+   
+    
+    
+    
+    
+    
+    
 
     
     /**
@@ -109,28 +138,34 @@ class Orden
         return $this->id;
     }
 
+   
     /**
-     * Set CrmCliente
+     * Set encabezadoOrdenId
      *
-     * @param \ERP\AdminBundle\Entity\CrmCliente $crmCliente
-     * @return Orden
+     * @param \ERP\AdminBundle\Entity\EncabezadoOrden $encabezadoOrdenId
+     * @return EncabezadoOrden
      */
-    public function setCrmCliente(\ERP\AdminBundle\Entity\CrmCliente  $crmClienteId = null)
+    public function setEncabezadoOrden(\ERP\AdminBundle\Entity\EncabezadoOrden  $encabezadoOrdenId = null)
     {
-        $this->crmClienteId = $crmClienteId;
+        $this->encabezadoOrdenId = $encabezadoOrdenId;
 
         return $this;
     }
 
     /**
-     * Get CrmCliente
+     * Get encabezadoOrdenId
      *
-     * @return \ERP\AdminBundle\Entity\CrmCliente $crmCliente
+     * @return \ERP\AdminBundle\Entity\EncabezadoOrden $encabezadoOrdenId
      */
-    public function getCrmClienteId()
+    public function getEncabezadoOrden()
     {
-        return $this->crmClienteId;
-    }
+        return $this->encabezadoOrdenId;
+    }  
+    
+    
+    
+    
+    
    
     /**
      * Set estado
@@ -148,7 +183,7 @@ class Orden
     /**
      * Get estado
      *
-     * @return tinyint 
+     * @return integer 
      */
     public function getEstado()
     {
@@ -344,6 +379,53 @@ class Orden
         return $this->fechaRegistro;
     }
     
+     /**
+     * Set descuento
+     *
+     * @param decimal $descuento
+     * @return Orden
+     */
+    public function setDescuento($descuento)
+    {
+        $this->descuento = $descuento;
+
+        return $this;
+    }
+
+    /**
+     * Get descuento
+     *
+     * @return decimal 
+     */
+    public function getDescuento()
+    {
+        return $this->descuento;
+    }
+    
+    
+    
+     /**
+     * Set productoId
+     *
+     * @param \ERP\AdminBundle\Entity\BeardProducto $productoId
+     * @return BeardProducto
+     */
+    public function setProductoId(\ERP\AdminBundle\Entity\BeardProducto  $productoId = null)
+    {
+        $this->productoId = $productoId;
+
+        return $this;
+    }
+
+    /**
+     * Get productoId
+     *
+     * @return \ERP\AdminBundle\Entity\BeardProducto $productoId
+     */
+    public function getProductoId()
+    {
+        return $this->productoId;
+    }  
     
     
     

@@ -24,7 +24,7 @@ class CrmClienteType extends AbstractType
                     'expanded'=>false   ))
                 
                 
-            ->add('datosCliente', null ,array('label'=>'Otros Datos '))
+            ->add('datosCliente', null ,array('label'=>'Direccion'))
             ->add('sitioWeb', null ,array('label'=>' Sitio Web '))
             ->add('nombreCompleto', null ,array('label'=>' Nombre completo '))
                 

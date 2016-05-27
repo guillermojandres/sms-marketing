@@ -26,10 +26,10 @@
             {{ form_row(form.tipo, {'attr': {'class': 'form-control clienteSelect'} }) }} 
         </div>
         <div class="col-md-4" id="idPorcentaje">
-            {{ form_row(form.porcentaje, {'attr': {'class': 'form-control clienteTextBox  '} }) }} 
+            {{ form_row(form.porcentaje, {'attr': {'class': 'form-control clienteTextBox  idPorcentaje'} }) }} 
         </div>
         <div class="col-md-4" id="idCredito">
-            {{ form_row(form.credito, {'attr': {'class': 'checkbox clienteCheckbox'} }) }} 
+            {{ form_row(form.credito, {'attr': {'class': 'checkbox clienteCheckbox idCredito'} }) }} 
         </div>
         
      <input type="submit" value="Guardar" class="btn btn-success btn-sm" style="margin-top:10px; display: none;" id="submitInsertar" />

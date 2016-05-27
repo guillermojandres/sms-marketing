@@ -173,7 +173,7 @@
                 
                 <th><input type="checkbox" name="select_all" id="select_all"></th>
                 <th>Nombre</th>
-                <th>Datos del cliente</th>
+                <th>Direccion</th>
                 <th>Categoria</th>
                 <th>Sitio Web</th>
                
@@ -592,10 +592,12 @@ var numero_edicion =0;
                     
                     campos.push($(this).val());
              });
-             
-             data.push(campos);
-             console.log(data);  
-                    
+            var dato= $("input[name='crm_cliente[credito]']:checked").val();
+             campos.push(dato);
+
+              data.push(campos);
+              console.log(data);  
+
             var request2 = {
                     request : campos
                 };
@@ -663,7 +665,10 @@ var numero_edicion =0;
     $(document).on('change',".tipoC", function() {
     
             var valor =$(this).val();
-           if(valor==3){
+            
+         
+           if(valor==10){
+             
                  $("#idPorcentaje").show();
                $("#idCredito").show();
               
