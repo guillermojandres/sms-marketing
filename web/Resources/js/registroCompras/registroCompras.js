@@ -1,8 +1,10 @@
  $(document).ready(function(){
    var correlativoEdicion=0;
    var correlativo=0;  
+   
+    var x=0;
      
-     
+      $("#comprasVistaDetalle").hide();     
    $("#botonesInsercion").hide();
    $("#botonesInsercionE").hide();
    $(".totalRCEL").hide();
@@ -19,7 +21,7 @@ $('#fechaRCE').Zebra_DatePicker({
 });
 
      
-     $("#contenidoVerMasDetalles").hide();
+//     $("#contenidoVerMasDetalles").hide();
      $("#tipoEstado").select2();
      $("#tipoPago").select2();
      
@@ -150,107 +152,66 @@ $('#fechaRCE').Zebra_DatePicker({
              
             
             });  
-    //Evento donde se almacenan los valores de los arrays
-     
-      $(document).on("click","#guardarInsercionRC",function() {
-          
-          
-          
-        var productos = new Array();
-        var precios = new Array();
-        var cantidades = new Array();
-        var descuentos = new Array();
-        var fechaRC = $("#fechaRC").val();
-        var tipoPago = $("#tipoPago").val();
-        var totalRC= $("#totalRC").val();
-        var estado = $("#tipoEstado").val();
-        
-        alert(estado);
-          
-          
-          var idCliente = $("#idDistribuidor").val();
-           
-            $(".producto").each(function(k, va) {
-                     productos.push($(this).val());
-             });
-             
-              $(".precio").each(function(k, va) {
-                     precios.push($(this).val());
-             });
-             
-            $(".cantidad").each(function(k, va) {
-                     cantidades.push($(this).val());
-             });
-             
-               $(".descuentos").each(function(k, va) {
-                     descuentos.push($(this).val());
-             });
-             
-             
-             
-          
-          
-                                        $.ajax({
-                                                  type: 'POST',
-                                                  async: false,
-                                                  dataType: 'json',
-                                                  data: {idCliente:idCliente,fechaRC:fechaRC,tipoPago:tipoPago,productos:productos,precios:precios,cantidades:cantidades,
-                                                  descuentos:descuentos,totalRC:totalRC,estado:estado},
-                                                  url: Routing.generate('insertarDatosRegistroCompra'),
-                                                  success: function (data)
-                                                  {
 
-
-                                                      if (data.estado == true) {
-                                                                     
-                                                swal({
-                                                    title: "Datos  ingresados con exito",
-                                                    text: "¿Quieres seguir ingresando registros de compra?",
-                                                    type: "success",
-                                                    showCancelButton: true,
-                                                    cancelButtonText: "Despues",
-                                                    confirmButtonText: "Seguir",
-                                                    confirmButtonColor: "#00A59D",
-                                                    closeOnConfirm: true,
-                                                    closeOnCancel: false
-                                                },
-                                                        function (isConfirm) {
-                                                            if (isConfirm) {
-                                                                
-                                                                 var url = Routing.generate('cliente_distribuidores_index');
-                                                                window.open(url, "_self");
-
-
-                                                            } else {
-                                                                var url = Routing.generate('crm_dashbord');
-                                                                window.open(url, "_self");
-                                                            }
-                                                        });
-
-                                                      }
-
-                                                  },
-                                                  error: function (xhr, status)
-                                                  {
-
-                                                  }
-                                              });    
-          
-          
-          
-      });
      
      //Esta es la parte de la edicion de los datos
-     
+   //Eventos click dentro de las  id de los div contenedores
+    $(document).on("click","#comprasVistaDetalle",function() {
+        if (x==0){
+             $("#comprasProcesados").click();
+             swal("Error!", "Selecciona un registro de compra", "error")
+            
+        }
 
+    });  
      
      
      
+   //Eventos click dentro de las  id de los div contenedores
+    $(document).on("click","#comprasProcesados",function() {
+        if (x!=0){
+             $("#comprasVistaDetalle").click();
+             swal("Error!", "Tienes que cancelar o guardar las modificaciones", "error")
+            
+        }
+
+    });
+    
+    
+    $(document).on("click","#comprasEntregadas",function() {
+        if (x!=0){
+             $("#comprasVistaDetalle").click();
+             swal("Error!", "Tienes que cancelar o guardar las modificaciones", "error")
+            
+        }
+
+    });
+    $(document).on("click","#comprasEviadas",function() {
+        if (x!=0){
+             $("#comprasVistaDetalle").click();
+             swal("Error!", "Tienes que cancelar o guardar las modificaciones", "error")
+            
+        }
+
+    });
+    
+    $(document).on("click","#comprasPendientesCanceladas",function() {
+        if (x!=0){
+             $("#comprasVistaDetalle").click();
+             swal("Error!", "Tienes que cancelar o guardar las modificaciones", "error")
+            
+        }
+
+    });
+  
      //Boton ver mas detalles
      
        $(document).on("click",".verMasDetalles",function() {
-                 
-                    clickVermasDetalles();
+           x=1;
+                                  $("#comprasVistaDetalle").click();
+                                    $("#comprasVistaDetalle").show();     
+           clickVermasDetalles();
+          
                     var idEncabezado = $("#idDetalleRegistroCompra").val();
                     
                                  $.ajax({
@@ -296,8 +257,8 @@ $('#fechaRCE').Zebra_DatePicker({
                                                                             </div>\n\
                                                                             <div class="form-column col-md-3">\n\
                                                                                 <div class="form-group" >\n\
-                                                                                    <label for="precio" class="control-label">Precio</label>\n\
-                                                                                        <input type="text" class="form-control precioE precioEditacion" id="precio-'+correlativoEdicion+'" placeholder="$ precio del producto" name="precio" readonly  value="'+data.precio[key]+'" >\n\
+                                                                                    <label for="precio" class="control-label">Precio ($)</label>\n\
+                                                                                        <input type="text" class="form-control precioE precioEditacion" id="precio-'+correlativoEdicion+'" placeholder="$ precio del producto" name="precio" readonly  value="'+data.precio[key]+'" disabled >\n\
                                                                                 </div>\n\
                                                                              </div>\n\
                                                                             <div class="form-column col-md-3">\n\
@@ -391,6 +352,7 @@ $('#fechaRCE').Zebra_DatePicker({
        //Add detalles
        
              $(document).on("click",".addCompraProductoE",function() {
+ 
            $(".totalRCE").show();
            
            
@@ -407,8 +369,8 @@ $('#fechaRCE').Zebra_DatePicker({
                                 </div>\n\
                                 <div class="form-column col-md-3">\n\
                                     <div class="form-group" >\n\
-                                        <label for="precio" class="control-label">Precio</label>\n\
-                                            <input type="text" class="form-control precioE precioEditacionNuevo" id="precio-'+correlativoEdicion+'" placeholder="$ precio del producto" name="precio" readonly value="0">\n\
+                                        <label for="precio" class="control-label">Precio ($)</label>\n\
+                                            <input type="text" disabled class="form-control precioE precioEditacionNuevo" id="precio-'+correlativoEdicion+'" placeholder="$ precio del producto" name="precio" readonly value="0">\n\
                                     </div>\n\
                                  </div>\n\
                                 <div class="form-column col-md-3">\n\
@@ -595,6 +557,7 @@ $('#fechaRCE').Zebra_DatePicker({
        
        
        $(document).on("click",".cancelarVerMas",function() {
+           x=0;
             
                     clickCancelarDetalles();
            
@@ -604,7 +567,7 @@ $('#fechaRCE').Zebra_DatePicker({
        $(document).on("click","#guardarInsercionRCE",function() {
 //Array que llevan los valores que se editaron
 
-
+        x=0;
         var idEncabezado = $("#idDetalleRegistroCompra").val();
         
         
@@ -698,6 +661,7 @@ $('#fechaRCE').Zebra_DatePicker({
 
 
                                                       if (data.estado == true) {
+                                                           $("#comprasVistaDetalle").hide();     
                                                                      
                                                 swal({
                                                     title: "Datos  modificados con exito con exito",
@@ -778,7 +742,11 @@ $('#fechaRCE').Zebra_DatePicker({
                 return "Seleccione un tipo de producto";
             }   
         }
-        
+         function llamarDetalle(){
+             
+             $("#comprasVistaDetalle").click();
+             
+         };
   function clickAlNuevoRegistroCompra(){
         
 
@@ -800,28 +768,28 @@ $('#fechaRCE').Zebra_DatePicker({
     $("#botonesInsercionE").hide();
     $(".totalRC").hide();
     $(".cancelarRC").hide();
-    $("#contenidoVerMasDetalles").hide();
+//    $("#contenidoVerMasDetalles").hide();
     $("#datadistribuidores").show();
     $(".nuevoRegistroCompra").show();
     $(".totalRCEL").hide();
     $(".totalRCE").hide();  
-     
+      $("#comprasVistaDetalle").hide();     
                
       location.reload();
       
   }   
   
-  function clickVermasDetalles(){
+  function clickVermasDetalles(){   
     $(".delete").hide();
     $("#datadistribuidores").hide();
-    $("#contenidoFormularioRegistroCompra").hide();
+
     $(".cancelarRC").hide();
     $(".nuevoRegistroCompra").hide();
     $("#botonesInsercion").hide();
     $(".totalRC").hide();
     $(".verMasDetalles").hide();
     $(".cancelarVerMas").show();
-    $("#contenidoVerMasDetalles").show();
+//    $("#contenidoVerMasDetalles").show();
        $("#botonesInsercionE").show();
        
      $(".totalRCEL").show();

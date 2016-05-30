@@ -1,0 +1,69 @@
+{#Div de edicion de datos#}
+             
+      <div class="row"  style="margin-top: 10px;">
+    
+                 <div class="clearfix"></div> 
+                 <div class="row"  style="margin-top: 10px;">
+                  <div id="contenidoVerMasDetalles">
+                                  <div class="form-column col-md-3"><div class="form-group" style="margin-right: 2%;" >
+                         <label for="nombreClienteE" class="control-label">Nombre Cliente</label>
+                         <input type="text" class="form-control cle" id="nombreClienteE"  name="nombreClienteE"  readonly>
+                     </div>
+                 </div>
+                 <div class="form-column col-md-3" style="padding-top: 0%;">
+                     <div class="form-group">
+                         <label for="fechaRCE" class="control-label">Fecha</label></br>
+                         <input type="text" name="fechaRCE" id="fechaRCE"  required class="form-control">
+
+                     </div>
+                 </div>
+                 <div class="form-column col-md-3"><div class="form-group" style="margin-right: 2%;" >
+                         <label for="tipoEstadoE" class="control-label">Estado</label>
+                         <select name="tipoEstadoE" id="tipoEstadoE" style="width: 100%" class="form-control" required>
+                            <option value="2">Entregado</option>
+                             <option value="1">Procesado</option>
+                               <option value="4">Enviado</option>
+                                 <option value="3">Pendiente/Cancelado</option>
+                         </select>
+                     </div>
+                 </div>
+                  <div class="form-column col-md-3"><div class="form-group" style="margin-right: 2%;" >
+                         <label for="costo" class="control-label">Tipo de pago</label>
+                         <select name="tipoPagoE" id="tipoPagoE" style="width: 100%" class="form-control" required>
+                             <option value="Efectivo">Efectivo</option>
+                             <option value="Credito">Credito</option>
+                                
+                         </select>
+                     </div>
+                 </div>
+                 <div class="clearfix"></div>
+                 <div style="margin-bottom: 10px;margin-top: 10px;margin-left: 10px;" class="col-md-2">
+                     <img src="{{ asset('Resources/src/img/add.png') }}" title="Nuevo" class="addCompraProductoE">
+                     <b class="addDatosMantenimientoE">Agregar detalle</b><br><br>
+                </div>
+                <div class="col-md-10"></div>
+                
+             </div>
+                     <div id="botonesInsercionE">
+                            <div class="form-column col-md-4" >
+
+                                    <div class="btn-group">
+                                        <a class="btn btn-default  btn-sm " style="margin-left: 0px;margin-top: 35px;" id="cancelarInsercionRCE">Cancelar</a>
+                                    </div>
+                                    <div class="btn-group">
+                                        <button class="btn btn-primary  btn-sm " style="margin-left: 0px;margin-top: 35px;" id="guardarInsercionRCE">Guardar</button>
+                                    </div>                                                                              
+
+                            </div>
+                            <div class="col-md-4"></div>
+                            <div class="col-md-4">
+                                <div class="btn-group totalRCE">
+                                    <label for="totalRC" class="control-label totalRCEL" >Total</label>
+                                    <input type="text" class="form-control cle" id="totalRCE"  name="totalRC"  placeholder="$ " readonly>
+                                </div>
+                            </div>
+                      </div>
+                           
+                            
+                       </div>
+                </div> 
