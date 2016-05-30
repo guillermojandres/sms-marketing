@@ -22,12 +22,14 @@ class InventariobeardModifyProdController extends Controller
     /**
      * Lists all InvProveedor entities.
      *
-     * @Route("/modifyprod", name="inventariobeard_modifyprod")
+     * @Route("/modifyprod", name="inventariobeard_modifyprod", options={"expose"=true})
      *
      */  
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $idprod = 171;
+        
+          $idprod = $request->query->get('id');
+        //$idprod = 171;
         
         //Recuperando datos del producto
         $em = $this->getDoctrine()->getManager();
