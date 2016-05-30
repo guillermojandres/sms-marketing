@@ -18,7 +18,7 @@
             {{ form_row(edit_form.datosCliente, {'attr': {'class': 'form-control clienteTextBoxEdit '} }) }} 
         </div>
         <div class="col-md-4">
-            {{ form_row(edit_form.categoriaCliente, {'attr': {'class': 'form-control clienteSelectEdit '} }) }} 
+            {{ form_row(edit_form.categoriaCliente, {'attr': {'class': 'form-control clienteSelectEdit  tipoC'} }) }} 
         </div>
         <div class="col-md-4">
             {{ form_row(edit_form.clientePotencial, {'attr': {'class': 'form-control clienteSelectEdit '} }) }} 
@@ -27,7 +27,13 @@
             {{ form_row(edit_form.territorio, {'attr': {'class': 'form-control clienteSelectEdit '} }) }} 
         </div>
         <div class="col-md-4">
-            {{ form_row(edit_form.tipo, {'attr': {'class': 'form-control clienteSelectEdit '} }) }} 
+            {{ form_row(edit_form.tipo, {'attr': {'class': 'form-control clienteSelectEdit  '} }) }} 
+        </div>
+         <div class="col-md-4" id="idPorcentaje">
+            {{ form_row(edit_form.porcentaje, {'attr': {'class': 'form-control clienteTextBoxEdit  idPorcentaje'} }) }} 
+        </div>
+        <div class="col-md-4" id="idCredito">
+            {{ form_row(edit_form.credito, {'attr': {'class': 'checkbox clienteCheckbox idCredito '} }) }} 
         </div>
  
     {{ form_end(edit_form) }}

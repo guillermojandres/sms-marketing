@@ -16,7 +16,7 @@ class DefaultController extends Controller
     }
     
      /**
-     * @Route("/admin/CRM",name="crm_dashbord")
+     * @Route("/admin/CRM",name="crm_dashbord", options={"expose"=true})
      */
     public function DashboardAction()
     {

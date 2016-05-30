@@ -173,7 +173,7 @@
                 
                 <th><input type="checkbox" name="select_all" id="select_all"></th>
                 <th>Nombre</th>
-                <th>Datos del cliente</th>
+                <th>Direccion</th>
                 <th>Categoria</th>
                 <th>Sitio Web</th>
                
@@ -497,7 +497,7 @@ var numero_edicion =0;
             var campos = new Array();
             //Primer Each me sirve para recorrer todos los text
              $(".clienteTextBox").each(function(k, va) {
-                    var cadena = $(this).siblings().html() +"="+$(this).val();
+                  
                     campos.push($(this).val());
              });
              
@@ -506,6 +506,11 @@ var numero_edicion =0;
                     campos.push($(this).val());
              });
              
+             
+            var dato= $("input[name='crm_cliente[credito]']:checked").val();
+            campos.push(dato);
+   
+                       
             
              data.push(campos);
              console.log(data);  
@@ -587,10 +592,12 @@ var numero_edicion =0;
                     
                     campos.push($(this).val());
              });
-             
-             data.push(campos);
-             console.log(data);  
-                    
+            var dato= $("input[name='crm_cliente[credito]']:checked").val();
+             campos.push(dato);
+
+              data.push(campos);
+              console.log(data);  
+
             var request2 = {
                     request : campos
                 };
@@ -648,7 +655,50 @@ var numero_edicion =0;
 
         
         }
+         
+
+
+
+         $(".idPorcentaje").hide();
+               $(".idCredito").hide();
+
+    $(document).on('change',".tipoC", function() {
+    
+            var valor =$(this).val();
+            
+         
+           if(valor==10){
+             
+                 $("#idPorcentaje").show();
+               $("#idCredito").show();
+              
+           }else{
+                  $("#idPorcentaje").hide();
+               $("#idCredito").hide();
+               
+           }
            
+    
+    
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
          
         });
         
