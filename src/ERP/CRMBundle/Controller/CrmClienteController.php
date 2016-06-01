@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use ERP\AdminBundle\Entity\CrmCliente;
+use ERP\AdminBundle\Entity\Cliente;
 use ERP\AdminBundle\Entity\Orden;
 use ERP\AdminBundle\Entity\EncabezadoOrden;
 use ERP\AdminBundle\Form\CrmClienteType;
@@ -46,7 +47,9 @@ class CrmClienteController extends Controller
         ));
     }
 
-    /**
+    
+    
+     /**
      * Creates a new CrmCliente entity.
      *
      * @Route("/new", name="cliente_new")
@@ -154,7 +157,7 @@ class CrmClienteController extends Controller
      /**
      * 
      *
-     * @Route("/clientepotencial/data", name="cliente_data")
+     * @Route("/clientepotencial/data", name="cliente_datas")
      */
     public function dataClientelAction(Request $request)
     {
@@ -228,213 +231,8 @@ class CrmClienteController extends Controller
         return new Response(json_encode($territorio));
     }
     
-  /**
-    * Ajax utilizado para buscar el precio del atributo seleccionado
-    *  
-    * @Route("/attributes/insert/clientepotencial", name="insert_cliente")
-    */
-    public function insertarDatos(Request $request)
-    {
-       
-        $isAjax = $this->get('Request')->isXMLhttpRequest();
-        $response = new JsonResponse();
-        if($isAjax){
-            $em = $this->getDoctrine()->getManager();    
-            $data = $request->request->get('request');
-            
-//            var_dump($data);
-//            die();
-            
-           $entity = new CrmCliente();
-           $entity->setNombreCompleto($data[0]);
-           $entity->setSitioWeb($data[1]);
-           $entity->setDatosCliente($data[2]); 
-           $entity->setPorcentaje($data[3]);
-           
-         
-          
-          
-          $id_categoriaCliente = $em->getRepository('ERPAdminBundle:CtlCategoriaCliente')->find($data[4]);
-          
-          
-         
-           if ($data[4] != "") {
-                $id_clientepot = $em->getRepository('ERPAdminBundle:CrmClientePotencial')->find($data[5]);
-            } else {
 
-                $id_clientepot = null;
-            }
-
-            if ($data[5] != "") {
-                $id_territorio = $em->getRepository('ERPAdminBundle:CtlTerritorio')->find($data[6]);
-            } else {
-                $id_territorio = null;
-            }
-            
-            
-            
-            $var = "";
-            if ($data[7] == 0) {
-                $var = "Individual";
-            } else {
-                $var = "Compañia";
-            }
-            
-             $credito = "";
-            if ($data[8] == 0) {
-                $credito =0;
-            } elseif($data[8]==1) {
-                $credito =1 ;
-            } else {
-                $credito =null ;
-            }
-            
-            
-            
-            $entity->setCategoriaCliente($id_categoriaCliente);
-            $entity->setClientePotencial($id_clientepot);
-            $entity->setTerritorio($id_territorio);
-            
-            $entity->setTipo($var);
-            $entity->setCredito($credito);
-            $entity->setEstado(1);
-            
-            $em->persist($entity);
-            $em->flush();
-                $response->setData(array(
-                           'flag'       => 1
-                    )); 
-                return $response;
-
-            
-        } 
-        else {    
-            
-            $response->setData(array(
-                           'flag'       => $mensaje
-                    ));  
-            return $response; 
-        }  
-    }  
     
-  /**
-    * Ajax utilizado para buscar el precio del atributo seleccionado
-    *  
-    * @Route("/attributes/edit/cliente", name="edit_cliente")
-    */
-    public function editarDatos(Request $request)
-    {
-       
-        $isAjax = $this->get('Request')->isXMLhttpRequest();
-        $response = new JsonResponse();
-        if($isAjax){
-            $em = $this->getDoctrine()->getManager();    
-            $data = $request->request->get('request');
-       
-            $entity = $em->getRepository('ERPAdminBundle:CrmCliente')->find($data[0]);
-             $entity->setNombreCompleto($data[1]);
-            $entity->setSitioWeb($data[2]);
-           $entity->setDatosCliente($data[3]); 
-           $entity->setPorcentaje($data[4]);
-          $id_categoriaCliente = $em->getRepository('ERPAdminBundle:CtlCategoriaCliente')->find($data[5]);
-          
-          
-          
-           if ($data[6] != "") {
-                $id_clientepot = $em->getRepository('ERPAdminBundle:CrmClientePotencial')->find($data[6]);
-            } else {
-
-                $id_clientepot = null;
-            }
-
-            if ($data[7] != "") {
-                $id_territorio = $em->getRepository('ERPAdminBundle:CtlTerritorio')->find($data[7]);
-            } else {
-                $id_territorio = null;
-            }
-            
-            
-            
-            $var = "";
-            if ($data[8] == 0) {
-                $var = "Individual";
-            } else {
-                $var = "Compañia";
-            }
-            
-//            var_dump($data);
-//            die();
-            
-             $credito = "";
-            if ($data[9] == 0) {
-                $credito =0;
-            } elseif($data[9]==1) {
-                $credito =1 ;
-            } else {
-                $credito =null ;
-            }
-            
-            
-            
-            $entity->setCategoriaCliente($id_categoriaCliente);
-            $entity->setClientePotencial($id_clientepot);
-            $entity->setTerritorio($id_territorio);
-            
-            $entity->setTipo($var);
-            $entity->setCredito($credito);
-            $entity->setEstado(1);
-            $em->merge($entity);
-            $em->flush();
-            $response->setData(array(
-                           'flag'       => 1
-                    )); 
-
-                
-                
-        } else {    
-            
-            $response->setData(array(
-                           'flag'       => $mensaje
-                    ));  
-            
-        }  
-        return $response; 
-    }
-    
-    
-
-/**
-     * Displays a form to edit an existing Orden entity.
-     *
-     * @Route("/admin/orders/delete/deletedetalle", name="delete_cliente")
-     */
-    public function deleteClienteAction()
-    {
-        
-        $isAjax = $this->get('Request')->isXMLhttpRequest();
-        $response = new JsonResponse();
-        
-            $idcliente = $this->get('request')->request->get('idcliente');
-            
-            foreach($idcliente as $row){
-                $em = $this->getDoctrine()->getManager();
-                $cliente = $em->getRepository('ERPAdminBundle:CrmCliente')->find($row);
-                $cliente->setEstado(0);
-                $em->persist($cliente);
-                $em->flush();
-                
-            }
-   
-            $response->setData(array(
-                            'flag' => 0,
-                            
-                    ));    
-            return $response; 
-       
-        
-        
-        
-    }
     
     /**
      * 
@@ -452,7 +250,7 @@ class CrmClienteController extends Controller
          * you want to insert a non-database field (for example a counter or static image)
          */
         
-        $entity = new CrmCliente();
+        $entity = new Cliente();
         
         $start = $request->query->get('start');
         $draw = $request->query->get('draw');
@@ -460,7 +258,7 @@ class CrmClienteController extends Controller
         $busqueda = $request->query->get('search');
         
         $em = $this->getDoctrine()->getEntityManager();
-        $territoriosTotal = $em->getRepository('ERPAdminBundle:CrmCliente')->findAll();
+        $territoriosTotal = $em->getRepository('ERPAdminBundle:Cliente')->findAll();
         $territorio['draw']=$draw++;  
         $territorio['recordsTotal'] = count($territoriosTotal);
         $territorio['recordsFiltered']= count($territoriosTotal);
@@ -476,10 +274,10 @@ class CrmClienteController extends Controller
         
          if($busqueda['value']!=''){
         
-                    $dql = "SELECT cli.id , cli.nombreCompleto as nombreCompleto, cli.porcentaje as porcentaje,cli.credito as credito, concat(concat('<input type=\"checkbox\" class=\"checkbox idcliente\" id=\"',cli.id), '\">' as link FROM ERPAdminBundle:CrmCliente cli "
+                    $dql = "SELECT cli.id as id , cli.nombre as nombreCompleto, cli.direccion as direccion,cli.credito as credito FROM ERPAdminBundle:Cliente cli "
                         . "JOIN cli.categoriaCliente cat "
-                        . "WHERE cli.categoriaCliente=10  AND cli.estado=1 "
-                        . "ORDER BY cli.nombreCompleto DESC ";
+                        . "WHERE cli.categoria='Distribuidor'  AND cli.estado=1 "
+                        . "ORDER BY cli.nombre DESC ";
                     
                     //Aqui estas trabjando
                    $territorio['data'] = $em->createQuery($dql)
@@ -488,10 +286,10 @@ class CrmClienteController extends Controller
                     
                    $territorio['recordsFiltered']= count($territorio['data']);
                     
-                    $dql = "SELECT cli.id , cli.nombreCompleto as nombreCompleto, cli.porcentaje as porcentaje,cli.credito as credito, concat(concat('<input type=\"checkbox\" class=\"checkbox idcliente\" id=\"',cli.id), '\">' as link FROM ERPAdminBundle:CrmCliente cli "
+                    $dql = "SELECT cli.id as id , cli.nombre as nombreCompleto, cli.direccion as direccion,cli.credito as credito FROM  ERPAdminBundle:Cliente cli "
                         . "JOIN cli.categoriaCliente cat "
-                        . "WHERE cli.categoriaCliente=10  AND cli.estado=1 "
-                        . "ORDER BY cli.nombreCompleto DESC ";
+                        . "WHERE cli.categoria='Distribuidor'  AND cli.estado=1 "
+                        . "ORDER BY cli.nombre DESC ";
                      
                    
                    $territorio['data'] = $em->createQuery($dql)
@@ -502,25 +300,18 @@ class CrmClienteController extends Controller
        
         }
         else{
-            $dql = "SELECT cli.id , cli.nombreCompleto as nombreCompleto, cli.porcentaje as porcentaje,cli.credito as credito, concat(concat('<input type=\"checkbox\" class=\"checkbox idcliente\" id=\"',cli.id), '\">' as link FROM ERPAdminBundle:CrmCliente cli "
-                   . "WHERE  cli.categoriaCliente=10  AND cli.estado=1 "
-                   . "ORDER BY cli.nombreCompleto DESC ";
+            $dql = "SELECT cli.id as id , cli.nombre as nombreCompleto, cli.direccion as direccion,cli.credito as credito FROM  ERPAdminBundle:Cliente cli "
+                   . "WHERE  cli.categoria='Distribuidor'  AND cli.estado=1 "
+                   . "ORDER BY cli.nombre DESC ";
             $territorio['data'] = $em->createQuery($dql)
                     ->setFirstResult($start)
                     ->setMaxResults($longitud)
                     ->getResult();
         }
        
-
-
-     
-        
-        
-     
         
         return new Response(json_encode($territorio));
     }
-    
     
     
      /**
@@ -564,7 +355,7 @@ class CrmClienteController extends Controller
             $id = $request->get('id'); 
             
             
-            $dqlPer = "SELECT cli.nombreCompleto AS nombre FROM ERPAdminBundle:CrmCliente cli WHERE"
+            $dqlPer = "SELECT cli.nombre AS nombre FROM ERPAdminBundle:Cliente cli WHERE"
                    . " cli.id= :id ";
 
             $resultadoPersona = $em->createQuery($dqlPer)
@@ -650,6 +441,8 @@ class CrmClienteController extends Controller
             
             $em = $this->getDoctrine()->getManager();
             $idCliente= $request->get('idCliente');
+            
+
             $fechaRC= $request->get('fechaRC');
             $tipoPago=$request->get('tipoPago');
             $totalRC= $request->get('totalRC');
@@ -660,16 +453,15 @@ class CrmClienteController extends Controller
             $estado = $request->get('estado');
             $dimension = count($productos);
  
-           $cliente= $this->getDoctrine()->getRepository('ERPAdminBundle:CrmCliente')->findById($idCliente); 
-            
+           $cliente= $this->getDoctrine()->getRepository('ERPAdminBundle:Cliente')->findById($idCliente); 
+         
            $objeto = new EncabezadoOrden();
            $objeto->setCrmCliente($cliente[0]);
            $objeto->setMonto($totalRC);
            $objeto->setTipoPago($tipoPago);
            $objeto->setEstado($estado);
            $objeto->setFechaRegistro(new \DateTime($fechaRC));
-           
-           
+           $objeto->setTipoVenta('Offline'); 
             $em->persist($objeto);
             $em->flush();
             $idEncabezado = $this->getDoctrine()->getRepository('ERPAdminBundle:EncabezadoOrden')->find($objeto->getId());
@@ -742,9 +534,9 @@ class CrmClienteController extends Controller
         
          if($busqueda['value']!=''){
         
-                    $dql = "SELECT enc.id,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombreCompleto as nombreCompleto, cli.datosCliente as datosCliente, concat(concat('<input type=\"checkbox\" class=\"checkbox idEncabezado\" id=\"',enc.id), '\">' as link FROM ERPAdminBundle:EncabezadoOrden enc "
+                    $dql = "SELECT enc.id as id, enc.tipoVenta as tipoVenta, enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
                         . "JOIN enc.crmClienteId cli "
-                        . "WHERE upper(cli.nombreCompleto)  LIKE upper(:busqueda) AND enc.estado=1 "
+                        . "WHERE upper(cli.nombre)  LIKE upper(:busqueda) AND enc.estado=3 "
                         . "ORDER BY enc.fechaRegistro ASC ";
                     
                     //Aqui estas trabjando
@@ -754,9 +546,9 @@ class CrmClienteController extends Controller
                     
                    $territorio['recordsFiltered']= count($territorio['data']);
                     
-                        $dql = "SELECT enc.id,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombreCompleto as nombreCompleto, cli.datosCliente as datosCliente, concat(concat('<input type=\"checkbox\" class=\"checkbox idEncabezado\" id=\"',enc.id), '\">' as link FROM ERPAdminBundle:EncabezadoOrden enc "
+                        $dql = "SELECT enc.id as id, enc.tipoVenta as tipoVenta, enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
                         . "JOIN enc.crmClienteId cli "
-                         . "WHERE upper(cli.nombreCompleto)  LIKE upper(:busqueda) AND enc.estado=1 "
+                         . "WHERE upper(cli.nombre)  LIKE upper(:busqueda) AND enc.estado=3 "
                         . "ORDER BY enc.fechaRegistro ASC ";
                      
                    
@@ -765,16 +557,17 @@ class CrmClienteController extends Controller
                             ->setFirstResult($start)
                             ->setMaxResults($longitud)
                             ->getResult();
-       
+                       $territorio['recordsFiltered']= count($territorio['data']);
         }
         else{
-             $dql = "SELECT enc.id,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombreCompleto as nombreCompleto, cli.datosCliente as datosCliente, concat(concat('<input type=\"checkbox\" class=\"checkbox idEncabezado\" id=\"',enc.id), '\">' as link FROM ERPAdminBundle:EncabezadoOrden enc "
-                        . "JOIN enc.crmClienteId cli WHERE  enc.estado=1 "
+             $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
+                        . "JOIN enc.crmClienteId cli WHERE  enc.estado=3 "
                         . "ORDER BY enc.fechaRegistro DESC ";
             $territorio['data'] = $em->createQuery($dql)
                     ->setFirstResult($start)
                     ->setMaxResults($longitud)
                     ->getResult();
+                $territorio['recordsFiltered']= count($territorio['data']);
         }
        
 
@@ -837,7 +630,7 @@ class CrmClienteController extends Controller
             $idEncabezado = $request->get('idEncabezado'); 
             
               
-             $dqlEncabezado = "SELECT date_format(enc.fechaRegistro,'%y%m%d') as fechaRegistro,enc.estado,enc.tipoPago, enc.monto, cli.nombreCompleto FROM ERPAdminBundle:EncabezadoOrden enc "
+             $dqlEncabezado = "SELECT date_format(enc.fechaRegistro,'%Y-%m-%d') as fechaRegistro,enc.estado,enc.tipoPago, enc.monto, cli.nombre FROM ERPAdminBundle:EncabezadoOrden enc "
                     . "JOIN enc.crmClienteId cli "
                     . "WHERE enc.id = :id ";
 
@@ -1121,9 +914,9 @@ class CrmClienteController extends Controller
         
          if($busqueda['value']!=''){
         
-                    $dql = "SELECT enc.id,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombreCompleto as nombreCompleto, cli.datosCliente as datosCliente, concat(concat('<input type=\"checkbox\" class=\"checkbox idEncabezado\" id=\"',enc.id), '\">' as link FROM ERPAdminBundle:EncabezadoOrden enc "
+                    $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
                         . "JOIN enc.crmClienteId cli "
-                        . "WHERE upper(cli.nombreCompleto)  LIKE upper(:busqueda) AND enc.estado=2 "
+                        . "WHERE upper(cli.nombre)  LIKE upper(:busqueda) AND enc.estado=1 "
                         . "ORDER BY enc.fechaRegistro ASC ";
                     
                     //Aqui estas trabjando
@@ -1133,9 +926,9 @@ class CrmClienteController extends Controller
                     
                    $territorio['recordsFiltered']= count($territorio['data']);
                     
-                        $dql = "SELECT enc.id,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombreCompleto as nombreCompleto, cli.datosCliente as datosCliente, concat(concat('<input type=\"checkbox\" class=\"checkbox idEncabezado\" id=\"',enc.id), '\">' as link FROM ERPAdminBundle:EncabezadoOrden enc "
+                        $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
                         . "JOIN enc.crmClienteId cli "
-                         . "WHERE upper(cli.nombreCompleto)  LIKE upper(:busqueda) AND enc.estado=2 "
+                         . "WHERE upper(cli.nombre)  LIKE upper(:busqueda) AND enc.estado=1 "
                         . "ORDER BY enc.fechaRegistro ASC ";
                      
                    
@@ -1144,16 +937,20 @@ class CrmClienteController extends Controller
                             ->setFirstResult($start)
                             ->setMaxResults($longitud)
                             ->getResult();
+                   
+                       $territorio['recordsFiltered']= count($territorio['data']);
        
         }
         else{
-             $dql = "SELECT enc.id,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombreCompleto as nombreCompleto, cli.datosCliente as datosCliente, concat(concat('<input type=\"checkbox\" class=\"checkbox idEncabezado\" id=\"',enc.id), '\">' as link FROM ERPAdminBundle:EncabezadoOrden enc "
-                        . "JOIN enc.crmClienteId cli WHERE  enc.estado=2"
+             $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
+                        . "JOIN enc.crmClienteId cli WHERE  enc.estado=1"
                         . "ORDER BY enc.fechaRegistro DESC ";
             $territorio['data'] = $em->createQuery($dql)
                     ->setFirstResult($start)
                     ->setMaxResults($longitud)
                     ->getResult();
+            
+                $territorio['recordsFiltered']= count($territorio['data']);
         }
        
 
@@ -1210,9 +1007,9 @@ class CrmClienteController extends Controller
         
          if($busqueda['value']!=''){
         
-                    $dql = "SELECT enc.id,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombreCompleto as nombreCompleto, cli.datosCliente as datosCliente, concat(concat('<input type=\"checkbox\" class=\"checkbox idEncabezado\" id=\"',enc.id), '\">' as link FROM ERPAdminBundle:EncabezadoOrden enc "
+                    $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
                         . "JOIN enc.crmClienteId cli "
-                        . "WHERE upper(cli.nombreCompleto)  LIKE upper(:busqueda) AND enc.estado=3 "
+                        . "WHERE upper(cli.nombre)  LIKE upper(:busqueda) AND enc.estado=2 "
                         . "ORDER BY enc.fechaRegistro ASC ";
                     
                     //Aqui estas trabjando
@@ -1222,9 +1019,9 @@ class CrmClienteController extends Controller
                     
                    $territorio['recordsFiltered']= count($territorio['data']);
                     
-                        $dql = "SELECT enc.id,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombreCompleto as nombreCompleto, cli.datosCliente as datosCliente, concat(concat('<input type=\"checkbox\" class=\"checkbox idEncabezado\" id=\"',enc.id), '\">' as link FROM ERPAdminBundle:EncabezadoOrden enc "
+                        $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
                         . "JOIN enc.crmClienteId cli "
-                         . "WHERE upper(cli.nombreCompleto)  LIKE upper(:busqueda) AND enc.estado=3 "
+                         . "WHERE upper(cli.nombre)  LIKE upper(:busqueda) AND enc.estado=2 "
                         . "ORDER BY enc.fechaRegistro ASC ";
                      
                    
@@ -1233,16 +1030,17 @@ class CrmClienteController extends Controller
                             ->setFirstResult($start)
                             ->setMaxResults($longitud)
                             ->getResult();
-       
+                       $territorio['recordsFiltered']= count($territorio['data']);
         }
         else{
-             $dql = "SELECT enc.id,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombreCompleto as nombreCompleto, cli.datosCliente as datosCliente, concat(concat('<input type=\"checkbox\" class=\"checkbox idEncabezado\" id=\"',enc.id), '\">' as link FROM ERPAdminBundle:EncabezadoOrden enc "
-                        . "JOIN enc.crmClienteId cli WHERE  enc.estado=3 "
+             $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
+                        . "JOIN enc.crmClienteId cli WHERE  enc.estado=2 "
                         . "ORDER BY enc.fechaRegistro DESC ";
             $territorio['data'] = $em->createQuery($dql)
                     ->setFirstResult($start)
                     ->setMaxResults($longitud)
                     ->getResult();
+                $territorio['recordsFiltered']= count($territorio['data']);
         }
        
 
@@ -1297,9 +1095,9 @@ class CrmClienteController extends Controller
         
          if($busqueda['value']!=''){
         
-                    $dql = "SELECT enc.id,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombreCompleto as nombreCompleto, cli.datosCliente as datosCliente, concat(concat('<input type=\"checkbox\" class=\"checkbox idEncabezado\" id=\"',enc.id), '\">' as link FROM ERPAdminBundle:EncabezadoOrden enc "
+                    $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
                         . "JOIN enc.crmClienteId cli "
-                        . "WHERE upper(cli.nombreCompleto)  LIKE upper(:busqueda) AND enc.estado=4 "
+                        . "WHERE upper(cli.nombre)  LIKE upper(:busqueda) AND enc.estado=4 "
                         . "ORDER BY enc.fechaRegistro ASC ";
                     
                     //Aqui estas trabjando
@@ -1309,9 +1107,9 @@ class CrmClienteController extends Controller
                     
                    $territorio['recordsFiltered']= count($territorio['data']);
                     
-                        $dql = "SELECT enc.id,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombreCompleto as nombreCompleto, cli.datosCliente as datosCliente, concat(concat('<input type=\"checkbox\" class=\"checkbox idEncabezado\" id=\"',enc.id), '\">' as link FROM ERPAdminBundle:EncabezadoOrden enc "
+                        $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
                         . "JOIN enc.crmClienteId cli "
-                         . "WHERE upper(cli.nombreCompleto)  LIKE upper(:busqueda) AND enc.estado=4 "
+                         . "WHERE upper(cli.nombre)  LIKE upper(:busqueda) AND enc.estado=4 "
                         . "ORDER BY enc.fechaRegistro ASC ";
                      
                    
@@ -1320,16 +1118,18 @@ class CrmClienteController extends Controller
                             ->setFirstResult($start)
                             ->setMaxResults($longitud)
                             ->getResult();
+                       $territorio['recordsFiltered']= count($territorio['data']);
        
         }
         else{
-             $dql = "SELECT enc.id,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombreCompleto as nombreCompleto, cli.datosCliente as datosCliente, concat(concat('<input type=\"checkbox\" class=\"checkbox idEncabezado\" id=\"',enc.id), '\">' as link FROM ERPAdminBundle:EncabezadoOrden enc "
+             $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
                         . "JOIN enc.crmClienteId cli WHERE  enc.estado=4"
                         . "ORDER BY enc.fechaRegistro DESC ";
             $territorio['data'] = $em->createQuery($dql)
                     ->setFirstResult($start)
                     ->setMaxResults($longitud)
                     ->getResult();
+                $territorio['recordsFiltered']= count($territorio['data']);
         }
        
 
@@ -1342,9 +1142,6 @@ class CrmClienteController extends Controller
         return new Response(json_encode($territorio));
     }
     
-
-    
-    
      /**
      *
      * @Route("/clientes/registrocompras/clientes", name="clientes_registros_compras_clientes",options={"expose"=true})
@@ -1352,147 +1149,106 @@ class CrmClienteController extends Controller
      */
     public function RegistroComprasClientesAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+   
 
-        $crmClientes = $em->getRepository('ERPAdminBundle:CrmCliente')->findAll();
-        
-        $crmCliente = new CrmCliente();
-        $form = $this->createForm('ERP\AdminBundle\Form\CrmClienteType', $crmCliente);
-        $form->handleRequest($request);
-
-        return $this->render('ERPCRMBundle:ordenesdecompra/indexRegistroComprasCliente.html.twig', array(
-             'crmCliente' => $crmCliente,
-            'crmClientes' => $crmClientes,
-             'form' => $form->createView(),
+        return $this->render('ERPCRMBundle:historialcliente/indexRegistroComprasCliente.html.twig', array(
+     
         ));
     }
     
     
-//    Metodo del controlador que me permite listar el historial de compras de un cliente en especifico
-    
-    
-    /**
+    //Metyodo que llama los datos del estado completo en un registro de venta
+      /**
+     * 
      *
-     *
-     * @Route("/facturacion/data", name="admin_facturacion_data", options={"expose"=true})
+     * @Route("/registro/compra/completo/data", name="registro_compra_completo_data")
      */
-    public function dataFacturacionAction(Request $request)
+    public function RegistroCompletoCompraAction(Request $request)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        
+        /*         * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+         * Easy set variables
+         */
+
+        /* Array of database columns which should be read and sent back to DataTables. Use a space where
+         * you want to insert a non-database field (for example a counter or static image)
+         */
+        
+        $entity = new EncabezadoOrden();
+        
         $start = $request->query->get('start');
         $draw = $request->query->get('draw');
         $longitud = $request->query->get('length');
         $busqueda = $request->query->get('search');
-       
-        $abogado = $request->query->get('param1');
-        $servicio = $request->query->get('param2');
-        $fechaini = $request->query->get('param3');
-        $fechafin = $request->query->get('param4');
-       
-//        var_dump($abogado);
-//        var_dump($servicio);
-//        var_dump($fechaini);
-//        var_dump($fechafin);
-       
-        $facturacionTotal = $em->getRepository('ERPAdminBundle:CrmCliente')->findAll();
-        $facturacion['draw']=$draw++; 
-        $facturacion['data']= array();
-       
+        
+        $em = $this->getDoctrine()->getEntityManager();
+        $territoriosTotal = $em->getRepository('ERPAdminBundle:EncabezadoOrden')->findAll();
+        $territorio['draw']=$draw++;  
+        $territorio['recordsTotal'] = count($territoriosTotal);
+        $territorio['recordsFiltered']= count($territoriosTotal);
+        
+        $territorio['data']= array();
+        //var_dump($busqueda);
+        //die();
+        $arrayFiltro = explode(' ',$busqueda['value']);
+        
+        
+        //echo count($arrayFiltro);
         $busqueda['value'] = str_replace(' ', '%', $busqueda['value']);
-        $rsm = new ResultSetMapping();
-
-        $sql = "SELECT fac.id as facturacion, "
-                . "concat_ws(fac.monto, '<div class=\"text-right\">', '</div>') as monto, "
-                . "concat_ws(DATE_FORMAT(fac.fecha_pago,'%d-%m-%Y'), '<div class=\"text-center\">', '</div>') as fecha_pago, "
-                . "concat_ws(abo.codigo, '<div class=\"text-center\">', '</div>') as codigo, "
-                . "concat_ws(fac.plazo, '<div class=\"text-center\">', '</div>') as plazo, "
-                . "concat_ws(tip.tipo_pago, '<div class=\"text-center\">', '</div>') as tipo_pago, "
-                . "concat_ws(fac.servicio, '<div class=\"text-center\">', '</div>') as servicio, "
-                . "concat_ws(fac.id, '<a class=\"link_facturacion\" id=\"', '\">Ver detalles</a>') as link "
-                . "FROM abg_facturacion fac inner join abg_persona abo on fac.abg_persona_id = abo.id "
-                . "inner join ctl_tipo_pago tip on fac.abg_tipo_pago_id = tip.id "
-                . "WHERE 1 = 1 ";
-
-        if($abogado != 'null'){
-            $sql.="and fac.abg_persona_id = '$abogado' ";
+        
+         if($busqueda['value']!=''){
+        
+                    $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
+                        . "JOIN enc.crmClienteId cli "
+                        . "WHERE upper(cli.nombre)  LIKE upper(:busqueda) AND enc.estado=5 "
+                        . "ORDER BY enc.fechaRegistro ASC ";
+                    
+                    //Aqui estas trabjando
+                   $territorio['data'] = $em->createQuery($dql)
+                            ->setParameters(array('busqueda'=>"%".$busqueda['value']."%"))
+                            ->getResult();
+                    
+                   $territorio['recordsFiltered']= count($territorio['data']);
+                    
+                        $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
+                        . "JOIN enc.crmClienteId cli "
+                         . "WHERE upper(cli.nombre)  LIKE upper(:busqueda) AND enc.estado=5 "
+                        . "ORDER BY enc.fechaRegistro ASC ";
+                     
+                   
+                   $territorio['data'] = $em->createQuery($dql)
+                            ->setParameters(array('busqueda'=>"%".$busqueda['value']."%"))
+                            ->setFirstResult($start)
+                            ->setMaxResults($longitud)
+                            ->getResult();
+           $territorio['recordsFiltered']= count($territorio['data']);
+        }
+        else{
+             $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
+                        . "JOIN enc.crmClienteId cli WHERE  enc.estado=5"
+                        . "ORDER BY enc.fechaRegistro DESC ";
+            $territorio['data'] = $em->createQuery($dql)
+                    ->setFirstResult($start)
+                    ->setMaxResults($longitud)
+                    ->getResult();
+                $territorio['recordsFiltered']= count($territorio['data']);
         }
        
-        if($servicio != 'null'){
-            $sql.="and fac.servicio = '$servicio' ";
-        }
-       
-        if($fechaini != "" && $fechafin != ""){
-            $inicio = explode("-", $fechaini);
-            $fin = explode("-", $fechafin);
-            $fi = $inicio[2]."-".$inicio[1]."-".$inicio[0];
-            $ff = $fin[2]."-".$fin[1]."-".$fin[0];
-           
-            $sql.="and fac.fecha_pago >= '$fi' and fac.fecha_pago <= '$ff' ";
-        }
 
-        $sql.= "ORDER BY fac.fecha_pago DESC "
-                . "LIMIT $start, $longitud ";
-        //echo $sql;
-        $rsm->addScalarResult('facturacion','facturacion');
-        $rsm->addScalarResult('monto','monto');
-        $rsm->addScalarResult('fecha_pago','fecha_pago');
-        $rsm->addScalarResult('codigo','codigo');
-        $rsm->addScalarResult('plazo','plazo');
-        $rsm->addScalarResult('tipo_pago','tipo_pago');
-        $rsm->addScalarResult('servicio','servicio');
-        $rsm->addScalarResult('link','link');
 
-        $facturacion['data'] = $em->createNativeQuery($sql, $rsm)
-                                  ->getResult();
-       
-        $rsm2 = new ResultSetMapping();
-
-        $sql2 = "SELECT fac.id as facturacion, "
-                . "concat_ws(fac.monto, '<div class=\"text-right\">', '</div>') as monto, "
-                . "concat_ws(DATE_FORMAT(fac.fecha_pago,'%d-%m-%Y'), '<div class=\"text-center\">', '</div>') as fecha_pago, "
-                . "concat_ws(abo.codigo, '<div class=\"text-center\">', '</div>') as codigo, "
-                . "concat_ws(fac.plazo, '<div class=\"text-center\">', '</div>') as plazo, "
-                . "concat_ws(tip.tipo_pago, '<div class=\"text-center\">', '</div>') as tipo_pago, "
-                . "concat_ws(fac.servicio, '<div class=\"text-center\">', '</div>') as servicio, "
-                . "concat_ws(fac.id, '<a class=\"link_facturacion\" id=\"', '\">Ver detalles</a>') as link "
-                . "FROM abg_facturacion fac inner join abg_persona abo on fac.abg_persona_id = abo.id "
-                . "inner join ctl_tipo_pago tip on fac.abg_tipo_pago_id = tip.id "
-                . "WHERE 1 = 1 ";
-
-        if($abogado != 'null'){
-            $sql2.="and fac.abg_persona_id = '$abogado' ";
-        }
-       
-        if($servicio != 'null'){
-            $sql2.="and fac.servicio = '$servicio' ";
-        }
-       
-        if($fechaini != "" && $fechafin != ""){
-            $inicio = explode("-", $fechaini);
-            $fin = explode("-", $fechafin);
-            $fi = $inicio[2]."-".$inicio[1]."-".$inicio[0];
-            $ff = $fin[2]."-".$fin[1]."-".$fin[0];
-           
-            $sql2.="and fac.fecha_pago >= '$fi' and fac.fecha_pago <= '$ff' ";
-        }
-
-        $rsm2->addScalarResult('facturacion','facturacion');
-        $rsm2->addScalarResult('monto','monto');
-        $rsm2->addScalarResult('fecha_pago','fecha_pago');
-        $rsm2->addScalarResult('codigo','codigo');
-        $rsm2->addScalarResult('plazo','plazo');
-        $rsm2->addScalarResult('tipo_pago','tipo_pago');
-        $rsm2->addScalarResult('servicio','servicio');
-        $rsm2->addScalarResult('link','link');
-
-        $facturaciototal = $em->createNativeQuery($sql2, $rsm2)
-                                  ->getResult();
-       
-        $facturacion['recordsTotal'] = count($facturaciototal);
-        $facturacion['recordsFiltered']= count($facturaciototal);
-       
-        return new Response(json_encode($facturacion));
+     
+        
+        
+     
+        
+        return new Response(json_encode($territorio));
     }
+   
+    
+//    Metodo del controlador que me permite listar el historial de compras de un cliente en especifico
+    
+    
+  
     
     
     

@@ -108,14 +108,19 @@ class CrmContacto
      */
     private $contactoClienteId;
     
-    
-    
-    
-    
-    
-    
-    
+     /**
+     * @var string
+     *
+     * @ORM\Column(name="nrc", type="string", length=25, nullable=true)
+     */
+    private $nrc;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nit", type="string", length=25, nullable=true)
+     */
+    private $nit;
 
 
     /**
@@ -367,6 +372,51 @@ class CrmContacto
     
     
     
+      /**
+     * Set nrc
+     *
+     * @param string $nrc
+     * @return Cliente
+     */
+    public function setNrc($nrc)
+    {
+        $this->nrc = $nrc;
+
+        return $this;
+    }
+
+    /**
+     * Get nrc
+     *
+     * @return string 
+     */
+    public function getNrc()
+    {
+        return $this->nrc;
+    }
+
+    /**
+     * Set nit
+     *
+     * @param string $nit
+     * @return Cliente
+     */
+    public function setNit($nit)
+    {
+        $this->nit = $nit;
+
+        return $this;
+    }
+
+    /**
+     * Get nit
+     *
+     * @return string 
+     */
+    public function getNit()
+    {
+        return $this->nit;
+    }
     
     
     

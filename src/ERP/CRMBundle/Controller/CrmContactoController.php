@@ -152,7 +152,7 @@ class CrmContactoController extends Controller
   /**
      * 
      *
-     * @Route("/contacto/data", name="contacto_data")
+     * @Route("/contacto/data", name="contacto_datas")
      */
     public function dataContactoAction(Request $request)
     {

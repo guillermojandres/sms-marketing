@@ -49,6 +49,33 @@ class DashBoardController extends Controller
         ));
     }
     
+     /**
+     * Lists all ClientePotencial entities.
+     *
+     * @Route("/crm", name="dashboard_indexCRM",options={"expose"=true})
+     * @Method("GET")
+     */
+    public function CRMAction()
+    {
+        
+        return $this->render('ERPCRMBundle:dashboard/dashboardcrm.html.twig', array(
+            
+        ));
+    }
+    
+     /**
+     * Lists all ClientePotencial entities.
+     *
+     * @Route("/historialcliente", name="dashboardhistorialcliente",options={"expose"=true})
+     * @Method("GET")
+     */
+    public function HistorialClienteAction()
+    {
+        
+        return $this->render('ERPCRMBundle:dashboard/dashboardhistorialcliente.html.twig', array(
+            
+        ));
+    }
     
     
     

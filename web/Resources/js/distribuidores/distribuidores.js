@@ -22,7 +22,7 @@ $('#fechaRC').Zebra_DatePicker({
             
             var id =$("#idDistribuidor").val();
 
-             
+       
          
                                             $.ajax({
                                                 type: 'POST',
@@ -258,62 +258,7 @@ $('#fechaRC').Zebra_DatePicker({
       
       
       
-          //Eventos de los CheckBoxs para poder controlar los seleccionados
-         $(document).on('click',".idcliente", function(e) {
-             
-             $(".guardar").hide();
-             $(".cancelar").hide();
-             $("#formularioInsercion").hide();
-              $(".insertar").show();
 
-             var num =0;
-
-                    $('.idcliente').each(
-                       function (){
-                        if($(this).prop("checked")){
-                           num++;
-                        }
-                     
-
-                       });
-
-                    if(num == 0){
-                            $(".modificar").hide(); 
-                            $(".delete").hide();
-                            $("#formularioEdicion").hide();
-                            $("#cancelarModificacion").hide();
-                            $("#guardarModificacion").hide();
-                            $("#insertar").show();
-                              $(".nuevoRegistroCompra").hide();
-                    } else if(num==1){
-                             
-                            $(".modificar").show();
-                            $(".delete").show();
-                            $(".nuevoRegistroCompra").show();
-                            
-                            var idDistribui = $(this).attr("id");
-                            $("#idDistribuidor").val(idDistribui);
-                           
-                            
-                            
-                            
-                          //Para editar 
-                           numero_edicion = $(this).attr("id");//El valor del id del chechboxs
-                            
-                          $("#formularioEdicion").load(numero_edicion+"/edit");
-                            
-                            
-                         }else{
-                             $(".modificar").hide();
-                             $(".delete").show();
-                             $("#formularioEdicion").hide();
-                             $("#guardarModificacion").hide();
-                             $("#cancelarModificacion").hide();
-                         } 
-            
-             
-            
-            });  
     //Evento donde se almacenan los valores de los arrays
      
       $(document).on("click","#guardarInsercionRC",function() {
@@ -329,11 +274,11 @@ $('#fechaRC').Zebra_DatePicker({
         var totalRC= $("#totalRC").val();
         var estado = $("#tipoEstado").val();
         
-        alert(estado);
+      
           
           
           var idCliente = $("#idDistribuidor").val();
-           
+
             $(".producto").each(function(k, va) {
                      productos.push($(this).val());
              });
@@ -352,8 +297,19 @@ $('#fechaRC').Zebra_DatePicker({
              
              
              
+                  var num=0;
+                  
+                  
+                 $('.producto').each( function (){
+                       
+                       var x=$(this).val();
+                       if(x==null){
+                           num=num+1;
+                       }
+
+                       });
           
-          
+           if(num==0){
                                         $.ajax({
                                                   type: 'POST',
                                                   async: false,
@@ -386,7 +342,7 @@ $('#fechaRC').Zebra_DatePicker({
 
 
                                                             } else {
-                                                                var url = Routing.generate('crm_dashbord');
+                                                              var url = Routing.generate('ordenesdecompra');
                                                                 window.open(url, "_self");
                                                             }
                                                         });
@@ -399,7 +355,12 @@ $('#fechaRC').Zebra_DatePicker({
 
                                                   }
                                               });    
-          
+                                 }else{
+                                     
+                                      swal("Productos faltante!", "No debes dejar campos de seleccion de productos vacios", "error");
+                                     
+                                     
+                                 }
           
           
       });
