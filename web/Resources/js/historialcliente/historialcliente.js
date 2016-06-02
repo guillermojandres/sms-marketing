@@ -49,7 +49,16 @@ $('#txtFechaInicio').Zebra_DatePicker({
      format: 'Y-m-d'
 });   
      
-     
+       $(document).on("click",".verPDF",function() {
+           var idDetalle =$(this).attr("id");
+          
+           
+               var url=Routing.generate('verFactura',{idDetalle: idDetalle});
+
+                                        window.open(url,"_blank"); 
+           
+           
+       });
      
      
      

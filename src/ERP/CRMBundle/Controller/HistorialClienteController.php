@@ -12,6 +12,8 @@ use ERP\AdminBundle\Entity\Cliente;
 use ERP\AdminBundle\Form\ClienteType;
 use Symfony\Component\HttpKernel\Exception;
 use Doctrine\ORM\Query\ResultSetMapping;
+include_once '../src/ERP/CRMBundle/Resources/dompdf/dompdf_config.inc.php';    
+include_once "../src/ERP/CRMBundle/Resources/phpexcel/lib/PHPExcel.php";
 /**
  * Cliente controller.
  *
@@ -36,10 +38,147 @@ class HistorialClienteController extends Controller
         ));
     }
     
+
+      /**
+     *
+     *
+     * @Route("/verFactura/data/{idDetalle}", name="verFactura", options={"expose"=true})
+       * @Method({"GET", "POST"})
+     */
+    public function verEncabezadoPDF($idDetalle) {
+        $em = $this->getDoctrine()->getManager();
+//        $encabezado = $em->getRepository('ERPAdminBundle:EncabezadoOrden')->findById($idDetalle) ;
+         $dqlEncabezado = "SELECT date_format(enc.fechaRegistro,'%Y-%m-%d') as fechaRegistro,enc.estado,enc.tipoPago, enc.monto, cli.nombre, cli.codigo FROM ERPAdminBundle:EncabezadoOrden enc "
+                    . "JOIN enc.crmClienteId cli "
+                    . "WHERE enc.id = :id ";
+
+            $encabezado = $em->createQuery($dqlEncabezado)
+                        ->setParameters(array('id'=>$idDetalle))
+                        ->getResult();
+
+
+        
+        $detalleOrden = $this->llamarDetalleOrden($idDetalle);
+        ob_start();
+        $html = $this->renderView('ERPCRMBundle:historialventaclienteR/reporteVentaCliente.html.php', array(
+            'encabezado'=>$encabezado,
+            'detalleOrden'=>$detalleOrden
+           
+        ));
+        $pdf = new \DOMPDF();
+        $pdf->set_paper('A4', 'portrait');
+        $pdf->load_html($html);
+        $pdf->render();
+        $pdf->stream('Boleta.pdf', array('Attachment' => 0));
+        
+    }
     
     
     
-     
+    
+    function llamarDetalleOrden($idEncabezado) {
+        
+        
+          $em = $this->getDoctrine()->getManager();
+           $productos = array();
+            $productosId = array();
+            $cantidades = array();
+            $precios = array();
+            $descuentos = array();
+            $idsOrden = array();
+        
+         $dqlProducto = "SELECT  pro.id, pro.nombre  FROM ERPAdminBundle:Orden orden "
+                    . "JOIN orden.productoId pro "
+                    . "WHERE orden.encabezadoOrdenId = :id ";
+
+            $resultadoProducto = $em->createQuery($dqlProducto)
+                        ->setParameters(array('id'=>$idEncabezado))
+                        ->getResult();
+            
+            
+            
+            
+            
+             $dqlProductoId = "SELECT  pro.id FROM ERPAdminBundle:Orden orden "
+                    . "JOIN orden.productoId pro "
+                    . "WHERE orden.encabezadoOrdenId = :id ";
+
+            $resultadoProductoId = $em->createQuery($dqlProductoId)
+                        ->setParameters(array('id'=>$idEncabezado))
+                        ->getResult();
+            
+ 
+            
+             $dqlPrecio = "SELECT orden.precio  FROM ERPAdminBundle:Orden orden "
+                    . "WHERE orden.encabezadoOrdenId = :id ";
+
+            $resultadoPrecio = $em->createQuery($dqlPrecio)
+                        ->setParameters(array('id'=>$idEncabezado))
+                        ->getResult();
+            
+            $dqlCantidad = "SELECT  orden.cantidad  FROM ERPAdminBundle:Orden orden "
+                    . "WHERE orden.encabezadoOrdenId = :id ";
+
+            $resultadoCantidad = $em->createQuery($dqlCantidad)
+                        ->setParameters(array('id'=>$idEncabezado))
+                        ->getResult();
+            
+            
+            $dqlDescuento = "SELECT orden.descuento  FROM ERPAdminBundle:Orden orden "
+                    . "WHERE orden.encabezadoOrdenId = :id ";
+
+            $resultadoDescuento = $em->createQuery($dqlDescuento)
+                        ->setParameters(array('id'=>$idEncabezado))
+                        ->getResult();
+            
+            
+             $dqlIdOrden = "SELECT  orden.id  FROM ERPAdminBundle:Orden orden "
+                    . "WHERE orden.encabezadoOrdenId = :id ";
+
+            $resultadoIdOrden= $em->createQuery($dqlIdOrden)
+                        ->setParameters(array('id'=>$idEncabezado))
+                        ->getResult();
+            
+            
+              $dimension = count($resultadoProducto);
+                
+                for ($i=0;$i<$dimension;$i++){
+
+                        $productos[$i]=$resultadoProducto[$i]['nombre'];
+                          $precios[$i]=$resultadoPrecio[$i]['precio'];
+                            $cantidades[$i]=$resultadoCantidad[$i]['cantidad'];
+                              $descuentos[$i]=$resultadoDescuento[$i]['descuento'];
+                               $idsOrden[$i]=$resultadoIdOrden[$i]['id'];
+                                  $productosId[$i]=$resultadoProductoId[$i]['id'];
+                }
+
+              
+              
+          
+                
+                 $data['estado']=true;
+                 $data['precio']=$precios;
+                 $data['nombre']=$productos;
+                 $data['idNombre']=$productosId;
+                 $data['cantidad']=$cantidades;
+                 $data['descuento']=$descuentos;
+                 $data['idOrden']=$idsOrden;
+              
+        
+        
+        
+        
+        
+        
+        
+        
+                 return $data;
+        
+        
+        
+        
+        
+    }
      
       /**
      *
@@ -78,7 +217,7 @@ class HistorialClienteController extends Controller
                 . "concat_ws(enc.tipo_venta, '<div class=\"text-center\">', '</div>') as tipoVenta, "
                 . "concat_ws(enc.tipo_pago, '<div class=\"text-center\">', '</div>') as tipo_pago, "
                 . "concat_ws(enc.monto, '<div class=\"text-center\">', '</div>') as monto, "
-                . "concat_ws(enc.id, '<a class=\"link_facturacion\" id=\"', '\">Ver detalles</a>') as link "
+                . "concat_ws(enc.id, '<i class=\" colorAnclas fa fa-file-pdf-o verPDF\" id=\"', '\" title=\"Ver PDF\"></i>') as link "
                 . "FROM encabezado_orden enc  inner join cliente cli on enc.crm_cliente_id = cli.id "
                 . "WHERE 1 = 1 ";
 
@@ -119,7 +258,7 @@ class HistorialClienteController extends Controller
                 . "concat_ws(enc.tipo_venta, '<div class=\"text-center\">', '</div>') as tipoVenta, "
                 . "concat_ws(enc.tipo_pago, '<div class=\"text-center\">', '</div>') as tipo_pago, "
                 . "concat_ws(enc.monto, '<div class=\"text-center\">', '</div>') as monto, "
-                . "concat_ws(enc.id, '<a class=\"link_facturacion\" id=\"', '\">Ver detalles</a>') as link "
+                . "concat_ws(enc.id, '<i class=\" colorAnclas fa fa-file-pdf-o verPDF\" id=\"', '\" title=\"Ver PDF\"></i>') as link "
                 . "FROM encabezado_orden enc  inner join cliente cli on enc.crm_cliente_id = cli.id "
                 . "WHERE 1 = 1 ";
 
