@@ -91,7 +91,7 @@
             <table id="lista_cliente" class="mdl-data-table" cellspacing="0" width="100%">
         <thead>
             <tr>
-                
+                <th>ID</th>
                 <th>ID Cliente</th>
                 <th>Nombre</th>
                 <th>Porcentaje</th>
@@ -152,7 +152,7 @@
                              <option value="2">En proceso</option>
                                <option value="3">Procesado</option>
                                  <option value="4">En camino</option>
-                                   <option value="4">Completado</option>
+                                   <option value="5">Completado</option>
                          </select>
                      </div>
                  </div>
@@ -214,9 +214,10 @@ var numero_edicion =0;
                                     
 		              columnDefs: [
 		            {
-		                targets: [ 0, 1, 2 ],
-		                className: 'mdl-data-table__cell--non-numeric'
+		                targets: [ 0, 1, 2,3,4 ],
+		                className: 'mdl-data-table__cell--non-numeric',
 		            }
+                          
 		        ],
                                         
                                         
@@ -232,6 +233,7 @@ var numero_edicion =0;
                                         "columns": [
                                              
                                         { "data":"id" },
+                                        {"data":"codigo"},
                                         { "data":"nombreCompleto" },
                                         {"data":"direccion"},
                                         {"data":"credito"}
@@ -262,13 +264,13 @@ var idEliminar=0;
        
             if(identificador=="row"){
               var idCliente =  $(this).children().html();
-            $("tr").css('background-color', 'white');
-            $(this).css('background-color', '#E9E6E6');
-           
+                        $("tr").css('background-color', 'white');
+                        $(this).css('background-color', '#E9E6E6');
 
-             $(".eliminar").show();   
-             $(".nuevoRegistroCompra").show();
-             $("#idDistribuidor").val(idCliente);
+
+                         $(".eliminar").show();   
+                         $(".nuevoRegistroCompra").show();
+                         $("#idDistribuidor").val(idCliente);
       
             }
        

@@ -43,24 +43,7 @@
                                 <!-- Botones del ingreso -->
                                 
                                 
-				<!-- Boton con Dropdown -->
-				<div class="btn-group pull-right" >
-                                    <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  id="acciones">
-				    Menu <span class="caret"></span>
-				  </button>
-				  <ul class="dropdown-menu">
-				    <li>
-				    	<a href="#">Action</a>
-				    </li>
-				    <li>
-				    	<a href="#">Action</a>
-				    </li>
-				    <li>
-				    	<a href="#">Action</a>
-				    </li>
-				  </ul>
-				</div> 
-				<!-- Small button -->
+			
 	</div>
      
  {% endblock %}
@@ -87,7 +70,7 @@
 				        <thead>
                                                                             
 				            <tr>
-                                                                              
+                                                                               <th>ID</th>
                                                                                 <th>ID Cliente</th>
                                                                                 <th>Nombre de Empresa</th>
                                                                                 <th>Nombre de Contacto</th>
@@ -135,7 +118,7 @@
                                     
 		        columnDefs: [
 		            {
-		                targets: [ 0, 1, 2 ],
+		                targets: [ 0, 1, 2,3,4 ],
 		                className: 'mdl-data-table__cell--non-numeric'
 		            }
 		        ],
@@ -152,6 +135,7 @@
                                         "columns": [
                                              
                                               { "data":"id" },
+                                              { "data":"codigo" },
                                              { "data":"nombre" },
                                              {"data":"contacto"},
                                              {"data":"telefono"},

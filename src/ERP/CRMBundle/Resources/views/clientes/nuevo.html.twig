@@ -48,24 +48,6 @@
                                 <!-- Botones del ingreso -->
                                 
                                 
-				<!-- Boton con Dropdown -->
-				<div class="btn-group pull-right" >
-                                   <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  id="acciones">
-				    Menu <span class="caret"></span>
-				  </button>
-				  <ul class="dropdown-menu">
-				    <li>
-				    	<a href="#">Action</a>
-				    </li>
-				    <li>
-				    	<a href="#">Action</a>
-				    </li>
-				    <li>
-				    	<a href="#">Action</a>
-				    </li>
-				  </ul>
-				</div> 
-				<!-- Small button -->
 	</div>
      
  {% endblock %}
@@ -99,14 +81,14 @@
                  <div class="form-column col-md-6">
                      <div class="form-group required">
                          <label for="fecha inicio" class="control-label">Nombre</label>
-                         <input type="text" class="form-control" id="nombreCp" 
+                         <input type="text" class="form-control requerido" id="nombreCp" 
                                 placeholder="Nombre del contacto" name="txtcontacto"  required>
                      </div>
                      </div>
                      <div class="form-column col-md-6">
                             <div class="form-group required">
-                 <label for="fecha inicio" class="control-label">Direccion</label>
-                    <input type="text" class="form-control" id="direccionCp" 
+                 <label for="fecha inicio" class="control-label ">Direccion</label>
+                    <input type="text" class="form-control requerido" id="direccionCp" 
                            placeholder="Direccion" name="direccionCp"  required>
                 </div>
                      </div>
@@ -117,7 +99,7 @@
                  <div class="col-md-3">
                      <div class="form-group required">
                     <label for="fecha inicio" class="control-label">Telefono</label>
-                    <input type="text" class="form-control telefono" id="telefonoCp" 
+                    <input type="text" class="form-control telefono requerido" id="telefonoCp" 
                            placeholder="0000-0000" name="txtrelacion" required>
                 </div>
                  </div>
@@ -181,7 +163,7 @@
                    
                    <div class="clearfix"></div>
                    <div class="col-md-3">
-                       <div class="form-group">
+                       <div class="form-group" id="contenedorCredito">
                            <label for="tipoCliente">Acceso a credito</label>
                            <div class="radio">
                                <label><input type="radio" name="credito" value="si" >Si</label>

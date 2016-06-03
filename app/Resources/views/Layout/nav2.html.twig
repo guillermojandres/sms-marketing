@@ -22,6 +22,8 @@
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
+      
+     {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')%}        
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
         <li><input id="buscar" type="text" class="form-control" style="width: 300px; margin-top: 5px;" placeholder="Realize una busqueda - (Ctrl+G)"></li>
@@ -32,7 +34,7 @@
             <li><a href="#">Dashboard</a></li>
             <li><a href="#">Centro de Ayuda</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="login.php">Cerrar sesion</a></li>
+            <li><a href="{{ path('abogado_logout')}}">Cerrar sesion</a></li>
           </ul>
         </li>
         <li class="dropdown">
@@ -48,5 +50,7 @@
         </li>
       </ul>
     </div><!-- /.navbar-collapse -->
+     {% endif %}
+    
   </div><!-- /.container-fluid -->
 </nav>

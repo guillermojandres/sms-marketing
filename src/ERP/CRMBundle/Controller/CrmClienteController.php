@@ -226,7 +226,7 @@ class CrmClienteController extends Controller
                     ->setMaxResults($longitud)
                     ->getResult();
         }
-     
+        
         
         return new Response(json_encode($territorio));
     }
@@ -274,9 +274,8 @@ class CrmClienteController extends Controller
         
          if($busqueda['value']!=''){
         
-                    $dql = "SELECT cli.id as id , cli.nombre as nombreCompleto, cli.direccion as direccion,cli.credito as credito FROM ERPAdminBundle:Cliente cli "
-                        . "JOIN cli.categoriaCliente cat "
-                        . "WHERE cli.categoria='Distribuidor'  AND cli.estado=1 "
+                    $dql = "SELECT cli.id as id ,cli.codigo as codigo , cli.nombre as nombreCompleto, cli.direccion as direccion,cli.credito as credito FROM ERPAdminBundle:Cliente cli "
+                        . "WHERE (upper(cli.nombre)  LIKE upper(:busqueda) OR cli.codigo  LIKE upper(:busqueda) ) AND cli.categoria='Distribuidor'  AND cli.estado=1 "
                         . "ORDER BY cli.nombre DESC ";
                     
                     //Aqui estas trabjando
@@ -286,9 +285,8 @@ class CrmClienteController extends Controller
                     
                    $territorio['recordsFiltered']= count($territorio['data']);
                     
-                    $dql = "SELECT cli.id as id , cli.nombre as nombreCompleto, cli.direccion as direccion,cli.credito as credito FROM  ERPAdminBundle:Cliente cli "
-                        . "JOIN cli.categoriaCliente cat "
-                        . "WHERE cli.categoria='Distribuidor'  AND cli.estado=1 "
+                    $dql = "SELECT cli.id as id,cli.codigo as codigo, cli.nombre as nombreCompleto, cli.direccion as direccion,cli.credito as credito FROM  ERPAdminBundle:Cliente cli "
+                        . "WHERE (upper(cli.nombre)  LIKE upper(:busqueda) OR cli.codigo  LIKE upper(:busqueda) ) AND cli.categoria='Distribuidor'  AND cli.estado=1 "
                         . "ORDER BY cli.nombre DESC ";
                      
                    
@@ -300,7 +298,7 @@ class CrmClienteController extends Controller
        
         }
         else{
-            $dql = "SELECT cli.id as id , cli.nombre as nombreCompleto, cli.direccion as direccion,cli.credito as credito FROM  ERPAdminBundle:Cliente cli "
+            $dql = "SELECT cli.id as id,cli.codigo as codigo , cli.nombre as nombreCompleto, cli.direccion as direccion,cli.credito as credito FROM  ERPAdminBundle:Cliente cli "
                    . "WHERE  cli.categoria='Distribuidor'  AND cli.estado=1 "
                    . "ORDER BY cli.nombre DESC ";
             $territorio['data'] = $em->createQuery($dql)
@@ -914,7 +912,7 @@ class CrmClienteController extends Controller
         
          if($busqueda['value']!=''){
         
-                    $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
+                    $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta, enc.monto as monto,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
                         . "JOIN enc.crmClienteId cli "
                         . "WHERE upper(cli.nombre)  LIKE upper(:busqueda) AND enc.estado=1 "
                         . "ORDER BY enc.fechaRegistro ASC ";
@@ -926,7 +924,7 @@ class CrmClienteController extends Controller
                     
                    $territorio['recordsFiltered']= count($territorio['data']);
                     
-                        $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
+                        $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
                         . "JOIN enc.crmClienteId cli "
                          . "WHERE upper(cli.nombre)  LIKE upper(:busqueda) AND enc.estado=1 "
                         . "ORDER BY enc.fechaRegistro ASC ";
@@ -942,7 +940,7 @@ class CrmClienteController extends Controller
        
         }
         else{
-             $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
+             $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
                         . "JOIN enc.crmClienteId cli WHERE  enc.estado=1"
                         . "ORDER BY enc.fechaRegistro DESC ";
             $territorio['data'] = $em->createQuery($dql)
@@ -1007,7 +1005,7 @@ class CrmClienteController extends Controller
         
          if($busqueda['value']!=''){
         
-                    $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
+                    $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
                         . "JOIN enc.crmClienteId cli "
                         . "WHERE upper(cli.nombre)  LIKE upper(:busqueda) AND enc.estado=2 "
                         . "ORDER BY enc.fechaRegistro ASC ";
@@ -1019,7 +1017,7 @@ class CrmClienteController extends Controller
                     
                    $territorio['recordsFiltered']= count($territorio['data']);
                     
-                        $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
+                        $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
                         . "JOIN enc.crmClienteId cli "
                          . "WHERE upper(cli.nombre)  LIKE upper(:busqueda) AND enc.estado=2 "
                         . "ORDER BY enc.fechaRegistro ASC ";
@@ -1033,7 +1031,7 @@ class CrmClienteController extends Controller
                        $territorio['recordsFiltered']= count($territorio['data']);
         }
         else{
-             $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
+             $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
                         . "JOIN enc.crmClienteId cli WHERE  enc.estado=2 "
                         . "ORDER BY enc.fechaRegistro DESC ";
             $territorio['data'] = $em->createQuery($dql)
@@ -1095,7 +1093,7 @@ class CrmClienteController extends Controller
         
          if($busqueda['value']!=''){
         
-                    $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
+                    $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
                         . "JOIN enc.crmClienteId cli "
                         . "WHERE upper(cli.nombre)  LIKE upper(:busqueda) AND enc.estado=4 "
                         . "ORDER BY enc.fechaRegistro ASC ";
@@ -1107,7 +1105,7 @@ class CrmClienteController extends Controller
                     
                    $territorio['recordsFiltered']= count($territorio['data']);
                     
-                        $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
+                        $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
                         . "JOIN enc.crmClienteId cli "
                          . "WHERE upper(cli.nombre)  LIKE upper(:busqueda) AND enc.estado=4 "
                         . "ORDER BY enc.fechaRegistro ASC ";
@@ -1122,7 +1120,7 @@ class CrmClienteController extends Controller
        
         }
         else{
-             $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
+             $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
                         . "JOIN enc.crmClienteId cli WHERE  enc.estado=4"
                         . "ORDER BY enc.fechaRegistro DESC ";
             $territorio['data'] = $em->createQuery($dql)
@@ -1198,7 +1196,7 @@ class CrmClienteController extends Controller
         
          if($busqueda['value']!=''){
         
-                    $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
+                    $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
                         . "JOIN enc.crmClienteId cli "
                         . "WHERE upper(cli.nombre)  LIKE upper(:busqueda) AND enc.estado=5 "
                         . "ORDER BY enc.fechaRegistro ASC ";
@@ -1210,7 +1208,7 @@ class CrmClienteController extends Controller
                     
                    $territorio['recordsFiltered']= count($territorio['data']);
                     
-                        $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
+                        $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
                         . "JOIN enc.crmClienteId cli "
                          . "WHERE upper(cli.nombre)  LIKE upper(:busqueda) AND enc.estado=5 "
                         . "ORDER BY enc.fechaRegistro ASC ";
@@ -1224,7 +1222,7 @@ class CrmClienteController extends Controller
            $territorio['recordsFiltered']= count($territorio['data']);
         }
         else{
-             $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.estado as estado,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
+             $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
                         . "JOIN enc.crmClienteId cli WHERE  enc.estado=5"
                         . "ORDER BY enc.fechaRegistro DESC ";
             $territorio['data'] = $em->createQuery($dql)
