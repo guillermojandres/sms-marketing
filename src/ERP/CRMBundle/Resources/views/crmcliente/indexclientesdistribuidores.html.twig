@@ -2,64 +2,10 @@
 
 {% block css %}
     {{parent()}}
-    <style>
-        #lista_clientepotencial_paginate{
-            float: left;
-        }
-        #lista_territorios_previous{
-           
-            letter-spacing: 0.1em;
-            box-sizing: border-box;
-            display: inline-block;
-            min-width: 1.5em;
-            padding: 0.5em 1em;
-            margin-left: 2px;
-            text-align: center;
-            text-decoration: none !important;
-        
-          
-        }
-        #lista_territorios_next{
-        
-            letter-spacing: 0.1em;
-            box-sizing: border-box;
-            display: inline-block;
-            min-width: 1.5em;
-            padding: 0.5em 1em;
-            margin-left: 2px;
-            text-align: center;
-            text-decoration: none !important;
-       
-        }
-        
- 
-        .current{
-            border: 1px solid #979797;
-            
-            
-        }
-        
-        .paginate_button{
-            color:#000;
-            letter-spacing: 0.1em;
-            box-sizing: border-box;
-            display: inline-block;
-            padding: 0.5em 1em;
-            margin-left: 2px;
-            text-align: center;
-            cursor: pointer;
-            border-radius: 2px;
-            text-decoration: none !important;
-        }
-        
-        .paginate_button:hover{
-             
-            background : #c8ced4 !important;
-             
-        }
-
-    </style>
-      <link rel="stylesheet" href="{{ asset('Resources/select2/dist/css/select2.css')}}">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css">
+      <link rel="stylesheet" href="https://cdn.datatables.net/1.10.11/css/dataTables.material.min.css">
+       <link rel="stylesheet" href="{{ asset('Resources/select2/dist/css/select2.css')}}">
           <link rel="stylesheet" href="{{ asset('Resources/sweetalert-master/dist/sweetalert.css')}}"> 
 {% endblock css%}
 {% block js %}
@@ -78,8 +24,8 @@
  {% block descripcion %}
 			<div class="col-md-8">
                             <input type="hidden" id="idDistribuidor">
-				<p class="robo" style="font-weight: 300; margin-bottom: 0px; font-size: 30px;">Cliente Distribuidores</p>
-                                <p class="robo" style="font-weight: 300; font-size: 14px; height: 40px;">Gesti&oacute;n  de clientes distribuidores.<br>Selecciona a tus clientes para ver  las distintas opciones</p>
+				<p class="robo" style="font-weight: 300; margin-bottom: 0px; font-size: 30px;">Clientes distribuidores</p>
+                                <p class="robo" style="font-weight: 300; font-size: 14px; height: 40px;">Listado de clientes distribuidores</p>
                                    
 			</div>
  {% endblock%}
@@ -87,45 +33,29 @@
      
      	<div class="col-md-4" style="margin-top: 50px;">
                                 <!-- Boton Modificacion -->
-				<div class="btn-group pull-right">
-					<button class="btn btn-primary btn-sm modificar" style="margin-left: 5px;" type="submit">Editar</button>
-				</div>
+		
+
+                                <!-- Boton Delete -->
                                 <div class="btn-group pull-right">
-                                    <button class="btn btn-primary  btn-sm " style="margin-left: 5px;" id="guardarModificacion">Guardar</button>
+                                    <button class="btn btn-danger btn-sm delete" style="margin-left: 5px;" type="submit" >Delete</button>
                                 </div>
 
-				<div class="btn-group pull-right">
-                                                                        <button class="btn btn-default btn-sm" style="margin-left: 5px;" id="cancelarModificacion">Cancelar</button>
-				</div>
-                                
-                                
-				<!-- Boton Delete -->
-				<div class="btn-group pull-right">
-                                    <button class="btn btn-danger btn-sm delete" style="margin-left: 5px;" type="submit" >Delete</button>
-				</div>
+                                <!-- Boton Ingreso -->
+                                <div class="btn-group pull-right">
+                                    <button class="btn btn-primary btn-sm insertar" style="margin-left: 5px;" id="insertar">Nuevo Cliente</button>
+                                </div>
+                                <div class="btn-group pull-right">
+                                    <button class="btn btn-primary btn-sm nuevoRegistroCompra" style="margin-left: 5px;" id="nuevoRC" title="Nuevo Registro de compra">Nuevo registro de venta</button>
+                                </div>
+                                <div class="btn-group pull-right">
+                                    <button class="btn btn-default btn-sm cancelarRC" style="margin-left: 5px;" id="cancelarRC">Cancelar Registro</button>
+                                </div>
 
-				<!-- Boton Ingreso -->
-				<div class="btn-group pull-right">
-                                                                    <button class="btn btn-primary btn-sm insertar" style="margin-left: 5px;" id="insertar">Nuevo Cliente</button>
-				</div>
-                                                                <div class="btn-group pull-left">
-                                                                    <button class="btn btn-primary btn-sm nuevoRegistroCompra" style="margin-left: -30px;" id="nuevoRC" title="Nuevo Registro de compra">Nuevo Registro Compra</button>
-				</div>
-                                                                <div class="btn-group pull-right">
-                                                                        <button class="btn btn-default btn-sm cancelarRC" style="margin-left: 5px;" id="cancelarRC">Cancelar Registro</button>
-				</div>
 
-				<div class="btn-group pull-right">
-                                                                    <button class="btn btn-primary  btn-sm guardar" style="margin-left: 5px;" id="guardar">Guardar</button>
-				</div>
-
-				<div class="btn-group pull-right">
-                                                                        <button class="btn btn-default btn-sm cancelar" style="margin-left: 5px;" id="cancelar">Cancelar</button>
-				</div>
                                 <!-- Botones del ingreso -->
-                                
-                                
-				<!-- Boton con Dropdown -->
+
+
+                                <!-- Boton con Dropdown -->
 				
 			</div>
      
@@ -137,15 +67,14 @@
 {% block navegacion_Y_body %}
     	<div class="row">
         {% block navegacion %}
-		<hr style="margin-top: 0px !important;">
-			<div class="col-md-2" style="border-right: 1px solid #f3f3f3;">
-				<!-- Left Navigation -->
-				<ul style="list-style: none; padding: 0;">
-                                    <a href="{{ path('crm_dashbord') }}" class="leftnava"><li class="leftnav left active ">Menu<span class="pull-right right"></span></li></a>
-                                    <a href="{{ path('crm_configuracion') }}" class="leftnava"><li class="leftnav left ">Configuraci&oacute;n</li></a>
-                                     <a href="{{ path('crm_reportes') }}" class="leftnava"><li class="leftnav left">Reportes</li></a>
-				</ul>
-			</div>	
+            <hr style="margin-top: 0px !important;">
+            <div class="col-md-2" style="border-right: 1px solid #f3f3f3;">
+                <!-- Left Navigation -->
+                <ul style="list-style: none; padding: 0;">
+                    <a href="{{ path('ordenesdecompra') }}" class="leftnava"><li class="leftnav left active ">Menu<span class="pull-right right"></span></li></a>
+                   
+                </ul>
+            </div>	
        
             
             
@@ -155,27 +84,15 @@
     
     <div class="col-md-10" id="contenidoIndexDistribuidores">
         <div id="datadistribuidores">
-        <div class="col-md-12" id="formularioInsercion" style="margin-bottom: 40px;" >
-      {% include 'ERPCRMBundle:crmcliente:new.html.twig' %}
-            
-        </div>
-        
-        <div id="formularioEdicion" style="margin-bottom: 40px;" >
-              
-            
-            
-            
-        </div>
        
-              
               
      
       
-            <table id="lista_cliente" class="table table-bordered table-hover display dt-responsive dataTable no-footer" style="width: 99%;">
+            <table id="lista_cliente" class="mdl-data-table" cellspacing="0" width="100%">
         <thead>
             <tr>
                 
-                <th><input type="checkbox" name="select_all" id="select_all"></th>
+                <th>ID Cliente</th>
                 <th>Nombre</th>
                 <th>Porcentaje</th>
                 <th>Credito</th>
@@ -228,17 +145,19 @@
                      </div>
                  </div>
                  <div class="form-column col-md-3"><div class="form-group" style="margin-right: 2%;" >
-                         <label for="tipoEstado" class="control-label">Tipo de pago</label>
+                           <label for="costo" class="control-label">Estado</label>
+                        
                          <select name="tipoEstado" id="tipoEstado" style="width: 100%" class="form-control" required>
-                       <option value="2">Entregado</option>
-                             <option value="1">Procesado</option>
-                               <option value="4">Enviado</option>
-                                 <option value="3">Pendiente/Cancelado</option>
+                            <option value="1">Pago Recibido</option>
+                             <option value="2">En proceso</option>
+                               <option value="3">Procesado</option>
+                                 <option value="4">En camino</option>
+                                   <option value="4">Completado</option>
                          </select>
                      </div>
                  </div>
                   <div class="form-column col-md-3"><div class="form-group" style="margin-right: 2%;" >
-                         <label for="costo" class="control-label">Estado</label>
+                        <label for="tipoEstado" class="control-label">Tipo de pago</label>
                          <select name="tipoPago" id="tipoPago" style="width: 100%" class="form-control" required>
                              <option value="Efectivo">Efectivo</option>
                              <option value="Credito">Credito</option>
@@ -254,7 +173,7 @@
                 <div class="col-md-10"></div>
                 
              </div>
-                     <div class="form-column col-md-4" id="botonesInsercion">
+                     <div class="form-column col-md-3" id="botonesInsercion">
                        
                              <div class="btn-group">
                                  <a class="btn btn-default  btn-sm " style="margin-left: 0px;margin-top: 35px;" id="cancelarInsercionRC">Cancelar</a>
@@ -264,8 +183,9 @@
                              </div>                                                                              
                          
                      </div>
-                     <div class="col-md-4"></div>
-                     <div class="col-md-4">
+                     <div class="col-md-3"></div>
+                     <div class="col-md-3"></div>
+                     <div class="col-md-3">
                          <div class="btn-group totalRC">
                              <label for="totalRC" class="control-label totalRC" >Total</label>
                              <input type="text" class="form-control cle" id="totalRC"  name="totalRC"  placeholder="$ " readonly>
@@ -282,194 +202,104 @@
 {% endblock %}
  {% block js_extend %}
 
-  
+    <script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.11/js/dataTables.material.min.js "></script>
       <script  type="text/javascript">
           $(document).ready(function(){
 var numero_edicion =0;
-            $('#lista_cliente').DataTable({
-                      "pageLength": 20,
-                      "lengthMenu": [ 20 ],
-                    "dom": "<'row'<'col-md-6 pull-left'p><'col-md-6 pull-right'f>>" +
-                            "<'row'<'col-md-12'tr>>" +
-                            "<'row'<'col-md-5'i><'col-md-7'>>",
-                    "processing": true,
-                    "serverSide": true,
-                    "ajax": {
-                        "url": '{{path('cliente_distribuidores_data')}}',
-                        "type": 'GET'
-                    },
-                    "columns": [
-                         { "data":"link" },
-                         { "data":"nombreCompleto" },
-                         {"data":"porcentaje"},
-                         {"data":"credito"}
-                    
-                        
-                         
-              
-                    ],
-                    "columnDefs": [
-                           { "orderable": false, "targets": 0 }
-                        
-                    ],
-                    "language": {
-                    "info": "Mostrando página _PAGE_ de _PAGES_",
-                    "infoEmpty": "",
-                    "emptyTable": "No se encontraron registros",
-                    "paginate": {
-                        "next": "Siguiente",
-                        "previous": "Anterior"
-                    },
-                    "processing": "<h4>Procesando petición...</h4>",
-                    "search": "<b>Buscar registros:</b>",
-                    "lengthMenu": "Mostrar _MENU_ registros"
-                }
-              
-                    
-        });
+  $(".cancelarRC").hide();
 
+ $(".delete").hide();
+            $('#lista_cliente').DataTable( {
+                                    
+		              columnDefs: [
+		            {
+		                targets: [ 0, 1, 2 ],
+		                className: 'mdl-data-table__cell--non-numeric'
+		            }
+		        ],
+                                        
+                                        
+                                        "pageLength": 10,
+                                        "lengthMenu": [ 20 ],
+                                        "dom": "ftp",
+                                        "processing": true,
+                                        "serverSide": true,
+                                        "ajax": {
+                                            "url": '{{path('cliente_distribuidores_data')}}',
+                                            "type": 'GET'
+                                        },
+                                        "columns": [
+                                             
+                                        { "data":"id" },
+                                        { "data":"nombreCompleto" },
+                                        {"data":"direccion"},
+                                        {"data":"credito"}
+                                            
+                                             
+                              ],
+                                            "language": {
+                                            "info": "Mostrando página _PAGE_ de _PAGES_",
+                                            "infoEmpty": "",
+                                            "emptyTable": "No se encontraron registros",
+                                            "paginate": {
+                                                "next": "Siguiente",
+                                                "previous": "Anterior"
+                                            },
+                                            "processing": "<p>Procesando petición...</p>",
+                                            "search": "<p>Buscar registros:</p>",
+                                            "lengthMenu": "Mostrar _MENU_ registros"
+                                        }
 
-        
-        $("#formularioInsercion").hide();
-         $("#formularioEdicion").hide();
-        
-        
-        
-        
-        //Insercion
-        $("#insertar").on('click', function(e) {
-              $("#formularioInsercion").show();
-              
-               $(".guardar").show();
-               $(".cancelar").show();
-               $(".insertar").hide();
-               $("#crm_empresa_cliente_nombre").focus();
-        
-            });
+ 
+		    } );
 
-         $(".delete").hide();
-         $(".modificar").hide();
-         
-         $(".guardar").hide();
-         $(".cancelar").hide();
-         
-             $(".cancelarRC").hide();
-         
-          $("#guardarModificacion").hide();
-         $("#cancelarModificacion").hide();
-         
-         
-        $(".cancelar").on('click', function(e) {
-            $(".insertar").show();
-            $("#formularioInsercion").hide();
-             $(".guardar").hide();
-             $(".cancelar").hide();
+var idEliminar=0;
+
+  $(document).on("click","tr",function() {
+       
+       var identificador =     $(this).attr("role");
+       
+            if(identificador=="row"){
+              var idCliente =  $(this).children().html();
+            $("tr").css('background-color', 'white');
+            $(this).css('background-color', '#E9E6E6');
            
+
+             $(".eliminar").show();   
+             $(".nuevoRegistroCompra").show();
+             $("#idDistribuidor").val(idCliente);
+      
+            }
+       
+         
              
-        });
-            
-            
-            
-        $(".guardar").on('click', function(e) {
-                insertarDatos();
+             
+           
                 
-             
+       });
+           
 
-        });   
-        //Termina la insercion
-        
-        
-         //Modificacion
-         $(".modificar").on('click', function(e) {
-                $("#formularioEdicion").show();
-                $("#guardarModificacion").show();
-                $("#cancelarModificacion").show();
-                $("#insertar").hide();
-                $(".modificar").hide();
-                $(".focus").focus();
 
-              
+         
+           
+     $(document).on("click",".insertar",function() {
+        var url = Routing.generate('nuevocliente');
+        window.open(url, "_self");
 
-        });  
+         
+         
+         
+     });
+    
+    
         
-        $("#cancelarModificacion").on("click",function (e){
-            $("#formularioEdicion").hide();
-            $(".modificar").show();
-            $(".insertar").show();
-            $(".delete").show();
-            $("#guardarModificacion").hide();
-            $("#cancelarModificacion").hide();
-            
-             $(".proveedorTextBox").val("");
-             $(".proveedorSelect").val(1);
-            
-        });
-        
-        $("#guardarModificacion").on("click",function (e){
-                $(".insertar").show();
-                $(".guardar").hide();
-                $(".cancelar").hide();
-            $("#guardarModificacion").hide();
-            $("#cancelarModificacion").hide();
-             $(".delete").hide();
-                modificarDatos();
-                  
-                  
-            
-            
-        });
+       
         
         
         
         //Eventos de los CheckBoxs para poder controlar los seleccionados
-         $(document).on('click',".idcliente", function(e) {
-             $(".guardar").hide();
-             $(".cancelar").hide();
-             $("#formularioInsercion").hide();
-              $(".insertar").show();
-
-             var num =0;
-
-                    $('.idcliente').each(
-                       function (){
-                        if($(this).prop("checked")){
-                           num++;
-                        }
-                     
-
-                       });
-
-                    if(num == 0){
-                            $(".modificar").hide(); 
-                            $(".delete").hide();
-                            $("#formularioEdicion").hide();
-                            $("#cancelarModificacion").hide();
-                            $("#guardarModificacion").hide();
-                            $("#insertar").show();
-                    } else if(num==1){
-                             
-                            $(".modificar").show(); 
-                            $(".delete").show();
-                          
-                            
-                          //Para editar 
-                           numero_edicion = $(this).attr("id");//El valor del id del chechboxs
-                            
-                          $("#formularioEdicion").load(numero_edicion+"/edit");
-                            
-                            
-                         }else{
-                             $(".modificar").hide();
-                             $(".delete").show();
-                             $("#formularioEdicion").hide();
-                             $("#guardarModificacion").hide();
-                             $("#cancelarModificacion").hide();
-                         } 
-            
-             
-            
-            });
-            
+         
             
             
             
@@ -504,259 +334,15 @@ var numero_edicion =0;
                    });  
        
  //Eliminar desde la seleccion de los checkboxs
-//Funcion que prepara el array con todos los id que quiero inabilitar o eliminar
-           $(".delete").on("click",function (){
-                 $("#formularioEdicion").hide();   
-                $("#guardarModificacion").hide();
-                $("#cancelarModificacion").hide();
-                $(".insertar").show(); 
-               
-               var valor = new Array();
-               $(".idcliente").each(function (index,value){
-                   
-                   if($(this).prop("checked")){
-                      num = $(this).attr("id");
-                            
-                          valor.push(num);
-                        }
-                       
-                        
-                   
-                   
-               });
-               
-               console.log(valor);
-//Funcion del POST que me permite inabilitar un Proveedor
 
-                    $.post( "{{path('delete_cliente')}}", { idcliente: valor }, function( data ) {
-                        var par = new Array();
-                        par = data.query;
-
-                        // Si la plantilla contiene campos
-                      
-                        if(data.flag === 0) {
-                            
-                            var table = $('#lista_cliente').DataTable();
- 
-                            table.ajax.reload( function ( json ) {
-                               
-                            } );
-                          
-                            
-                        }
-                        else{
-                            $('#totalOrden').html(totalAnterior);
-                            $(link).html(mas);
-                        }
-                       
-                    }, "json"); 
-               
-               
-               
-               
-               
-   });
            
            
            
-//Funcion ajax para guardar en tiempo real
-           
-     function insertarDatos(){
-           
-            var data = new Array();
-            var campos = new Array();
-            //Primer Each me sirve para recorrer todos los text
-             $(".clienteTextBox").each(function(k, va) {
-                  
-                    campos.push($(this).val());
-             });
-             
-              $(".clienteSelect").each(function(k, va) {
-                    
-                    campos.push($(this).val());
-             });
-             
-             
-            var dato= $("input[name='crm_cliente[credito]']:checked").val();
-            campos.push(dato);
-   
-                       
-            
-             data.push(campos);
-             console.log(data);  
-                    
-           var request2 = {
-                    request : campos
-                };
-           
-
-            $.ajax({
-              data:request2,
-              url:"{{path('insert_cliente')}}",
-              type: "post",
-              
-              success: function (data) {
-                        var retorno =data.flag;
-                       if(retorno==1){
-                           
-                           $("#formularioInsercion").hide();
-                              $(".guardar").hide();
-                              $(".cancelar").hide();
-                              $(".insertar").show();
-                              $(".clienteTextBox").val("");
-                             
-                              
-                            var table = $('#lista_cliente').DataTable();
-                            table.ajax.reload( function ( json ) {
-                               
-                            });
-                           Lobibox.notify("success", {
-                                        size: 'mini',
-                                        msg: 'Datos ingresados con exito'
-                                    });
-                            
-                       }else
-                            {
-                                  Lobibox.notify("success", {
-                                        size: 'mini',
-                                        msg: retorno
-                                    });
-                            }
-                       
-                    },
-              error: function (data) {
-                     
-                          
-                            Lobibox.notify("error", {
-                                        size: 'mini',
-                                        msg: 'Los datos no fueron ingresados, intente más tarde. Si el error persiste pongase en contacto con el administrador del sistema.'
-                                    });
-                       
-                    }      
-                     
-              
-            });
-            
-            
-            
-	}
+  });
         
         
         
-        
-      //Funcion para poder modificar los datos por medio de ajax  
-        
-        function modificarDatos(){
-                    
-            var data = new Array();
-            var campos = new Array();
-            //Primer Each me sirve para recorrer todos los text
-            campos.push(numero_edicion);
-             $(".clienteTextBoxEdit").each(function(k, va) {
-               
-                    campos.push($(this).val());
-             });
-             
-             
-              $(".clienteSelectEdit").each(function(k, va) {
-                    
-                    campos.push($(this).val());
-             });
-             
-             var dato= $("input[name='crm_cliente[credito]']:checked").val();
-            campos.push(dato);
-             
-             data.push(campos);
-             console.log(data);  
-                    
-            var request2 = {
-                    request : campos
-                };
-                console.log(campos);
-                
-                
-            $.ajax({
-              data:request2,
-              url:"{{path('edit_cliente')}}",
-              type: "post",
-              
-              
-              success: function (data) {
-                        var retorno = data.flag;
-                       if(retorno==1){
-                           
-                           $("#formularioEdicion").hide();
-                              $(".clienteTextBoxEdit").val("");
-                              
-                              
-                            var table = $('#lista_cliente').DataTable();
-                            table.ajax.reload( function ( json ) {
-                               
-                            });
-                           Lobibox.notify("success", {
-                                        size: 'mini',
-                                        msg: 'Datos modificados con exito'
-                                    });
-                            
-                       }else
-                            {
-                                  Lobibox.notify("success", {
-                                        size: 'mini',
-                                        msg: retorno
-                                    });
-                            }
-                       
-                    },
-              error: function (data) {
-                           
-                          
-                                    Lobibox.notify("error", {
-                                        size: 'mini',
-                                        msg: 'Los datos no fueron modificados, intente más tarde. Si el error persiste pongase en contacto con el administrador del sistema.'
-                                    });
-                       
-                    }      
-                    
-                    
-                    
-              
-            });
-                
-                
 
-        
-        }
-         
-
-
-
-         $(".idPorcentaje").hide();
-               $(".idCredito").hide();
-
-    $(document).on('change',".tipoC", function() {
-    
-            var valor =$(this).val();
-     
-           if(valor==10){
-                 $(".idPorcentaje").show();
-               $(".idCredito").show();
-              
-           }else{
-                  $(".idPorcentaje").hide();
-               $(".idCredito").hide();
-               
-           }
-           
-    
-    
-    });
-
-
-
-
-         
-        });
-        
       </script>
       
       

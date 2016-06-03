@@ -99,6 +99,7 @@ class CrmCliente
      */
     private $credito;
     
+ 
 
 
     /**
@@ -352,9 +353,7 @@ class CrmCliente
         return $this->credito;
     }
     
-    
-    
-    
+   
     
     
     

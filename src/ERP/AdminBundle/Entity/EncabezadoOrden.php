@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * EncabezadoOrden
  *
- * @ORM\Table(name="encabezado_orden", indexes={@ORM\Index(name="fk_encabezado_orden_crm_cliente1", columns={"crm_cliente_id"})})
+ * @ORM\Table(name="encabezado_orden", indexes={@ORM\Index(name="fk_encabezado_orden_cliente1", columns={"crm_cliente_id"})})
  * @ORM\Entity
  */
 class EncabezadoOrden
@@ -22,9 +22,9 @@ class EncabezadoOrden
     private $id;
 
     /**
-     * @var \CrmCliente
+     * @var \Cliente
      *
-     * @ORM\ManyToOne(targetEntity="CrmCliente")
+     * @ORM\ManyToOne(targetEntity="Cliente")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="crm_cliente_id", referencedColumnName="id")
      * })
@@ -43,6 +43,14 @@ class EncabezadoOrden
      * @ORM\Column(name="tipo_pago", type="string", length=25, nullable=true)
      */
     private $tipoPago;
+    
+    
+      /**
+     * @var string
+     *
+     * @ORM\Column(name="tipo_venta", type="string", length=20, nullable=true)
+     */
+    private $tipoVenta;
     
      /**
      * @var \DateTime
@@ -73,10 +81,10 @@ class EncabezadoOrden
    /**
      * Set crmClienteId
      *
-     * @param \ERP\AdminBundle\Entity\CrmCliente $crmCliente
+     * @param \ERP\AdminBundle\Entity\Cliente $crmCliente
      * @return CrmCliente
      */
-    public function setCrmCliente(\ERP\AdminBundle\Entity\CrmCliente  $crmClienteId = null)
+    public function setCrmCliente(\ERP\AdminBundle\Entity\Cliente  $crmClienteId = null)
     {
         $this->crmClienteId = $crmClienteId;
 
@@ -86,7 +94,7 @@ class EncabezadoOrden
     /**
      * Get crmClienteId
      *
-     * @return \ERP\AdminBundle\Entity\CrmCliente $crmClienteId
+     * @return \ERP\AdminBundle\Entity\Cliente $crmClienteId
      */
     public function getCrmClienteId()
     {
@@ -187,7 +195,28 @@ class EncabezadoOrden
         return $this->estado;
     }
     
-    
+      /**
+     * Set tipoVenta
+     *
+     * @param string $tipoVenta
+     * @return EncabezadoOrden
+     */
+    public function setTipoVenta($tipoVenta)
+    {
+        $this->tipoVenta = $tipoVenta;
+
+        return $this;
+    }
+
+    /**
+     * Get tipoVenta
+     *
+     * @return string 
+     */
+    public function getTipoVenta()
+    {
+        return $this->tipoVenta;
+    }
     
 
 }

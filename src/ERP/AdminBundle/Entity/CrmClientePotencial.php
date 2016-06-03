@@ -149,9 +149,7 @@ class CrmClientePotencial
      */
     private $sector_mercado;
     
-    
-    
-    
+  
 
 
     /**
@@ -488,11 +486,7 @@ class CrmClientePotencial
     {
         return $this->crmEmpresaCliente;
     }
-    
-    
-    
-    
-    
+
     
      /**
      * Set sector_mercado
@@ -523,7 +517,7 @@ class CrmClientePotencial
          return $this->nombre;
    }
     
-    
+      
     
     
     

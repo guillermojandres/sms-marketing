@@ -20,14 +20,14 @@
     
  <div class="row">
  {% block descripcion %}
-        <div class="col-md-8">
+        <div class="col-md-12">
             <p class="robo" style="font-weight: 300; margin-bottom: 0px; font-size: 30px;">CRM</p>
             <p class="robo" style="font-weight: 300; font-size: 14px; height: 40px;">Panel de control de CRM</p>
         </div>
  {% endblock%}
  {% block acciones %}
      
-     	<div class="col-md-4" style="margin-top: 50px;">
+     	
                                 <!-- Boton Modificacion -->
 	
                                 
@@ -37,7 +37,7 @@
                                 
                                 
 				<!-- Boton con Dropdown -->
-				<div class="btn-group pull-right" >
+				{#<div class="btn-group pull-right" >
                                     <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  id="acciones">
 				    Menu <span class="caret"></span>
 				  </button>
@@ -52,9 +52,9 @@
 				    	<a href="#">Action</a>
 				    </li>
 				  </ul>
-				</div> 
+				</div> #}
 				<!-- Small button -->
-	</div>
+	
      
  {% endblock %}
 		
@@ -64,7 +64,8 @@
 {% block navegacion_Y_body %}
     	<div class="row">
         {% block navegacion %}
-		<hr style="margin-top: 0px !important;">
+
+            <hr style="margin-top: 0px !important;">
                 <div class="col-md-2 colorAnclas" style="border-right: 1px solid #f3f3f3;">
                     <!-- Left Navigation -->
                     <ul style="list-style: none; padding: 0;">

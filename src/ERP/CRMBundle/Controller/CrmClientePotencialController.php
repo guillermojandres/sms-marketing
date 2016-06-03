@@ -159,7 +159,7 @@ class CrmClientePotencialController extends Controller
    /**
      * 
      *
-     * @Route("/clientepotencial/data", name="clientepotencial_data")
+     * @Route("/clientepotencial/data", name="clientepotencial_datas")
      */
     public function dataClientePotencialAction(Request $request)
     {

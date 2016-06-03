@@ -12,7 +12,7 @@
      
      
 $('#fechaRC').Zebra_DatePicker({
-     format: 'M d, Y'
+     format: 'Y m, d'
 });
 
 
@@ -91,67 +91,6 @@ $('#fechaRCE').Zebra_DatePicker({
       
       
       
-      
-      
-          //Eventos de los CheckBoxs para poder controlar los seleccionados
-         $(document).on('click',".idEncabezado", function(e) {
-             
-             $(".guardar").hide();
-             $(".cancelar").hide();
-             $("#formularioInsercion").hide();
-              $(".insertar").show();
-
-             var num =0;
-
-                    $('.idEncabezado').each(
-                       function (){
-                        if($(this).prop("checked")){
-                           num++;
-                        }
-                     
-
-                       });
-
-                    if(num == 0){
-                            $(".modificar").hide(); 
-                            $(".delete").hide();
-                            $("#formularioEdicion").hide();
-                            $("#cancelarModificacion").hide();
-                            $("#guardarModificacion").hide();
-                            $(".verMasDetalles").hide();
-                              
-                    } else if(num==1){
-                             
-                            $(".modificar").show();
-                            $(".delete").show();
-                    
-                            
-                            var idDetalle = $(this).attr("id");
-                           $("#idDetalleRegistroCompra").val(idDetalle);
-                           $(".verMasDetalles").show();
-                      
-                           
-                            
-                            
-                            
-                          //Para editar 
-                           numero_edicion = $(this).attr("id");//El valor del id del chechboxs
-                            
-                          $("#formularioEdicion").load(numero_edicion+"/edit");
-                            
-                            
-                         }else{
-                             $(".modificar").hide();
-                             $(".delete").show();
-                             $("#formularioEdicion").hide();
-                             $("#guardarModificacion").hide();
-                                   $(".verMasDetalles").hide();
-                             $("#cancelarModificacion").hide();
-                         } 
-            
-             
-            
-            });  
 
      
      //Esta es la parte de la edicion de los datos
@@ -231,7 +170,7 @@ $('#fechaRCE').Zebra_DatePicker({
                                                             var monto =parseFloat(value.monto);
                                                           $("#totalRCE").val(monto);
                                                           $("#fechaRCE").val(value.fechaRegistro);
-                                                          $("#nombreClienteE").val(value.nombreCompleto); 
+                                                          $("#nombreClienteE").val(value.nombre); 
                                                           $("#tipoPagoE").val(value.tipoPago);
                                                           $("#tipoEstadoE").val(value.estado);
                                                             
@@ -682,7 +621,7 @@ $('#fechaRCE').Zebra_DatePicker({
 
 
                                                             } else {
-                                                                var url = Routing.generate('crm_dashbord');
+                                                                var url = Routing.generate('ordenesdecompra');
                                                                 window.open(url, "_self");
                                                             }
                                                         });
