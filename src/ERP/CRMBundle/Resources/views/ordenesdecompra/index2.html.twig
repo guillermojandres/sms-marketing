@@ -23,41 +23,7 @@
 			</div>
  {% endblock%}
  {% block acciones %}
-    {# 	<div class="col-md-4" style="margin-top: 50px;">
-				<!-- Boton Delete -->
-				<div class="btn-group pull-right">
-					<button class="btn btn-danger btn-sm" style="margin-left: 5px;" type="submit">Delete</button>
-				</div>
-
-				<!-- Boton Ingreso -->
-				<div class="btn-group pull-right">
-					<button class="btn btn-primary btn-sm insertar" style="margin-left: 5px;" type="submit">Nuevo</button>
-				</div>
-
-				<!-- Boton Normal -->
-				<div class="btn-group pull-right">
-					<button class="btn btn-default btn-sm" style="margin-left: 5px;" type="submit">Accion</button>
-				</div>
-
-				<!-- Boton con Dropdown -->
-				<div class="btn-group pull-right">
-				  <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				    Menu <span class="caret"></span>
-				  </button>
-				  <ul class="dropdown-menu">
-				    <li>
-				    	<a href="#">Action</a>
-				    </li>
-				    <li>
-				    	<a href="#">Action</a>
-				    </li>
-				    <li>
-				    	<a href="#">Action</a>
-				    </li>
-				  </ul>
-				</div> 
-				<!-- Small button -->
-			</div>#}
+    
      
  {% endblock %}
 		
@@ -79,7 +45,7 @@
 
 {% block cuerpo %}
     <div class="col-md-10">
-            <div class="row module first">
+         {#   <div class="row module first">
              <div class="row">
                  <a href="{{ path('cliente_distribuidores_index') }}">
                      <div class="col-md-10 colorAnclas">
@@ -89,7 +55,7 @@
                   
                  </a>
              </div>
-         </div>   
+         </div> #}  
         
             <div class="row module first">
              <div class="row">
@@ -102,7 +68,18 @@
                  </a>
              </div>
          </div>
-                
+                 <div class="row module first">
+                     <div class="row">
+                         <a href="{{ path('clientes_registros_compras_clientes') }}">
+                             <div class="col-md-10 colorAnclas">
+                                 <p class="text-left" style="font-size: 17px; margin-top: 10px; margin-bottom: 0px;"><strong>Historial de venta por cliente</strong></p>
+                                 <p class="text-left" style="font-size: 12px; #8D99A6 !important;">Buscar registros de ventas  por cliente</p>
+                             </div>
+
+                         </a>
+                     </div>
+                 </div>
+
      
        
         

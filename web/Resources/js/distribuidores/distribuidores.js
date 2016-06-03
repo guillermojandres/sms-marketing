@@ -1,7 +1,7 @@
  $(document).ready(function(){
       
    var correlativo=0;  
-     
+
    $("#botonesInsercion").hide();
    $(".totalRC").hide();
      
@@ -14,7 +14,7 @@ $('#fechaRC').Zebra_DatePicker({
      $("#tipoEstado").select2();
      $("#tipoPago").select2();
      
-    $("#contenidoFormularioRegistroCompra").hide();
+
   $(".nuevoRegistroCompra").hide();
     
       $(document).on("click",".nuevoRegistroCompra",function() {
@@ -277,7 +277,8 @@ $('#fechaRC').Zebra_DatePicker({
       
           
           
-          var idCliente = $("#idDistribuidor").val();
+          var idCliente = $("#clientes").val();
+    
 
             $(".producto").each(function(k, va) {
                      productos.push($(this).val());
@@ -364,6 +365,54 @@ $('#fechaRC').Zebra_DatePicker({
           
           
       });
+
+ $('#clientes').select2({
+                ajax: {
+                    url: Routing.generate('busqueda_abogado_select'),
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            q: params.term,
+                            page: params.page
+                        };
+                    },
+                    processResults: function (data, params) {
+                        var select2Data = $.map(data.data, function (obj) {
+                            obj.id = obj.abogadoid;
+                            obj.text = obj.codigo + ' - ' + obj.nombres;
+
+                            return obj;
+                        });
+
+                        return {
+                            results: select2Data
+                        };
+                    },
+                    cache: true
+                },
+                escapeMarkup: function (markup) { return markup; },
+                minimumInputLength: 1,
+                templateResult: formatRepo2,
+                templateSelection: formatRepoSelection2,
+                formatInputTooShort: function () {
+                    return "Enter 1 Character";
+                }
+            });     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
      
 
 
@@ -407,7 +456,7 @@ $('#fechaRC').Zebra_DatePicker({
             
             
             $("#datadistribuidores").hide();
-           $("#contenidoFormularioRegistroCompra").show();
+//           $("#contenidoFormularioRegistroCompra").show();
             $(".cancelarRC").show();
             $(".nuevoRegistroCompra").hide();
               
@@ -428,7 +477,7 @@ $('#fechaRC').Zebra_DatePicker({
             $("#totalRC").val(0);
             
             $("#datadistribuidores").show();
-           $("#contenidoFormularioRegistroCompra").hide();
+       
             $(".cancelarRC").hide();
             $(".nuevoRegistroCompra").hide();
                $("#botonesInsercion").hide();  
@@ -436,3 +485,26 @@ $('#fechaRC').Zebra_DatePicker({
                location.reload();
       
   }   
+  
+  
+  function formatRepo2 (data) {
+            console.log(data);
+            if(data.nombres){
+                var markup = "<div class='select2-result-repository clearfix'>" +
+                             "<div class='select2-result-repository__meta'>" +
+                             "<div class='select2-result-repository__title'>" + data.codigo + " - " + data.nombres + "</div>" +
+                             "</div></div>";
+            } else {
+                var markup = "Busque un cliente";
+            }
+
+            return markup;
+        }
+
+        function formatRepoSelection2 (data) {
+            if(data.nombres){
+                return data.codigo + " - " + data.nombres + " " + data.apellido;
+            } else {
+                return "Seleccione un cliente";
+            }   
+        }
