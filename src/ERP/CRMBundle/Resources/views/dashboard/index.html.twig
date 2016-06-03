@@ -20,7 +20,11 @@
                                         <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
                             <link rel="shortcut icon" href="{{ asset('Resources/imagenes/favicon.png')}}" type="image/x-icon">
                             <link rel="icon" href="{{ asset('Resources/imagenes/favicon.png')}}" type="image/x-icon">
-                                               
+                    
+                       
+
+
+    
     </head>
     <body>
         <style>
@@ -42,6 +46,7 @@
 			<div class="col-md-10 col-xs-12"> 
 				<div class="row">
 					<!-- Inicio de Icono de Notificaciones -->
+                                        <div class="col-md-1 col-xs-6 col-sm-6" style="margin-top: 20px;"></div>
 					<div class="col-md-2 col-xs-6 col-sm-6" style="margin-top: 20px;">
 						<a href="{{ path('dashboard_indexCRM') }}" style="text-decoration: none; color: inherit; outline: 0; margin-top: 20px;"><span class="text-center">
 							<p style="margin-botttom: 0px; padding-bottom: 0px;"><img src="{{ asset('Resources/src/img/icon5.png')}}"></p>
@@ -58,23 +63,27 @@
 					</div>
 					<!-- Fin de Icono de Notificaciones -->
 					<!-- Inicio de Icono de Notificaciones -->
-							<p style="padding-top: 5px; margin-top: 0px;"><strong>Historial del cliente</strong></p>
-						</span></a>
-					</div>-->
-                                                                                       
 					<div class="col-md-2 col-xs-6 col-sm-6" style="margin-top: 20px;">
 						<a href="{{ path('dashboardhistorialcliente') }}" style="text-decoration: none; color: inherit; outline: 0; margin-top: 20px;"><span class="text-center">
                                                         <p style="margin-botttom: 0px; padding-bottom: 0px;"><img src="{{ asset('Resources/src/img/Historial.png')}}" style="height: 80px; width: 80px;"></p>
+							<p style="padding-top: 5px; margin-top: 0px;"><strong>Historial del cliente</strong></p>
+						</span></a>
+					</div>
+                                                                                       
+					<div class="col-md-2 col-xs-6 col-sm-6" style="margin-top: 20px;">
+						<a href="{{path('inventariobeard_listprod')}}" style="text-decoration: none; color: inherit; outline: 0; margin-top: 20px;"><span class="text-center">
+                                                        <p style="margin-botttom: 0px; padding-bottom: 0px;"><img src="{{ asset('Resources/src/img/Prodcutos.png')}}" style="height: 80px; width: 80px;"></p>
 							<p style="padding-top: 5px; margin-top: 0px;"><strong>Productos</strong></p>
 						</span></a>
 					</div>
 					
-					<div class="col-md-3 col-xs-6 col-sm-6" style="margin-top: 20px;">
+					<div class="col-md-2 col-xs-6 col-sm-6" style="margin-top: 20px;">
 						<a href="template.php" style="text-decoration: none; color: inherit; outline: 0; margin-top: 20px;"><span class="text-center">
                                                         <p style="margin-botttom: 0px; padding-bottom: 0px;"><img src="{{ asset('Resources/src/img/Contabilidad.png')}}" style="height: 80px; width: 80px;"></p>
 							<p style="padding-top: 5px; margin-top: 0px;"><strong>Contabilidad</strong></p>
 						</span></a>
 					</div>
+                                        <div class="col-md-1 col-xs-6 col-sm-6" style="margin-top: 20px;"></div>
 					<!-- Fin de Icono de Notificaciones -->
 					<!-- Inicio de Icono de Notificaciones -->
 			{#		<div class="col-md-2 col-xs-6 col-sm-2" style="margin-top: 20px;">
@@ -123,6 +132,3 @@
 
     </body>
 </html>
-					<div class="col-md-2 col-xs-6 col-sm-6" style="margin-top: 20px;">
-						<a href="pos.php" style="text-decoration: none; color: inherit; outline: 0; margin-top: 20px;"><span class="text-center">
-                                                        <p style="margin-botttom: 0px; padding-bottom: 0px;"><img src="{{ asset('Resources/src/img/Prodcutos.png')}}" style="height: 80px; width: 80px;"></p>
