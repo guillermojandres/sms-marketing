@@ -22,18 +22,20 @@ class InventariobeardModifyProdController extends Controller
     /**
      * Lists all InvProveedor entities.
      *
-     * @Route("/modifyprod", name="inventariobeard_modifyprod")
+     * @Route("/modifyprod", name="inventariobeard_modifyprod", options={"expose"=true})
      *
      */  
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $idprod = 171;
+        
+          $idprod = $request->query->get('id');
+        //$idprod = 171;
         
         //Recuperando datos del producto
         $em = $this->getDoctrine()->getManager();
         $dql = "SELECT prod.id as idproducto, prod.nombre as nombre, prod.precio as precio, prod.numeroReferencia as numref, prod.estado as estado, prod.descripcion as descrip, "
                 . "prod.link as link, prod.ingrediente as ingre, prod.presentacion as pres, prod.stock as stock, catprod.id as idc, catprod.nombreCategoria as nomcat,"
-                . "subcatprod.id as idsc, subcatprod.nombreSubCategoria as nomscat "
+                . "subcatprod.id as idsc, subcatprod.nombreSubCategoria as nomscat, prod.destacado as destacado, prod.disponible as disponible, prod.mensaje as mensaje "
                 . "FROM ERPAdminBundle:BeardProducto prod "
                 . "JOIN prod.idSubCategoriaProducto subcatprod "
                 . "JOIN subcatprod.idCategoria catprod "                
@@ -52,7 +54,7 @@ class InventariobeardModifyProdController extends Controller
                 ->setParameter('idprod', $idprod)
                 ->getResult();
         
-        //Recuperando las imagenes relacionadas al producto
+        //Recuperando los atributos relacionados al producto
         $em = $this->getDoctrine()->getManager();
         $dql = "SELECT attrib.nombre as nombre, attrib.porcentaje as porcentaje "
                 . "FROM ERPAdminBundle:BeardAtributoProducto attrib "
@@ -98,6 +100,20 @@ class InventariobeardModifyProdController extends Controller
         $producto->setStock($parameters['stock']);
         $producto->setDescripcion($parameters['descripcion']);        
         $producto->setIngrediente($parameters['ingrediente']);
+        
+        if(isset($parameters['destacado'])){            
+            $producto->setDestacado(1);
+        }else{
+            $producto->setDestacado(0);
+        }
+        if(isset($parameters['disponibilidad'])){            
+            $producto->setDispoonible(1);
+        }else{
+            $producto->setDispoonible(0);
+        }
+        if(isset($parameters['msjexistencia'])){           
+            $producto->setMensaje($parameters['msjexistencia']);
+        }
                 
         $em->merge($producto);
         $em->flush();

@@ -98,6 +98,22 @@
                                         <label for="exampleInputEmail1">Existencias totales</label> 
                                         <input id="stock" name="stock" type="text" value="{{producto.stock}}" class="form-control" placeholder="Cantidad total de productos actules + nuevos" />
                                     </div>
+                                    
+                                    <div class="form-group">                                                                                
+                                        <label for="exampleInputEmail1">Destacar este producto</label><br>
+                                        <input id="destacado" name="destacado" type="checkbox" {% if producto.destacado==1 %} checked {% endif %}>
+                                    </div>
+
+                                    <div class="form-group">                                                                                
+                                        <label for="exampleInputEmail1">Mostrar como no disponible</label><br>
+                                        <input id="disponibilidad" name="disponibilidad" type="checkbox" {% if producto.disponible==1 %} checked {% endif %}> 
+                                    </div>
+
+                                    <div id="nodispo" class="form-group">
+                                        <label for="exampleInputEmail1">Mensaje por falta de existencias</label> 
+                                        <input id="msjexistencia" name="msjexistencia" type="text" class="form-control" placeholder="Cantidad total de productos actules + nuevos" value="{{producto.mensaje}}"/>
+                                    </div>
+                                                                        
                                 </div>
 
 
@@ -226,7 +242,26 @@
 
    <script>
       $( document ).ready(function() { //inicio document ready
-          
+        if ($('#disponibilidad').is(':checked')) {  
+            $("#nodispo").show();
+        }else{
+            $("#nodispo").hide();
+        }  
+            $(".hoverimg").on('click', function(e) {
+
+                var imgp= $(this).attr('src');
+
+            $('#imagenp>img').attr('src', imgp);
+            });
+
+            $("#disponibilidad").on('click', function(e) {                                       
+                if ($('#disponibilidad').is(':checked')) {
+                    $("#nodispo").show();
+                }else{
+                    $("#nodispo").hide();
+                    $("#msjexistencia").val(" ");
+                }
+            });
         //$("#lasubcategoria").hide();
         //$("#subcategoria").hide();
         $("#categoria").on('change', function(e) {
