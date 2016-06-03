@@ -12,7 +12,8 @@ use ERP\AdminBundle\Entity\Cliente;
 use ERP\AdminBundle\Form\ClienteType;
 use Symfony\Component\HttpKernel\Exception;
 use Doctrine\ORM\Query\ResultSetMapping;
-include_once '../src/ERP/CRMBundle/Resources/dompdf/dompdf_config.inc.php';    
+include_once '../src/ERP/CRMBundle/Resources/dompdf/dompdf_config.inc.php'; 
+include_once "../src/ERP/CRMBundle/Resources/phpexcel/lib/PHPExcel/IOFactory.php";
 include_once "../src/ERP/CRMBundle/Resources/phpexcel/lib/PHPExcel.php";
 /**
  * Cliente controller.
@@ -42,7 +43,7 @@ class HistorialClienteController extends Controller
       /**
      *
      *
-     * @Route("/verFactura/data/{idDetalle}", name="verFactura", options={"expose"=true})
+     * @Route("/verFactura/{idDetalle}", name="verFactura", options={"expose"=true})
        * @Method({"GET", "POST"})
      */
     public function verEncabezadoPDF($idDetalle) {
@@ -69,12 +70,9 @@ class HistorialClienteController extends Controller
         $pdf->set_paper('A4', 'portrait');
         $pdf->load_html($html);
         $pdf->render();
-        $pdf->stream('Boleta.pdf', array('Attachment' => 0));
+        $pdf->stream('RegistroDeVenta.pdf', array('Attachment' => 0));
         
     }
-    
-    
-    
     
     function llamarDetalleOrden($idEncabezado) {
         
@@ -152,10 +150,6 @@ class HistorialClienteController extends Controller
                                   $productosId[$i]=$resultadoProductoId[$i]['id'];
                 }
 
-              
-              
-          
-                
                  $data['estado']=true;
                  $data['precio']=$precios;
                  $data['nombre']=$productos;
@@ -163,21 +157,9 @@ class HistorialClienteController extends Controller
                  $data['cantidad']=$cantidades;
                  $data['descuento']=$descuentos;
                  $data['idOrden']=$idsOrden;
-              
-        
-        
-        
-        
-        
-        
-        
-        
+
                  return $data;
-        
-        
-        
-        
-        
+
     }
      
       /**
@@ -217,7 +199,7 @@ class HistorialClienteController extends Controller
                 . "concat_ws(enc.tipo_venta, '<div class=\"text-center\">', '</div>') as tipoVenta, "
                 . "concat_ws(enc.tipo_pago, '<div class=\"text-center\">', '</div>') as tipo_pago, "
                 . "concat_ws(enc.monto, '<div class=\"text-center\">', '</div>') as monto, "
-                . "concat_ws(enc.id, '<i class=\" colorAnclas fa fa-file-pdf-o verPDF\" id=\"', '\" title=\"Ver PDF\"></i>') as link "
+                . "concat_ws(enc.id, '<i class=\" colorAnclas fa fa-file-pdf-o verPDF\" id=\"', '\" title=\"Ver PDF\"></i>&nbsp;&nbsp;<i class=\" colorAnclas fa fa-file-excel-o verExcel\" id=\"', '\" title=\"Descargar excel\"></i>'  ) as link "
                 . "FROM encabezado_orden enc  inner join cliente cli on enc.crm_cliente_id = cli.id "
                 . "WHERE 1 = 1 ";
 
@@ -324,7 +306,242 @@ class HistorialClienteController extends Controller
         return new Response(json_encode($abogado));
     }
      
-     
+    
+    //Funcion para llamar excel dentro para los valores de los registros de las ventas
+     /**
+     *
+     *
+     * @Route("/verExcel/{idDetalle}", name="verExcel", options={"expose"=true})
+       * @Method({"GET", "POST"})
+     */
+    function llamarExcel($idDetalle) {
+          $em = $this->getDoctrine()->getManager();
+//        $encabezado = $em->getRepository('ERPAdminBundle:EncabezadoOrden')->findById($idDetalle) ;
+         $dqlEncabezado = "SELECT date_format(enc.fechaRegistro,'%Y-%m-%d') as fechaRegistro,enc.estado,enc.tipoPago, enc.monto, cli.nombre, cli.codigo FROM ERPAdminBundle:EncabezadoOrden enc "
+                    . "JOIN enc.crmClienteId cli "
+                    . "WHERE enc.id = :id ";
+
+         $encabezado = $em->createQuery($dqlEncabezado)
+                        ->setParameters(array('id'=>$idDetalle))
+                        ->getResult();
+  
+
+        $detalleOrden = $this->llamarDetalleOrden($idDetalle);
+        
+        
+        
+        
+        
+        $objPHPExcel = new \PHPExcel(); //nueva instancia
+
+	$objPHPExcel->getProperties()->setCreator("Digitality Garage"); //autor
+	$objPHPExcel->getProperties()->setTitle("Registros de venta"); //titulo
+
+	
+        
+	
+	date_default_timezone_set('America/El_Salvador');
+	
+	if (PHP_SAPI == 'cli')
+		die('Este archivo solo se puede ver desde un navegador web');
+	
+	// Se asignan las propiedades del libro
+	$objPHPExcel->getProperties()->setCreator("Digitality Garage") // Nombre del autor
+		->setLastModifiedBy("Digitality Garage") //Ultimo usuario que lo modificó
+		->setTitle("Reporte Excel con PHP y MySQL") // Titulo
+		->setSubject("Reporte Excel con PHP y MySQL") //Asunto
+		->setDescription("Reporte de ventas") //Descripción
+		->setKeywords("Reporte ventas") //Etiquetas
+		->setCategory("Reporte excel"); //Categorias
+	
+	$tituloReporte = "Reporte de venta";
+	$titulosColumnas = array( 'FECHA DE REGISTRO','TIPO DE PAGO','NOMBRE CLIENTE','MONTO TOTAL ($)','ESTADO DE VENTA');
+	$titulosColumnas2 = array( 'PRODUCTO','PRECIO','CANTIDAD','SUB TOTAL');
+	// Se combinan las celdas A1 hasta D1, para colocar ahí el titulo del reporte
+	$objPHPExcel->setActiveSheetIndex(0)
+		->mergeCells('A1:D1');
+	 
+	// Se agregan los titulos del reporte
+	$objPHPExcel->setActiveSheetIndex(0)
+		->setCellValue('A1',$tituloReporte) // Titulo del reporte
+		->setCellValue('A3',  $titulosColumnas[0])  
+                                    ->setCellValue('J3',  $titulosColumnas[1])  //Titulo de las columnas
+		->setCellValue('D3',  $titulosColumnas[2])
+                                      ->setCellValue('G3',  $titulosColumnas[3])
+                                    ->setCellValue('M3',  $titulosColumnas[4])
+                                      ->setCellValue('A9',  $titulosColumnas2[0])
+                                            ->setCellValue('B9',  $titulosColumnas2[1])
+                                            ->setCellValue('C9',  $titulosColumnas2[2])
+                                            ->setCellValue('D9',  $titulosColumnas2[3]);
+		//->setCellValue('D3',  $titulosColumnas[3]);
+	
+	//Donde se setean los valores de del encabezado
+                    $estado ="";
+                        if($encabezado[0]["estado"]==1){
+                            
+                                         $estado = "Pago Recibido";
+                                    }elseif($encabezado[0]["estado"]==2){
+                                        $estado = "En proceso";
+                                        
+                                    }elseif($encabezado[0]["estado"]==3){
+                                        $estado = "Procesado";
+                                        
+                                    } elseif($encabezado[0]["estado"]==4){
+                                        $estado = "En camino";
+                                        
+                                    }elseif($encabezado[0]["estado"]==5){
+                                        $estado = "Completado";
+                                        
+                                    }   
+        
+        
+        
+                                $objPHPExcel->setActiveSheetIndex(0)
+		->setCellValue('B3', $encabezado[0]['fechaRegistro'])  
+                                  ->setCellValue('D3', $encabezado[0]['nombre'])
+                                        ->setCellValue('G3', $encabezado[0]['monto'])
+                                        ->setCellValue('K3', $encabezado[0]['tipoPago'])
+                                        ->setCellValue('M3',$estado )  ;
+        
+        
+ 
+	 $v = 10; //Numero de fila donde se va a comenzar a rellenar
+                    
+          $dimension = count($detalleOrden['nombre']);
+              
+              for ($i=0;$i<$dimension;$i++){
+                   $objPHPExcel->setActiveSheetIndex(0)
+                            ->setCellValue('A'.$v,$detalleOrden['nombre'][$i])
+                           ->setCellValue('B'.$v,number_format($detalleOrden['precio'][$i],2))
+                             ->setCellValue('C'.$v,$detalleOrden['cantidad'][$i])
+                               ->setCellValue('D'.$v,number_format($detalleOrden['cantidad'][$i]*$detalleOrden['precio'][$i],2));
+                   $v++;          
+                   
+              }
+
+                             
+	$estiloTituloReporte = array(
+		'font' => array(
+			'name'      => 'Verdana',
+			'bold'      => true,
+			'italic'    => false,
+			'strike'    => false,
+			'size' =>16,
+			'color'     => array(
+				'rgb' => 'FFFFFF'
+			)
+		),
+		'fill' => array(
+			'type'  => \PHPExcel_Style_Fill::FILL_SOLID,
+			'color' => array(
+				'argb' => '3f3f91')
+		),
+		'borders' => array(
+			'allborders' => array(
+				'style' => \PHPExcel_Style_Border::BORDER_NONE
+			)
+		),
+		'alignment' => array(
+			'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+			'vertical' => \PHPExcel_Style_Alignment::VERTICAL_CENTER,
+			'rotation' => 0,
+			'wrap' => TRUE
+		)
+	);
+	 
+	$estiloTituloColumnas = array(
+		'font' => array(
+			'name'  => 'Arial',
+			'bold'  => true,
+			'color' => array(
+				'rgb' => 'FFFFFF'
+			)
+		),
+		'fill' => array(
+			'type'       => \PHPExcel_Style_Fill::FILL_GRADIENT_LINEAR,
+		'rotation'   => 90,
+			'startcolor' => array(
+				'rgb' => '000000'
+			),
+			'endcolor' => array(
+				'argb' => '000000'
+			)
+		),
+		'borders' => array(
+			'top' => array(
+				'style' => \PHPExcel_Style_Border::BORDER_MEDIUM ,
+				'color' => array(
+					'rgb' => '143860'
+				)
+			),
+			'bottom' => array(
+				'style' => \PHPExcel_Style_Border::BORDER_MEDIUM ,
+				'color' => array(
+					'rgb' => '143860'
+				)
+			)
+		),
+		'alignment' =>  array(
+			'horizontal'=> \PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+			'vertical'  => \PHPExcel_Style_Alignment::VERTICAL_CENTER,
+			'wrap'      => TRUE
+		)
+	);
+	 
+	$estiloInformacion = new \PHPExcel_Style();
+	
+	$estiloInformacion->applyFromArray( array(
+		'font' => array(
+			'name'  => 'Arial',
+			'color' => array(
+				'rgb' => '000000'
+			)
+		),
+		'fill' => array(
+		'type'  => \PHPExcel_Style_Fill::FILL_SOLID,
+		'color' => array(
+				'argb' => 'FFFFFF')
+		),
+		'borders' => array(
+			'left' => array(
+				'style' => \PHPExcel_Style_Border::BORDER_THIN ,
+			'color' => array(
+					'rgb' => 'FFFFFF'
+				)
+			)
+		)
+	));
+	
+            $objPHPExcel->getActiveSheet()->getStyle('A1:B1')->applyFromArray($estiloTituloReporte);
+            $objPHPExcel->getActiveSheet()->getStyle('A3:G3')->applyFromArray($estiloTituloColumnas);
+            $objPHPExcel->getActiveSheet()->setSharedStyle($estiloInformacion, "A10:D".($v));
+
+            for($i = 'A'; $i <= 'D'; $i++){
+                    $objPHPExcel->setActiveSheetIndex(0)->getColumnDimension($i)->setAutoSize(TRUE);
+            }
+	
+	// Se asigna el nombre a la hoja
+	$objPHPExcel->getActiveSheet()->setTitle('Registro de venta');
+	 
+	// Se activa la hoja para que sea la que se muestre cuando el archivo se abre
+	$objPHPExcel->setActiveSheetIndex(0);
+	 
+	// Inmovilizar paneles
+	//$objPHPExcel->getActiveSheet(0)->freezePane('A4');
+	$objPHPExcel->getActiveSheet(0)->freezePaneByColumnAndRow(0,4);
+	
+	// Save Excel 2007 file
+	#echo date('H:i:s') . " Write to Excel2007 format\n";
+	$objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+	ob_end_clean();
+	// We'll be outputting an excel file
+	header('Content-type: application/vnd.ms-excel');
+	header('Content-Disposition: attachment; filename="ingreso'.'_'.date("d-m-Y_H-i-s").'.xlsx"');
+	$objWriter->save('php://output');
+        
+        
+        
+    }
      
      
      

@@ -56,12 +56,18 @@ $('#txtFechaInicio').Zebra_DatePicker({
                var url=Routing.generate('verFactura',{idDetalle: idDetalle});
 
                                         window.open(url,"_blank"); 
-           
-           
+
        });
      
      
-     
+      $(document).on("click",".verExcel",function() {
+           var idDetalle =$(this).attr("id");
+
+           
+               var url=Routing.generate('verExcel',{idDetalle: idDetalle});
+
+                                        window.open(url,"_self"); 
+       });
      
      
  });
@@ -74,7 +80,7 @@ function formatRepo (data) {
                              "<div class='select2-result-repository__title'>" + data.codigo + " - " + data.nombres + "</div>" +
                              "</div></div>";
             } else {
-                var markup = "Seleccione un abogado";
+                var markup = "Busque un cliente";
             }
 
             return markup;
@@ -84,6 +90,6 @@ function formatRepo (data) {
             if(data.nombres){
                 return data.codigo + " - " + data.nombres + " " + data.apellido;
             } else {
-                return "Seleccione un abogado";
+                return "Seleccione un cliente";
             }   
         }
