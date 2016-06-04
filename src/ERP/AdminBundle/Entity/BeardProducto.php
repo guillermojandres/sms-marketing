@@ -85,6 +85,27 @@ class BeardProducto
     private $stock;
     
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="destacado", type="integer", nullable=false)
+     */
+    private $destacado;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="disponible", type="integer", nullable=false)
+     */
+    private $disponible;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mensaje", type="string", length=200, nullable=false)
+     */
+    private $mensaje;
+    
+    /**
     * @var \CtlSubCategoriaProducto
     *
     * @ORM\ManyToOne(targetEntity="CtlSubCategoriaProducto")
@@ -296,7 +317,67 @@ class BeardProducto
     public function getStock() {
         return $this->stock;
     }
-            
+    
+    /**
+     * Set destacado
+     *
+     * @param integer $destacado
+     * @return BeardProducto
+     */
+    public function setDestacado($destacado) {
+        $this->destacado = $destacado;
+        return $this;
+    }
+
+    /**
+     * Get destacado
+     *
+     * @return integer 
+     */
+    public function getDestacado() {
+        return $this->destacado;
+    }
+    
+    /**
+     * Set disponible
+     *
+     * @param integer $disponible
+     * @return BeardProducto
+     */
+    public function setDispoonible($disponible) {
+        $this->disponible = $disponible;
+        return $this;
+    }
+
+    /**
+     * Get disponible
+     *
+     * @return integer 
+     */
+    public function getDisponible() {
+        return $this->disponible;
+    }
+    
+    /**
+     * Set mensaje
+     *
+     * @param string $mensaje
+     * @return BeardProducto
+     */
+    public function setMensaje($mensaje) {
+        $this->mensaje = $mensaje;
+        return $this;
+    }
+
+    /**
+     * Get 
+     *
+     * @return string 
+     */
+    public function getMensaje() {
+        return $this->mensaje;
+    }
+
     /**
      * Set idSubCategoriaProducto
      *
