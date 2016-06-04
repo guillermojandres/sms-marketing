@@ -86,7 +86,7 @@ $('#fechaRC').Zebra_DatePicker({
                                 <div class="form-column col-md-3">\n\
                                     <div class="form-group" >\n\
                                         <label for="cantidad" class="control-label">Cantidad</label>\n\
-                                            <input type="text" class="form-control cantidad" id="cantidad-'+correlativo+'" placeholder="# cantidad producto" name="cantidad" value="0">\n\
+                                            <input type="number" min="1" class="form-control cantidad" id="cantidad-'+correlativo+'" placeholder="# cantidad producto" name="cantidad" value="0">\n\
                                     </div>\n\
                                  </div>\n\
                                 <div style="display: none;">\n\
@@ -97,11 +97,11 @@ $('#fechaRC').Zebra_DatePicker({
                                  </div>\n\
                                 <div class="form-column col-md-2">\n\
                                        <div class="form-group" >\n\
-                                           <label for="decuento" class="control-label">% Descuento</label>\n\
-                                               <input type="text" class="form-control descuento" id="descuento-'+correlativo+'" placeholder="% Descuento" name="descuento" >\n\
+                                           <label for="decuento" class="control-label">Descuento</label>\n\
+                                               <input type="number" min="0" class="form-control descuento" id="descuento-'+correlativo+'" placeholder="Descuento" name="descuento" value="0" >\n\
                                        </div>\n\
                                     </div>\n\
-                                    <div class="fa fa-close col-md-1 eliminarDiv"></div>\n\
+                                    <div class="fa fa-close col-md-1 eliminarDiv" style="margin-top: 3%;margin-left:-20px;"></div>\n\
                             </div>\n\
                             <div class="clearfix"></div></div>';
       
