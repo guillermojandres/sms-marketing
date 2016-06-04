@@ -1,16 +1,17 @@
 <?php
 
 namespace ERP\AdminBundle\Entity;
-
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * CtlUsuario
  *
- * @ORM\Table(name="ctl_usuario", indexes={@ORM\Index(name="fk_ctl_usuario_rh_persona1_idx", columns={"rh_persona_id"})})
+ * @ORM\Table(name="ctl_usuario")
  * @ORM\Entity
  */
-class CtlUsuario
+class CtlUsuario implements AdvancedUserInterface, \Serializable
 {
     /**
      * @var integer
@@ -49,23 +50,47 @@ class CtlUsuario
      */
     private $estado;
 
-    /**
-     * @var \RhPersona
-     *
-     * @ORM\ManyToOne(targetEntity="RhPersona")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="rh_persona_id", referencedColumnName="id")
-     * })
-     */
-    private $rhPersona;
+//    /**
+//     * @var \CtlEmpresa
+//     *
+//     * @ORM\ManyToOne(targetEntity="CtlEmpresa")
+//     * @ORM\JoinColumns({
+//     *   @ORM\JoinColumn(name="ctl_empresa_id", referencedColumnName="id")
+//     * })
+//     */
+//    private $ctlEmpresa;
+//
+//    /**
+//     * @var \AbgPersona
+//     *
+//     * @ORM\ManyToOne(targetEntity="AbgPersona")
+//     * @ORM\JoinColumns({
+//     *   @ORM\JoinColumn(name="rh_persona_id", referencedColumnName="id")
+//     * })
+//     */
+//    private $rhPersona;
 
+  
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="CtlRol", mappedBy="ctlUsuario")
+     * @ORM\ManyToMany(targetEntity="CtlRol", inversedBy="ctlRol")
+     * @ORM\JoinTable(name="ctl_rol_usuario",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="ctl_usuario_id", referencedColumnName="id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="ctl_rol_id", referencedColumnName="id")
+     *   }
+     * )
      */
+   
     private $ctlRol;
-
+    
+    private $isEnabled;// = false; 
+    
+    
+    
     /**
      * Constructor
      */
@@ -177,36 +202,59 @@ class CtlUsuario
         return $this->estado;
     }
 
-    /**
-     * Set rhPersona
-     *
-     * @param \ERP\AdminBundle\Entity\RhPersona $rhPersona
-     * @return CtlUsuario
-     */
-    public function setRhPersona(\ERP\AdminBundle\Entity\RhPersona $rhPersona = null)
-    {
-        $this->rhPersona = $rhPersona;
-
-        return $this;
-    }
-
-    /**
-     * Get rhPersona
-     *
-     * @return \ERP\AdminBundle\Entity\RhPersona 
-     */
-    public function getRhPersona()
-    {
-        return $this->rhPersona;
-    }
+//    /**
+//     * Set ctlEmpresa
+//     *
+//     * @param \DGAbgSistemaBundle\Entity\CtlEmpresa $ctlEmpresa
+//     * @return CtlUsuario
+//     */
+//    public function setCtlEmpresa(\DGAbgSistemaBundle\Entity\CtlEmpresa $ctlEmpresa = null)
+//    {
+//        $this->ctlEmpresa = $ctlEmpresa;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Get ctlEmpresa
+//     *
+//     * @return \DGAbgSistemaBundle\Entity\CtlEmpresa 
+//     */
+//    public function getCtlEmpresa()
+//    {
+//        return $this->ctlEmpresa;
+//    }
+//
+//    /**
+//     * Set rhPersona
+//     *
+//     * @param \DGAbgSistemaBundle\Entity\AbgPersona $rhPersona
+//     * @return CtlUsuario
+//     */
+//    public function setRhPersona(\DGAbgSistemaBundle\Entity\AbgPersona $rhPersona = null)
+//    {
+//        $this->rhPersona = $rhPersona;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Get rhPersona
+//     *
+//     * @return \DGAbgSistemaBundle\Entity\AbgPersona 
+//     */
+//    public function getRhPersona()
+//    {
+//        return $this->rhPersona;
+//    }
 
     /**
      * Add ctlRol
      *
-     * @param \ERP\AdminBundle\Entity\CtlRol $ctlRol
+     * @param \DGAbgSistemaBundle\Entity\CtlRol $ctlRol
      * @return CtlUsuario
      */
-    public function addCtlRol(\ERP\AdminBundle\Entity\CtlRol $ctlRol)
+    public function addCtlRol(\ERPAdminBundle\Entity\CtlRol $ctlRol)
     {
         $this->ctlRol[] = $ctlRol;
 
@@ -216,9 +264,9 @@ class CtlUsuario
     /**
      * Remove ctlRol
      *
-     * @param \ERP\AdminBundle\Entity\CtlRol $ctlRol
+     * @param \DGAbgSistemaBundle\Entity\CtlRol $ctlRol
      */
-    public function removeCtlRol(\ERP\AdminBundle\Entity\CtlRol $ctlRol)
+    public function removeCtlRol(\ERPAdminBundle\Entity\CtlRol $ctlRol)
     {
         $this->ctlRol->removeElement($ctlRol);
     }
@@ -232,11 +280,98 @@ class CtlUsuario
     {
         return $this->ctlRol;
     }
+    /**
+     * Get roles
+     *
+     * @return Doctrine\Common\Collections\Collection
+     */
+    public function getRoles()
+    {
+        return $this->ctlRol->toArray(); //IMPORTANTE: el mecanismo de seguridad de Sf2 requiere ésto como un array
+    }
+    
+    
+    
+     /**
+     * Compares this user to another to determine if they are the same.
+     *
+     * @param UserInterface $user The user
+     * @return boolean True if equal, false othwerwise.
+     */
+    public function equals(UserInterface $user) {
+        return md5($this->getUsername()) == md5($user->getUsername());
+ 
+    }
+ 
+    /**
+     * Erases the user credentials.
+     */
+    public function eraseCredentials() {
+ 
+    }
+    
+    /*public function __toString() {
+        return $this->username ? $this->username : '';
+    }*/
+    
+    /**
+     * @see \Serializable::serialize()
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+        ));
+    }
+    /**
+     * @see \Serializable::unserialize()
+     */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            ) = unserialize($serialized);
+    }
+    
+    public function isAccountNonExpired()
+    {
+            return true;
+    }
+
+    public function isAccountNonLocked()
+    {
+            return  !$this->isEnabled;
+    }
+
+    public function isCredentialsNonExpired()
+    {
+            return true;
+    }
+
+    public function isEnabled()
+    {
+        if ((int)$this->estado == 1)
+            $this->isEnabled = true;
+        else
+            $this->isEnabled  = false;
+        return  $this->isEnabled;
+    }
     
     public function __toString() {
-        
-         return $this->username;
+        return $this->username ? $this->username : '';
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     

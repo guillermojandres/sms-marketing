@@ -24,8 +24,8 @@
  {% block descripcion %}
 			<div class="col-md-8">
                             <input type="hidden" id="idDistribuidor">
-				<p class="robo" style="font-weight: 300; margin-bottom: 0px; font-size: 30px;">Clientes distribuidores</p>
-                                <p class="robo" style="font-weight: 300; font-size: 14px; height: 40px;">Listado de clientes distribuidores</p>
+				<p class="robo" style="font-weight: 300; margin-bottom: 0px; font-size: 30px;">Registro de venta</p>
+                                <p class="robo" style="font-weight: 300; font-size: 14px; height: 40px;">Nuevo registro de venta</p>
                                    
 			</div>
  {% endblock%}
@@ -83,7 +83,7 @@
 {% block cuerpo %}
     
     <div class="col-md-10" id="contenidoIndexDistribuidores">
-        <div id="datadistribuidores">
+       {# <div id="datadistribuidores">
        
               
      
@@ -91,38 +91,18 @@
             <table id="lista_cliente" class="mdl-data-table" cellspacing="0" width="100%">
         <thead>
             <tr>
-                
+                <th>ID</th>
                 <th>ID Cliente</th>
                 <th>Nombre</th>
                 <th>Porcentaje</th>
                 <th>Credito</th>
-             
-               
-               
-                {#<th>Actions</th>#}
+        
             </tr>
         </thead>
-        {#<tbody>
-        {% for ctlTerritorio in ctlTerritorios %}
-            <tr>
-                <td><a href="{{ path('ctlterritorio_show', { 'id': ctlTerritorio.id }) }}">{{ ctlTerritorio.id }}</a></td>
-                <td>{{ ctlTerritorio.nombre }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('ctlterritorio_show', { 'id': ctlTerritorio.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('ctlterritorio_edit', { 'id': ctlTerritorio.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>#}
+      
         
     </table>
-    </div>    
+    </div>    #}
 
         <div class="clearfix"></div>
        
@@ -132,10 +112,12 @@
       <div class="row"  style="margin-top: 10px;">
        
              <div id="contenidoFormularioRegistroCompra">
-                 <div class="form-column col-md-3"><div class="form-group" style="margin-right: 2%;" >
-                         <label for="nombreCliente" class="control-label">Nombre Cliente</label>
-                         <input type="text" class="form-control cle" id="nombreCliente"  name="nombreCliente"  readonly>
-                     </div>
+                 <div class="col-md-3"  >
+                     <label>Ingrese id de cliente o nombre:</label>
+                     <select id="clientes" name="" class="form-control input-sm " data-rule-required="true" style=" width: 100%;">
+                         <option value="0" disabled selected>Seleccione un cliente ...</option>
+                     </select>
+
                  </div>
                  <div class="form-column col-md-3" style="padding-top: 0%;">
                      <div class="form-group">
@@ -152,7 +134,7 @@
                              <option value="2">En proceso</option>
                                <option value="3">Procesado</option>
                                  <option value="4">En camino</option>
-                                   <option value="4">Completado</option>
+                                   <option value="5">Completado</option>
                          </select>
                      </div>
                  </div>
@@ -173,6 +155,14 @@
                 <div class="col-md-10"></div>
                 
              </div>
+                     
+                     
+                     
+                     
+                     
+                     
+                     
+                     
                      <div class="form-column col-md-3" id="botonesInsercion">
                        
                              <div class="btn-group">
@@ -210,13 +200,14 @@ var numero_edicion =0;
   $(".cancelarRC").hide();
 
  $(".delete").hide();
-            $('#lista_cliente').DataTable( {
+           {# $('#lista_cliente').DataTable( {
                                     
 		              columnDefs: [
 		            {
-		                targets: [ 0, 1, 2 ],
-		                className: 'mdl-data-table__cell--non-numeric'
+		                targets: [ 0, 1, 2,3,4 ],
+		                className: 'mdl-data-table__cell--non-numeric',
 		            }
+                          
 		        ],
                                         
                                         
@@ -232,6 +223,7 @@ var numero_edicion =0;
                                         "columns": [
                                              
                                         { "data":"id" },
+                                        {"data":"codigo"},
                                         { "data":"nombreCompleto" },
                                         {"data":"direccion"},
                                         {"data":"credito"}
@@ -253,7 +245,7 @@ var numero_edicion =0;
 
  
 		    } );
-
+#}
 var idEliminar=0;
 
   $(document).on("click","tr",function() {
@@ -262,13 +254,13 @@ var idEliminar=0;
        
             if(identificador=="row"){
               var idCliente =  $(this).children().html();
-            $("tr").css('background-color', 'white');
-            $(this).css('background-color', '#E9E6E6');
-           
+                        $("tr").css('background-color', 'white');
+                        $(this).css('background-color', '#E9E6E6');
 
-             $(".eliminar").show();   
-             $(".nuevoRegistroCompra").show();
-             $("#idDistribuidor").val(idCliente);
+
+                         $(".eliminar").show();   
+                         $(".nuevoRegistroCompra").show();
+                         $("#idDistribuidor").val(idCliente);
       
             }
        

@@ -2,6 +2,7 @@
 
 namespace ERP\AdminBundle\Entity;
 
+use Symfony\Component\Security\Core\Role\RoleInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="ctl_rol")
  * @ORM\Entity
  */
-class CtlRol
+class CtlRol implements RoleInterface
 {
     /**
      * @var integer
@@ -27,19 +28,11 @@ class CtlRol
      * @ORM\Column(name="rol", type="string", length=555, nullable=false)
      */
     private $rol;
-
-    /**
+    
+      /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="CtlUsuario", inversedBy="ctlRol")
-     * @ORM\JoinTable(name="ctl_rol_usuario",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="ctl_rol_id", referencedColumnName="id")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="ctl_usuario_id", referencedColumnName="id")
-     *   }
-     * )
+     * @ORM\ManyToMany(targetEntity="CtlUsuario", mappedBy="ctlRol")
      */
     private $ctlUsuario;
 
@@ -85,13 +78,22 @@ class CtlRol
         return $this->rol;
     }
 
+     public function getRole() {
+        return $this->getRol();
+    }
+    
+    public function __toString() {
+        return $this->getRole();
+    }   
+    
+
     /**
      * Add ctlUsuario
      *
-     * @param \ERP\AdminBundle\Entity\CtlUsuario $ctlUsuario
+     * @param \ERPAdminBundle\Entity\CtlUsuario $ctlUsuario
      * @return CtlRol
      */
-    public function addCtlUsuario(\ERP\AdminBundle\Entity\CtlUsuario $ctlUsuario)
+    public function addCtlUsuario(\ERPCRMBundle\Entity\CtlUsuario $ctlUsuario)
     {
         $this->ctlUsuario[] = $ctlUsuario;
 
@@ -101,9 +103,9 @@ class CtlRol
     /**
      * Remove ctlUsuario
      *
-     * @param \ERP\AdminBundle\Entity\CtlUsuario $ctlUsuario
+     * @param \ERPAdminBundle\Entity\CtlUsuario $ctlUsuario
      */
-    public function removeCtlUsuario(\ERP\AdminBundle\Entity\CtlUsuario $ctlUsuario)
+    public function removeCtlUsuario(\ERPCRMBundle\Entity\CtlUsuario $ctlUsuario)
     {
         $this->ctlUsuario->removeElement($ctlUsuario);
     }
@@ -117,4 +119,7 @@ class CtlRol
     {
         return $this->ctlUsuario;
     }
+
+  
+
 }

@@ -79,8 +79,7 @@ class InventariobeardNewProdController extends Controller
         //var_dump($parameters['atributo']);
         //var_dump($parameters['porcentaje']);
         //var_dump($_FILES);
-        //die();
-        
+                                               
         //$_FILES;        
         $producto = new BeardProducto();
         $atributoproducto = new BeardAtributoProducto();
@@ -95,6 +94,20 @@ class InventariobeardNewProdController extends Controller
         $producto->setIngrediente($parameters['ingrediente']);
         $producto->setPresentacion($parameters['presentacion']);
         $producto->setStock($parameters['stock']);
+        if(isset($parameters['destacado'])){            
+            $producto->setDestacado(1);
+        }else{
+            $producto->setDestacado(0);
+        }
+        if(isset($parameters['disponibilidad'])){            
+            $producto->setDispoonible(1);
+        }else{
+            $producto->setDispoonible(0);
+        }
+        if(isset($parameters['msjexistencia'])){           
+            $producto->setMensaje($parameters['msjexistencia']);
+        }
+                
         $idsubcat = $parameters['subcategoria'];
         
         $subcatprod = $em->getRepository('ERPAdminBundle:CtlSubCategoriaProducto')->find($idsubcat);        

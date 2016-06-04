@@ -1,12 +1,17 @@
  $(document).ready(function(){
+     
             
          $('.telefono').mask('0000-0000', {placeholder: "0000-0000"});
          $('#nitCP').mask('0000-000000-000-0', {placeholder: "0000-000000-000-0"});
          $('#nrcCP').mask('000000-0', {placeholder: "000000-0"});
      
-     
+         
      
          $(document).on("click","#nuevoCp",function() {
+             
+             
+             
+             
              var nombre, direccion,telefono,telefonoM,nrc,nit,correoElectronico,paginaWeb,descripcion,referidoPor,contactoId,categoria,credito;
              
              nombre=$("#nombreCp").val();
@@ -24,6 +29,22 @@
                referidoPor=$("#referidoPor").val();
                contactoId=$("#contactoDirecto").val();
                
+                   var num=0;
+                  
+                  
+                 $('.requerido').each( function (){
+                       
+                       var x=$(this).val();
+            
+                       if(x==""){
+                           num=num+1;
+                       }
+
+                       });
+           
+               
+                       if (num==0){
+               
                       $.ajax({
                                     type: 'POST',
                                     async: false,
@@ -35,9 +56,9 @@
                                     {
                                          if (data.estado==true){
                                           
-                                         swal("Exito!", "Cliente registrado con exito", "success")
+                                         swal("Exito!", "Cliente registrado con exito", "success");
                                          var url=Routing.generate('admin_cliente_index');
-                                        window.open(url,"_self"); 
+                                            window.open(url,"_self"); 
                                         
                                                          
                                             
@@ -45,7 +66,7 @@
                                          }
                                          else{
                                              
-                                                swal("Error!", "Error al ingresar los datos", "error")
+                                                swal("Error!", "Error al ingresar los datos", "error");
                                             location.reload();
                                             
                                              
@@ -61,6 +82,10 @@
                       
                     }
             });
+         }else{
+             
+              swal("Error!", "No debes dejar campos ruqueridos vacios", "error");
+         }
 
  });
      
@@ -69,8 +94,6 @@
               
                idCliente=$("#idCliente").val();
                categoria= $("#tipoCliente").val();
-               
-               alert(categoria);
                credito =  $("input[name='credito']:checked").val();
                nombre=$("#nombreCp").val();
                direccion=$("#direccionCp").val();
@@ -83,6 +106,24 @@
                descripcion=$("#descripcionCp").val();
                referidoPor=$("#referidoPor").val();
                contactoId=$("#contactoDirecto").val();
+         
+     
+     var num=0;       
+               
+     $('.requeridoE').each( function (){
+                       
+                       var x=$(this).val();
+            
+                       if(x==""){
+                           num=num+1;
+                       }
+
+                       });
+           
+               
+                       if (num==0){           
+               
+               
         
           $.ajax({
                                     type: 'POST',
@@ -124,7 +165,10 @@
                     }
             });
 
-        
+ }else{
+     
+       swal("Error!", "Error al ingresar los datos", "error");
+ }
         
          
 	

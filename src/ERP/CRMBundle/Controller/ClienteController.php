@@ -114,9 +114,9 @@ class ClienteController extends Controller
         if($busqueda['value']!=''){
           $value = $busqueda['value'];  
            
-          $sql = "SELECT cp.id as id, cp.nombre as nombre,cp.telefono as telefono, contac.nombre as contacto FROM cliente cp"
+          $sql = "SELECT cp.id as id,cp.codigo as codigo, cp.nombre as nombre,cp.telefono as telefono, contac.nombre as contacto FROM cliente cp"
                     . " LEFT OUTER JOIN contacto contac on cp.contacto_id=contac.id "
-                    . "WHERE upper(cp.nombre)  LIKE '%".strtoupper($value)."%' AND cp.estado=1 "
+                    . "WHERE (upper(cp.nombre)  LIKE '%".strtoupper($value)."%' OR cp.codigo LIKE '%".strtoupper($value)."%') AND cp.estado=1 "
                     . "ORDER BY cp.nombre ASC";
             $stmt = $em->getConnection()->prepare($sql);
             $stmt->execute();
@@ -125,7 +125,7 @@ class ClienteController extends Controller
        
         }
         else{
-              $sql = "SELECT cp.id as id, cp.nombre as nombre,cp.telefono as telefono, contac.nombre as contacto FROM cliente cp"
+              $sql = "SELECT cp.id as id,cp.codigo as codigo, cp.nombre as nombre,cp.telefono as telefono, contac.nombre as contacto FROM cliente cp"
                     . " LEFT OUTER JOIN contacto contac on cp.contacto_id=contac.id "
                     . "WHERE cp.estado=1 "
                     . "ORDER BY cp.nombre ASC";
@@ -395,9 +395,9 @@ class ClienteController extends Controller
         $fechaini = $request->query->get('param2');
         $fechafin = $request->query->get('param3');
        
-        var_dump($abogado);
-        var_dump($fechaini);
-        var_dump($fechafin);
+//        var_dump($abogado);
+//        var_dump($fechaini);
+//        var_dump($fechafin);
         
         die();
        
