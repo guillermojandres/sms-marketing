@@ -13,7 +13,7 @@
        <script src="{{ asset('Resources/sweetalert-master/dist/sweetalert.min.js') }}"></script>
        <script src="{{ asset('Resources/select2/dist/js/select2.js') }}"></script>   
        <script src="{{ asset('Resources/js/distribuidores/distribuidores.js')}}" ></script>  
-       <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+
     
     
 {% endblock %}
@@ -177,8 +177,12 @@
                      <div class="col-md-3"></div>
                      <div class="col-md-3">
                          <div class="btn-group totalRC">
-                             <label for="totalRC" class="control-label totalRC" >Total</label>
+                             <label for="totalRC" class="control-label totalRC" >Total a recibir</label>
                              <input type="text" class="form-control cle" id="totalRC"  name="totalRC"  placeholder="$ " readonly>
+                         </div>
+                         <div class="btn-group totalComisionCliente">
+                             <label for="totalRC" class="control-label totalRC" >Total a comision cliente</label>
+                             <input type="text" class="form-control cle" id="totalComision"  name="totalComision"  placeholder="$ " readonly>
                          </div>
                      </div>
         </div>

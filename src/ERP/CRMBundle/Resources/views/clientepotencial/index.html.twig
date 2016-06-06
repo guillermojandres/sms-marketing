@@ -55,13 +55,21 @@
     	<div class="row">
         {% block navegacion %}
 		
-       {% include 'ERPCRMBundle:dashboard:navegacionCRM.html.twig' %}
+        <hr style="margin-top: 10px !important;">
+                <div class="col-md-2" style="border-right: 1px solid #f3f3f3;">
+                    <!-- Left Navigation -->
+                    <ul style="list-style: none; padding: 0;">
+                        <a href="{{ path('admin_clientepotencial_index') }}" class="leftnava colorAnclas"><li class="leftnav left active">Menu<span class="pull-right right"></span></li></a>
+                       
+
+                    </ul>
+                </div>	
             
             
        {% endblock %}
 
 {% block cuerpo %}
-     
+      {{parent()}}
     <div class="col-md-10">
       
               
@@ -158,7 +166,8 @@
                                                 "previous": "Anterior"
                                             },
                                             "processing": "<p>Procesando petición...</p>",
-                                            "search": "<p>Buscar registros:</p>",
+                                           "search": "",
+                                            searchPlaceholder: "Buscar",
                                             "lengthMenu": "Mostrar _MENU_ registros"
                                         }
 

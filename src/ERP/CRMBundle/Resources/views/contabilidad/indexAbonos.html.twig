@@ -71,7 +71,7 @@
 			<div class="col-md-2" style="border-right: 1px solid #f3f3f3;">
 				<!-- Left Navigation -->
 				<ul style="list-style: none; padding: 0;">
-                                    <a href="{{ path('admin_contabilidad_index') }}" class="leftnava"><li class="leftnav left active ">Menu<span class="pull-right right"></span></li></a>
+                                    <a href="{{ path('admin_abonos_index') }}" class="leftnava"><li class="leftnav left active ">Menu<span class="pull-right right"></span></li></a>
                               
 				</ul>
 			</div>	
@@ -81,6 +81,7 @@
        {% endblock %}
 
 {% block cuerpo %}
+    {{parent()}}
 <div class="col-md-10" id="contenidoRegistroAbono">
        
      
@@ -112,16 +113,16 @@
                                                         </div>
                                                         <div class="col-sm-6">
                                                            
-                                                            <input type="text"  name="txtFechaInicio" class="requeridoInsercion form-control input-sm txtFechaIni" data-rule-required="true"
+                                                            <input type="text"  name="txtFechaInicio" class="requeridoInsercion form-control input-sm txtFechaIni requeridoBusqueda" data-rule-required="true"
                                                                    style=" width: 100%;" id="txtFechaInicio"   placeholder="Fecha Registro">
                                                         </div>
                                                         <div class="col-sm-6" id="contenidoMonto" style="margin-top: -25px;">
                                                             <label for="montoAbono">Monto de abono</label>
-                                                            <input type="text" name="montoAbono" id="montoAbono"class="requeridoInsercion form-control input-sm">
+                                                            <input type="text" name="montoAbono" id="montoAbono"class="requeridoInsercion form-control input-sm requeridoBusqueda">
                                                         </div>
 
                                                         <div class="col-sm-6" id="fechaFinDiv" >
-                                                           <input type="text"  name="txtFechaFin" id="txtFechaFin" class="form-control input-sm txtFechaFin " data-rule-required="true"
+                                                           <input type="text"  name="txtFechaFin" id="txtFechaFin" class="form-control input-sm txtFechaFin requeridoBusqueda" data-rule-required="true"
                                                                    style=" width: 100%;"   placeholder="Fecha fin">
                                                         </div>
                                                     </div>
@@ -177,7 +178,7 @@
                                                    <input type="hidden" name="idDetalleRe" id="idDetalleRe" value="0">
 
                                                     <label>Id o nombre del cliente</label>
-                                                    <select id="busqueda-clienteE" name="" class="requeridoEdicion form-control input-sm " data-rule-required="true" style=" width: 100%;">
+                                                    <select id="busqueda-clienteE" name="" class="requeridoEdicion form-control input-sm" data-rule-required="true" style=" width: 100%;">
                                                         <option value="0" disabled selected>Seleccione un cliente</option>
                                                     </select>
 
@@ -191,7 +192,7 @@
                                                         </div>
                                                         <div class="col-sm-6">
                                                            
-                                                            <input type="text"  name="txtFechaInicioE" class="requeridoEdicion form-control input-sm txtFechaIni" data-rule-required="true"
+                                                            <input type="text"  name="txtFechaInicioE" class="requeridoEdicion form-control input-sm txtFechaIni " data-rule-required="true"
                                                                    style=" width: 100%;" id="txtFechaInicioE"   placeholder="Fecha Registro">
                                                         </div>
                                                         <div class="col-sm-6" id="contenidoMonto" style="margin-top: -25px;">
@@ -264,14 +265,25 @@
             });
        
          $(document).on("click", "#btnbuscar", function(){
-
-            $('#nuevoAbono').show();
-             $('#deudaContenido').show();
              
+        var num=0;
+                $('.requeridoBusqueda').each( function (){
+            
+                       var x=$(this).val();
+            
+                       if(x=="" || x==null){
+                           num=num+1;
+                       }
+
+                       });
+ 
+        
+           
                      var url = Routing.generate('admin_abonos_data')+"?param1="+$('#busqueda-cliente').val()+"&param2="+$('#txtFechaIni').val()+"&param3="+$('#txtFechaFin').val();
                      table.ajax.url(url).load();
                      
                      var idCliente =$('#busqueda-cliente').val();
+                      if(idCliente!=null){ 
                         $.ajax({
                                     type: 'POST',
                                     async: false,
@@ -281,8 +293,12 @@
                                     success: function (data)
                                     {
                                          if (data.estado==true){
-                                        
-                                        $("#totalDeuda").text(data.total);
+                                                
+                                                         $('#nuevoAbono').show();
+                                                         $('#deudaContenido').show(); 
+                                                         $("#totalDeuda").text(data.total);
+                                                        
+                                                 
                                          
                                          
                                          }
@@ -302,7 +318,10 @@
                       
                     }
             });
-                     
+          }  
+                   
+       
+                                                       
                      
                     
                 
@@ -355,8 +374,7 @@
                                          $('#busqueda-clienteE').val(data.nombreCliente);
                                        
                                         $('#contenidoEdicionAbono').show();
-                                        
-                                             
+                                        $('#nuevoAbono').hide();
                     
                                          
                                           

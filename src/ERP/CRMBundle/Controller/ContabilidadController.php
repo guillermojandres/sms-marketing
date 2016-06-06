@@ -13,6 +13,9 @@ use ERP\AdminBundle\Entity\Abono;
 use ERP\AdminBundle\Form\ClienteType;
 use Symfony\Component\HttpKernel\Exception;
 use Doctrine\ORM\Query\ResultSetMapping;
+include_once '../src/ERP/CRMBundle/Resources/dompdf/dompdf_config.inc.php'; 
+include_once "../src/ERP/CRMBundle/Resources/phpexcel/lib/PHPExcel/IOFactory.php";
+include_once "../src/ERP/CRMBundle/Resources/phpexcel/lib/PHPExcel.php";
 /**
  * Cliente controller.
  *
@@ -88,7 +91,7 @@ class ContabilidadController extends Controller
                 . "concat_ws(DATE_FORMAT(enc.fecha_registro_cliente,'%d-%m-%Y'), '<div class=\"text-center\">', '</div>') as fecha_registro_cliente, "
                 . "concat_ws(DATE_FORMAT(enc.fecha_registro_sistema,'%d-%m-%Y'), '<div class=\"text-center\">', '</div>') as fecha_registro_sistema, "
                 . "concat_ws(enc.monto_abono, '<div class=\"text-center\">', '</div>') as monto_abono, "
-                . "concat_ws(enc.id, '<i class=\" colorAnclas fa fa-file-pdf-o verPDFAbono\" id=\"', '\" title=\"Ver PDF\"></i>&nbsp;&nbsp;<i class=\" colorAnclas fa fa-file-excel-o verExcelAbono\" id=\"', '\" title=\"Descargar excel\"></i>'  ) as link "
+                . "concat_ws(enc.id, '<i class=\" colorAnclas fa fa-file-pdf-o verPDFAbono\" id=\"', '\" title=\"Ver PDF\"></i>'  ) as link "
                 . "FROM abono enc  inner join cliente cli on enc.id_cliente = cli.id "
                 . "WHERE 1 = 1 ";
 
@@ -127,7 +130,7 @@ class ContabilidadController extends Controller
                 . "concat_ws(DATE_FORMAT(enc.fecha_registro_cliente,'%d-%m-%Y'), '<div class=\"text-center\">', '</div>') as fecha_registro_cliente, "
                 . "concat_ws(DATE_FORMAT(enc.fecha_registro_sistema,'%d-%m-%Y'), '<div class=\"text-center\">', '</div>') as fecha_registro_sistema, "
                 . "concat_ws(enc.monto_abono, '<div class=\"text-center\">', '</div>') as monto_abono, "
-                . "concat_ws(enc.id, '<i class=\" colorAnclas fa fa-file-pdf-o verPDFAbono\" id=\"', '\" title=\"Ver PDF\"></i>&nbsp;&nbsp;<i class=\" colorAnclas fa fa-file-excel-o verExcelAbono\" id=\"', '\" title=\"Descargar excel\"></i>'  ) as link "
+                . "concat_ws(enc.id, '<i class=\" colorAnclas fa fa-file-pdf-o verPDFAbono\" id=\"', '\" title=\"Ver PDF\"></i>'  ) as link "
                 . "FROM abono enc  inner join cliente cli on enc.id_cliente = cli.id "
                 . "WHERE 1 = 1 ";
 
@@ -278,15 +281,6 @@ class ContabilidadController extends Controller
                 $data['estado']=false;
             }
             
-            
-            
-            
-           
-                       
-            
-            
-            
-            
              return new Response(json_encode($data)); 
             
             
@@ -356,60 +350,76 @@ class ContabilidadController extends Controller
              
              $sql = "SELECT SUM(monto) as total  from encabezado_orden enc  WHERE enc.crm_cliente_id=".$idCliente
                            . " AND (enc.estado=4 OR enc.estado=3 OR enc.estado=2) ";
-              $stmt = $em->getConnection()->prepare($sql);
+            $stmt = $em->getConnection()->prepare($sql);
             $stmt->execute();
             $totales= $stmt->fetchAll();   
             $totalDueuda=$totales[0]['total'];
             if ($montoAbono<=$totalDueuda){
                 
-            //Aqui te has quedado en lo de la deuda
-                
-                
-    
- 
-            $idDetalle= $request->get('idDetalle'); 
-            $fechaRegistroCliente = $request->get('fechaRegistroCliente'); 
-            $montoAbono = $request->get('montoAbono');
-            
-            
-            $cliente= $this->getDoctrine()->getRepository('ERPAdminBundle:Cliente')->findById($idCliente); 
-            
-            $objeto = $this->getDoctrine()->getRepository('ERPAdminBundle:Abono')->findById($idDetalle);
-            $objeto[0]->getMontoAbono();
-            $objeto[0]->getFechaRegistroCliente();
-            $objeto[0]->getFechaRegistroSistema();
-            $objeto[0]->getCliente();
-            $em->merge($objeto);
-            $em->flush();
-            $data['estado']=true;
-                
-                
-                
+                    $idDetalle= $request->get('idDetalle'); 
+                    $numero = str_replace('<div class="text-right">', '', $idDetalle);
+                    $numero = str_replace('</div>', '', $numero);
+                    $fechaRegistroCliente = $request->get('fechaRegistroCliente'); 
+                    $montoAbono = $request->get('montoAbono');
+
+                    $objeto = $this->getDoctrine()->getRepository('ERPAdminBundle:Abono')->findById($numero);
+                    $cliente= $this->getDoctrine()->getRepository('ERPAdminBundle:Cliente')->findById($idCliente); 
+
+
+                    $objeto[0]->setCliente($cliente[0]);
+                    $objeto[0]->setFechaRegistroCliente(new \DateTime($fechaRegistroCliente));
+                    $objeto[0]->setMontoAbono($montoAbono);
+                    $em->merge($objeto[0]);
+                    $em->flush();
+                    $data['estado']=true;
+
                 
             }else{
                 
                 $data['estado']=false;
             }
             
-            
-            
-            
-           
-                       
-            
-            
-            
-            
              return new Response(json_encode($data)); 
-            
-            
+
          }
-        
-        
-        
+
     }
      
-     
+        /**
+     *
+     *
+     * @Route("/verPDFRegistroAbono/{idDetalle}", name="verPDFRegistroAbono", options={"expose"=true})
+       * @Method({"GET", "POST"})
+     */
+    public function verEncabezadoPDF($idDetalle) {
+        $em = $this->getDoctrine()->getManager();
+
+         $dqlAbono = "SELECT date_format(abo.fechaRegistroCliente,'%Y-%m-%d') as fechaRegistroCliente, date_format(abo.fechaRegistroSistema,'%Y-%m-%d') as fechaRegistroSistema,"
+                                 . " abo.montoAbono as monto, cli.nombre as nombre"
+                                . " FROM ERPAdminBundle:Abono abo "
+                                . "JOIN abo.clienteId cli "
+                                . "WHERE abo.id = :id ";
+
+            $abono = $em->createQuery($dqlAbono)
+                        ->setParameters(array('id'=>$idDetalle))
+                        ->getResult();
+
+//                var_dump($abono);
+//                die();
+        
+
+        ob_start();
+        $html = $this->renderView('ERPCRMBundle:historialventaclienteR/reporteAbonoCliente.html.php', array(
+            'abono'=>$abono
+           
+        ));
+        $pdf = new \DOMPDF();
+        $pdf->set_paper('A4', 'portrait');
+        $pdf->load_html($html);
+        $pdf->render();
+        $pdf->stream('RegistroDeVenta.pdf', array('Attachment' => 0));
+        
+    } 
     
     
     

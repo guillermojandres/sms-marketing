@@ -1,7 +1,5 @@
 <?php
-
 namespace ERP\CRMBundle\Controller;
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -449,6 +447,7 @@ class CrmClienteController extends Controller
             $cantidades= $request->get('cantidades');
             $descuentos= $request->get('descuentos');
             $estado = $request->get('estado');
+            $montoComision = $request->get('totalComision');
             $dimension = count($productos);
  
            $cliente= $this->getDoctrine()->getRepository('ERPAdminBundle:Cliente')->findById($idCliente); 
@@ -460,9 +459,10 @@ class CrmClienteController extends Controller
            $objeto->setEstado($estado);
            $objeto->setFechaRegistro(new \DateTime($fechaRC));
            $objeto->setTipoVenta('Offline'); 
-            $em->persist($objeto);
-            $em->flush();
-            $idEncabezado = $this->getDoctrine()->getRepository('ERPAdminBundle:EncabezadoOrden')->find($objeto->getId());
+           $objeto->setMontoComision($montoComision);
+           $em->persist($objeto);
+           $em->flush();
+           $idEncabezado = $this->getDoctrine()->getRepository('ERPAdminBundle:EncabezadoOrden')->find($objeto->getId());
           
             for($i=0;$i<$dimension;$i++){
               $productoId= $this->getDoctrine()->getRepository('ERPAdminBundle:BeardProducto')->findById($productos[$i]);                    
@@ -924,7 +924,7 @@ class CrmClienteController extends Controller
                     
                    $territorio['recordsFiltered']= count($territorio['data']);
                     
-                        $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
+                        $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
                         . "JOIN enc.crmClienteId cli "
                          . "WHERE upper(cli.nombre)  LIKE upper(:busqueda) AND enc.estado=1 "
                         . "ORDER BY enc.fechaRegistro ASC ";
@@ -941,7 +941,7 @@ class CrmClienteController extends Controller
         }
         else{
              $dql = "SELECT enc.id as id,enc.tipoVenta as tipoVenta,enc.monto as monto,enc.tipoPago as pago , cli.nombre as nombreCompleto, cli.direccion as datosCliente FROM ERPAdminBundle:EncabezadoOrden enc "
-                        . "JOIN enc.crmClienteId cli WHERE  enc.estado=1"
+                        . "JOIN enc.crmClienteId cli WHERE  enc.estado=1 "
                         . "ORDER BY enc.fechaRegistro DESC ";
             $territorio['data'] = $em->createQuery($dql)
                     ->setFirstResult($start)

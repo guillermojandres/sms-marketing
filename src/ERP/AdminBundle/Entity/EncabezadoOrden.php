@@ -67,6 +67,15 @@ class EncabezadoOrden
      * @ORM\Column(name="estado", type="integer", nullable=false)
      */
     private $estado;
+    
+    /**
+     * @var decimal
+     *
+     * @ORM\Column(name="monto_comision", type="float", nullable=false)
+     */
+    private $montoComision;
+    
+    
 
     /**
      * Get id
@@ -217,6 +226,40 @@ class EncabezadoOrden
     {
         return $this->tipoVenta;
     }
+    
+    
+    
+      /**
+     * Set monto
+     *
+     * @param decimal $monto
+     * @return EncabezadoOrden
+     */
+    public function setMontoComision($montoComision)
+    {
+        $this->montoComision = $montoComision;
+
+        return $this;
+    }
+
+    /**
+     * Get monto
+     *
+     * @return decimal 
+     */
+    public function getMontoComision()
+    {
+        return $this->montoComision;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 
 }

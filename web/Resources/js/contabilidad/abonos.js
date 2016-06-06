@@ -71,6 +71,9 @@
             });
      
  $(document).on("click","#guardarAbono", function(){
+
+
+     
      
                         var num=0;
                 $('.requeridoInsercion').each( function (){
@@ -117,7 +120,9 @@
                                                 },
                                                         function (isConfirm) {
                                                             if (isConfirm) {
-                                                                    
+                                                                    $("#txtFechaInicio").val("");
+                                                                    $("#montoAbono").val("");
+
                                                                     location.reload();
                             
                                       
@@ -167,6 +172,8 @@
   });
   
   
+  
+  
    $(document).on("click","#guardarEdicion", function(){
          var num=0;
                 $('.requeridoEdicion').each( function (){
@@ -197,8 +204,8 @@
                                          if (data.estado==true){
                                           
                                           swal({
-                                                    title: "Datos  ingresados con exito",
-                                                    text: "¿Quieres seguir ingresando mas registros de abonos?",
+                                                    title: "Datos  modificados con exito",
+                                                    text: "¿Quieres seguir modificando registros de abonos?",
                                                     type: "success",
                                                     showCancelButton: true,
                                                     cancelButtonText: "Despues",
@@ -264,39 +271,30 @@
      format: 'Y-m-d'
 });    
      
-     
+
 $('#txtFechaInicio').Zebra_DatePicker({
-     format: 'Y-m-d'
+     format: 'Y-m-d',
+    direction: false,
+    pair: $('#txtFechaFin')
 });
 
 
      
   $('#txtFechaFin').Zebra_DatePicker({
-     format: 'Y-m-d'
+     format: 'Y-m-d',
+     direction: false
 });   
      
-//       $(document).on("click",".verPDF",function() {
-//           var idDetalle =$(this).attr("id");
-//          
-//           
-//               var url=Routing.generate('verFactura',{idDetalle: idDetalle});
-//
-//                                        window.open(url,"_blank"); 
-//
-//       });
-//     
-//     
-//      $(document).on("click",".verExcel",function() {
-//           var idDetalle =$(this).attr("id");
-//
-//           
-//               var url=Routing.generate('verExcel',{idDetalle: idDetalle});
-//
-//                                        window.open(url,"_self"); 
-//       });
-       
-       
-     //Click en el boton de filtrar 
+       $(document).on("click",".verPDFAbono",function() {
+           var idDetalle =$(this).attr("id");
+      
+           
+          var url=Routing.generate('verPDFRegistroAbono',{idDetalle: idDetalle});
+
+                                        window.open(url,"_blank"); 
+
+       });
+
      
  });
 

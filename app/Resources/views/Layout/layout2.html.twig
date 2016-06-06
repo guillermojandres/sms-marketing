@@ -53,8 +53,11 @@
 	<!-- Fin de Barra de Navegacion -->
                         
   <!-- Template -->
-	<div class="container">
+            <div class="container">
+                
+           
             {% block descripcion_y_acciones %}
+                
                 {% block descripcion %}                    
                 {% endblock %}
                 {% block acciones %}                    
@@ -62,15 +65,30 @@
             {% endblock %}	
             {% block navegacion_Y_body %}                    
                 {% block navegacion %}                              
-                {% endblock %}                
-                {% block cuerpo %}                    
+                {% endblock %}
+                               
+                {% block cuerpo %}
+                    <div class="col-md-10">
+                        <button class="btn btn-success btn-xs" type="button" id="goBack">
+                            <span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true" style="margin-bottom: 5px;">
+                                Atras
+                            </span>
+                        </button>
+                    </div>
+              {#<div class="clearfix"></div>#}
                 {% endblock cuerpo %}
             {% endblock %}	        	
 	</div>
  
 {% endblock %}
 {%block js_template %}
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script>
+                 $('#goBack').on('click', function(){
+               {# alert('prueba');#}
+                window.history.back();
+            });
+        </script>
+   
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{{ asset('Resources/src/js/bootstrap.js')}}"></script>

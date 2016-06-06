@@ -8,7 +8,8 @@
               <link rel="stylesheet" href="{{asset('Resources/AdminLTE-2.3.0/dist/css/skins/_all-skins.min.css')}}">
               <link rel="stylesheet" href="{{ asset('Resources/js/registroCompras/stylemaquina.css')}}">
                   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-   
+                    <link rel="stylesheet" href="{{ asset('Resources/AdminLTE-2.3.0/dist/css/AdminLTE.min.css') }}">
+     
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.11/css/dataTables.material.min.css">
     <link rel="stylesheet" href="{{ asset('Resources/js/maquina/css/stylemaquina.css')}}">
@@ -74,13 +75,14 @@
 
 {% endblock %}
 {% block navegacion_Y_body %}
+    
     	<div class="row">
         {% block navegacion %}
-		<hr style="margin-top: 0px !important;">
+		<hr style="margin-top: 10px !important;">
 			<div class="col-md-2" style="border-right: 1px solid #f3f3f3;">
 				<!-- Left Navigation -->
 				<ul style="list-style: none; padding: 0;">
-                                    <a href="{{ path('ordenesdecompra') }}" class="leftnava"><li class="leftnav left active ">Menu<span class="pull-right right"></span></li></a>
+                                    <a href="{{ path('cliente_registroCompras_index') }}" class="leftnava"><li class="leftnav left active ">Menu<span class="pull-right right"></span></li></a>
 
 				</ul>
 			</div>	
@@ -90,14 +92,14 @@
        {% endblock %}
 
 {% block cuerpo %}
-    
-    <div class="col-md-10" id="contenidoIndexDistribuidores">
+    {{parent()}}
+    <div class="col-md-10" id="contenidoIndexDistribuidores" style="margin-top: 20px;">
         <div class="row" style=" margin-left:0px; margin-right:0px;">
             <section class="col-lg-12 connectedSortable ui-sortable">
                 <div class="nav-tabs-custom" style="cursor: move;">
                     <ul class="nav nav-tabs  ui-sortable-handle">
-                        <li class="active"><a href="#divProcesadas" data-toggle="tab" class="colorAnclas colorPestanhas" id="comprasProcesados">Procesadas</a></li>
-                        <li><a href="#divEntregadas" data-toggle="tab" class="colorAnclas colorPestanhas disabled" id="comprasEntregadas">Pago Recibido</a></li>
+                         <li class="active"><a href="#divEntregadas" data-toggle="tab" class="colorAnclas colorPestanhas disabled" id="comprasEntregadas">Pago Recibido</a></li>
+                        <li><a href="#divProcesadas" data-toggle="tab" class="colorAnclas colorPestanhas" id="comprasProcesados">Procesadas</a></li> 
                         <li><a href="#divEnviadas" data-toggle="tab" class="colorAnclas colorPestanhas" id="comprasEviadas">En camino</a></li>
                         <li><a href="#divPendientesCanceladas" data-toggle="tab" class="colorAnclas colorPestanhas" id="comprasPendientesCanceladas">En proceso</a></li>
                            <li><a href="#divCompletado" data-toggle="tab" class="colorAnclas colorPestanhas" id="idcompletado">Completo</a></li>
@@ -105,22 +107,22 @@
                         <li class="pull-left header">
                     </ul>
                     
-                    <div class="tab-content no-padding">
-                       
-                        <div class="chart tab-pane active colorDiv" id="divProcesadas" >
+                         <div class="tab-content no-padding">
+                           <div class="chart tab-pane active colorDiv" id="divEntregadas" style=" padding: 15px;" >
+                                {% include 'ERPCRMBundle:ordenesdecompra:comprasEntregadas.html.twig' %}    
+                        </div>
+                        <div class="chart tab-pane   colorDiv" id="divProcesadas" >
                            {% include 'ERPCRMBundle:ordenesdecompra:comprasProcesadas.html.twig' %}                       
                         </div>
 
-                        <div class="chart tab-pane colorDiv" id="divEntregadas" style=" padding: 15px;" >
-                                {% include 'ERPCRMBundle:ordenesdecompra:comprasEntregadas.html.twig' %}    
-                        </div>
-                         <div class="chart tab-pane colorDiv" id="divEnviadas" style=" padding: 15px;" >
+                    
+                         <div class="chart tab-pane  colorDiv" id="divEnviadas" style=" padding: 15px;" >
                        {% include 'ERPCRMBundle:ordenesdecompra:comprasEnviados.html.twig' %}         
                         </div>
-                         <div class="chart tab-pane colorDiv" id="divPendientesCanceladas" style=" padding: 15px;" >
+                         <div class="chart tab-pane  colorDiv" id="divPendientesCanceladas" style=" padding: 15px;" >
                                {% include 'ERPCRMBundle:ordenesdecompra:comprasPendientesCanceladas.html.twig' %}         
                         </div>
-                            <div class="chart tab-pane colorDiv" id="divCompletado" style=" padding: 15px;" >
+                            <div class="chart tab-pane  colorDiv" id="divCompletado" style=" padding: 15px;" >
                                {% include 'ERPCRMBundle:ordenesdecompra:completado.html.twig' %}         
                         </div>
                          <div class="chart tab-pane colorDiv" id="divVistaDetalle" style=" padding: 15px;" >
@@ -153,13 +155,16 @@
 var numero_edicion =0;
 
             $('#registroCompras').DataTable({
-                         columnDefs: [
+                       columnDefs: [
 		            {
-		                targets: [ 0, 1, 2 ],
+		                targets: [ 0, 1, 2 ,3,4,5],
 		                className: 'mdl-data-table__cell--non-numeric'
-		            }
+		            },
+                                                {
+                                                    "targets": [ 2,4 ],
+                                                    "visible": false
+                                                }
 		        ],
-                                        
                                         "pageLength": 10,
                                         "lengthMenu": [ 20 ],
                                         "dom": "ftp",
@@ -190,7 +195,8 @@ var numero_edicion =0;
                                                 "previous": "Anterior"
                                             },
                                             "processing": "<p>Procesando petición...</p>",
-                                            "search": "<p>Buscar registros:</p>",
+                                              "search": "",
+                                                searchPlaceholder: "Buscar",
                                             "lengthMenu": "Mostrar _MENU_ registros"
                                         }
                     
@@ -205,9 +211,13 @@ var numero_edicion =0;
                                     
 		        columnDefs: [
 		            {
-		                targets: [ 0, 1, 2 ],
+		                targets: [ 0, 1, 2 ,3,4,5],
 		                className: 'mdl-data-table__cell--non-numeric'
-		            }
+		            },
+                                                {
+                                                    "targets": [ 2,4 ],
+                                                    "visible": false
+                                                }
 		        ],
                                         
                                         "pageLength": 10,
@@ -240,7 +250,8 @@ var numero_edicion =0;
                                                 "previous": "Anterior"
                                             },
                                             "processing": "<p>Procesando petición...</p>",
-                                            "search": "<p>Buscar registros:</p>",
+                                            "search": "",
+                                            searchPlaceholder: "Buscar",
                                             "lengthMenu": "Mostrar _MENU_ registros"
                                         }
 
@@ -253,11 +264,15 @@ var numero_edicion =0;
         //Termina la parte
 
          $('#registroComprasEnviados').DataTable({
-                         columnDefs: [
+                        columnDefs: [
 		            {
-		                targets: [ 0, 1, 2 ],
+		                targets: [ 0, 1, 2 ,3,4,5],
 		                className: 'mdl-data-table__cell--non-numeric'
-		            }
+		            },
+                                                {
+                                                    "targets": [ 2,4 ],
+                                                    "visible": false
+                                                }
 		        ],
                                         
                                         "pageLength": 10,
@@ -290,7 +305,8 @@ var numero_edicion =0;
                                                 "previous": "Anterior"
                                             },
                                             "processing": "<p>Procesando petición...</p>",
-                                            "search": "<p>Buscar registros:</p>",
+                                              "search": "",
+                                            searchPlaceholder: "Buscar",
                                             "lengthMenu": "Mostrar _MENU_ registros"
                                         }
 
@@ -300,11 +316,15 @@ var numero_edicion =0;
         
         
          $('#registroComprasPendientesCanceladas').DataTable({
-                      columnDefs: [
+                       columnDefs: [
 		            {
-		                targets: [ 0, 1, 2 ],
+		                targets: [ 0, 1, 2 ,3,4,5],
 		                className: 'mdl-data-table__cell--non-numeric'
-		            }
+		            },
+                                                {
+                                                    "targets": [ 2,4 ],
+                                                    "visible": false
+                                                }
 		        ],
                                         
                                         "pageLength": 10,
@@ -337,7 +357,8 @@ var numero_edicion =0;
                                                 "previous": "Anterior"
                                             },
                                             "processing": "<p>Procesando petición...</p>",
-                                            "search": "<p>Buscar registros:</p>",
+                                             "search": "",
+                                            searchPlaceholder: "Buscar",
                                             "lengthMenu": "Mostrar _MENU_ registros"
                                         }
               
@@ -348,13 +369,16 @@ var numero_edicion =0;
           //Esta es la parte que estoy agregando
           $('#registroComprasCompletado').DataTable( {
                                     
-		        columnDefs: [
+		         columnDefs: [
 		            {
-		                targets: [ 0, 1, 2 ],
+		                targets: [ 0, 1, 2 ,3,4,5],
 		                className: 'mdl-data-table__cell--non-numeric'
-		            }
+		            },
+                                                {
+                                                    "targets": [ 2,4 ],
+                                                    "visible": false
+                                                }
 		        ],
-                                        
                                         "pageLength": 10,
                                         "lengthMenu": [ 20 ],
                                         "dom": "ftp",
@@ -385,7 +409,8 @@ var numero_edicion =0;
                                                 "previous": "Anterior"
                                             },
                                             "processing": "<p>Procesando petición...</p>",
-                                            "search": "<p>Buscar registros:</p>",
+                                              "search": "",
+                                            searchPlaceholder: "Buscar",
                                             "lengthMenu": "Mostrar _MENU_ registros"
                                         }
 
@@ -464,18 +489,7 @@ var numero_edicion =0;
        });
 
 
-
-
-           
-           
-           
-
-
-
-
-
-         
-        });
+     });
         
       </script>
       
