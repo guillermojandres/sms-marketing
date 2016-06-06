@@ -26,7 +26,7 @@ class Abono
      *
      * @ORM\ManyToOne(targetEntity="Cliente")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="cliente_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="id_cliente", referencedColumnName="id")
      * })
      */
     private $clienteId;
@@ -47,10 +47,10 @@ class Abono
      */
     private $fechaRegistroSistema;
     
-       /**
+    /**
      * @var decimal
      *
-     * @ORM\Column(name="monto_abono", type="float", nullable=false)
+     * @ORM\Column(name="monto_abono", type="decimal", nullable=false)
      */
     private $montoAbono;
     
@@ -145,7 +145,7 @@ class Abono
      */
     public function setMontoAbono($montoAbono)
     {
-        $this->monto = $montoAbono;
+        $this->montoAbono = $montoAbono;
 
         return $this;
     }

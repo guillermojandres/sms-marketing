@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use ERP\AdminBundle\Entity\Cliente;
+use ERP\AdminBundle\Entity\Abono;
 use ERP\AdminBundle\Form\ClienteType;
 use Symfony\Component\HttpKernel\Exception;
 use Doctrine\ORM\Query\ResultSetMapping;
@@ -82,6 +83,7 @@ class ContabilidadController extends Controller
         $rsm = new ResultSetMapping();
 
         $sql = "SELECT enc.id as encabezado, "
+                 . "concat_ws(enc.id, '<div class=\"text-right\">', '</div>') as id, "
                 . "concat_ws(cli.codigo, '<div class=\"text-right\">', '</div>') as codigo, "
                 . "concat_ws(DATE_FORMAT(enc.fecha_registro_cliente,'%d-%m-%Y'), '<div class=\"text-center\">', '</div>') as fecha_registro_cliente, "
                 . "concat_ws(DATE_FORMAT(enc.fecha_registro_sistema,'%d-%m-%Y'), '<div class=\"text-center\">', '</div>') as fecha_registro_sistema, "
@@ -107,11 +109,12 @@ class ContabilidadController extends Controller
         $sql.= "ORDER BY enc.fecha_registro_cliente DESC "
                 . "LIMIT $start, $longitud ";
         //echo $sql;
-        $rsm->addScalarResult('codigo','codigo');
-         $rsm->addScalarResult('fecha_registro_cliente','fecha_registro_cliente');
-        $rsm->addScalarResult('fecha_registro_sistema','fecha_registro_sistema');
-        $rsm->addScalarResult('monto_abono','monto_abono');
-        $rsm->addScalarResult('link','link');
+        $rsm->addScalarResult('id', 'id');
+        $rsm->addScalarResult('codigo', 'codigo');
+        $rsm->addScalarResult('fecha_registro_cliente', 'fecha_registro_cliente');
+        $rsm->addScalarResult('fecha_registro_sistema', 'fecha_registro_sistema');
+        $rsm->addScalarResult('monto_abono', 'monto_abono');
+        $rsm->addScalarResult('link', 'link');
 
         $facturacion['data'] = $em->createNativeQuery($sql, $rsm)
                                   ->getResult();
@@ -119,6 +122,7 @@ class ContabilidadController extends Controller
         $rsm2 = new ResultSetMapping();
 
           $sql2 ="SELECT enc.id as encabezado, "
+                . "concat_ws(enc.id, '<div class=\"text-right\">', '</div>') as id, "
                 . "concat_ws(cli.codigo, '<div class=\"text-right\">', '</div>') as codigo, "
                 . "concat_ws(DATE_FORMAT(enc.fecha_registro_cliente,'%d-%m-%Y'), '<div class=\"text-center\">', '</div>') as fecha_registro_cliente, "
                 . "concat_ws(DATE_FORMAT(enc.fecha_registro_sistema,'%d-%m-%Y'), '<div class=\"text-center\">', '</div>') as fecha_registro_sistema, "
@@ -142,6 +146,7 @@ class ContabilidadController extends Controller
            $sql2.="and enc.fecha_registro_cliente >= '$fechaini' and enc.fecha_registro_cliente <= '$fechafin' ";
         }
 
+        $rsm2->addScalarResult('id','id');
         $rsm2->addScalarResult('codigo', 'codigo');
         $rsm2->addScalarResult('fecha_registro_cliente', 'fecha_registro_cliente');
         $rsm2->addScalarResult('fecha_registro_sistema', 'fecha_registro_sistema');
@@ -163,7 +168,7 @@ class ContabilidadController extends Controller
      */
     
     
-      public function InsertarClienteAction(Request $request) {
+      public function LlamarTotalDeudaClienteAction(Request $request) {
         
         $isAjax = $this->get('Request')->isXMLhttpRequest();
  
@@ -179,15 +184,36 @@ class ContabilidadController extends Controller
                    $sql = "SELECT SUM(monto) as total  from encabezado_orden enc  WHERE enc.crm_cliente_id=".$idCliente
                            . " AND (enc.estado=4 OR enc.estado=3 OR enc.estado=2) ";
                    
-                   
-                   
+                   $sqlAbono = "SELECT SUM(monto_abono) as totalAbono  from abono enc  WHERE enc.id_cliente=".$idCliente;
+
             $stmt = $em->getConnection()->prepare($sql);
             $stmt->execute();
             $totales= $stmt->fetchAll();
+            
+            $stmt2 = $em->getConnection()->prepare($sqlAbono);
+            $stmt2->execute();
+            $totalesAbono= $stmt2->fetchAll();
+            
+            
              
-             $total=$totales[0]['total'];
-          
-             $data['total']=$total;   
+            $totalAbonos =$totalesAbono[0]['totalAbono']; 
+            $totalDueuda=$totales[0]['total'];
+         
+            if ($totalAbonos==null)
+            {
+                $totalAbonos=0;
+                
+            }
+            if ($totalDueuda==null)
+            {
+                $totalDueuda=0;
+                
+            }
+            
+            
+            $total=$totalDueuda-$totalAbonos;
+            
+            $data['total']=$total;   
             $data['estado']=true;
                        
             
@@ -205,7 +231,183 @@ class ContabilidadController extends Controller
      
      
      
+      /**
+     * @Route("/insertarAbono/", name="insertarAbono", options={"expose"=true})
+     * @Method("POST")
+     */
+    
+    
+      public function InsertarAbonoAction(Request $request) {
+        
+        $isAjax = $this->get('Request')->isXMLhttpRequest();
+
+         if($isAjax){
+            
+             
+            $em = $this->getDoctrine()->getManager();
+            $montoAbono = $request->get('montoAbono');
+            $idCliente = $request->get('idCliente'); 
+             
+             $sql = "SELECT SUM(monto) as total  from encabezado_orden enc  WHERE enc.crm_cliente_id=".$idCliente
+                           . " AND (enc.estado=4 OR enc.estado=3 OR enc.estado=2) ";
+              $stmt = $em->getConnection()->prepare($sql);
+            $stmt->execute();
+            $totales= $stmt->fetchAll();   
+            $totalDueuda=$totales[0]['total'];
+            if ($montoAbono<=$totalDueuda){
+                
+            $fechaRegistroCliente = $request->get('fechaRegistroCliente'); 
+           
+            $montoAbono = $request->get('montoAbono');
+            $cliente= $this->getDoctrine()->getRepository('ERPAdminBundle:Cliente')->findById($idCliente);                    
+
+            $objeto = new Abono();
+            $objeto->setMontoAbono($montoAbono);
+            $objeto->setFechaRegistroCliente(new \DateTime($fechaRegistroCliente));
+            $objeto->setFechaRegistroSistema(new \DateTime());
+            $objeto->setCliente($cliente[0]);
+            $em->persist($objeto);
+            $em->flush();
+            $data['estado']=true;
+                
+                
+                
+                
+            }else{
+                
+                $data['estado']=false;
+            }
+            
+            
+            
+            
+           
+                       
+            
+            
+            
+            
+             return new Response(json_encode($data)); 
+            
+            
+         }
+        
+        
+        
+    }
      
+     /**
+     * @Route("/llamarDatosEdicion/", name="llamarDatosEdicion", options={"expose"=true})
+     * @Method("POST")
+     */
+    
+    
+      public function LlamarDatosEdicionAction(Request $request) {
+        
+        $isAjax = $this->get('Request')->isXMLhttpRequest();
+
+         if($isAjax){
+            
+             
+            $em = $this->getDoctrine()->getManager();
+            $idRegistro = $request->get('idRegistro');
+                  
+            $numero = str_replace('<div class="text-right">', '', $idRegistro);
+            $numero = str_replace('</div>', '', $numero);
+
+            
+            
+            $detalle= $this->getDoctrine()->getRepository('ERPAdminBundle:Abono')->findById($numero);                    
+          
+            $n=$detalle[0]->getFechaRegistroCliente();
+            $l=(DATE_FORMAT($n,'d-m-Y'));
+         
+       
+            $data['montoAbono']=$detalle[0]->getMontoAbono();
+            $data['idCliente']=$detalle[0]->getClienteId();
+            $data['nombreCliente']=$detalle[0]->getClienteId()->getNombre();
+            $data['fechaRegistro']=$l;
+            $data['estado']=true;
+        
+            
+            }
+            
+             return new Response(json_encode($data)); 
+
+    }
+    
+    
+     /**
+     * @Route("/editarAbono/", name="editarAbono", options={"expose"=true})
+     * @Method("POST")
+     */
+    
+    
+      public function EditarAbonoAction(Request $request) {
+        
+        $isAjax = $this->get('Request')->isXMLhttpRequest();
+
+         if($isAjax){
+            
+             
+            $em = $this->getDoctrine()->getManager();
+            $montoAbono = $request->get('montoAbono');
+            $idCliente = $request->get('idCliente'); 
+             
+             $sql = "SELECT SUM(monto) as total  from encabezado_orden enc  WHERE enc.crm_cliente_id=".$idCliente
+                           . " AND (enc.estado=4 OR enc.estado=3 OR enc.estado=2) ";
+              $stmt = $em->getConnection()->prepare($sql);
+            $stmt->execute();
+            $totales= $stmt->fetchAll();   
+            $totalDueuda=$totales[0]['total'];
+            if ($montoAbono<=$totalDueuda){
+                
+            //Aqui te has quedado en lo de la deuda
+                
+                
+    
+ 
+            $idDetalle= $request->get('idDetalle'); 
+            $fechaRegistroCliente = $request->get('fechaRegistroCliente'); 
+            $montoAbono = $request->get('montoAbono');
+            
+            
+            $cliente= $this->getDoctrine()->getRepository('ERPAdminBundle:Cliente')->findById($idCliente); 
+            
+            $objeto = $this->getDoctrine()->getRepository('ERPAdminBundle:Abono')->findById($idDetalle);
+            $objeto[0]->getMontoAbono();
+            $objeto[0]->getFechaRegistroCliente();
+            $objeto[0]->getFechaRegistroSistema();
+            $objeto[0]->getCliente();
+            $em->merge($objeto);
+            $em->flush();
+            $data['estado']=true;
+                
+                
+                
+                
+            }else{
+                
+                $data['estado']=false;
+            }
+            
+            
+            
+            
+           
+                       
+            
+            
+            
+            
+             return new Response(json_encode($data)); 
+            
+            
+         }
+        
+        
+        
+    }
      
      
     
