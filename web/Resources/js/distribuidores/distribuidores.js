@@ -57,18 +57,24 @@ $('#fechaRC').Zebra_DatePicker({
            clickCancelarRegistroCompra();
        });
        
+       
+    
+       
        $(document).on("click",".addCompraProducto",function() {
-           $(".totalRC").show();
-           $(".totalComisionCliente").show();
-           correlativo=correlativo+1;
-        
-          
-           var formulario="";
-      
-        formulario = '<div class="clearfix"><div></div><div class "nuevaOrden"><div class="form-column col-md-3">\n\
+        var validacionCliente = $("#clientes").val();
+        if (validacionCliente != null) {
+
+            $(".totalRC").show();
+            $(".totalComisionCliente").show();
+            correlativo = correlativo + 1;
+
+
+            var formulario = "";
+
+            formulario = '<div class="clearfix"><div></div><div class "nuevaOrden"><div class="form-column col-md-3">\n\
                                 <div class="form-group" style="margin-right: 2%;">\n\
                                         <label for="producto" class="control-label">Producto</label>\n\
-                                            <select  name="producto" class="form-control producto" style="width: 100%" id="producto-'+correlativo+'" >\n\
+                                            <select  name="producto" class="form-control producto" style="width: 100%" id="producto-' + correlativo + '" >\n\
                                                     <option value="" disabled selected>Producto...</option>\n\
                                               </select>\n\
                                     </div>\n\
@@ -76,44 +82,44 @@ $('#fechaRC').Zebra_DatePicker({
                                 <div class="form-column col-md-2">\n\
                                     <div class="form-group" >\n\
                                         <label for="precio" class="control-label">Precio</label>\n\
-                                            <input type="text" class="form-control precio" id="precio-'+correlativo+'" placeholder="$ precio del producto" name="precio"  value="0">\n\
+                                            <input type="text" class="form-control precio" id="precio-' + correlativo + '" placeholder="$ precio del producto" name="precio"  value="0">\n\
                                     </div>\n\
                                  </div>\n\
                                 <div class="form-column col-md-2">\n\
                                     <div class="form-group" >\n\
                                         <label for="cantidad" class="control-label">Cantidad</label>\n\
-                                                 <div class="form-group"><div class="input-group"><div class="input-group-addon">#</div><input type="text" min="1" class="form-control cantidad" id="cantidad-'+correlativo+'" placeholder="# cantidad producto" name="cantidad" value="0"></div></div>\n\
+                                                 <div class="form-group"><div class="input-group"><div class="input-group-addon">#</div><input type="text" min="1" class="form-control cantidad" id="cantidad-' + correlativo + '" placeholder="# cantidad producto" name="cantidad" value="0"></div></div>\n\
                                     </div>\n\
                                  </div>\n\
                                 <div class="form-column col-md-2">\n\
                                        <div class="form-group" >\n\
                                            <label for="decuento" class="control-label">Comision</label>\n\
-                                                 <div class="form-group"><div class="input-group"><div class="input-group-addon">%</div><input type="text"  class="form-control descuento" id="descuento-'+correlativo+'" placeholder="Descuento" name="descuento" value="0" ><div class="input-group-addon"></div></div>\n\
+                                                 <div class="form-group"><div class="input-group"><div class="input-group-addon">%</div><input type="text"  class="form-control descuento" id="descuento-' + correlativo + '" placeholder="Descuento" name="descuento" value="0" ><div class="input-group-addon"></div></div>\n\
                                        </div>\n\
                                     </div>\n\
                                  </div>\n\
                                 <div class="form-column col-md-2">\n\
                                     <div class="form-group" >\n\
                                         <label for="subtotal" class="control-label">SubTotal</label>\n\
-                                            <input type="text" class="form-control subtotal" id="subtotal-'+correlativo+'"  name="subtotal" value="0" readonly>\n\
+                                            <input type="text" class="form-control subtotal" id="subtotal-' + correlativo + '"  name="subtotal" value="0" readonly>\n\
                                     </div>\n\
                                  </div>\n\
                                 <div class="form-column" style="display:none;">\n\
                                     <div class="form-group" >\n\
                                         <label for="subtotal" class="control-label">PorcentajeComision</label>\n\
-                                            <input type="text" class="form-control comision" id="comision-'+correlativo+'"  name="comision" value="0" readonly>\n\
+                                            <input type="text" class="form-control comision" id="comision-' + correlativo + '"  name="comision" value="0" readonly>\n\
                                     </div>\n\
                                  </div>\n\
-                                <div class="fa fa-close col-md-1 eliminarDiv" style="margin-top: 3%;margin-left:-20px;">\n\
+                                <div class="fa fa-close col-md-1 eliminarDiv" id="eliminacion-' + correlativo + '" style="margin-top: 3%;margin-left:-20px;">\n\
                             </div>';
-      
-      
-                         $("#contenidoFormularioRegistroCompra").append(formulario);
-                         
-                                                                     
 
-                         
-            $('#producto-'+correlativo).select2({
+
+            $("#contenidoFormularioRegistroCompra").append(formulario);
+
+
+
+
+            $('#producto-' + correlativo).select2({
                 ajax: {
                     url: Routing.generate('buscarProducto'),
                     dataType: 'json',
@@ -138,7 +144,9 @@ $('#fechaRC').Zebra_DatePicker({
                     },
                     cache: true
                 },
-                escapeMarkup: function (markup) { return markup; },
+                escapeMarkup: function (markup) {
+                    return markup;
+                },
                 minimumInputLength: 1,
                 templateResult: formatRepo,
                 templateSelection: formatRepoSelection,
@@ -146,11 +154,16 @@ $('#fechaRC').Zebra_DatePicker({
                     return "Ingrese un caracter para la busqueda";
                 }
             });
- 
-          $("#botonesInsercion").show();  
-          
 
-           
+            $("#botonesInsercion").show();
+
+        } else {
+
+            swal("Cliente no seleccionado!", "Debes seleccionar un cliente", "error");
+
+
+        }
+
        });
     
          
@@ -231,7 +244,7 @@ $('#fechaRC').Zebra_DatePicker({
                         x=x+parseFloat(subTotal);
                       
                        });
-            
+            x=x.toFixed(2);
             $("#totalRC").val(x);
             
               
@@ -244,7 +257,7 @@ $('#fechaRC').Zebra_DatePicker({
                         y=y+parseFloat(subTotales);
                        
                        });
-            
+                y=y.toFixed(2);
             $("#totalComision").val(y);
             
             
@@ -255,7 +268,7 @@ $('#fechaRC').Zebra_DatePicker({
          var idNombre=  $(this).attr("id");
          var idProducto= $(this).val();
          var numero = idNombre.replace("producto-","");
-         
+           var idCliente = $("#clientes").val();
          
          
          
@@ -266,7 +279,7 @@ $('#fechaRC').Zebra_DatePicker({
                                                   type: 'POST',
                                                   async: false,
                                                   dataType: 'json',
-                                                  data: {idProducto:idProducto},
+                                                  data: {idProducto:idProducto,idCliente:idCliente},
                                                   url: Routing.generate('buscarPrecioProducto'),
                                                   success: function (data)
                                                   {
@@ -275,6 +288,7 @@ $('#fechaRC').Zebra_DatePicker({
                                                       if (data.estado == true) {
                                                               
                                                                   $('#precio-'+numero).val(data.precio);
+                                                                  $('#descuento-'+numero).val(data.descuento);
 
                                                       }
 
@@ -300,8 +314,47 @@ $('#fechaRC').Zebra_DatePicker({
     
     
      $(document).on("click",".eliminarDiv",function() {
-         $(this).parent().parent().remove();
-         llenarTotalPagar();
+           var idDetalleOrden = $(this).attr("id");
+         
+           swal({
+                                                    title: "Advertencia",
+                                                    text: "¿Estas seguro de remover?",
+                                                    type: "warning",
+                                                    showCancelButton: true,
+                                                    cancelButtonText: "No",
+                                                    confirmButtonText: "Si",
+                                                    confirmButtonColor: "#00A59D",
+                                                    closeOnConfirm: true,
+                                                    closeOnCancel: true
+                                                },
+                                                        function (isConfirm) {
+                                                            if (isConfirm) {
+                                                                   
+                                                                     
+                                                        $("#"+idDetalleOrden).parent().parent().remove();
+                                                            llenarTotalPagar();
+
+                                                            } else {
+                                                                
+                                                                
+                                                                
+                                                            }
+                                                            
+                                                            
+                                                        });
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
          
      });
      
@@ -464,7 +517,41 @@ $('#fechaRC').Zebra_DatePicker({
                 }
             });     
      
-     
+     $(document).on("change","#clientes",function() {
+     var idCliente = $(this).val();
+         $.ajax({
+                                                type: 'POST',
+                                                async: false,
+                                                dataType: 'json',
+                                                data: {id:idCliente},
+                                                url: Routing.generate('seleccionarCliente'),
+                                                success: function (data)
+                                                {
+                                                     
+                                                
+                                                    if (data.estado == true) {
+                                                        
+                                                        
+                                                        
+                                                       $("#nombreCliente").val(data.nombre);
+                                                       $("#telefonoCliente").val(data.telefono);
+                                                       $("#direccionCliente").val(data.direccion);
+                                                       
+                                                       $("#contenedorDatosGeneralesCliente").show();
+
+                                                    }
+
+                                                },
+                                                error: function (xhr, status)
+                                                {
+                                                    
+                                                }
+                                            });
+    
+    
+    
+});
+
      
      
      

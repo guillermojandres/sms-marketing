@@ -24,9 +24,11 @@
         </div>
  {% endblock%}
  {% block acciones %}
+                
      
+                    
      	<div class="col-md-4" style="margin-top: 50px;">
-                         
+                          {{parent()}}
                                 <div class="btn-group pull-right">
                                   <a href="{{ path('nuevocliente') }}" class="admin-menu-navi">
                                         <button class="btn btn-primary  btn-sm " style="margin-left: 5px;" id="nuevoCp">Nuevo</button>
@@ -60,7 +62,7 @@
 
 {% block cuerpo %}
      {{parent()}}
-    <div class="col-md-10">
+     <div class="col-md-10" style="margin-top: 10px;">
      
               
     <div >

@@ -28,7 +28,7 @@
  {% block acciones %}
      
      	<div class="col-md-4" style="margin-top: 50px;">
-                                <!-- Boton Modificacion -->
+                                {{parent()}}
 	
                                 <div class="btn-group pull-right">
                                   <a href="{{ path('nuevoproveedor') }}" class="admin-menu-navi">
@@ -37,23 +37,17 @@
                                 </div>
                                    <div class="btn-group pull-right">
                                         <button class="btn btn-danger  btn-sm " style="margin-left: 5px;" id="eliminarCP">Eliminar</button>
-                                    </div>
-                                        
-                               
-                              
-                                <!-- Botones del ingreso -->
-                                
-                                
-				
+                                   </div>
+                           
 	</div>
      
  {% endblock %}
 		
-		</div>
+        </div>
 
 {% endblock %}
 {% block navegacion_Y_body %}
-    	<div class="row">
+ <div class="row">
         {% block navegacion %}
                 <hr style="margin-top: 10px !important;">
                 <div class="col-md-2" style="border-right: 1px solid #f3f3f3;">

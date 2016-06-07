@@ -35,8 +35,9 @@
      </div>
  {% endblock%}
  {% block acciones %}
-     
+    
         <div class="col-md-4" style="margin-top: 50px;">
+             {{parent()}}
             <div class="btn-group pull-right">
                 <a class="admin-menu-navi">
                     <button class="btn btn-primary  btn-sm " style="margin-left: 5px;" id="guardarEdicion">Guardar</button>
@@ -67,7 +68,7 @@
 {% block navegacion_Y_body %}
     	<div class="row">
         {% block navegacion %}
-		<hr style="margin-top: 0px !important;">
+		<hr style="margin-top: 10px !important;">
 			<div class="col-md-2" style="border-right: 1px solid #f3f3f3;">
 				<!-- Left Navigation -->
 				<ul style="list-style: none; padding: 0;">

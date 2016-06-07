@@ -6,8 +6,8 @@
     <div class="row">
  {% block descripcion %}
 			<div class="col-md-12">
-				<p class="robo" style="font-weight: 300; margin-bottom: 0px; font-size: 30px;">CRM</p>
-                                <p class="robo" style="font-weight: 300; font-size: 14px; height: 40px;">Panel adminstrativo CRM</p>
+				<p class="robo" style="font-weight: 300; margin-bottom: 0px; font-size: 30px;">Productos</p>
+                                <p class="robo" style="font-weight: 300; font-size: 14px; height: 40px;">Modificacion de productos</p>
 			</div>
  {% endblock%}
  {% block acciones %}
@@ -25,11 +25,8 @@
             <div class="col-md-2" style="border-right: 1px solid #f3f3f3;">
                     <!-- Left Navigation -->
                     <ul style="list-style: none; padding: 0;">
-                        <a href="{{ path('crm_dashbord') }}" class="leftnava"><li class="leftnav left active">Menu<span class="pull-right right"></span></li></a>
-                        <a href="{{ path('crm_configuracion') }}" class="leftnava"><li class="leftnav left">Configuraci&oacute;n</li></a>
-                        <a href="{{ path('crm_reportes') }}" class="leftnava"><li class="leftnav left">Reportes</li></a>
-                        <a href="{{ path('inventariobeard_listprod') }}" class="leftnava"><li class="leftnav left">Inventario</li></a>
-                    </ul>
+                        <a href="{{ path('dashboard_index') }}" class="leftnava"><li class="leftnav left active">Menu<span class="pull-right right"></span></li></a>
+                     </ul>
             </div>
        {% endblock %}
         

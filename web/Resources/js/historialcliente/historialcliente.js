@@ -37,6 +37,16 @@
             });
      
 
+
+$(document).on("change","#clientes",function() {
+    
+        alert("asass");
+    
+    
+    
+});
+
+
      
           
 $('#txtFechaInicio').Zebra_DatePicker({

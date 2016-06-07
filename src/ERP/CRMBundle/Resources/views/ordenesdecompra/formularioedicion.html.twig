@@ -6,6 +6,7 @@
                  <div class="row"  style="margin-top: 10px;">
                   <div id="contenidoVerMasDetalles">
                                   <div class="form-column col-md-3"><div class="form-group" style="margin-right: 2%;" >
+                                          <input type="hidden" name="clientesIdEdicion" id="clientesIdEdicion">
                          <label for="nombreClienteE" class="control-label">Nombre Cliente</label>
                          <input type="text" class="form-control cle" id="nombreClienteE"  name="nombreClienteE"  readonly>
                      </div>
@@ -61,11 +62,11 @@
                             <div class="col-md-3">
                                 <div class="btn-group totalRCE">
                                     <label for="totalRC" class="control-label totalRCEL" >Total a recibir</label>
-                                    <input type="text" class="form-control cle" id="totalRCE"  name="totalRC"  placeholder="$ " readonly>
+                                    <input type="text" class="form-control cle" id="totalRCE"  name="totalRC" disabled placeholder="$ " readonly>
                                 </div>
                                 <div class="btn-group totalComisionClienteEdi">
                                     <label for="totalComisionEdi" class="control-label" >Total comision cliente</label>
-                                    <input type="text" class="form-control cle" id="totalComisionEdi"  name="totalComisionEdi"  placeholder="$ " readonly>
+                                    <input type="text" class="form-control cle" id="totalComisionEdi"  name="totalComisionEdi" disabled placeholder="$ " readonly>
                                 </div>
                             </div>
                       </div>

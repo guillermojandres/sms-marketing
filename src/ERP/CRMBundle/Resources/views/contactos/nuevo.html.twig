@@ -37,7 +37,7 @@
      
      	<div class="col-md-4" style="margin-top: 50px;">
                                 <!-- Boton Modificacion -->
-	
+                                    {{parent()}}
                                
                                
                               
@@ -54,13 +54,13 @@
 {% block navegacion_Y_body %}
     	<div class="row">
         {% block navegacion %}
-		<hr style="margin-top: 0px !important;">
+		<hr style="margin-top: 10px !important;">
                 <div class="col-md-2" style="border-right: 1px solid #f3f3f3;">
                     <!-- Left Navigation -->
                     <ul style="list-style: none; padding: 0;">
                       
                         <a href="{{ path('admin_cliente_index') }}" class="leftnava"><li class="leftnav left active">Menu<span class="pull-right right"></span></li></a>
-                        <a href="" class="leftnava colorAnclas"><li class="leftnav left ">Configuraci&oacute;n</li></a>
+                  
 
                     </ul>
                 </div>	
@@ -70,8 +70,8 @@
        {% endblock %}
 
 {% block cuerpo %}
-    
-<div class="col-md-10">
+    {{parent()}}
+    <div class="col-md-10" style="margin-top: 10px;">
 
          <div class="row">
                  <div class="form-column col-md-6">
@@ -102,14 +102,14 @@
                    
                  <div class="col-md-3">
                     <div class="form-group">
-                       <label for="fecha inicio">Telefono Movil</label>
+                       <label for="fecha inicio" class="control-label ">Telefono Movil</label>
                            <input type="text" class="form-control telefono" id="telefonoMCp" 
                                  name="correoCp" >
                    </div>
                  </div>
                  <div class="col-md-3">
                        <div class="form-group">
-                           <label for="fecha inicio">NRC</label>
+                           <label for="fecha inicio" class="control-label ">NRC</label>
                            <input type="text" class="form-control" id="nrcCP" 
                                   placeholder="0000-000000-000-0" name="nrcCP">
                        </div>
@@ -118,7 +118,7 @@
                    {#<div class="clearfix"></div>   #}
                    <div class="col-md-3">
                        <div class="form-group">
-                           <label for="fecha inicio">NIT</label>
+                           <label for="fecha inicio" class="control-label ">NIT</label>
                            <input type="text" class="form-control" id="nitCP" 
                                   placeholder="0000-000000-000-0" name="nitCP" >
                        </div>
@@ -126,7 +126,7 @@
                    
                    <div class="col-md-4">
                     <div class="form-group">
-                    <label for="fecha inicio">Correo Electronico</label>
+                    <label for="fecha inicio" class="control-label ">Correo Electronico</label>
                     <input type="text" class="form-control" id="correoCp" 
                            placeholder="example@yourdomian.com" name="correoCp">
                     </div>
@@ -134,14 +134,14 @@
                   
                    <div class="col-md-4">
                        <div class="form-group">
-                           <label for="fecha inicio">Pagina Web</label>
+                           <label for="fecha inicio" class="control-label ">Pagina Web</label>
                            <input type="text" class="form-control" id="paginaWebCp" 
                                   placeholder="Direccion web de contacto" name="paginaWebCp">
                        </div>
                    </div>
                     <div class="col-md-4">
                        <div class="form-group">
-                           <label for="fecha inicio">Referido por</label>
+                           <label for="fecha inicio" class="control-label ">Referido por</label>
                            <input type="text" class="form-control" id="referidoPor" 
                                   placeholder="Quien refirio al posible cliente" name="referidoPor">
                        </div>
@@ -149,7 +149,7 @@
                    <div class="clearfix"></div> 
                     <div class="col-md-8">
                         <div class="form-group">
-                          <label for="fecha inicio">Descripcion</label>
+                          <label for="fecha inicio" class="control-label ">Descripcion</label>
                           <textarea class="form-control" id="descripcionCp"></textarea>
                       </div>   
                     </div>

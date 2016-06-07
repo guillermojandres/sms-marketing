@@ -13,12 +13,14 @@
      
      
 $('#fechaRC').Zebra_DatePicker({
-     format: 'Y m, d'
+     format: 'Y m, d',
+     direction: false,
 });
 
 
 $('#fechaRCE').Zebra_DatePicker({
-     format: 'Y m, d'
+     format: 'Y m, d',
+     direction: false
 });
 
      
@@ -68,14 +70,8 @@ $('#fechaRCE').Zebra_DatePicker({
                                                 }
                                             });    
              
-             
-             
-            
-            
-            
-        
-  
-       }); 
+
+         }); 
        
     
 
@@ -83,9 +79,35 @@ $('#fechaRCE').Zebra_DatePicker({
     
     
      $(document).on("click",".eliminarDiv",function() {
-         $(this).parent().parent().remove();
+         var idDetalleOrden = $(this).attr("id");
          
-          llenarTotalPagar();
+           swal({
+                                                    title: "Advertencia",
+                                                    text: "¿Estas seguro de remover?",
+                                                    type: "warning",
+                                                    showCancelButton: true,
+                                                    cancelButtonText: "No",
+                                                    confirmButtonText: "Si",
+                                                    confirmButtonColor: "#00A59D",
+                                                    closeOnConfirm: true,
+                                                    closeOnCancel: true
+                                                },
+                                                        function (isConfirm) {
+                                                            if (isConfirm) {
+                                                                   
+                                                                     
+                                                        $("#"+idDetalleOrden).parent().remove();
+                                                          llenarTotalPagarE();
+
+                                                            } else {
+                                                                
+                                                                
+                                                                
+                                                            }
+                                                            
+                                                            
+                                                        });
+         
          
      });
     
@@ -118,7 +140,7 @@ $('#fechaRCE').Zebra_DatePicker({
     });
     
     
-    $(document).on("click","#comprasEntregadas",function() {
+    $(document).on("click","#comprasEntregadas",function() {            
         if (x!=0){
              $("#comprasVistaDetalle").click();
              swal("Error!", "Tienes que cancelar o guardar las modificaciones", "error")
@@ -166,31 +188,41 @@ $('#fechaRCE').Zebra_DatePicker({
 
                                                       if (data.estado == true) {
                                                                                
-                                                          console.log(data.encabezado);
+                                                          
                                                         $.each(data.encabezado, function( key, value ) {
+
+                                                 
                                                             var monto =parseFloat(value.monto);
+                                                            var montoComision =parseFloat(value.montoComision);
                                                           $("#totalRCE").val(monto);
                                                           $("#fechaRCE").val(value.fechaRegistro);
                                                           $("#nombreClienteE").val(value.nombre); 
-                                                          $("#tipoPagoE").val(value.tipoPago);
-                                                          $("#tipoEstadoE").val(value.estado);
-                                                            
-
+                                                          
+                                                          $('#tipoPagoE').val(value.tipoPago).change();
+                                                          $("#tipoEstadoE").val(value.estado).change();
+                                                        
+                                                            $("#totalComisionEdi").val(montoComision);
+                                                          $("#clientesIdEdicion").val(value.id);
+                                                          
                                                             
                                                         });
+
+                                                        
 
                                     var formulario="";
                                    $.each(data.nombre, function( key, value ) {
                                        var precio=data.precio[key];
                                        var cantidad =data.cantidad[key];
-                                       var subtotal =precio*cantidad;        
+                                       var subtotal =precio*cantidad;
+                                       var comisionValor=(subtotal*(data.descuento[key]/100));
+                                       subtotal=subtotal.toFixed(2);
                                                
                                                                correlativoEdicion=correlativoEdicion+1;
                                                               // alert(data.nombre[key]);
-                                                    formulario = '<div class="clearfix"><div></div><div class "nuevaOrden"><div class="form-column col-md-3">\n\
+                                                    formulario = '<div class="clearfix"><div></div><div class="nuevaOrden"><div class="form-column col-md-3">\n\
                                                                             <div class="form-group" style="margin-right: 2%;">\n\
                                                                                     <label for="producto" class="control-label">Producto</label>\n\
-                                                                                        <select  name="productoE" class="form-control productoE productoEditacion" style="width: 100%" id="producto-'+correlativoEdicion+'" >\n\
+                                                                                        <select disabled name="productoE" class="form-control productoE productoEditacion" style="width: 100%" id="producto-'+correlativoEdicion+'" >\n\
                                                                                                 <option value="'+data.idNombre[key]+'" selected>'+data.nombre[key]+'</option>\n\
                                                                                           </select>\n\
                                                                                 </div>\n\
@@ -216,58 +248,59 @@ $('#fechaRCE').Zebra_DatePicker({
                                                                            </div>\n\
                                                                             <div class="form-column col-md-2">\n\
                                                                                 <div class="form-group" >\n\
-                                                                                    <label for="subtotal" class="control-label">SubTotal</label>\n\
-                                                                                        <input type="text" class="form-control subtotalE subtotalEditacion" id="subtotal-'+correlativoEdicion+'"  name="subtotal" value="'+subtotal+'">\n\
+                                                                                    <label for="subtotal" class="control-label">Sub Total</label>\n\
+                                                                                        <input type="text" class="form-control subtotalE subtotalEditacion" id="subtotal-'+correlativoEdicion+'"  name="subtotal" value="'+subtotal+'" disabled>\n\
                                                                                 </div>\n\
-                                                                             </div>\\n\
+                                                                             </div>\n\
                                                                              <div class="form-column" style="display:none;">\n\
                                                                                 <div class="form-group" >\n\
                                                                                     <label for="subtotal" class="control-label">PorcentajeComision</label>\n\
-                                                                                       <input type="text" class="form-control comision" id="comision-'+correlativoEdicion+'"  name="comision" value="0" readonly>\n\
+                                                                                       <input type="text" class="form-control comision" id="comision-'+correlativoEdicion+'"  name="comision" value="'+comisionValor+'" readonly>\n\
                                                                                 </div>\n\
                                                                              </div>\n\
-                                                                           <div style="display:none;"><input class="idOrdenCompra" type="hidden" value="'+data.idOrden[key]+'"></div><div class="fa fa-close col-md-1 eliminarDivE" id="'+data.idOrden[key]+'" style="margin-top: 3%;margin-left:-20px;"></div>\n\
+                                                                           <div style="display:none;"><input class="idOrdenCompra" type="hidden" value="'+data.idOrden[key]+'"></div><div class="fa fa-close col-md-1 eliminarDivE" id="'+data.idOrden[key]+'" style="margin-top: 3%;margin-left:-20px;" title="Eliminar"></div>\n\
                                                                         </div>\n\
                                                                         <div class="clearfix"></div></div>';
                                                                     
                                                                     
                                                                     
                                                                   $("#contenidoVerMasDetalles").append(formulario);  
-                                                                         
-                                                                             $('#producto-'+correlativoEdicion).select2({
-                                                                                   ajax: {
-                                                                                       url: Routing.generate('buscarProducto'),
-                                                                                       dataType: 'json',
-                                                                                       delay: 250,
-                                                                                       data: function (params) {
-                                                                                           return {
-                                                                                               q: params.term,
-                                                                                               page: params.page
-                                                                                           };
-                                                                                       },
-                                                                                       processResults: function (data, params) {
-                                                                                           var select2Data = $.map(data.data, function (obj) {
-                                                                                               obj.id = obj.abogadoid;
-                                                                                               obj.text = obj.nombre;
+//                                                                         
+//                                                                             $('#producto-'+correlativoEdicion).select2({
+//                                                                                   ajax: {
+//                                                                                       url: Routing.generate('buscarProducto'),
+//                                                                                       dataType: 'json',
+//                                                                                       delay: 250,
+//                                                                                       data: function (params) {
+//                                                                                           return {
+//                                                                                               q: params.term,
+//                                                                                               page: params.page
+//                                                                                           };
+//                                                                                       },
+//                                                                                       processResults: function (data, params) {
+//                                                                                           var select2Data = $.map(data.data, function (obj) {
+//                                                                                               obj.id = obj.abogadoid;
+//                                                                                               obj.text = obj.nombre;
+//
+//                                                                                               return obj;
+//                                                                                           });
+//
+//                                                                                           return {
+//                                                                                               results: select2Data
+//                                                                                           };
+//                                                                                       },
+//                                                                                       cache: true
+//                                                                                   },
+//                                                                                   escapeMarkup: function (markup) { return markup; },
+//                                                                                   minimumInputLength: 1,
+//                                                                                   templateResult: formatRepo,
+//                                                                                   templateSelection: formatRepoSelection,
+//                                                                                   formatInputTooShort: function () {
+//                                                                                       return "Ingrese un caracter para la busqueda";
+//                                                                                   }
+//                                                                               });
+//                                                                             
 
-                                                                                               return obj;
-                                                                                           });
-
-                                                                                           return {
-                                                                                               results: select2Data
-                                                                                           };
-                                                                                       },
-                                                                                       cache: true
-                                                                                   },
-                                                                                   escapeMarkup: function (markup) { return markup; },
-                                                                                   minimumInputLength: 1,
-                                                                                   templateResult: formatRepo,
-                                                                                   templateSelection: formatRepoSelection,
-                                                                                   formatInputTooShort: function () {
-                                                                                       return "Ingrese un caracter para la busqueda";
-                                                                                   }
-                                                                               });
- 
                                                                     
                                                       
                                                                        
@@ -306,7 +339,7 @@ $('#fechaRCE').Zebra_DatePicker({
            correlativoEdicion=correlativoEdicion+1;
            var formulario="";
       
-            formulario = '<div class="clearfix"><div></div><div class "nuevaOrden"><div class="form-column col-md-3">\n\
+            formulario = '<div class="clearfix"></div><div class="nuevaOrden"><div class="form-column col-md-3">\n\
                                 <div class="form-group" style="margin-right: 2%;">\n\
                                         <label for="producto" class="control-label">Producto</label>\n\
                                             <select  name="producto" class="form-control productoE productoEditacionNuevo" style="width: 100%" id="producto-'+correlativoEdicion+'" >\n\
@@ -335,7 +368,7 @@ $('#fechaRCE').Zebra_DatePicker({
                                 </div>\n\
                                   <div >\n\
                                     <div class="form-column col-md-2"" >\n\
-                                        <label for="subtotal" class="control-label">SubTotal</label>\n\
+                                        <label for="subtotal" class="control-label">Sub Total</label>\n\
                                             <input type="text" class="form-control subtotalE subtotalEditacionNuevo" id="subtotal-'+correlativoEdicion+'"  name="subtotal" value="0">\n\
                                     </div>\n\
                                  </div>\n\
@@ -345,7 +378,7 @@ $('#fechaRCE').Zebra_DatePicker({
                                                 <input type="text" class="form-control comision" id="comision-'+correlativoEdicion+'"  name="comision" value="0" readonly>\n\
                                         </div>\n\
                                  </div>\n\
-                                    <div class="fa fa-close col-md-1 eliminarDiv" style="margin-top: 3%;margin-left:-20px;"></div>\n\
+                                    <div class="fa fa-close col-md-1 eliminarDiv" id="eliminacion-'+correlativoEdicion+'" style="margin-top: 3%;margin-left:-20px;" title="Eliminar"></div>\n\
                             </div>\n\
                             <div class="clearfix"></div></div>';
       
@@ -430,7 +463,7 @@ $('#fechaRCE').Zebra_DatePicker({
                         x=x+parseFloat(subTotal);
 
                        });
-            
+            x=x.toFixed(2);
             $("#totalRCE").val(x);
             
             $('.comision').each(
@@ -442,11 +475,13 @@ $('#fechaRCE').Zebra_DatePicker({
                         y=y+parseFloat(subTotales);
                        
                        });
-            
+            y=y.toFixed(2);
             $("#totalComisionEdi").val(y);
             
             
         }
+        
+        
        //Precio
        
         $(document).on("change",".precioE",function() {
@@ -499,7 +534,7 @@ $('#fechaRCE').Zebra_DatePicker({
          var idNombre=  $(this).attr("id");
          var idProducto= $(this).val();
          var numero = idNombre.replace("producto-","");
-         
+          var idCliente = $("#clientesIdEdicion").val();
          
          
          
@@ -510,7 +545,7 @@ $('#fechaRCE').Zebra_DatePicker({
                                                   type: 'POST',
                                                   async: false,
                                                   dataType: 'json',
-                                                  data: {idProducto:idProducto},
+                                                  data: {idProducto:idProducto,idCliente:idCliente},
                                                   url: Routing.generate('buscarPrecioProducto'),
                                                   success: function (data)
                                                   {
@@ -519,7 +554,7 @@ $('#fechaRCE').Zebra_DatePicker({
                                                       if (data.estado == true) {
                                                               
                                                                   $('#precio-'+numero).val(data.precio);
-
+                                                                  $('#descuento-'+numero).val(data.descuento);
                                                       }
 
                                                   },
@@ -541,36 +576,63 @@ $('#fechaRCE').Zebra_DatePicker({
      
        
        
+  //Eliminar registros de una venta, en vista y a la base de datos
   
      $(document).on("click",".eliminarDivE",function() {
-        var idEncabezado = $("#idDetalleRegistroCompra").val();
-         var idDetalleOrden=  $(this).attr("id");
          
-                             $.ajax({
-                                                  type: 'POST',
-                                                  async: false,
-                                                  dataType: 'json',
-                                                  data: {idDetalleOrden:idDetalleOrden,idEncabezado:idEncabezado},
-                                                  url: Routing.generate('eliminarDetalleOrden'),
-                                                  success: function (data)
-                                                  {
-                                                      
+                                                                 var idEncabezado = $("#idDetalleRegistroCompra").val();
+                                                                var idDetalleOrden = $(this).attr("id");
+                                swal({
+                                                    title: "Advertencia",
+                                                    text: "¿Estas seguro de remover este producto del pedido? Si aceptas removerlo, no habra forma de recuperar los datos posteriormente",
+                                                    type: "warning",
+                                                    showCancelButton: true,
+                                                    cancelButtonText: "No",
+                                                    confirmButtonText: "Si",
+                                                    confirmButtonColor: "#00A59D",
+                                                    closeOnConfirm: true,
+                                                    closeOnCancel: true
+                                                },
+                                                        function (isConfirm) {
+                                                            if (isConfirm) {
+                                                                   
+                                                             
 
-                                                      if (data.estado == true) {
-                                                              
+                                                                $.ajax({
+                                                                    type: 'POST',
+                                                                    async: false,
+                                                                    dataType: 'json',
+                                                                    data: {idDetalleOrden: idDetalleOrden, idEncabezado: idEncabezado},
+                                                                    url: Routing.generate('eliminarDetalleOrden'),
+                                                                    success: function (data)
+                                                                    {
+
+
+                                                                        if (data.estado == true) {
+
+                                                                            $("#"+idDetalleOrden).parent().parent().remove();
+                                                                             llenarTotalPagarE();
+                                                                        }
+
+                                                                    },
+                                                                    error: function (xhr, status)
+                                                                    {
+
+                                                                    }
+                                                                });
                                                                 
-                                                                    
+                                                                
 
-                                                      }
 
-                                                  },
-                                                  error: function (xhr, status)
-                                                  {
-
-                                                  }
-                                              });
-             $(this).parent().parent().remove();
-        llenarTotalPagarE();
+                                                            } else {
+                                                                
+                                                                
+                                                                
+                                                            }
+                                                            
+                                                            
+                                                        });
+      
          
      });
        

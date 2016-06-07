@@ -45,7 +45,7 @@ class EncabezadoOrden
     private $tipoPago;
     
     
-      /**
+     /**
      * @var string
      *
      * @ORM\Column(name="tipo_venta", type="string", length=20, nullable=true)
@@ -75,8 +75,14 @@ class EncabezadoOrden
      */
     private $montoComision;
     
+     /**
+     * @var string
+     *
+     * @ORM\Column(name="numero_orden", type="string", length=20, nullable=true)
+     */
+    private $numeroOrden;
     
-
+    
     /**
      * Get id
      *
@@ -87,6 +93,41 @@ class EncabezadoOrden
         return $this->id;
     }
 
+    
+     /**
+     * Set numeroOrden
+     *
+     * @param string $tipoPago
+     * @return EncabezadoOrden
+     */
+    public function setNumeroOrden($numeroOrden)
+    {
+        $this->numeroOrden = $numeroOrden;
+
+        return $this;
+    }
+
+    /**
+     * Get numeroOrden
+     *
+     * @return string 
+     */
+    public function getNumeroOrden()
+    {
+        return $this->numeroOrden;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
    /**
      * Set crmClienteId
      *

@@ -195,7 +195,13 @@ class HistorialClienteController extends Controller
         $sql = "SELECT enc.id as encabezado, "
                 . "concat_ws(cli.codigo, '<div class=\"text-right\">', '</div>') as codigo, "
                 . "concat_ws(DATE_FORMAT(enc.fecha_registro,'%d-%m-%Y'), '<div class=\"text-center\">', '</div>') as fecha_registro, "
-                . "concat_ws(enc.estado, '<div class=\"text-center\">', '</div>') as estado, "
+                . "CASE 
+                     WHEN enc.estado='1' THEN 'Pago Recibido'
+                     WHEN enc.estado='2' THEN 'Procesado'
+                     WHEN enc.estado='3' THEN 'Procesado'
+                     WHEN enc.estado='4' THEN 'En camino'
+                     WHEN enc.estado='5' THEN 'Completado'
+                    END as estado, "
                 . "concat_ws(enc.tipo_venta, '<div class=\"text-center\">', '</div>') as tipoVenta, "
                 . "concat_ws(enc.tipo_pago, '<div class=\"text-center\">', '</div>') as tipo_pago, "
                 . "concat_ws(enc.monto, '<div class=\"text-center\">', '</div>') as monto, "

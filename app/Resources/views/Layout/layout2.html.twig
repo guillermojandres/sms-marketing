@@ -20,6 +20,10 @@
                                     color: black;
                                     
                                 }
+                                .control-label{
+                                    font-size: 12px !important;
+                                    font-weight: 400;
+                                }
 
                             </style>
                 {% block css_extend %}        
@@ -47,7 +51,8 @@
     </head>
     <body>
  {% block body %}
-        
+        <!-- Boton con Dropdown -->
+				
         <!-- Barra de Navegacion con Breadcrumb -->
         {% include ':Layout:nav2.html.twig' %}
 	<!-- Fin de Barra de Navegacion -->
@@ -60,7 +65,28 @@
                 
                 {% block descripcion %}                    
                 {% endblock %}
-                {% block acciones %}                    
+                {% block acciones %}
+
+                    <div class="btn-group pull-right" >
+                        <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  id="acciones" style="margin-left: 5px;">
+                            Naegacion <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="{{ path('dashboard_indexCRM') }}">CRM</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('ordenesdecompra') }}">Ventas</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('inventariobeard_listprod') }}">Productos</a>
+                            </li>
+                             <li>
+                                <a href="{{ path('admin_contabilidad_index') }}">Contabilidad</a>
+                            </li>
+                        </ul>
+                    </div> 
+                    
                 {% endblock acciones %}
             {% endblock %}	
             {% block navegacion_Y_body %}                    
