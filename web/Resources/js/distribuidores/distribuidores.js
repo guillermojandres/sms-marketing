@@ -91,7 +91,7 @@ $('#fechaRC').Zebra_DatePicker({
                                                  <div class="form-group"><div class="input-group"><div class="input-group-addon">%</div><input type="text"  class="form-control descuento" id="descuento-'+correlativo+'" placeholder="Descuento" name="descuento" value="0" ><div class="input-group-addon"></div></div>\n\
                                        </div>\n\
                                     </div>\n\
-                                    </div>\n\
+                                 </div>\n\
                                 <div class="form-column col-md-2">\n\
                                     <div class="form-group" >\n\
                                         <label for="subtotal" class="control-label">SubTotal</label>\n\
@@ -100,7 +100,7 @@ $('#fechaRC').Zebra_DatePicker({
                                  </div>\n\
                                 <div class="form-column" style="display:none;">\n\
                                     <div class="form-group" >\n\
-                                        <label for="subtotal" class="control-label">Comision</label>\n\
+                                        <label for="subtotal" class="control-label">PorcentajeComision</label>\n\
                                             <input type="text" class="form-control comision" id="comision-'+correlativo+'"  name="comision" value="0" readonly>\n\
                                     </div>\n\
                                  </div>\n\

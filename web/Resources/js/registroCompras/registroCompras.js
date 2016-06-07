@@ -4,6 +4,7 @@
    
     var x=0;
      
+      
       $("#comprasVistaDetalle").hide();     
    $("#botonesInsercion").hide();
    $("#botonesInsercionE").hide();
@@ -194,31 +195,38 @@ $('#fechaRCE').Zebra_DatePicker({
                                                                                           </select>\n\
                                                                                 </div>\n\
                                                                             </div>\n\
-                                                                            <div class="form-column col-md-3">\n\
+                                                                            <div class="form-column col-md-2">\n\
                                                                                 <div class="form-group" >\n\
                                                                                     <label for="precio" class="control-label">Precio ($)</label>\n\
-                                                                                        <input type="text" class="form-control precioE precioEditacion" id="precio-'+correlativoEdicion+'" placeholder="$ precio del producto" name="precio" readonly  value="'+data.precio[key]+'" disabled >\n\
+                                                                                        <input type="text" class="form-control precioE precioEditacion" id="precio-'+correlativoEdicion+'" placeholder="$ precio del producto" name="precio"   value="'+data.precio[key]+'"  >\n\
                                                                                 </div>\n\
                                                                              </div>\n\
-                                                                            <div class="form-column col-md-3">\n\
+                                                                            <div class="form-column col-md-2">\n\
                                                                                 <div class="form-group" >\n\
                                                                                     <label for="cantidad" class="control-label">Cantidad</label>\n\
-                                                                                        <input type="number" min="1" class="form-control cantidadE cantidadEditacion" id="cantidad-'+correlativoEdicion+'" placeholder="# cantidad producto" name="cantidad" value="'+data.cantidad[key]+'">\n\
-                                                                                </div>\n\
-                                                                             </div>\n\
-                                                                            <div style="display: none;">\n\
-                                                                                <div class="form-group" >\n\
-                                                                                    <label for="subtotal" class="control-label">SubTotal</label>\n\
-                                                                                        <input type="text" class="form-control subtotalE subtotalEditacion" id="subtotal-'+correlativoEdicion+'"  name="subtotal" value="'+subtotal+'">\n\
+                                                                                        <div class="form-group"><div class="input-group"><div class="input-group-addon">#</div><input type="text" min="1" class="form-control cantidadE cantidadEditacion" id="cantidad-'+correlativoEdicion+'" placeholder="# cantidad producto" name="cantidad" value="'+data.cantidad[key]+'"></div></div>\n\
                                                                                 </div>\n\
                                                                              </div>\n\
                                                                             <div class="form-column col-md-2">\n\
                                                                                    <div class="form-group" >\n\
-                                                                                       <label for="decuento" class="control-label">% Descuento</label>\n\
-                                                                                           <input type="text" class="form-control descuentoE descuentoEditacion" id="descuento-'+correlativoEdicion+'" placeholder="% Descuento" name="descuento" value="'+data.descuento[key]+'" >\n\
+                                                                                       <label for="decuento" class="control-label">Comision</label>\n\
+                                                                                           <div class="form-group"><div class="input-group"><div class="input-group-addon">%</div><input type="text" class="form-control descuentoE descuentoEditacion" id="descuento-'+correlativoEdicion+'" placeholder="% Descuento" name="descuento" value="'+data.descuento[key]+'" ><div class="input-group-addon"></div></div>\n\
                                                                                    </div>\n\
+                                                                             </div>\n\
+                                                                           </div>\n\
+                                                                            <div class="form-column col-md-2">\n\
+                                                                                <div class="form-group" >\n\
+                                                                                    <label for="subtotal" class="control-label">SubTotal</label>\n\
+                                                                                        <input type="text" class="form-control subtotalE subtotalEditacion" id="subtotal-'+correlativoEdicion+'"  name="subtotal" value="'+subtotal+'">\n\
                                                                                 </div>\n\
-                                                                                <div style="display:none;"><input class="idOrdenCompra" type="hidden" value="'+data.idOrden[key]+'"></div><div class="fa fa-close col-md-1 eliminarDivE" id="'+data.idOrden[key]+'" style="margin-top: 3%;margin-left:-20px;"></div>\n\
+                                                                             </div>\\n\
+                                                                             <div class="form-column" style="display:none;">\n\
+                                                                                <div class="form-group" >\n\
+                                                                                    <label for="subtotal" class="control-label">PorcentajeComision</label>\n\
+                                                                                       <input type="text" class="form-control comision" id="comision-'+correlativoEdicion+'"  name="comision" value="0" readonly>\n\
+                                                                                </div>\n\
+                                                                             </div>\n\
+                                                                           <div style="display:none;"><input class="idOrdenCompra" type="hidden" value="'+data.idOrden[key]+'"></div><div class="fa fa-close col-md-1 eliminarDivE" id="'+data.idOrden[key]+'" style="margin-top: 3%;margin-left:-20px;"></div>\n\
                                                                         </div>\n\
                                                                         <div class="clearfix"></div></div>';
                                                                     
@@ -306,30 +314,37 @@ $('#fechaRCE').Zebra_DatePicker({
                                               </select>\n\
                                     </div>\n\
                                 </div>\n\
-                                <div class="form-column col-md-3">\n\
+                                <div class="form-column col-md-2">\n\
                                     <div class="form-group" >\n\
                                         <label for="precio" class="control-label">Precio ($)</label>\n\
-                                            <input type="text" disabled class="form-control precioE precioEditacionNuevo" id="precio-'+correlativoEdicion+'" placeholder="$ precio del producto" name="precio" readonly value="0">\n\
+                                            <input type="text"  class="form-control precioE precioEditacionNuevo" id="precio-'+correlativoEdicion+'" placeholder="$ precio del producto" name="precio"  value="0">\n\
                                     </div>\n\
                                  </div>\n\
-                                <div class="form-column col-md-3">\n\
+                                <div class="form-column col-md-2">\n\
                                     <div class="form-group" >\n\
                                         <label for="cantidad" class="control-label">Cantidad</label>\n\
-                                            <input type="number" min="1" class="form-control cantidadE cantidadEditacionNuevo" id="cantidad-'+correlativoEdicion+'" placeholder="# cantidad producto" name="cantidad" value="1">\n\
+                                            <div class="form-group"><div class="input-group"><div class="input-group-addon">#</div><input type="text" class="form-control cantidadE cantidadEditacionNuevo" id="cantidad-'+correlativoEdicion+'" placeholder="# cantidad producto" name="cantidad" value="1"></div></div>\n\
                                     </div>\n\
                                  </div>\n\
-                                <div style="display: none;">\n\
-                                    <div class="form-group" >\n\
+                                   <div class="form-column col-md-2">\n\
+                                       <div class="form-group" >\n\
+                                           <label for="decuento" class="control-label">Comision</label>\n\
+                                               <div class="form-group"><div class="input-group"><div class="input-group-addon">%</div><input type="text" class="form-control descuentoE descuentoEditacionNuevo" id="descuento-'+correlativoEdicion+'" placeholder="% Descuento" name="descuento" value=0 ><div class="input-group-addon"></div></div>\n\
+                                       </div>\n\
+                                    </div>\n\
+                                </div>\n\
+                                  <div >\n\
+                                    <div class="form-column col-md-2"" >\n\
                                         <label for="subtotal" class="control-label">SubTotal</label>\n\
                                             <input type="text" class="form-control subtotalE subtotalEditacionNuevo" id="subtotal-'+correlativoEdicion+'"  name="subtotal" value="0">\n\
                                     </div>\n\
                                  </div>\n\
-                                <div class="form-column col-md-2">\n\
-                                       <div class="form-group" >\n\
-                                           <label for="decuento" class="control-label">% Descuento</label>\n\
-                                               <input type="text" class="form-control descuentoE descuentoEditacionNuevo" id="descuento-'+correlativoEdicion+'" placeholder="% Descuento" name="descuento" >\n\
-                                       </div>\n\
-                                    </div>\n\
+                                    <div class="form-column" style="display:none;">\n\
+                                        <div class="form-group" >\n\
+                                            <label for="subtotal" class="control-label">PorcentajeComision</label>\n\
+                                                <input type="text" class="form-control comision" id="comision-'+correlativoEdicion+'"  name="comision" value="0" readonly>\n\
+                                        </div>\n\
+                                 </div>\n\
                                     <div class="fa fa-close col-md-1 eliminarDiv" style="margin-top: 3%;margin-left:-20px;"></div>\n\
                             </div>\n\
                             <div class="clearfix"></div></div>';
@@ -379,6 +394,7 @@ $('#fechaRCE').Zebra_DatePicker({
            
        });
     
+
        
 
       $(document).on("change",".cantidadE",function() {
@@ -386,10 +402,14 @@ $('#fechaRCE').Zebra_DatePicker({
                 var idNombre = $(this).attr("id");
                 var cantidad = $(this).val();
                 var numeroIdentificacion = idNombre.replace("cantidad-", "");
+                var porcentDescuento = $('#descuento-' + numeroIdentificacion).val();
                 var precio = $('#precio-' + numeroIdentificacion).val();
-                var subTotal = precio * cantidad;
+                var subTotal = (precio * cantidad)-((precio*cantidad)*(porcentDescuento/100));
+                subTotal=subTotal.toFixed(2);
                 $("#subtotal-"+numeroIdentificacion).val(subTotal);
-                
+                var comision= ((precio*cantidad)*(porcentDescuento/100));
+                $("#comision-"+numeroIdentificacion).val(comision);
+               
                 llenarTotalPagarE();
                
       });
@@ -399,6 +419,8 @@ $('#fechaRCE').Zebra_DatePicker({
     
         function llenarTotalPagarE(){
             var x=0;
+            var y=0;
+            
              $('.subtotalE').each(
                        function (){
                        var idNombre = $(this).attr("id");
@@ -411,8 +433,66 @@ $('#fechaRCE').Zebra_DatePicker({
             
             $("#totalRCE").val(x);
             
+            $('.comision').each(
+                       function (){
+                       var idNombres = $(this).attr("id");
+                       var numeroIdentificaciones = idNombres.replace("comision-", "");
+                       var subTotales =  $("#comision-"+numeroIdentificaciones).val();
+                       
+                        y=y+parseFloat(subTotales);
+                       
+                       });
+            
+            $("#totalComisionEdi").val(y);
+            
             
         }
+       //Precio
+       
+        $(document).on("change",".precioE",function() {
+
+                var idNombre = $(this).attr("id");
+                var  precio= $(this).val();
+                var numeroIdentificacion = idNombre.replace("precio-", "");
+                var  cantidad= $('#cantidad-' + numeroIdentificacion).val();
+
+                var porcentDescuento = $('#descuento-' + numeroIdentificacion).val();
+                var subTotal = (precio * cantidad)-((precio*cantidad)*(porcentDescuento/100));
+                subTotal=subTotal.toFixed(2);
+                $("#subtotal-"+numeroIdentificacion).val(subTotal);
+                
+                
+                var comision= ((precio*cantidad)*(porcentDescuento/100));
+                $("#comision-"+numeroIdentificacion).val(comision);
+                
+                llenarTotalPagarE();
+               
+      });
+       
+       //Descuento
+       
+       
+           $(document).on("change",".descuentoE",function() {
+
+                var idNombre = $(this).attr("id");
+               
+                var numeroIdentificacion = idNombre.replace("descuento-", "");
+                
+                 var cantidad = $('#cantidad-' + numeroIdentificacion).val();
+                 var precio = $('#precio-' + numeroIdentificacion).val();
+                var porcentDescuento = $('#descuento-' + numeroIdentificacion).val();
+                 var subTotal = (precio * cantidad)-((precio*cantidad)*(porcentDescuento/100));
+                 subTotal=subTotal.toFixed(2);
+                $("#subtotal-"+numeroIdentificacion).val(subTotal);
+                
+                  var comision= ((precio*cantidad)*(porcentDescuento/100));
+                $("#comision-"+numeroIdentificacion).val(comision);
+                
+                llenarTotalPagarE();
+               
+      });
+       
+       
        
            
     $(document).on("change",".productoE",function() {
@@ -520,6 +600,7 @@ $('#fechaRCE').Zebra_DatePicker({
         var tipoPagoE = $("#tipoPagoE").val();
         var totalRCE= $("#totalRCE").val();
         var estadoE = $("#tipoEstadoE").val();
+        var totalComision = $('#totalComisionEdi').val();
         
   
              $(".idOrdenCompra").each(function(k, va) {
@@ -591,7 +672,7 @@ $('#fechaRCE').Zebra_DatePicker({
                                                   type: 'POST',
                                                   async: false,
                                                   dataType: 'json',
-                                                  data: {fechaRCE:fechaRCE,tipoPagoE:tipoPagoE,productosE:productosE,preciosE:preciosE,cantidadesE:cantidadesE,
+                                                  data: {totalComision:totalComision,fechaRCE:fechaRCE,tipoPagoE:tipoPagoE,productosE:productosE,preciosE:preciosE,cantidadesE:cantidadesE,
                                                   descuentosE:descuentosE,totalRCE:totalRCE,estadoE:estadoE,productosENuevo:productosENuevo,preciosENuevo:preciosENuevo
                                                   ,cantidadesENuevo:cantidadesENuevo,descuentosENuevo:descuentosENuevo,ordendeCompraE:ordendeCompraE,idEncabezado:idEncabezado},
                                                   url: Routing.generate('EditarDatosRegistroCompra'),

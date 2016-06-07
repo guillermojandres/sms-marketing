@@ -792,6 +792,8 @@ class CrmClienteController extends Controller
                  
             $estado = $request->get('estadoE');
             $orden =  $request->get('ordendeCompraE');
+            $totalComision =  $request->get('totalComision');
+            
     
             
            $objeto = $this->getDoctrine()->getRepository('ERPAdminBundle:EncabezadoOrden')->findById($idEmcabezado);
@@ -799,6 +801,7 @@ class CrmClienteController extends Controller
            $objeto[0]->setTipoPago($tipoPago);
            $objeto[0]->setEstado($estado);
            $objeto[0]->setFechaRegistro(new \DateTime($fechaRC));
+           $objeto[0]->setMontoComision($totalComision);
            $em->merge($objeto[0]);
            $em->flush();
             
