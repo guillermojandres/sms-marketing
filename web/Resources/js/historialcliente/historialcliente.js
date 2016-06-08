@@ -38,13 +38,6 @@
      
 
 
-$(document).on("change","#clientes",function() {
-    
-        alert("asass");
-    
-    
-    
-});
 
 
      

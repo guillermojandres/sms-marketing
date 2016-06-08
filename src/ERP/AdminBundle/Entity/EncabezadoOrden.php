@@ -117,17 +117,6 @@ class EncabezadoOrden
         return $this->numeroOrden;
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
    /**
      * Set crmClienteId
      *

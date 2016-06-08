@@ -8,7 +8,12 @@
                 
                 .thClass{
                     height: 20px;
-                    width: 150px;
+                    width: 130px;
+                }
+                .tdProductoE{
+                     height: 10px;
+                    width: 100px;
+                     text-align: right; 
                 }
                 
                 .tdC{
@@ -37,17 +42,20 @@
       <div >
     
           <div style="height: 120px;">
-              <p style="font-size: 20px; font-weight: 600; float: left; text-transform: uppercase;">Reporte de venta <br/> 
-                  <!--<span style="font-size: 13px; color: #c3c3c3; font-weight: 400px; text-transform: none !important;"> Este es un reporte de venta lorem  ..... </span><br>-->
+             
 
-                              <span style="font-size: 13px; color: #262626; font-weight: 400px; text-transform: none !important;">
-                                  <b style="text-align: left;">Fecha de registro:</b> <?php echo "  ".$encabezado[0]["fechaRegistro"]; ?> &nbsp;&nbsp;
-                                   <b style="text-align: left;">Nombre cliente:</b> <?php echo "  ".$encabezado[0]["nombre"]; ?>
-                                
-                              </span><br/>
-                              
-                               <span style="font-size: 13px; color: #262626; font-weight: 400px; text-transform: none !important;">
-                                   <b>Estado de venta:</b> <?php if($encabezado[0]["estado"]==1){
+              
+              <table>
+                
+                    <tr>
+                        <td colspan="5" style="font-size: 20px; font-weight: 600;text-transform: uppercase;"> Reporte de venta</td>
+                    </tr>
+                     <tr>
+                      <td class="tdProductoE"><b>Fecha de registro:</b></td><td class="tdProducto"> <?php echo "".$encabezado[0]["fechaRegistro"]; ?> </td>
+                      
+                      
+                      <td class="tdProductoE"><b> Estado de venta:</b></td>
+                      <td class="tdProducto">  <?php if($encabezado[0]["estado"]==1){
                                          echo "Pago Recibido";
                                     }elseif($encabezado[0]["estado"]==2){
                                         echo "En proceso";
@@ -62,17 +70,22 @@
                                         echo "Completado";
                                         
                                     }   
-                                    ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                     <b>Tipo de pago:</b> <?php echo "  ".$encabezado[0]["tipoPago"]; ?>
-                              </span><br/> 
-                              <span style="font-size: 13px; color: #262626; font-weight: 400px; text-transform: none !important;">
-                                  <b>Monto Total: </b> <?php echo "  $".number_format($encabezado[0]["monto"],2); ?>
-                              </span><br/> 
-                             
-                  
-                  
-              </p>
-                    <img src="http://marvinvigil.info/imagenesbeard/barba1.png" style="width: 100px; height: auto; float: right;"/>
+                                    ?>
+                      </td>
+                      
+                 </tr>
+                  <tr>
+                       <td class="tdProductoE">  <b>Tipo de pago:</b></td><td class="tdProducto"><?php echo "".$encabezado[0]["tipoPago"]; ?></td>          
+                       <td class="tdProductoE">  <b>Total comision:</b></td><td class="tdC"> <?php echo "$  ".$encabezado[0]["montoComision"]; ?></td>         
+                 </tr>
+                 <tr>
+                      <td class="tdProductoE">  <b>Nombre cliente:</b></td><td class="tdProducto"> <?php echo "".$encabezado[0]["nombre"]; ?></td>                     
+                      <td class="tdProductoE"><b>Monto total:</b></td> <td class="tdC"><?php echo "$  " . number_format($encabezado[0]["monto"], 2); ?></td>                    
+                 </tr>
+                         
+              </table>
+                    
+                <img src="http://marvinvigil.info/imagenesbeard/barba1.png" style="width: 100px; height: auto; float: right;margin-top: -90px;"/>
         </div>
 			
           <div style="border-top: 2px solid #888888;"></div>   
@@ -87,6 +100,7 @@
                 <th class="thClass">Producto</th>
                <th class="thClass">Precio</th>
                <th class="thClass">Cantidad</th>
+                <th class="thClass">Comisión</th>
                 <th class="thClass">Sub Total</th>
             </tr>
         </thead>
@@ -112,9 +126,14 @@
                             echo $detalleOrden['cantidad'][$i];
                              ?>
                         </td>
+                        <td class="tdC">
+                         <?php
+                            echo "% ". $detalleOrden['descuento'][$i];
+                             ?>
+                        </td>
                          <td class="tdC">
                          <?php
-                            echo "$ ". number_format($detalleOrden['cantidad'][$i]*$detalleOrden['precio'][$i],2);
+                            echo "$ ".  number_format(($detalleOrden['cantidad'][$i]*$detalleOrden['precio'][$i])-(($detalleOrden['cantidad'][$i]*$detalleOrden['precio'][$i])*($detalleOrden['descuento'][$i]/100)),2);
                              ?>
                         </td>
                   </tr>

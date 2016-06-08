@@ -49,7 +49,7 @@ class HistorialClienteController extends Controller
     public function verEncabezadoPDF($idDetalle) {
         $em = $this->getDoctrine()->getManager();
 //        $encabezado = $em->getRepository('ERPAdminBundle:EncabezadoOrden')->findById($idDetalle) ;
-         $dqlEncabezado = "SELECT date_format(enc.fechaRegistro,'%Y-%m-%d') as fechaRegistro,enc.estado,enc.tipoPago, enc.monto, cli.nombre, cli.codigo FROM ERPAdminBundle:EncabezadoOrden enc "
+         $dqlEncabezado = "SELECT enc.numeroOrden, date_format(enc.fechaRegistro,'%Y-%m-%d') as fechaRegistro,enc.estado,enc.tipoPago, enc.monto, cli.nombre, cli.codigo, enc.montoComision FROM ERPAdminBundle:EncabezadoOrden enc "
                     . "JOIN enc.crmClienteId cli "
                     . "WHERE enc.id = :id ";
 
@@ -179,7 +179,7 @@ class HistorialClienteController extends Controller
         $fechaini = $request->query->get('param2');
         $fechafin = $request->query->get('param3');
        
-//        var_dump($abogado);
+//        var_dump($cliente);
 //        var_dump($fechaini);
 //        var_dump($fechafin);
 //        

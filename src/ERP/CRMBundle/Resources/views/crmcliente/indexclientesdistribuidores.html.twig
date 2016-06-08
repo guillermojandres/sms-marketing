@@ -131,8 +131,8 @@
                         
                          <select name="tipoEstado" id="tipoEstado" style="width: 100%" class="form-control" required>
                             <option value="1">Pago Recibido</option>
-                             <option value="2">En proceso</option>
-                               <option value="3">Procesado</option>
+                           <option value="3">Procesado</option>
+                            <option value="2">En proceso</option>
                                  <option value="4">En camino</option>
                                    <option value="5">Completado</option>
                          </select>
@@ -148,22 +148,23 @@
                      </div>
                  </div>
                   <div class="clearfix"></div>
-                  <div class="row" style="margin-top: 12px;" id="contenedorDatosGeneralesCliente">
-                      
-                          <div class="form-group col-md-4">
-                              <label class="control-label" for="nombreCliente">Nombre</label>
-                              <input type="text" class="form-control" id="nombreCliente" placeholder="Nombre cliente"  disabled>
-                          </div>
-                          <div class="form-group col-md-4">
-                                  <label class="control-label" for="direccionCliente">Direccion</label>
-                              <input type="text" class="form-control" id="direccionCliente" placeholder="Direccion cliente" disabled>
-                          </div>
-                          <div class="form-group col-md-4">
-                                 <label class="control-label" for="telefonoCliente">Telefono</label>
-                              <input type="text" class="form-control" id="telefonoCliente" placeholder="Telefono cliente" disabled>
-                          </div>
-                      
-                  </div>
+                 <div class="row" style="margin-left: 15px;margin-top: 12px;" id="contenedorDatosGeneralesCliente">
+                                    <form class="form-inline">
+                                        <div class="form-group col-md-4" style="padding-right: 0px;margin-left: -15px; ">
+                                            <label class="control-label" for="nombreCliente" style=" font-size: 13px !important;"><b>Nombre:</b></label>
+                                            <label  class="control-label" id="nombreCliente" placeholder="Nombre cliente"  ></label>
+                                        </div>
+                                        <div class="form-group col-md-2" style="padding-left: 0px;">
+                                            <label class="control-label" for="telefonoCliente" style=" font-size: 13px !important;"><b>Telefono:</b></label>
+                                            <label  class="control-label"id="telefonoCliente" placeholder="Telefono cliente" ></label>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label class="control-label" for="direccionCliente"style=" font-size: 13px !important;"><b>Direccion:</b></label>
+                                            <label  class="control-label" id="direccionCliente" placeholder="Direccion cliente" ></label>
+                                        </div>
+                                       
+                                    </form>
+                    </div>
                   <div class="clearfix"></div>
                  <div style="margin-bottom: 10px;margin-top: 10px;margin-left: 10px;" class="col-md-2">
                      <img src="{{ asset('Resources/src/img/add.png') }}" title="Agregar un nuevo registro" class="addCompraProducto">

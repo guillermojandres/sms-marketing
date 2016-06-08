@@ -533,9 +533,9 @@ $('#fechaRC').Zebra_DatePicker({
                                                         
                                                         
                                                         
-                                                       $("#nombreCliente").val(data.nombre);
-                                                       $("#telefonoCliente").val(data.telefono);
-                                                       $("#direccionCliente").val(data.direccion);
+                                                       $("#nombreCliente").text(data.nombre);
+                                                       $("#telefonoCliente").text(data.telefono);
+                                                       $("#direccionCliente").text(data.direccion);
                                                        
                                                        $("#contenedorDatosGeneralesCliente").show();
 

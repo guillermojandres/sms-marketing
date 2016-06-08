@@ -112,9 +112,6 @@ $('#fechaRCE').Zebra_DatePicker({
      });
     
       
-      
-      
-
      
      //Esta es la parte de la edicion de los datos
    //Eventos click dentro de las  id de los div contenedores
@@ -127,6 +124,14 @@ $('#fechaRCE').Zebra_DatePicker({
 
     });  
      
+//      $(document).on("click","#idcompletado",function() {
+//        if (x==0){
+//             $("#comprasProcesados").click();
+//             swal("Error!", "Selecciona un registro de compra", "error")
+//            
+//        }
+//
+//    });  
      
      
    //Eventos click dentro de las  id de los div contenedores
@@ -141,6 +146,15 @@ $('#fechaRCE').Zebra_DatePicker({
     
     
     $(document).on("click","#comprasEntregadas",function() {            
+        if (x!=0){
+             $("#comprasVistaDetalle").click();
+             swal("Error!", "Tienes que cancelar o guardar las modificaciones", "error")
+            
+        }
+
+    });
+    
+    $(document).on("click","#idcompletado",function() {            
         if (x!=0){
              $("#comprasVistaDetalle").click();
              swal("Error!", "Tienes que cancelar o guardar las modificaciones", "error")
@@ -215,6 +229,7 @@ $('#fechaRCE').Zebra_DatePicker({
                                        var cantidad =data.cantidad[key];
                                        var subtotal =precio*cantidad;
                                        var comisionValor=(subtotal*(data.descuento[key]/100));
+                                       subtotal=subtotal-comisionValor;
                                        subtotal=subtotal.toFixed(2);
                                                
                                                                correlativoEdicion=correlativoEdicion+1;

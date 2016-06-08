@@ -119,14 +119,6 @@ class Orden
      * })
      */
     private $productoId;
-    
-   
-    
-    
-    
-    
-    
-    
 
     
     /**

@@ -106,7 +106,7 @@ class ContabilidadController extends Controller
 //            $fi = $inicio[2]."-".$inicio[1]."-".$inicio[0];
 //            $ff = $fin[2]."-".$fin[1]."-".$fin[0];
            
-            $sql.="and enc.fecha_registro_cliente >= '$fechaini' and enc.fecha_registro_cliente <= '$fechafin' ";
+            $sql.="and enc.fecha_registro_cliente >= '$fechafin' and enc.fecha_registro_cliente <= '$fechaini' ";
         }
 
         $sql.= "ORDER BY enc.fecha_registro_cliente DESC "
@@ -141,12 +141,14 @@ class ContabilidadController extends Controller
       
        
         if($fechaini != "" && $fechafin != ""){
+            
+          
 //            $inicio = explode("-", $fechaini);
 //            $fin = explode("-", $fechafin);
 //            $fi = $inicio[2]."-".$inicio[1]."-".$inicio[0];
 //            $ff = $fin[2]."-".$fin[1]."-".$fin[0];
 //           
-           $sql2.="and enc.fecha_registro_cliente >= '$fechaini' and enc.fecha_registro_cliente <= '$fechafin' ";
+           $sql2.="and enc.fecha_registro_cliente >= '$fechafin' and enc.fecha_registro_cliente <= '$fechaini' ";
         }
 
         $rsm2->addScalarResult('id','id');

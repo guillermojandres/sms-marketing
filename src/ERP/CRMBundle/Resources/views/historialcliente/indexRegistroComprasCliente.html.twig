@@ -112,24 +112,21 @@
                                 </form>
                                 <br>
                                 <div class="clearfix"></div>
-                                <div class="row" style="margin-left: 20px;margin-top: 12px;" id="contenedorDatosGeneralesCliente">
-                                     
-                                        <div class="col-md-4"></div>
-                                         <div class="col-md-4"></div>
-                                        <div class="clearfix"></div>
-                                    <form class="form-inline">
-                                       <div class="form-group col-md-4">
-                                            <label class="label label-default" for="nombreCliente">Nombre</label>
-                                            <input type="text" class="form-control" id="nombreCliente" placeholder="Nombre cliente"  disabled>
+                                <div class="row" style="margin-left: 19px;margin-top: 12px;" id="contenedorDatosGeneralesCliente">
+                                <form class="form-inline">
+                                        <div class="form-group col-md-4" style="padding-right: 0px;margin-left: -14px; ">
+                                            <label class="control-label" for="nombreCliente" style=" font-size: 13px !important;"><b>Nombre:</b></label>
+                                            <label  class="control-label" id="nombreCliente" placeholder="Nombre cliente"  ></label>
                                         </div>
-                                        <div class="form-group col-md-4">
-                                            <label class="label label-default" for="direccionCliente">Direccion</label>
-                                            <input type="text" class="form-control" id="direccionCliente" placeholder="Direccion cliente" disabled>
+                                        <div class="form-group col-md-2" style="padding-left: 0px;">
+                                            <label class="control-label" for="telefonoCliente" style=" font-size: 13px !important;"><b>Telefono:</b></label>
+                                            <label  class="control-label"id="telefonoCliente" placeholder="Telefono cliente" ></label>
                                         </div>
-                                         <div class="form-group col-md-4">
-                                            <label class="label label-default" for="telefonoCliente">Telefono</label>
-                                            <input type="text" class="form-control" id="telefonoCliente" placeholder="Telefono cliente" disabled>
+                                        <div class="form-group col-md-6">
+                                            <label class="control-label" for="direccionCliente"style=" font-size: 13px !important;"><b>Direccion:</b></label>
+                                            <label  class="control-label" id="direccionCliente" placeholder="Direccion cliente" ></label>
                                         </div>
+                                       
                                     </form>
                                 </div>
                                 
@@ -171,7 +168,7 @@
               
                 $('#DataTables_Table_0_filter').hide();
 
-            var url = Routing.generate('admin_facturacion_data')+"?param1="+$('#busqueda-cliente').val()+"&param2="+$('#txtFechaIni').val()+"&param3="+$('#txtFechaFin').val();
+            var url = Routing.generate('admin_facturacion_data')+"?param1="+$('#busqueda-cliente').val()+"&param2="+$('#txtFechaInicio').val()+"&param3="+$('#txtFechaFin').val();
            
             var table = $('.listados').DataTable({
                     //searching:true,
@@ -223,7 +220,7 @@
                 var idCliente = $('#busqueda-cliente').val();
                 
                 if(idCliente!=null){
-                   var url = Routing.generate('admin_facturacion_data')+"?param1="+$('#busqueda-cliente').val()+"&param2="+$('#txtFechaIni').val()+"&param3="+$('#txtFechaFin').val();
+                   var url = Routing.generate('admin_facturacion_data')+"?param1="+$('#busqueda-cliente').val()+"&param2="+$('#txtFechaInicio').val()+"&param3="+$('#txtFechaFin').val();
                     table.ajax.url(url).load();
 
                     $.ajax({
@@ -240,9 +237,9 @@
                                                         
                                                         
                                                         
-                                                       $("#nombreCliente").val(data.nombre);
-                                                       $("#telefonoCliente").val(data.telefono);
-                                                       $("#direccionCliente").val(data.direccion);
+                                                       $("#nombreCliente").text(data.nombre);
+                                                       $("#telefonoCliente").text(data.telefono);
+                                                       $("#direccionCliente").text(data.direccion);
                                                        
                                                        $("#contenedorDatosGeneralesCliente").show();
 
@@ -263,7 +260,7 @@
                     
                 }
 
-                     var url = Routing.generate('admin_facturacion_data')+"?param1="+$('#busqueda-cliente').val()+"&param2="+$('#txtFechaIni').val()+"&param3="+$('#txtFechaFin').val();
+                     var url = Routing.generate('admin_facturacion_data')+"?param1="+$('#busqueda-cliente').val()+"&param2="+$('#txtFechaInicio').val()+"&param3="+$('#txtFechaFin').val();
                      table.ajax.url(url).load();
                 
             });
