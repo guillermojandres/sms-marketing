@@ -29,6 +29,7 @@
                referidoPor=$("#referidoPor").val();
                contactoId=$("#contactoDirecto").val();
                
+
                    var num=0;
                   
                   
@@ -50,7 +51,7 @@
                                     async: false,
                                     dataType: 'json',
                                     data: {credito:credito,categoria:categoria,nombre:nombre,direccion:direccion,telefono:telefono,telefonoM:telefonoM,nrc:nrc,
-                                     nit:nit,correoElectronico:correoElectronico,paginaWeb:paginaWeb,descipcion:descripcion,referidoPor:referidoPor,contactoId:contactoId},
+                                     nit:nit,correoElectronico:correoElectronico,paginaWeb:paginaWeb,descripcion:descripcion,referidoPor:referidoPor,contactoId:contactoId},
                                     url: Routing.generate('insertarcliente'),
                                     success: function (data)
                                     {
@@ -218,7 +219,7 @@
                 escapeMarkup: function (markup) { return markup; },
                 minimumInputLength: 1,
                 templateResult: formatRepo,
-                templateSelection: formatRepoSelection,
+//                templateSelection: formatRepoSelection,
                 formatInputTooShort: function () {
                     return "Ingrese un caracter para la busqueda";
                 }
@@ -235,10 +236,7 @@
                              "<div class='select2-result-repository__meta'>" +
                              "<div class='select2-result-repository__title'>" + data.nombre+ "</div>" +
                              "</div></div>";
-            } else {
-                var markup = "Seleccione un tipo de equipo";
-            }
-
+            } 
             return markup;
         }
 
@@ -246,7 +244,7 @@
             if(data.nombre){
                 return  data.nombre;
             } else {
-                return "Seleccione un tipo de equipo";
+                return "Seleccione contacto";
             }   
         }
 

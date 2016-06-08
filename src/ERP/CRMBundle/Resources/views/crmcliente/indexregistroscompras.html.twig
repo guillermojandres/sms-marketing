@@ -38,7 +38,7 @@
  {% block acciones %}
      
      	<div class="col-md-4" style="margin-top: 50px;">
-                                <!-- Boton Modificacion -->
+                             {{parent()}}
 				<div class="btn-group pull-right">
 					<button class="btn btn-default btn-sm verMasDetalles" style="margin-left: 5px;" type="submit">Ver mas</button>
 				</div>
@@ -50,7 +50,7 @@
                                 
 				<!-- Boton Delete -->
 				<div class="btn-group pull-right">
-                                                                     <button class="btn btn-danger btn-sm delete" style="margin-left: 5px;" type="submit" >Delete</button>
+                                                                     <button class="btn btn-danger btn-sm eliminar" style="margin-left: 5px;" type="submit" >Delete</button>
 				</div>
 
 				<!-- Boton Ingreso -->
@@ -100,22 +100,21 @@
                     <ul class="nav nav-tabs  ui-sortable-handle">
                          <li class="active"><a href="#divEntregadas" data-toggle="tab" class="colorAnclas colorPestanhas disabled" id="comprasEntregadas">Pago Recibido</a></li>
                         <li><a href="#divProcesadas" data-toggle="tab" class="colorAnclas colorPestanhas" id="comprasProcesados">Procesado</a></li> 
-                        <li><a href="#divEnviadas" data-toggle="tab" class="colorAnclas colorPestanhas" id="comprasEviadas">En camino</a></li>
                         <li><a href="#divPendientesCanceladas" data-toggle="tab" class="colorAnclas colorPestanhas" id="comprasPendientesCanceladas">En proceso</a></li>
+                        <li><a href="#divEnviadas" data-toggle="tab" class="colorAnclas colorPestanhas" id="comprasEviadas">En camino</a></li>
+         
                            <li><a href="#divCompletado" data-toggle="tab" class="colorAnclas colorPestanhas" id="idcompletado">Completado</a></li>
                           <li><a href="#divVistaDetalle" data-toggle="tab" class="colorAnclas colorPestanhas" id="comprasVistaDetalle">Vista Detalle</a></li>
                         <li class="pull-left header">
                     </ul>
                     
                          <div class="tab-content no-padding">
-                           <div class="chart tab-pane active colorDiv" id="divEntregadas" style=" padding: 15px;" >
+                           <div class="chart tab-pane colorDiv active" id="divEntregadas" style=" padding: 15px;" >
                                 {% include 'ERPCRMBundle:ordenesdecompra:comprasEntregadas.html.twig' %}    
                         </div>
                         <div class="chart tab-pane   colorDiv" id="divProcesadas" >
                            {% include 'ERPCRMBundle:ordenesdecompra:comprasProcesadas.html.twig' %}                       
                         </div>
-
-                    
                          <div class="chart tab-pane  colorDiv" id="divEnviadas" style=" padding: 15px;" >
                        {% include 'ERPCRMBundle:ordenesdecompra:comprasEnviados.html.twig' %}         
                         </div>
@@ -152,9 +151,12 @@
      <script src="https://cdn.datatables.net/1.10.11/js/dataTables.material.min.js "></script>
       <script  type="text/javascript">
           $(document).ready(function(){
+              $(".eliminar").hide();
+              
+var idEliminarRegistroVenta=0;             
 var numero_edicion =0;
 
-            $('#registroCompras').DataTable({
+         var recibido=   $('#registroCompras').DataTable({
                        columnDefs: [
 		            {
 		                targets: [ 0, 1, 2 ,3,4,5,6],
@@ -447,7 +449,7 @@ var numero_edicion =0;
         $("#formularioInsercion").hide();
          $("#formularioEdicion").hide();
         
-     $(document).on("click","tr",function() {
+     $(document).on("click","tbody>tr",function() {
        
              var identificador =     $(this).attr("role");
              
@@ -458,9 +460,11 @@ var numero_edicion =0;
               var idDetalle =  $(this).children().html();
              $(".verMasDetalles").show();
              $(".eliminar").show();   
-          
+                        
+                        
+                 
              $("#idDetalleRegistroCompra").val(idDetalle);
-              
+              idEliminarRegistroVenta=idDetalle;
                            $(".verMasDetalles").show();
              
             }
@@ -472,7 +476,7 @@ var numero_edicion =0;
                 
        });    
 
- $(document).on("dblclick","tr",function() {
+ $(document).on("dblclick","tbody>tr",function() {
      
              var identificador =     $(this).attr("role");
               if(identificador=="row"){
@@ -481,7 +485,7 @@ var numero_edicion =0;
             $(this).css('background-color', '#E9E6E6');
            
 
-             $(".eliminar").show();   
+             $(".eliminar").hide();   
              $(".nuevoRegistroCompra").show();
              $("#idDistribuidor").val(idCliente);
              
@@ -492,9 +496,97 @@ var numero_edicion =0;
             }
                 
        });
+       
+       $(document).on("click",".eliminar",function() {
+     var id =idEliminarRegistroVenta;
+   
+                      swal({
+                                                    title: "Advertencia",
+                                                    text: "¿Estas seguro de elimiar el registro de venta?, si lo eliminas no podras volver a recuperarlo.",
+                                                    type: "warning",
+                                                    showCancelButton: true,
+                                                    cancelButtonText: "No",
+                                                    confirmButtonText: "Si",
+                                                    confirmButtonColor: "#00A59D",
+                                                    closeOnConfirm: true,
+                                                    closeOnCancel: true
+                                                },
+                                                        function (isConfirm) {
+                                                            if (isConfirm) {
+                                                                   
+                                          $.ajax({
+                                                  type: 'POST',
+                                                  async: false,
+                                                  dataType: 'json',
+                                                  data: {id:id},
+                                                  url: Routing.generate('eliminarOrdenDeVenta'),
+                                                  success: function (data)
+                                                  {
+                                                      
+
+                                                      if (data.estado == true) {
+                                                              
+                                                                   swal("Exito!", "Cliente registrado con exito", "success");
+                                                                   
+                                                              var table1 = $('#registroCompras').DataTable();
+                                                                table1.ajax.reload( function ( ) {
+
+                                                                } );
+                                                                
+                                                                  var table2 = $('#registroComprasEntregados').DataTable();
+                                                                table2.ajax.reload( function ( ) {
+
+                                                                } );
+                                                                
+                                                                  var table3 = $('#registroComprasEnviados').DataTable();
+                                                                table3.ajax.reload( function ( ) {
+
+                                                                } );
+                                                                
+                                                                   var table4 = $('#registroComprasPendientesCanceladas').DataTable();
+                                                                    table4.ajax.reload( function ( ) {
+
+                                                                     } );
+                                                                     
+                                                                     
+                                                                     var table4 = $('#registroComprasCompletado').DataTable();
+                                                                table4.ajax.reload( function ( ) {
+
+                                                                } );  
+                                                                     
+                                                                     
+                                                        
+                                                         }
+
+                                                        },
+                                                        error: function (xhr, status)
+                                                        {
+
+                                                        }
+                                                    });
+                                                                            
+
+                                                            } else {
+                                                                
+                                                                
+                                                                
+                                                            }
+                                                            
+                                                            
+                                                        });
+        
+     
+     });
+     
+       
+       
+       
 
 
      });
+     
+     
+     
         
       </script>
       

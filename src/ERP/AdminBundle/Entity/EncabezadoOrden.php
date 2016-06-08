@@ -68,6 +68,14 @@ class EncabezadoOrden
      */
     private $estado;
     
+      /**
+     * @var integer
+     *
+     * @ORM\Column(name="permiso", type="integer", nullable=false)
+     */
+    private $permiso;
+    
+    
     /**
      * @var decimal
      *
@@ -283,7 +291,28 @@ class EncabezadoOrden
     }
     
     
-    
+     /**
+     * Set estado
+     *
+     * @param tinyint $estado
+     * @return Orden
+     */
+    public function setPermiso($permiso)
+    {
+        $this->permiso = $permiso;
+
+        return $this;
+    }
+
+    /**
+     * Get estado
+     *
+     * @return integer 
+     */
+    public function getPermiso()
+    {
+        return $this->permiso;
+    }
     
     
     

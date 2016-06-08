@@ -115,23 +115,6 @@ $('#fechaRCE').Zebra_DatePicker({
      
      //Esta es la parte de la edicion de los datos
    //Eventos click dentro de las  id de los div contenedores
-    $(document).on("click","#comprasVistaDetalle",function() {
-        if (x==0){
-             $("#comprasProcesados").click();
-             swal("Error!", "Selecciona un registro de compra", "error")
-            
-        }
-
-    });  
-     
-//      $(document).on("click","#idcompletado",function() {
-//        if (x==0){
-//             $("#comprasProcesados").click();
-//             swal("Error!", "Selecciona un registro de compra", "error")
-//            
-//        }
-//
-//    });  
      
      
    //Eventos click dentro de las  id de los div contenedores
@@ -140,6 +123,13 @@ $('#fechaRCE').Zebra_DatePicker({
              $("#comprasVistaDetalle").click();
              swal("Error!", "Tienes que cancelar o guardar las modificaciones", "error")
             
+        }else{
+              
+                var table1 = $('#registroCompras').DataTable();
+                                                                table1.ajax.reload( function ( ) {
+
+                                                                } );
+                                                       
         }
 
     });
@@ -150,6 +140,15 @@ $('#fechaRCE').Zebra_DatePicker({
              $("#comprasVistaDetalle").click();
              swal("Error!", "Tienes que cancelar o guardar las modificaciones", "error")
             
+        }else{
+          
+                                                                
+                                                                var table2 = $('#registroComprasEntregados').DataTable();
+                                                                table2.ajax.reload( function ( ) {
+
+                                                                } );
+                                                                
+                                                               
         }
 
     });
@@ -159,6 +158,12 @@ $('#fechaRCE').Zebra_DatePicker({
              $("#comprasVistaDetalle").click();
              swal("Error!", "Tienes que cancelar o guardar las modificaciones", "error")
             
+        }else{
+                  var table4 = $('#registroComprasCompletado').DataTable();
+                                                                table4.ajax.reload( function ( ) {
+
+                                                                } );  
+             
         }
 
     });
@@ -167,6 +172,13 @@ $('#fechaRCE').Zebra_DatePicker({
              $("#comprasVistaDetalle").click();
              swal("Error!", "Tienes que cancelar o guardar las modificaciones", "error")
             
+        }else{
+           var table3 = $('#registroComprasEnviados').DataTable();
+                                                                table3.ajax.reload( function ( ) {
+
+                                                                } );
+                                                                
+                                                                 
         }
 
     });
@@ -176,6 +188,13 @@ $('#fechaRCE').Zebra_DatePicker({
              $("#comprasVistaDetalle").click();
              swal("Error!", "Tienes que cancelar o guardar las modificaciones", "error")
             
+        }else{
+
+          var table4 = $('#registroComprasPendientesCanceladas').DataTable();
+                                                                    table4.ajax.reload( function ( ) {
+
+                                                                     } );
+
         }
 
     });

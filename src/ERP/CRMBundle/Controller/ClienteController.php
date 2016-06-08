@@ -109,7 +109,7 @@ class ClienteController extends Controller
         
         //SQL Nativo
        
-
+        
 
         if($busqueda['value']!=''){
           $value = $busqueda['value'];  
@@ -168,6 +168,7 @@ class ClienteController extends Controller
             $correoElectronico = $request->get('correoElectronico');
             $paginaWeb = $request->get('paginaWeb');
             $descripcion = $request->get('descripcion');
+
             $referidoPor = $request->get('referidoPor');
             $contactoId = $request->get('contactoId');
             $codigo = $this->generarCorrelativoCliente();

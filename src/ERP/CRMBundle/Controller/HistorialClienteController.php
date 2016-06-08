@@ -207,7 +207,7 @@ class HistorialClienteController extends Controller
                 . "concat_ws(enc.monto, '<div class=\"text-center\">', '</div>') as monto, "
                 . "concat_ws(enc.id, '<i class=\" colorAnclas fa fa-file-pdf-o verPDF\" id=\"', '\" title=\"Ver PDF\"></i>&nbsp;&nbsp;<i class=\" colorAnclas fa fa-file-excel-o verExcel\" id=\"', '\" title=\"Descargar excel\"></i>'  ) as link "
                 . "FROM encabezado_orden enc  inner join cliente cli on enc.crm_cliente_id = cli.id "
-                . "WHERE 1 = 1 ";
+                . "WHERE 1 = 1 AND enc.permiso =1 ";
 
         if($cliente != 'null'){
             $sql.="and enc.crm_cliente_id = '$cliente' ";
@@ -248,7 +248,7 @@ class HistorialClienteController extends Controller
                 . "concat_ws(enc.monto, '<div class=\"text-center\">', '</div>') as monto, "
                 . "concat_ws(enc.id, '<i class=\" colorAnclas fa fa-file-pdf-o verPDF\" id=\"', '\" title=\"Ver PDF\"></i>') as link "
                 . "FROM encabezado_orden enc  inner join cliente cli on enc.crm_cliente_id = cli.id "
-                . "WHERE 1 = 1 ";
+                . "WHERE 1 = 1 AND enc.permiso =1 ";
 
         if($cliente != 'null'){
             $sql2.="and enc.crm_cliente_id = '$cliente' ";

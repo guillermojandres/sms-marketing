@@ -186,15 +186,31 @@
                            
                        </div>
                    </div>
+              {% if data.contactoId is not empty %}    
+                           
                      <div class="form-column col-md-3">
                                      <div class="form-group" style="margin-right: 2%;">
                                         <label for="contactoDirecto" class="control-label">Contacto directo del cliente</label>
                                         <select id="contactoDirecto" name="contactoDirecto" class="form-control" style="width: 100%">
-                                            <option value="" disabled selected>Seleccione un contacto ...</option>
-                                        </select>  
+                                            {#<option value="">Seleccione un contacto ...</option>#}
+                                            <option selected value="{{data.contactoId.id}}"  selected>{{data.contactoId}}</option>
+                                          </select>  
                                             
                                     </div>
                       </div>
+              {% else %}                       
+                   <div class="form-column col-md-3">
+                                     <div class="form-group" style="margin-right: 2%;">
+                                        <label for="contactoDirecto" class="control-label">Contacto directo del cliente</label>
+                                        <select id="contactoDirecto" name="contactoDirecto" class="form-control" style="width: 100%">
+                                            {#<option value="">Seleccione un contacto ...</option>#}
+                                            <option selected value=""  selected>Seleccione un contacto...</option>
+                                          </select>  
+                                            
+                                    </div>
+                      </div>                  
+
+              {% endif %}                        
                     <div class="col-md-6">
                         <div class="form-group">
                           <label for="fecha inicio" class="control-label ">Descripcion</label>
@@ -228,7 +244,7 @@
 {% endblock %}
  
  {% block js_extend %}
-
+            
   {% endblock %} 
 
 

@@ -67,31 +67,21 @@
               
     <div >
      
-      <table id="listaClientes" class="mdl-data-table" cellspacing="0" width="100%">
-           
-				        <thead>
-                                                                            
-				            <tr>
-                                                                               <th>ID</th>
-                                                                                <th>ID Cliente</th>
-                                                                                <th>Nombre de Empresa</th>
-                                                                                <th>Nombre de Contacto</th>
-                                                                                  <th>Telefono Fijo</th>
-	
-				            </tr>
-				        </thead>
-				     
-				        {#<tbody>
-				            <tr>
-				                <td>Guillermo Jandres</td>
-				                <td>Chiltiupan, La Libertad</td>
-				                <td>Edinburgh</td>
-				                <td><input type="button" value="Ver mas"></td>
-				              
-				            </tr>
-				            
-				        </tbody>#}
-				    </table>
+        <table id="listaClientes" class="mdl-data-table" cellspacing="0" width="100%">
+
+            <thead>
+
+                <tr>
+                    <th>ID</th>
+                    <th>ID Cliente</th>
+                    <th>Nombre de Empresa</th>
+                    <th>Nombre de Contacto</th>
+                    <th>Telefono Fijo</th>
+
+                </tr>
+            </thead>
+
+        </table>
 
     
   </div>
@@ -165,7 +155,7 @@
          
        var idEliminar=0;
        
-       $(document).on("click","tr",function() {
+       $(document).on("click","tbody>tr",function() {
        
              var idCliente =  $(this).children().html();
             $("tr").css('background-color', 'white');
@@ -178,7 +168,8 @@
                 
        });
          
-       $(document).on("dblclick","tr",function() {
+         
+     $(document).on("dblclick","tbody>tr",function() {
              var idCliente =  $(this).children().html();
              
                var numero = idCliente;
@@ -187,6 +178,22 @@
              $("#eliminarCP").hide();   
                 
        });
+       
+       
+       
+       
+       {#
+        $(document).on("click","tbody>tr",function() {
+       
+       alert("adsasda");
+       
+         
+             
+             
+           
+                
+       });#}
+       
      
  
    $("#eliminarCP").on("click",function (){

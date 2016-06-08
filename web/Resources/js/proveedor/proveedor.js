@@ -164,7 +164,7 @@ $('#contactoDirecto').select2({
                 escapeMarkup: function (markup) { return markup; },
                 minimumInputLength: 1,
                 templateResult: formatRepo,
-                templateSelection: formatRepoSelection,
+//                templateSelection: formatRepoSelection,
                 formatInputTooShort: function () {
                     return "Ingrese un caracter para la busqueda";
                 }
@@ -182,10 +182,7 @@ function formatRepo (data) {
                              "<div class='select2-result-repository__meta'>" +
                              "<div class='select2-result-repository__title'>" + data.nombre+ "</div>" +
                              "</div></div>";
-            } else {
-                var markup = "Seleccione un tipo de equipo";
             }
-
             return markup;
         }
 
@@ -193,7 +190,7 @@ function formatRepo (data) {
             if(data.nombre){
                 return  data.nombre;
             } else {
-                return "Seleccione un tipo de equipo";
+                return "Seleccione un contacto";
             }   
         }
 

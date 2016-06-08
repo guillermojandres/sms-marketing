@@ -41,7 +41,7 @@
 	
       <div >
     
-          <div style="height: 120px;">
+          <div style="height: 120px; margin-bottom: -20px;">
              
 
               
@@ -50,7 +50,7 @@
                     <tr>
                         <td colspan="5" style="font-size: 20px; font-weight: 600;text-transform: uppercase;"> Reporte de venta</td>
                     </tr>
-                     <tr>
+                    <tr>
                       <td class="tdProductoE"><b>Fecha de registro:</b></td><td class="tdProducto"> <?php echo "".$encabezado[0]["fechaRegistro"]; ?> </td>
                       
                       
@@ -72,20 +72,20 @@
                                     }   
                                     ?>
                       </td>
-                      
+                        <td class="tdProductoE"><b>N° orden:</b></td><td class="tdProducto"> <?php echo "".$encabezado[0]["numeroOrden"]; ?> </td>
                  </tr>
                   <tr>
                        <td class="tdProductoE">  <b>Tipo de pago:</b></td><td class="tdProducto"><?php echo "".$encabezado[0]["tipoPago"]; ?></td>          
-                       <td class="tdProductoE">  <b>Total comision:</b></td><td class="tdC"> <?php echo "$  ".$encabezado[0]["montoComision"]; ?></td>         
+                        <td class="tdProductoE">  <b>Nombre cliente:</b></td><td class="tdProducto"> <?php echo "".$encabezado[0]["nombre"]; ?></td>                     
                  </tr>
                  <tr>
-                      <td class="tdProductoE">  <b>Nombre cliente:</b></td><td class="tdProducto"> <?php echo "".$encabezado[0]["nombre"]; ?></td>                     
-                      <td class="tdProductoE"><b>Monto total:</b></td> <td class="tdC"><?php echo "$  " . number_format($encabezado[0]["monto"], 2); ?></td>                    
+                     
+                              
                  </tr>
                          
               </table>
                     
-                <img src="http://marvinvigil.info/imagenesbeard/barba1.png" style="width: 100px; height: auto; float: right;margin-top: -90px;"/>
+                <img src="http://marvinvigil.info/imagenesbeard/barba1.png" style="width: 100px; height: auto; float: right;margin-top: -80px;"/>
         </div>
 			
           <div style="border-top: 2px solid #888888;"></div>   
@@ -144,6 +144,17 @@
                   
     </table>
     </div>
+          <div style="margin-top: 20px; margin-left: 500px;">
+              <table>
+                   <tr>
+                      <td class="tdProductoE"><b>Total comision:</b></td><td class="tdC"><?php echo "$  ".$encabezado[0]["montoComision"]; ?>     </td>
+                  </tr>
+                  <tr>
+                      <td class="tdProductoE"><b>Monto total:</b></td><td class="tdC"><?php echo "$  " . number_format($encabezado[0]["monto"], 2); ?></td>
+                  </tr>
+                 
+              </table>
+          </div>
 </div>
 </body>
 </html> 

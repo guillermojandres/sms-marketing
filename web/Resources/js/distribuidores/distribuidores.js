@@ -342,20 +342,7 @@ $('#fechaRC').Zebra_DatePicker({
                                                             
                                                             
                                                         });
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
+
      });
      
       $(document).on("click","#cancelarInsercionRC",function() {
