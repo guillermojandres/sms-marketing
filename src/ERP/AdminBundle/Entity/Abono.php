@@ -55,6 +55,22 @@ class Abono
     private $montoAbono;
     
     
+     /**
+     * @var string
+     *
+     * @ORM\Column(name="tipo_pago", type="string", length=25, nullable=true)
+     */
+    private $tipoPago;
+    
+    
+    
+     /**
+     * @var string
+     *
+     * @ORM\Column(name="descripcion", type="string", length=50, nullable=true)
+     */
+    private $descripcion;
+    
     
 
     /**
@@ -159,6 +175,63 @@ class Abono
     {
         return $this->montoAbono;
     }
+    
+        /**
+     * Set tipoPago
+     *
+     * @param string $tipoPago
+     * @return EncabezadoOrden
+     */
+    public function setTipoPago($tipoPago)
+    {
+        $this->tipoPago = $tipoPago;
+
+        return $this;
+    }
+
+    /**
+     * Get tipoPago
+     *
+     * @return string 
+     */
+    public function getTipoPago()
+    {
+        return $this->tipoPago;
+    }
+    
+    
+    
+    
+        /**
+     * Set descripcion
+     *
+     * @param string $descripcion
+     * @return EncabezadoOrden
+     */
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $descripcion;
+
+        return $this;
+    }
+
+    /**
+     * Get descripcion
+     *
+     * @return string 
+     */
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     

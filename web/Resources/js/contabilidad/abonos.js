@@ -1,6 +1,47 @@
  $(document).ready(function(){
     inicioPantalla();
 
+     $("#tipoPago").select2();
+      $("#tipoPagoE").select2();
+     
+     
+      $('#busqueda-clienteN').select2({
+                ajax: {
+                    url: Routing.generate('busqueda_abogado_select'),
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            q: params.term,
+                            page: params.page
+                        };
+                    },
+                    processResults: function (data, params) {
+                        var select2Data = $.map(data.data, function (obj) {
+                            obj.id = obj.abogadoid;
+                            obj.text = obj.codigo + ' - ' + obj.nombres;
+
+                            return obj;
+                        });
+
+                        return {
+                            results: select2Data
+                        };
+                    },
+                    cache: true
+                },
+                escapeMarkup: function (markup) { return markup; },
+                minimumInputLength: 1,
+                templateResult: formatRepo,
+                templateSelection: formatRepoSelection,
+                formatInputTooShort: function () {
+                    return "Enter 1 Character";
+                }
+            });
+     
+     
+     
+     
      
      $('#busqueda-cliente').select2({
                 ajax: {
@@ -36,6 +77,8 @@
                 }
             });
             
+            
+            
              $('#busqueda-clienteE').select2({
                 ajax: {
                     url: Routing.generate('busqueda_abogado_select'),
@@ -64,13 +107,13 @@
                 escapeMarkup: function (markup) { return markup; },
                 minimumInputLength: 1,
                 templateResult: formatRepo,
-                templateSelection: formatRepoSelection,
+//                templateSelection: formatRepoSelection,
                 formatInputTooShort: function () {
                     return "Enter 1 Character";
                 }
             });
      
- $(document).on("click","#guardarAbono", function(){
+ $(document).on("click","#guardarAbonoN", function(){
 
 
      
@@ -88,10 +131,11 @@
            
                
                 if (num==0){ 
-                   var fechaRegistroCliente= $('#txtFechaInicio').val();
-                    var idCliente = $('#busqueda-cliente').val();
-                     var montoAbono= $('#montoAbono').val();
-                     
+                   var fechaRegistroCliente= $('#txtFechaInicioN').val();
+                    var idCliente = $('#busqueda-clienteN').val();
+                     var montoAbono= $('#montoAbonoN').val();
+                     var tipoPago = $("#tipoPago").val();
+                     var descripcion = $("#descripcionAbono").val();
                    
                    
                     
@@ -100,7 +144,7 @@
                                     type: 'POST',
                                     async: false,
                                     dataType: 'json',
-                                    data: {fechaRegistroCliente:fechaRegistroCliente,idCliente:idCliente,
+                                    data: {tipoPago:tipoPago,descripcion:descripcion,fechaRegistroCliente:fechaRegistroCliente,idCliente:idCliente,
                                     montoAbono:montoAbono},
                                     url: Routing.generate('insertarAbono'),
                                     success: function (data)
@@ -120,11 +164,9 @@
                                                 },
                                                         function (isConfirm) {
                                                             if (isConfirm) {
-                                                                    $("#txtFechaInicio").val("");
-                                                                    $("#montoAbono").val("");
-
-                                                                    location.reload();
-                            
+                                                                   var url=Routing.generate('nuevo_abono_index');
+                                                                window.open(url,"_self"); 
+                                                                  
                                       
                                                             } else {
                                                                     var url=Routing.generate('admin_contabilidad_index');
@@ -174,7 +216,7 @@
   
   
   
-   $(document).on("click","#guardarEdicion", function(){
+   $(document).on("click","#guardarEdicionE", function(){
          var num=0;
                 $('.requeridoEdicion').each( function (){
             
@@ -190,14 +232,17 @@
                 if (num==0){ 
                      var fechaRegistroCliente= $('#txtFechaInicioE').val();
                     var idCliente = $('#busqueda-clienteE').val();
-                     var montoAbono= $('#montoAbonoE').val();
-                       var idDetalle=$('#idDetalleRe').val();
+                    var montoAbono= $('#montoAbonoE').val();
+                    var idDetalle=$('#idDetalle').val();
+                    var tipoPago = $("#tipoPagoE").val();
+                     var descripcion = $("#descripcionAbonoE").val();
+                    
                  $.ajax({
                                     type: 'POST',
                                     async: false,
                                     dataType: 'json',
                                     data: {fechaRegistroCliente:fechaRegistroCliente,idCliente:idCliente,
-                                    montoAbono:montoAbono,idDetalle:idDetalle},
+                                    montoAbono:montoAbono,idDetalle:idDetalle,descripcion:descripcion,tipoPago:tipoPago},
                                     url: Routing.generate('editarAbono'),
                                     success: function (data)
                                     {
@@ -217,7 +262,8 @@
                                                         function (isConfirm) {
                                                             if (isConfirm) {
                                                                     
-                                                                    location.reload();
+                                                                       var url=Routing.generate('admin_abonos_index');
+                                                                window.open(url,"_self"); 
                             
                                       
                                                             } else {
@@ -270,7 +316,13 @@
  $('#txtFechaInicioE').Zebra_DatePicker({
      format: 'Y-m-d'
 });    
-     
+
+$('#txtFechaInicioN').Zebra_DatePicker({
+     format: 'Y-m-d',
+    direction: false
+});
+
+
 
 $('#txtFechaInicio').Zebra_DatePicker({
      format: 'Y-m-d',
@@ -305,10 +357,7 @@ function formatRepo (data) {
                              "<div class='select2-result-repository__meta'>" +
                              "<div class='select2-result-repository__title'>" + data.codigo + " - " + data.nombres + "</div>" +
                              "</div></div>";
-            } else {
-                var markup = "Busque un cliente";
-            }
-
+            } 
             return markup;
         }
 
@@ -319,6 +368,9 @@ function formatRepo (data) {
                 return "Seleccione un cliente";
             }   
         }
+        
+        
+        
 function inicioPantalla(){
  $('#nuevoAbono').hide();
   $('#contenidoMonto').hide();

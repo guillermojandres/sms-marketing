@@ -193,7 +193,8 @@ class HistorialClienteController extends Controller
         $rsm = new ResultSetMapping();
 
         $sql = "SELECT enc.id as encabezado, "
-                . "concat_ws(cli.codigo, '<div class=\"text-right\">', '</div>') as codigo, "
+                . "concat_ws(cli.nombre, '<div class=\"text-left\">', '</div>') as nombre, "
+                . "concat_ws(cli.codigo, '<div class=\"text-center\">', '</div>') as codigo, "
                 . "concat_ws(DATE_FORMAT(enc.fecha_registro,'%d-%m-%Y'), '<div class=\"text-center\">', '</div>') as fecha_registro, "
                 . "CASE 
                      WHEN enc.estado='1' THEN 'Pago Recibido'
@@ -227,6 +228,7 @@ class HistorialClienteController extends Controller
                 . "LIMIT $start, $longitud ";
         //echo $sql;
         $rsm->addScalarResult('codigo','codigo');
+        $rsm->addScalarResult('nombre','nombre');
         $rsm->addScalarResult('fecha_registro','fecha_registro');
         $rsm->addScalarResult('estado','estado');
         $rsm->addScalarResult('tipoVenta','tipoVenta');
@@ -240,7 +242,8 @@ class HistorialClienteController extends Controller
         $rsm2 = new ResultSetMapping();
 
           $sql2 = "SELECT enc.id as encabezado, "
-                . "concat_ws(cli.codigo, '<div class=\"text-right\">', '</div>') as codigo, "
+                . "concat_ws(cli.nombre, '<div class=\"text-left\">', '</div>') as nombre, "
+                . "concat_ws(cli.codigo, '<div class=\"text-center\">', '</div>') as codigo, "
                 . "concat_ws(DATE_FORMAT(enc.fecha_registro,'%d-%m-%Y'), '<div class=\"text-center\">', '</div>') as fecha_registro, "
                 . "concat_ws(enc.estado, '<div class=\"text-center\">', '</div>') as estado, "
                 . "concat_ws(enc.tipo_venta, '<div class=\"text-center\">', '</div>') as tipoVenta, "
@@ -266,6 +269,7 @@ class HistorialClienteController extends Controller
         }
 
        $rsm2->addScalarResult('codigo','codigo');
+        $rsm2->addScalarResult('nombre','nombre');
         $rsm2->addScalarResult('fecha_registro','fecha_registro');
         $rsm2->addScalarResult('estado','estado');
         $rsm2->addScalarResult('tipoVenta','tipoVenta');

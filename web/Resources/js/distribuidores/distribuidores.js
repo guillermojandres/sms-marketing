@@ -447,7 +447,7 @@ $('#fechaRC').Zebra_DatePicker({
 
 
                                                             } else {
-                                                              var url = Routing.generate('ordenesdecompra');
+                                                              var url = Routing.generate('cliente_registroCompras_index');
                                                                 window.open(url, "_self");
                                                             }
                                                         });

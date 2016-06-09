@@ -9,7 +9,13 @@
     <link rel="stylesheet" href="{{ asset('Resources/sweetalert-master/dist/sweetalert.css')}}"> 
     <link rel="stylesheet" href="{{asset('Resources/AdminLTE-2.3.0/dist/css/skins/_all-skins.min.css')}}">
     <link rel="stylesheet" href="{{ asset('Resources/js/registroCompras/stylemaquina.css')}}">
-    
+    <style>
+        .verPDFAbono:hover{
+                       cursor: pointer;
+                       background-color: #D72400 ;
+        }
+                
+    </style>
 {% endblock css%}
 {% block js %}
        {{parent()}}
@@ -53,12 +59,8 @@
                     <button class="btn btn-default  btn-sm " style="margin-left: 5px;" id="cancelarAbono">Cancelar</button>
                 </a>
             </div> 
-             <div class="btn-group pull-right">
-                <a class="admin-menu-navi">
-                    <button class="btn btn-primary  btn-sm " style="margin-left: 5px;" id="guardarAbono">Guardar</button>
-                </a>
-            </div>
-	</div>
+           
+</div>
      
  {% endblock %}
 		
@@ -114,7 +116,7 @@
                                                         </div>
                                                         <div class="col-sm-6">
                                                            
-                                                            <input type="text"  name="txtFechaInicio" class="requeridoInsercion form-control input-sm txtFechaIni requeridoBusqueda" data-rule-required="true"
+                                                                <input type="text"  name="txtFechaInicio" class="requeridoInsercion form-control input-sm txtFechaIni requeridoBusqueda" data-rule-required="true"
                                                                    style=" width: 100%;" id="txtFechaInicio"   placeholder="Fecha Registro">
                                                         </div>
                                                         <div class="col-sm-6" id="contenidoMonto" style="margin-top: -25px;">
@@ -174,7 +176,7 @@
                                             <tr>
                                                 <th class="text-center">ID Registro</th>
                                                 <th class="text-center">Id de cliente</th>
-                                                <th class="text-center">Fecha del registro</th>
+                                                <th class="text-center">Fecha de registro abono</th>
                                                  <th class="text-center">Fecha de ingreso al sistema</th>
                                                 <th class="text-center">Monto ($)</th>
                                                 <th class="text-center">Acciones</th>
@@ -183,48 +185,7 @@
                                     </table>
                                 </div>
                                 
-                                
-
      </div> 
-
-<div id="contenidoEdicionAbono" class="col-md-10">
-        <div class="row" style="margin-right: 2px;">
-            <div class="form-group">
-                                                <div class="col-sm-4"  >
-                                                    <input type="hidden" name="idClienteAbono" id="idClienteAbono" value="0">
-                                                                                                         <input type="hidden" name="idClienteAbono" id="idClienteAbono" value="0">
-                                                   <input type="hidden" name="idDetalleRe" id="idDetalleRe" value="0">
-
-                                                    <label>Id o nombre del cliente</label>
-                                                    <select id="busqueda-clienteE" name="" class="requeridoEdicion form-control input-sm" data-rule-required="true" style=" width: 100%;">
-                                                        <option value="0" disabled selected>Seleccione un cliente</option>
-                                                    </select>
-
-                                                </div>
-                                                    
-                                                <div class="col-sm-4">
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            
-                                                             <label id="fechaRegistro">Fecha registro abono</label>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                           
-                                                            <input type="text"  name="txtFechaInicioE" class="requeridoEdicion form-control input-sm txtFechaIniE " data-rule-required="true"
-                                                                   style=" width: 100%;" id="txtFechaInicioE"   placeholder="Fecha Registro">
-                                                        </div>
-                                                        <div class="col-sm-6" id="contenidoMonto" style="margin-top: -25px;">
-                                                            <label for="montoAbono">Monto de abono</label>
-                                                            <input type="text" name="montoAbonoE" id="montoAbonoE"class="requeridoEdicion form-control input-sm">
-                                                        </div>
-                                                    </div>
-                                                </div>  
-                             
-                                            </div>
-               </div>
-        
-        
- </div>
 {% endblock %}
 
        
@@ -234,6 +195,7 @@
   
       <script  type="text/javascript">
           $(document).ready(function(){
+                $('#nuevoAbono').show();
                $("#contenedorDatosGeneralesCliente").hide();
                 $('#DataTables_Table_0_filter').hide();
 
@@ -313,7 +275,7 @@
                                     {
                                          if (data.estado==true){
                                                 
-                                                         $('#nuevoAbono').show();
+                                                       
                                                          $('#deudaContenido').show(); 
                                                          $("#totalDeuda").text(data.total);
                                                         
@@ -381,7 +343,8 @@
        });     
 
         $(document).on("click","#nuevoAbono", function(){
-            nuevoAbono();
+             var url=Routing.generate('nuevo_abono_index');
+                                                                window.open(url,"_self"); 
             
             
             
@@ -395,7 +358,26 @@
         });
         
      
-     $(document).on("dblclick","tr",function() {
+     //Doble click de forma del cliente
+     
+   {#  $(document).on("dblclick","tbody>tr",function() {
+             var idCliente =  $(this).children().html();
+             
+               var numero = idCliente;
+                  var url=Routing.generate('editarClientes',{id:numero});
+                  window.open(url,"_self"); 
+                  
+                  
+                  
+                  
+             $("#eliminarCP").hide();   
+                
+       });#}
+       
+     
+     
+     
+     $(document).on("dblclick","tbody>tr",function() {
        
        
        
@@ -403,47 +385,20 @@
        
             if(identificador=="row"){
               var idRegistro =  $(this).children().html();
+              
+             
+              idRegistro= idRegistro.replace('<div class="text-right">','');
+               idRegistro= idRegistro.replace('</div>','');
+            
+             
+              
                         $("tr").css('background-color', 'white');
                         $(this).css('background-color', '#E9E6E6');
-                       
-                        console.log(idRegistro);
                         
-                     $.ajax({
-                                    type: 'POST',
-                                    async: false,
-                                    dataType: 'json',
-                                    data: {idRegistro:idRegistro},
-                                    url: Routing.generate('llamarDatosEdicion'),
-                                    success: function (data)
-                                    {
-                                         $('#idClienteAbono').val(data.idCliente);
-                                         $('#idDetalleRe').val(idRegistro);
-                                         
-                                        $('#contenidoRegistroAbono').hide();
-                                         $('#guardarEdicion').show();                       
-                                            
-                                        $('#txtFechaInicioE').val(data.fechaRegistro);
-                                        $('#montoAbonoE').val(data.montoAbono);
-                                         $('#busqueda-clienteE').val(data.nombreCliente);
-                                       
-                                        $('#contenidoEdicionAbono').show();
-                                        $('#nuevoAbono').hide();
-                    
-                                         
-                                          
-                                    },
-                                    error: function (xhr, status)
-                                    {
-                      
-                                    }
-            
-            
-            });   
-                        
-                                  
-
-
-            }
+                  var url=Routing.generate('editarAbonos',{id:idRegistro});
+                  window.open(url,"_self"); 
+                            
+                    }
        
      
                 

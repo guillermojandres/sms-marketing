@@ -38,8 +38,9 @@
     
           <div style="height: 120px;">
               <p style="font-size: 20px; font-weight: 600; float: left; text-transform: uppercase;">Reporte de Abono <br/> 
-                  <span style="font-size: 13px; color: #c3c3c3; font-weight: 400px; text-transform: none !important;">Reporte de abono<br>
-                  <b style="text-align: right;">Fecha de registro dentro del sistema:</b>&nbsp;&nbsp;<?php echo "".$abono[0]['fechaRegistroSistema']; ?>
+                  <span style="font-size: 13px; color: #c3c3c3; font-weight: 400px; text-transform: none !important;">
+                      <b style="text-align: right;">Fecha de registro dentro del sistema:</b>&nbsp;&nbsp;<?php echo "".$abono[0]['fechaRegistroSistema']; ?><br>
+                      <b style="text-align: right;">Moto total de deuda del cliente:</b>&nbsp;&nbsp;<?php echo "".$deuda; ?>
                 </span>                 
                   
                   
@@ -50,15 +51,37 @@
           <div style="border-top: 2px solid #888888;"></div>   
 	
     <div style="margin-top: 20px;">
-        <div>
-            <p style="font-size: 17px; font-weight: 600;  text-transform: uppercase;">Detalles del Abono<br><br>
-                <span style="font-size: 13px; color: #262626; font-weight: 400px; text-transform: none !important;">
-                    <b style="text-align: right;">Fecha de registro:</b>&nbsp;&nbsp;<?php echo "".$abono[0]['fechaRegistroCliente']; ?><br> <br>
-                    <b style="text-align: right;">Nombre cliente:</b>&nbsp;&nbsp;<?php echo "".$abono[0]['nombre'];  ?> <br> <br>
-                    <b style="text-align: right;">Monto del abono: </b>&nbsp;&nbsp;<?php echo "$ ".number_format($abono[0]['monto'],2);  ?> 
-                </span>
-            </p>
-        </div>  
+       
+        
+         <table>
+                
+                    <tr>
+                        <td colspan="5" style="font-size: 20px; font-weight: 600;text-transform: uppercase;">Detalles del Abono</td>
+                    </tr>
+                    <tr>
+                         <td class="tdProductoE"><b>Fecha de registro:</b></td><td class="tdProducto"> <?php echo "".$abono[0]['fechaRegistroCliente']; ?></td>
+
+                    </tr>
+                    <tr>
+                        <td class="tdProductoE">  <b>Nombre cliente:</b></td><td class="tdProducto"><?php echo "" . $abono[0]['nombre']; ?></td> 
+                         <td class="tdProductoE">  <b>Codigo:</b></td><td class="tdProducto"><?php echo "" . $abono[0]['codigo']; ?></td>
+
+                    </tr>
+                    <tr>
+                           
+                        
+                        <td class="tdProductoE">  <b>Monto del Abono:</b></td><td class="tdProducto"><?php echo "$ " . number_format($abono[0]['monto'], 2); ?>  </td>                       
+                    </tr>
+                    <tr>
+                        <td class="tdProductoE">  <b>Tipo de pago:</b></td><td class="tdProducto"><?php echo "".$abono[0]['tipoPago']; ?> </td>          
+                    </tr>
+                     <tr>
+                         <td class="tdProductoE">  <b>Descripcion</b></td><td class="tdProducto" colspan="3"><?php echo "".$abono[0]['descripcion']; ?> </td>          
+                    </tr>
+                                      
+              </table>
+        
+        
    
     </div>
 </div>

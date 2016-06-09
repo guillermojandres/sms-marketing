@@ -1,0 +1,245 @@
+{% extends ':Layout:layout2.html.twig' %}
+
+{% block css %}
+    {{parent()}}
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('Resources/select2/dist/css/select2.css')}}">
+    <link rel="stylesheet" href="{{ asset('Resources/sweetalert-master/dist/sweetalert.css')}}"> 
+{#    <link rel="stylesheet" href="{{asset('Resources/AdminLTE-2.3.0/dist/css/skins/_all-skins.min.css')}}">#}
+    <link rel="stylesheet" href="{{ asset('Resources/js/registroCompras/stylemaquina.css')}}">
+{% endblock css%}
+{% block js %}
+     {{parent()}}
+
+       <script src="{{ asset('Resources/sweetalert-master/dist/sweetalert.min.js') }}"></script>
+       <script src="{{ asset('Resources/select2/dist/js/select2.js') }}"></script> 
+       <script src="{{ asset('Resources/js/contabilidad/abonos.js')}}" ></script>  
+    {#     <script src="{{ asset('Resources/AdminLTE-2.3.0/dist/js/app.js') }}" type="text/javascript"></script>#}
+    
+{% endblock %}
+
+
+{% block descripcion_y_acciones %}
+
+ <div class="row">
+ {% block descripcion %}
+        <div class="col-md-8">
+            <p class="robo" style="font-weight: 300; margin-bottom: 0px; font-size: 30px;">Nuevo Abono</p>
+            <p class="robo" style="font-weight: 300; font-size: 14px; height: 40px;">Gesti&oacute;n  de abonos</p>
+        </div>
+ {% endblock%}
+ {% block acciones %}
+                
+     
+                    
+     	<div class="col-md-4" style="margin-top: 50px;">
+                          {{parent()}}  
+                          
+	</div>
+       
+ {% endblock %}
+		
+</div>
+
+{% endblock %}
+{% block navegacion_Y_body %}
+  <div class="row">
+        {% block navegacion %}
+        <hr style="margin-top: 10px !important;">
+                <div class="col-md-2" style="border-right: 1px solid #f3f3f3;">
+                    <!-- Left Navigation -->
+                    <ul style="list-style: none; padding: 0;">
+                        <a href="{{ path('nuevo_abono_index') }}" class="leftnava colorAnclas"><li class="leftnav left active">Menu<span class="pull-right right"></span></li></a>
+                       
+
+                    </ul>
+                </div>	
+
+       {% endblock %}
+
+{% block cuerpo %}
+     {{parent()}}
+<div class="col-md-10" style="margin-top: 10px;">
+  <div class="row">
+         <div class="form-column col-md-4">
+        <div class="form-group" style="margin-right: 2%;">
+            <label for="txtFechaInicio" class="control-label">Fecha registro abono</label>
+             <input type="text"  name="txtFechaInicioN" class="requeridoInsercion form-control  txtFechaIni requeridoBusqueda" data-rule-required="true"
+                                                                   style=" width: 100%;" id="txtFechaInicioN"   placeholder="Fecha Registro">
+        </div>
+    </div>
+
+    <div class="form-column col-md-4">
+        <div class="form-group" style="margin-right: 2%;">
+            <label class="control-label">Ingrese id de cliente o nombre:</label>
+            <select id="busqueda-clienteN" name="" class="form-control" data-rule-required="true" style=" width: 100%;">
+                <option value="0" disabled selected>Seleccione un cliente ...</option>
+            </select>
+
+        </div>
+    </div>
+
+    <div class="form-column col-md-4">
+        <div class="form-group" style="margin-right: 2%;">
+            <label for="montoAbono" class="control-label">Monto de abono ($)</label>
+            <input type="text" name="montoAbonoN" id="montoAbonoN"class="requeridoInsercion form-control input-sm requeridoBusqueda">
+        </div>
+    </div>
+   <div class="clearfix"></div>
+   <div class="form-column col-md-4"><div class="form-group" style="margin-right: 2%;" >
+           <label for="tipoEstado" class="control-label" style="font-size: 13px!important;">Tipo de pago</label>
+           <select name="tipoPago" id="tipoPago" style="width: 100%" class="form-control" required>
+               <option value="Efectivo">Efectivo</option>
+               <option value="Credito">Credito</option>
+
+           </select>
+       </div>
+   </div>
+
+    
+    
+                    <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="fecha inicio" class="control-label ">Descripcion</label>
+                          <textarea class="form-control requeridoInsercion" id="descripcionAbono" placeholder="Descripcion del abono"></textarea>
+                      </div>   
+                    </div>
+                 
+                  <div class="col-md-4">
+                      <div class="form-group" style="margin-right: 2%;">
+                             <button class="btn btn-primary  btn-sm " id="guardarAbonoN">Guardar</button>
+                              <a class="btn btn-default  btn-sm "  id="cancelarAbonoN">Cancelar</a>
+                      </div>
+                  </div>
+         </div>
+       <div class="row" style="margin-left: 0px;margin-top: 25px;" id="contenedorDatosGeneralesClienteN">
+                                   <form class="form-inline">
+                                       <div class="col-md-2"  style="padding-right: 0px;margin-left: -14px; ">
+                                             <label class="control-label" for="nombreClienteN" style=" font-size: 13px !important;"><b>Total deuda:</b></label>
+                                            <label for="deudaTotal" id="totalDeudaN" style="color: blue;margin-left: 5px;"> </label>
+                                       </div> 
+                                       <div class="col-md-10"></div>
+                                       <div class="clearfix"></div>
+                                        <div class="form-group col-md-4" style="padding-right: 0px;margin-left: -14px; ">
+                                            <label class="control-label" for="nombreClienteN" style=" font-size: 13px !important;"><b>Nombre:</b></label>
+                                            <label  class="control-label" id="nombreClienteN" placeholder="Nombre cliente"  ></label>
+                                        </div>
+                                        <div class="form-group col-md-2" style="padding-left: 0px;">
+                                            <label class="control-label" for="telefonoClienteN" style=" font-size: 13px !important;"><b>Telefono:</b></label>
+                                            <label  class="control-label"id="telefonoClienteN" placeholder="Telefono cliente" ></label>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label class="control-label" for="direccionClienteN"style=" font-size: 13px !important;"><b>Direccion:</b></label>
+                                            <label  class="control-label" id="direccionClienteN" placeholder="Direccion cliente" ></label>
+                                        </div>
+                                       </form>
+          </div>
+    
+    
+    
+</div>
+{% endblock %}
+
+       </div>
+{% endblock %}
+ 
+ {% block js_extend %}
+    
+        <script type="text/javascript">
+            $(document).ready(function() {
+         
+                  $("#contenedorDatosGeneralesClienteN").hide();
+                
+                $(document).on("change","#busqueda-clienteN", function(){
+                    var idCliente = $(this).val();
+                     $.ajax({
+                                    type: 'POST',
+                                    async: false,
+                                    dataType: 'json',
+                                    data: {idCliente:idCliente},
+                                    url: Routing.generate('llamarTotalDeudaCliente'),
+                                    success: function (data)
+                                    {
+                                         if (data.estado==true){
+                                                
+                                                       
+                                                         $('#deudaContenidoN').show(); 
+                                                         $("#totalDeudaN").text(data.total);
+
+                                         }
+                                         else{
+                                             
+                                                swal("Error!", "Error al recuperar el valor de la consulta", "error");
+
+                                         }
+                                        
+                                             
+                    
+                                         
+                                          
+                                    },
+                                    error: function (xhr, status)
+                                    {
+                      
+                    }
+                    });
+                    
+                      $.ajax({
+                                                type: 'POST',
+                                                async: false,
+                                                dataType: 'json',
+                                                data: {id:idCliente},
+                                                url: Routing.generate('seleccionarCliente'),
+                                                success: function (data)
+                                                {
+                                                     
+                                                
+                                                    if (data.estado == true) {
+                                                        
+                                                        
+                                                        
+                                                       $("#nombreClienteN").text(data.nombre);
+                                                       $("#telefonoClienteN").text(data.telefono);
+                                                       $("#direccionClienteN").text(data.direccion);
+                                                       
+                                                       $("#contenedorDatosGeneralesClienteN").show();
+
+                                                    }
+
+                                                },
+                                                error: function (xhr, status)
+                                                {
+                                                    
+                                                }
+                                            });
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                });                
+                
+              $(document).on("click","#cancelarAbonoN", function(){
+                  
+                    var url=Routing.generate('admin_contabilidad_index');
+                                                                window.open(url,"_self"); 
+                  
+                  
+                  
+              });    
+                
+                
+
+            });
+
+        </script>
+
+     
+      
+      
+  {% endblock %} 
+
+
+

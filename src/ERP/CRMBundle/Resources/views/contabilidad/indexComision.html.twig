@@ -40,7 +40,7 @@
      <div class="col-md-8">
          <input type="hidden" id="idDistribuidor">
          <input type="hidden" id="idDetalleRegistroCompra">
-         <p class="robo" style="font-weight: 300; margin-bottom: 0px; font-size: 30px;">Busqueda de historial de cliente </p>
+         <p class="robo" style="font-weight: 300; margin-bottom: 0px; font-size: 30px;">Comision por Clientes</p>
          <p class="robo" style="font-weight: 300; font-size: 14px; height: 40px;">Selecciona los parametros</p>
      </div>
  {% endblock%}
@@ -97,7 +97,7 @@
 
                                                 </div>
                                                     
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-4" style="display: none;">
                                                     <div class="row">
                                                         <div class="col-sm-12">
                                                             <label>Seleccione periodo de busqueda:</label>
@@ -146,13 +146,9 @@
                                     <table class="listados mdl-data-table" cellspacing="0" width="100%" >
                                         <thead>
                                             <tr>
-                                                <th class="text-center">Id de cliente</th>  
+                                                <th class="text-center">ID Cliente</th>  
                                                   <th class="text-center">Nombre cliente</th>  
-                                                <th class="text-center">Fecha de registro</th>
-                                                <th class="text-center">Estado Venta </th>
-                                                <th class="text-center">Tipo de pago</th>
-                                                <th class="text-center">Tipo de venta</th>
-                                                <th class="text-center">Monto a recibir ($)</th>
+                                                <th class="text-center">Telefono </th>
                                                 <th class="text-center">Acciones</th>
                                             </tr>
                                         </thead>                                       
@@ -179,7 +175,7 @@
               
                 $('#DataTables_Table_0_filter').hide();
 
-            var url = Routing.generate('admin_facturacion_data')+"?param1="+$('#busqueda-cliente').val()+"&param2="+$('#txtFechaInicio').val()+"&param3="+$('#txtFechaFin').val();
+            var url = Routing.generate('admin_comision_por_cliente')+"?param1="+$('#busqueda-cliente').val()+"&param2="+$('#txtFechaInicio').val()+"&param3="+$('#txtFechaFin').val();
            
             var table = $('.listados').DataTable({
                     //searching:true,
@@ -195,29 +191,17 @@
                     "columns": [
                         { "data": "codigo" }, 
                          { "data": "nombre" }, 
-                        { "data": "fecha_registro" },
-                        { "data": "estado" },
-                        { "data": "tipo_pago" },
-                         { "data": "tipoVenta" },
-                        { "data": "monto" },
+                        { "data": "telefono" },
                         { "data": "link" }
                     ],
                     "columnDefs": [
                         
                            { "orderable": false, "targets": 0 },
+                           { "orderable": false, "targets": 1 },
                            { "orderable": false, "targets": 2 },
                            { "orderable": false, "targets": 3 },
-                           { "orderable": false, "targets": 4 },
-                           { "orderable": false, "targets": 5 },
-                           { "orderable": false, "targets": 6 },
-                           { "orderable": false, "targets": 7 },
-                          
-                          {
-                                "targets": [4,5],
-                                "visible": false
-                            },
                             {
-		                targets: [ 0, 1, 2,3,4,5,6,7 ],
+		                targets: [ 0, 1, 2,3],
 		                className: 'mdl-data-table__cell--non-numeric'
                             }
                            
@@ -241,7 +225,7 @@
                 var idCliente = $('#busqueda-cliente').val();
                 
                 if(idCliente!=null){
-                   var url = Routing.generate('admin_facturacion_data')+"?param1="+$('#busqueda-cliente').val()+"&param2="+$('#txtFechaInicio').val()+"&param3="+$('#txtFechaFin').val();
+                   var url = Routing.generate('admin_comision_por_cliente')+"?param1="+$('#busqueda-cliente').val()+"&param2="+$('#txtFechaInicio').val()+"&param3="+$('#txtFechaFin').val();
                     table.ajax.url(url).load();
 
                     $.ajax({
@@ -281,7 +265,7 @@
                     
                 }
 
-                     var url = Routing.generate('admin_facturacion_data')+"?param1="+$('#busqueda-cliente').val()+"&param2="+$('#txtFechaInicio').val()+"&param3="+$('#txtFechaFin').val();
+                     var url = Routing.generate('admin_comision_por_cliente')+"?param1="+$('#busqueda-cliente').val()+"&param2="+$('#txtFechaInicio').val()+"&param3="+$('#txtFechaFin').val();
                      table.ajax.url(url).load();
                 
             });
