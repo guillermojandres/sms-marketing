@@ -1,0 +1,121 @@
+{% extends ':Layout:layout2.html.twig' %}
+
+{% block css %}
+    {{parent()}}
+  {#  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.11/css/dataTables.material.min.css">
+  #}
+
+{% endblock css%}
+{% block js %}
+     {{parent()}}
+     
+    
+{% endblock %}
+
+
+{% block descripcion_y_acciones %}
+
+    
+ <div class="row">
+ {% block descripcion %}
+        <div class="col-md-12">
+            <p class="robo" style="font-weight: 300; margin-bottom: 0px; font-size: 30px;">Contabilidad</p>
+            <p class="robo" style="font-weight: 300; font-size: 14px; height: 40px;">Panel administrativo</p>
+        </div>
+ {% endblock%}
+ {% block acciones %}
+     {{parent()}}
+ {% endblock %}
+		
+		</div>
+
+{% endblock %}
+{% block navegacion_Y_body %}
+    	<div class="row">
+        {% block navegacion %}
+
+            <hr style="margin-top: 10px !important;">
+                <div class="col-md-2 colorAnclas" style="border-right: 1px solid #f3f3f3;">
+                    <!-- Left Navigation -->
+                    <ul style="list-style: none; padding: 0;">
+                        <a href="{{ path('admin_contabilidad_index') }}" class="leftnava colorAnclas"><li class="leftnav left ">Menu<span class="pull-right right"></span></li></a>
+                    </ul>
+                     <ul style="list-style: none; padding: 0;">
+                        <a href="{{ path('dashboard_reportes') }}" class="leftnava colorAnclas"><li class="leftnav left active">Reportes<span class="pull-right right"></span></li></a>
+                     </ul>
+                </div>	
+       
+            
+            
+       {% endblock %}
+
+{% block cuerpo %}
+     
+    <div class="col-md-10">
+
+         <!-- Fin de Opcion de Modulo -->
+        <div class="row module first">
+            <div class="row">
+                <a href="{{ path('comision_por_cliente') }}">
+                    <div class="col-md-10 colorAnclas">
+                        <p class="text-left" style="font-size: 14px; margin-top: 10px; margin-bottom: 0px;"><strong>Comision por cliente</strong></p>
+                        <p class="text-left" style="font-size: 12px; #8D99A6 !important;">Consulta el total en comisiones de tus clientes</p>
+                    </div>
+
+                </a>
+            </div>
+        </div>
+        <!-- Fin de Opcion de Modulo -->
+             <!-- Fin de Opcion de Modulo -->
+        <div class="row module ">
+            <div class="row">
+                <a href="{{ path('ingresosPorProductos') }}">
+                    <div class="col-md-10 colorAnclas">
+                        <p class="text-left" style="font-size: 14px; margin-top: 10px; margin-bottom: 0px;"><strong>Ingresos por productos</strong></p>
+                        <p class="text-left" style="font-size: 12px; #8D99A6 !important;">Consulta el total de ingresos por productos</p>
+                    </div>
+
+                </a>
+            </div>
+        </div>
+        <!-- Fin de Opcion de Modulo -->
+           <!-- Fin de Opcion de Modulo -->
+             <!-- Fin de Opcion de Modulo -->
+        <div class="row module ">
+            <div class="row">
+                <a href="{{ path('cuentasPorCobrar') }}">
+                    <div class="col-md-10 colorAnclas">
+                        <p class="text-left" style="font-size: 14px; margin-top: 10px; margin-bottom: 0px;"><strong>Cuentas por cobrar</strong></p>
+                        <p class="text-left" style="font-size: 12px; #8D99A6 !important;">Consulta las cuentas por cobrar en un reporte</p>
+                    </div>
+
+                </a>
+            </div>
+        </div>
+        <!-- Fin de Opcion de Modulo -->
+        
+        
+        
+    </div>
+    
+    
+    
+    
+    
+{% endblock %}
+
+       </div>
+{% endblock %}
+ 
+ {% block js_extend %}
+    
+     
+      
+      
+  {% endblock %} 
+
+
+
+

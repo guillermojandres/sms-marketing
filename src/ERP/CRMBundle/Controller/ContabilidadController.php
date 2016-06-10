@@ -31,14 +31,26 @@ class ContabilidadController extends Controller
      */
     public function indexAction()
     {
-//        $em = $this->getDoctrine()->getManager();
-//        $cliente = $em->getRepository('ERPAdminBundle:Cliente')->findAll();
-        
+ 
         return $this->render('ERPCRMBundle:contabilidad/indexContabilidad.html.twig', array(
      
         ));
     }
 
+     /**
+     * Lists all Contabilidad entities.
+     *
+     * @Route("/reportes", name="dashboard_reportes",options={"expose"=true})
+     * @Method("GET")
+     */
+      public function indexReportesAction()
+    {
+ 
+        return $this->render('ERPCRMBundle:contabilidad/indexReportes.html.twig', array(
+     
+        ));
+    }
+    
     
      
      /**
@@ -88,6 +100,36 @@ class ContabilidadController extends Controller
     
     
     
+     /**
+     *
+     * @Route("/cuentasPorCobrar", name="cuentasPorCobrar",options={"expose"=true})
+     * @Method("GET")
+     */
+    public function CuentasPorCobrarAction(Request $request)
+    {
+
+
+        return $this->render('ERPCRMBundle:contabilidad/indexCuentasPorCobrar.html.twig', array(
+
+        ));
+    }
+    
+     /**
+     *
+     * @Route("/ingresosPorProductos", name="ingresosPorProductos",options={"expose"=true})
+     * @Method("GET")
+     */
+    public function IngresosPorProductoAction(Request $request)
+    {
+
+
+        return $this->render('ERPCRMBundle:contabilidad/indexIngresosPorProductos.html.twig', array(
+
+        ));
+    }
+    
+    
+    
     /**
      * @Route("/abonos/edicion/{id}", name="editarAbonos", options={"expose"=true})
      * @Method("GET")
@@ -103,9 +145,6 @@ class ContabilidadController extends Controller
             'abono' => $abono
         ));
     }
-    
-    
-    
     
  
     /**
@@ -239,10 +278,10 @@ class ContabilidadController extends Controller
             
             $idCliente = $request->get('idCliente'); 
            
-                   $sql = "SELECT SUM(monto) as total  from encabezado_orden enc  WHERE enc.crm_cliente_id=".$idCliente
-                           . " AND (enc.estado=4 OR enc.estado=3 OR enc.estado=2) ";
+            $sql = "SELECT SUM(monto) as total  from encabezado_orden enc  WHERE enc.crm_cliente_id=".$idCliente
+                           . " AND (enc.estado=4 OR enc.estado=3 OR enc.estado=2)  AND enc.permiso=1";
                    
-                   $sqlAbono = "SELECT SUM(monto_abono) as totalAbono  from abono enc  WHERE enc.id_cliente=".$idCliente;
+            $sqlAbono = "SELECT SUM(monto_abono) as totalAbono  from abono enc  WHERE enc.id_cliente=".$idCliente;
 
             $stmt = $em->getConnection()->prepare($sql);
             $stmt->execute();
@@ -292,10 +331,15 @@ class ContabilidadController extends Controller
     function llamarTotalDeuda($idCliente){
         
               $em = $this->getDoctrine()->getManager();
-             $sql = "SELECT SUM(monto) as total  from encabezado_orden enc  WHERE enc.crm_cliente_id=".$idCliente
-                           . " AND (enc.estado=4 OR enc.estado=3 OR enc.estado=2) ";
+             $sql = "SELECT SUM(monto) as total  from encabezado_orden enc"
+                     . " INNER JOIN  cliente cli ON enc.crm_cliente_id=cli.id "
+                     . "WHERE enc.crm_cliente_id=".$idCliente
+                      . " AND (enc.estado=4 OR enc.estado=3 OR enc.estado=2) AND enc.permiso=1 AND cli.estado=1";
                    
-                   $sqlAbono = "SELECT SUM(monto_abono) as totalAbono  from abono enc  WHERE enc.id_cliente=".$idCliente;
+                   $sqlAbono = "SELECT SUM(monto_abono) as totalAbono  from abono enc  "
+                            . "INNER JOIN  cliente cli  ON enc.id_cliente=cli.id"
+                           . " WHERE enc.id_cliente=".$idCliente. " AND cli.estado=1";
+                           
 
             $stmt = $em->getConnection()->prepare($sql);
             $stmt->execute();
@@ -521,111 +565,159 @@ class ContabilidadController extends Controller
         $pdf->stream('RegistroDeVenta.pdf', array('Attachment' => 0));
         
     } 
-    
-  //Metodo que llena el data table con los clientes para consultar el total de la comision por cliente
-    
-    
-     /**
-      * @Route("/comisionporcliente/data", name="admin_comision_por_cliente", options={"expose"=true})
+
+    //Metodo que me retorna el reporte de comisiones por cliente
+    /**
+     *
+     *
+     * @Route("/verPDFComisiones/{fechaInicio}/{fechaFin}", name="verPDFComisiones", options={"expose"=true})
+       * @Method({"GET", "POST"})
      */
-    public function DataComisionPorClienteAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getEntityManager();
-        $start = $request->query->get('start');
-        $draw = $request->query->get('draw');
-        $longitud = $request->query->get('length');
-        $busqueda = $request->query->get('search');
-       
-        $cliente = $request->query->get('param1');
-        $fechaini = $request->query->get('param2');
-        $fechafin = $request->query->get('param3');
-       
-//        var_dump($cliente);
-//        var_dump($fechaini);
-//        var_dump($fechafin);
-//        
-//        die();
-       
-        $facturacionTotal = $em->getRepository('ERPAdminBundle:Cliente')->findAll();
-        $facturacion['draw']=$draw++; 
-        $facturacion['data']= array();
-       
-        $busqueda['value'] = str_replace(' ', '%', $busqueda['value']);
-        $rsm = new ResultSetMapping();
-
-        $sql = "SELECT cli.id as id, "
-                . "concat_ws(cli.nombre, '<div class=\"text-left\">', '</div>') as nombre, "
-                . "concat_ws(cli.codigo, '<div class=\"text-center\">', '</div>') as codigo, "
-                . "concat_ws(cli.telefono, '<div class=\"text-center\">', '</div>') as telefono, "
-                . "concat_ws(cli.id, '<i class=\" colorAnclas fa fa-file-pdf-o verReporteComisionesCliente\" id=\"', '\" title=\"Ver reporte de comisiones recibidas\"></i>') as link "
-                . "FROM  cliente cli  "
-                . "WHERE 1 = 1  ";
-
-        if($cliente != 'null'){
-            $sql.="and cli.id = '$cliente' ";
-        }
-       
-     
-//        if($fechaini != "" && $fechafin != ""){
-//            $inicio = explode("-", $fechaini);
-//            $fin = explode("-", $fechafin);
-//            $fi = $inicio[2]."-".$inicio[1]."-".$inicio[0];
-//            $ff = $fin[2]."-".$fin[1]."-".$fin[0];
-//           
-//            $sql.="and enc.fecha_registro >= '$fechaini' and enc.fecha_registro <= '$fechafin' ";
-//        }
-
-        $sql.= "ORDER BY cli.codigo DESC "
-                . "LIMIT $start, $longitud ";
-        //echo $sql;
-        $rsm->addScalarResult('codigo','codigo');
-        $rsm->addScalarResult('nombre','nombre');
-        $rsm->addScalarResult('telefono','telefono');
-        $rsm->addScalarResult('link','link');
-
-        $facturacion['data'] = $em->createNativeQuery($sql, $rsm)
-                                  ->getResult();
-       
-        $rsm2 = new ResultSetMapping();
-
-          $sql2 = "SELECT  cli.id as id, "
-                . "concat_ws(cli.nombre, '<div class=\"text-left\">', '</div>') as nombre, "
-                . "concat_ws(cli.codigo, '<div class=\"text-center\">', '</div>') as codigo, "
-                . "concat_ws(cli.telefono, '<div class=\"text-center\">', '</div>') as telefono, "
-                . "concat_ws(cli.id, '<i class=\" colorAnclas fa fa-file-pdf-o verReporteComisionesCliente\" id=\"', '\" title=\"Ver reporte de comisiones recibidas\"></i>') as link "
-                . "FROM  cliente cli  "
-                . "WHERE 1 = 1 ";
-          
-          
-        if($cliente != 'null'){
-            $sql2.="and cli.id = '$cliente' ";
-        }
-       
+    public function VerPDFComisiones($fechaInicio ,$fechaFin) {
+        $em = $this->getDoctrine()->getManager();
       
-//       
-//        if($fechaini != "" && $fechafin != ""){
-//            $inicio = explode("-", $fechaini);
-//            $fin = explode("-", $fechafin);
-//            $fi = $inicio[2]."-".$inicio[1]."-".$inicio[0];
-//            $ff = $fin[2]."-".$fin[1]."-".$fin[0];
-//           
-//           $sql2.="and enc.fecha_registro >= '$fechaini' and enc.fecha_registro <= '$fechafin' ";
-//        }
 
-        $rsm2->addScalarResult('codigo','codigo');
-        $rsm2->addScalarResult('nombre','nombre');
-        $rsm2->addScalarResult('telefono','telefono');
-        $rsm2->addScalarResult('link','link');
+        
+         $dqlComision = "SELECT  cli.codigo, cli.nombre, SUM(enc.montoComision) as comision 
+                                    FROM  ERPAdminBundle:EncabezadoOrden enc
+                                    JOIN enc.crmClienteId cli 
+                                    WHERE enc.estado=1 and enc.permiso=1";
+           
+        if ($fechaInicio !=0 && $fechaFin!=0){
+            
+             $dqlComision.="and enc.fechaRegistro >= '$fechaInicio' and enc.fechaRegistro <= '$fechaFin' ";
+       
+            
+        }
+       
+        $dqlComision.=" group by cli.nombre ";
+  
+            $comision = $em->createQuery($dqlComision)
+               ->getResult();
 
-        $facturaciototal = $em->createNativeQuery($sql2, $rsm2)
-                                  ->getResult();
+
+        ob_start();
+        $html = $this->renderView('ERPCRMBundle:contabilidadReportes/reporteComisionPorCliente.html.php', array(
+            'comision'=>$comision,
+            'fechaInicio'=>$fechaInicio,
+            'fechaFin'=>$fechaFin
+           
+        ));
+        $pdf = new \DOMPDF();
+        $pdf->set_paper('A4', 'portrait');
+        $pdf->load_html($html);
+        $pdf->render();
+        $pdf->stream('ReporteComision.pdf', array('Attachment' => 0));
+        
+    } 
+    
+    
+    
+    
+    
+       //Metodo que me retorna el reporte de comisiones por cliente
+    /**
+     *
+     *
+     * @Route("/verPDFIngresosPorProducto/{fechaInicio}/{fechaFin}", name="verPDFIngresosPorProducto", options={"expose"=true})
+       * @Method({"GET", "POST"})
+     */
+    public function VerPDFIngresosPorProductos($fechaInicio ,$fechaFin) {
+        $em = $this->getDoctrine()->getManager();
+      
+
+        
+         $dqlComision = "SELECT  cli.codigo, cli.nombre, SUM(enc.monto) as montoTotal 
+                                    FROM  ERPAdminBundle:EncabezadoOrden enc
+                                    JOIN enc.crmClienteId cli 
+                                    WHERE enc.estado=1 and enc.permiso=1";
+           
+        if ($fechaInicio !=0 && $fechaFin!=0){
+            
+             $dqlComision.="and enc.fechaRegistro >= '$fechaInicio' and enc.fechaRegistro <= '$fechaFin' ";
        
-        $facturacion['recordsTotal'] = count($facturaciototal);
-        $facturacion['recordsFiltered']= count($facturaciototal);
+            
+        }
        
-        return new Response(json_encode($facturacion));
-    }
+        $dqlComision.=" group by cli.nombre ";
+  
+            $monto = $em->createQuery($dqlComision)
+               ->getResult();
+
+
+        ob_start();
+        $html = $this->renderView('ERPCRMBundle:contabilidadReportes/reporteIngresosPorProductos.html.php', array(
+            'monto'=>$monto,
+            'fechaInicio'=>$fechaInicio,
+            'fechaFin'=>$fechaFin
+           
+        ));
+        $pdf = new \DOMPDF();
+        $pdf->set_paper('A4', 'portrait');
+        $pdf->load_html($html);
+        $pdf->render();
+        $pdf->stream('ReporteComision.pdf', array('Attachment' => 0));
+        
+    } 
+    
+    
+    
+    
+    
+    //Metodo que me retorna el reporte de comisiones por cliente
+    /**
+     *
+     *
+     * @Route("/verPDFCuentasPorCobrar/", name="verPDFCuentasPorCobrar", options={"expose"=true})
+       * @Method({"GET", "POST"})
+     */
+    public function VerPDFCuentasPorCobrarAction() {
+        $em = $this->getDoctrine()->getManager();
+    $datos =  Array();
+         
+            $sqlCliente = "Select cli.id, cli.nombre, cli.telefono, cli.movil,  contac.nombre as contacto FROM cliente cli"
+                         . " LEFT OUTER JOIN contacto contac on cli.contacto_id=contac.id "
+                    . "WHERE categoria='Distribuidor' ";
+            $stmt = $em->getConnection()->prepare($sqlCliente);
+            $stmt->execute();
+            $idClientes = $stmt->fetchAll();
+      
+ 
+            $dimension = count($idClientes);
+            
+            for($i=0;$i<$dimension;$i++){
+                
+                $idCliente= $idClientes[$i]['id'];
+                $totalDeuda = $this->llamarTotalDeuda($idCliente);
+                
+                if ($totalDeuda>0){
+                    $idClientes[$i]['totalDeuda']=$totalDeuda;
+                    $datos[]=$idClientes[$i];
+                    
+                    
+                }
+            }
+  
+            
+        ob_start();
+        $html = $this->renderView('ERPCRMBundle:contabilidadReportes/reporCuentasPorCobrar.html.php', array(
+           'datos'=>$datos
+           
+        ));
+        $pdf = new \DOMPDF();
+        $pdf->set_paper('A4', 'portrait');
+        $pdf->load_html($html);
+        $pdf->render();
+        $pdf->stream('ReporteComision.pdf', array('Attachment' => 0));
+        
+    } 
+    
+    
+    
+    
+    
      
+   
     
     
     

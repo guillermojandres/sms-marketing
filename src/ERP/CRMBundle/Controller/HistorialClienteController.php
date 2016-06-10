@@ -51,7 +51,7 @@ class HistorialClienteController extends Controller
 //        $encabezado = $em->getRepository('ERPAdminBundle:EncabezadoOrden')->findById($idDetalle) ;
          $dqlEncabezado = "SELECT enc.numeroOrden, date_format(enc.fechaRegistro,'%Y-%m-%d') as fechaRegistro,enc.estado,enc.tipoPago, enc.monto, cli.nombre, cli.codigo, enc.montoComision FROM ERPAdminBundle:EncabezadoOrden enc "
                     . "JOIN enc.crmClienteId cli "
-                    . "WHERE enc.id = :id ";
+                    . "WHERE enc.permiso =1 and enc.id = :id ";
 
             $encabezado = $em->createQuery($dqlEncabezado)
                         ->setParameters(array('id'=>$idDetalle))
@@ -302,7 +302,7 @@ class HistorialClienteController extends Controller
        
         $rsm = new ResultSetMapping();
         $sql = "select cli.id abogadoid, cli.nombre as nombres, cli.codigo from cliente cli
-                    where (upper(cli.codigo)  LIKE upper('%".$busqueda."%') OR upper(cli.nombre)  LIKE upper('%".$busqueda."%') ) AND cli.categoria = 'Distribuidor'
+                    where (upper(cli.codigo)  LIKE upper('%".$busqueda."%') OR upper(cli.nombre)  LIKE upper('%".$busqueda."%') ) AND cli.categoria = 'Distribuidor' AND cli.estado=1
                     order by cli.codigo asc
                     limit 0, 10";
                
@@ -329,7 +329,7 @@ class HistorialClienteController extends Controller
 //        $encabezado = $em->getRepository('ERPAdminBundle:EncabezadoOrden')->findById($idDetalle) ;
          $dqlEncabezado = "SELECT date_format(enc.fechaRegistro,'%Y-%m-%d') as fechaRegistro,enc.estado,enc.tipoPago, enc.monto, cli.nombre, cli.codigo FROM ERPAdminBundle:EncabezadoOrden enc "
                     . "JOIN enc.crmClienteId cli "
-                    . "WHERE enc.id = :id ";
+                    . "WHERE enc.permiso =1 and enc.id = :id ";
 
          $encabezado = $em->createQuery($dqlEncabezado)
                         ->setParameters(array('id'=>$idDetalle))

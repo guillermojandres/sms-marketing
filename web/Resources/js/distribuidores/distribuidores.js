@@ -566,7 +566,7 @@ $('#fechaRC').Zebra_DatePicker({
                              "<div class='select2-result-repository__title'>" + data.nombre+ "</div>" +
                              "</div></div>";
             } else {
-                var markup = "Seleccione un tipo de equipo";
+                var markup = "Seleccione un cliente";
             }
 
             return markup;
@@ -576,7 +576,7 @@ $('#fechaRC').Zebra_DatePicker({
             if(data.nombre){
                 return  data.nombre;
             } else {
-                return "Seleccione un tipo de equipo";
+                   var markup = "Seleccione un cliente";
             }   
         }
         
