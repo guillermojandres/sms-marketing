@@ -641,7 +641,7 @@ $('#fechaRC').Zebra_DatePicker({
 
         function formatRepoSelection2 (data) {
             if(data.nombres){
-                return data.codigo + " - " + data.nombres + " " + data.apellido;
+                return data.codigo + " - " + data.nombres;
             } else {
                 return "Seleccione un cliente";
             }   

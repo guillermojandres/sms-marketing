@@ -327,7 +327,7 @@ class HistorialClienteController extends Controller
     function llamarExcel($idDetalle) {
           $em = $this->getDoctrine()->getManager();
 //        $encabezado = $em->getRepository('ERPAdminBundle:EncabezadoOrden')->findById($idDetalle) ;
-         $dqlEncabezado = "SELECT date_format(enc.fechaRegistro,'%Y-%m-%d') as fechaRegistro,enc.estado,enc.tipoPago, enc.monto, cli.nombre, cli.codigo FROM ERPAdminBundle:EncabezadoOrden enc "
+         $dqlEncabezado = "SELECT date_format(enc.fechaRegistro,'%Y-%m-%d') as fechaRegistro,enc.estado,enc.tipoPago, enc.monto, enc.montoComision, cli.nombre, cli.codigo FROM ERPAdminBundle:EncabezadoOrden enc "
                     . "JOIN enc.crmClienteId cli "
                     . "WHERE enc.permiso =1 and enc.id = :id ";
 
@@ -365,20 +365,21 @@ class HistorialClienteController extends Controller
 		->setCategory("Reporte excel"); //Categorias
 	
 	$tituloReporte = "Reporte de venta";
-	$titulosColumnas = array( 'FECHA DE REGISTRO','TIPO DE PAGO','NOMBRE CLIENTE','MONTO TOTAL ($)','ESTADO DE VENTA');
+	$titulosColumnas = array( 'FECHA DE REGISTRO','TIPO DE PAGO','NOMBRE CLIENTE','MONTO TOTAL ($)','ESTADO DE VENTA','MONTO COMISION($)');
 	$titulosColumnas2 = array( 'PRODUCTO','PRECIO','CANTIDAD','SUB TOTAL');
 	// Se combinan las celdas A1 hasta D1, para colocar ahí el titulo del reporte
 	$objPHPExcel->setActiveSheetIndex(0)
-		->mergeCells('A1:D1');
+		->mergeCells('A1:D2');
 	 
 	// Se agregan los titulos del reporte
 	$objPHPExcel->setActiveSheetIndex(0)
 		->setCellValue('A1',$tituloReporte) // Titulo del reporte
 		->setCellValue('A3',  $titulosColumnas[0])  
-                                    ->setCellValue('J3',  $titulosColumnas[1])  //Titulo de las columnas
-		->setCellValue('D3',  $titulosColumnas[2])
-                                      ->setCellValue('G3',  $titulosColumnas[3])
-                                    ->setCellValue('M3',  $titulosColumnas[4])
+                                    ->setCellValue('B3',  $titulosColumnas[1])  //Titulo de las columnas
+		->setCellValue('C3',  $titulosColumnas[2])
+                                      ->setCellValue('C16',  $titulosColumnas[3])
+                                    ->setCellValue('D3',  $titulosColumnas[4])
+                                        ->setCellValue('C15',  $titulosColumnas[5])
                                       ->setCellValue('A9',  $titulosColumnas2[0])
                                             ->setCellValue('B9',  $titulosColumnas2[1])
                                             ->setCellValue('C9',  $titulosColumnas2[2])
@@ -407,11 +408,12 @@ class HistorialClienteController extends Controller
         
         
                                 $objPHPExcel->setActiveSheetIndex(0)
-		->setCellValue('B3', $encabezado[0]['fechaRegistro'])  
-                                  ->setCellValue('D3', $encabezado[0]['nombre'])
-                                        ->setCellValue('G3', $encabezado[0]['monto'])
-                                        ->setCellValue('K3', $encabezado[0]['tipoPago'])
-                                        ->setCellValue('M3',$estado )  ;
+		->setCellValue('A4', $encabezado[0]['fechaRegistro'])  
+                                  ->setCellValue('C4', $encabezado[0]['nombre'])
+                                        ->setCellValue('D16', $encabezado[0]['monto'])
+                                        ->setCellValue('B4', $encabezado[0]['tipoPago'])
+                                        ->setCellValue('D4',$estado) 
+                                           ->setCellValue('D15',$encabezado[0]['montoComision'] )  ;
         
         
  
@@ -420,11 +422,16 @@ class HistorialClienteController extends Controller
           $dimension = count($detalleOrden['nombre']);
               
               for ($i=0;$i<$dimension;$i++){
+                  $subTotal1= ($detalleOrden['cantidad'][$i]*$detalleOrden['precio'][$i]);
+                  
+                  $comision = $subTotal1-($subTotal1*($detalleOrden['descuento'][$i]/100));
+                  $subTotal = $subTotal1-$comision;
+                  
                    $objPHPExcel->setActiveSheetIndex(0)
                             ->setCellValue('A'.$v,$detalleOrden['nombre'][$i])
                            ->setCellValue('B'.$v,number_format($detalleOrden['precio'][$i],2))
                              ->setCellValue('C'.$v,$detalleOrden['cantidad'][$i])
-                               ->setCellValue('D'.$v,number_format($detalleOrden['cantidad'][$i]*$detalleOrden['precio'][$i],2));
+                               ->setCellValue('D'.$v, $subTotal);
                    $v++;          
                    
               }
@@ -444,7 +451,7 @@ class HistorialClienteController extends Controller
 		'fill' => array(
 			'type'  => \PHPExcel_Style_Fill::FILL_SOLID,
 			'color' => array(
-				'argb' => '3f3f91')
+				'argb' => '29b2b2')
 		),
 		'borders' => array(
 			'allborders' => array(
@@ -459,42 +466,32 @@ class HistorialClienteController extends Controller
 		)
 	);
 	 
-	$estiloTituloColumnas = array(
+	$estiloTituloColumnas = array(      
 		'font' => array(
-			'name'  => 'Arial',
-			'bold'  => true,
-			'color' => array(
+			'name'      => 'Verdana',
+			'bold'      => true,
+			'italic'    => false,
+			'strike'    => false,
+			'size' =>12,
+			'color'     => array(
 				'rgb' => 'FFFFFF'
 			)
 		),
 		'fill' => array(
-			'type'       => \PHPExcel_Style_Fill::FILL_GRADIENT_LINEAR,
-		'rotation'   => 90,
-			'startcolor' => array(
-				'rgb' => '000000'
-			),
-			'endcolor' => array(
-				'argb' => '000000'
-			)
+			'type'  => \PHPExcel_Style_Fill::FILL_SOLID,
+			'color' => array(
+				'argb' => '29b2b2')
 		),
 		'borders' => array(
-			'top' => array(
-				'style' => \PHPExcel_Style_Border::BORDER_MEDIUM ,
-				'color' => array(
-					'rgb' => '143860'
-				)
-			),
-			'bottom' => array(
-				'style' => \PHPExcel_Style_Border::BORDER_MEDIUM ,
-				'color' => array(
-					'rgb' => '143860'
-				)
+			'allborders' => array(
+				'style' => \PHPExcel_Style_Border::BORDER_NONE
 			)
 		),
-		'alignment' =>  array(
-			'horizontal'=> \PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
-			'vertical'  => \PHPExcel_Style_Alignment::VERTICAL_CENTER,
-			'wrap'      => TRUE
+		'alignment' => array(
+			'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+			'vertical' => \PHPExcel_Style_Alignment::VERTICAL_CENTER,
+			'rotation' => 0,
+			'wrap' => TRUE
 		)
 	);
 	 
@@ -510,7 +507,7 @@ class HistorialClienteController extends Controller
 		'fill' => array(
 		'type'  => \PHPExcel_Style_Fill::FILL_SOLID,
 		'color' => array(
-				'argb' => 'FFFFFF')
+				'argb' => 'FFFFDA')
 		),
 		'borders' => array(
 			'left' => array(
@@ -521,9 +518,67 @@ class HistorialClienteController extends Controller
 			)
 		)
 	));
+        
+        
+        
+                $estiloInformacion2 = new \PHPExcel_Style();
 	
+	$estiloInformacion2->applyFromArray( array(
+		'font' => array(
+			'name'  => 'Arial',
+			'color' => array(
+				'rgb' => '000000'
+			)
+		),
+		'fill' => array(
+		'type'  => \PHPExcel_Style_Fill::FILL_SOLID,
+		'color' => array(
+				'argb' => '29b2b2')
+		),
+		'borders' => array(
+			'left' => array(
+				'style' => \PHPExcel_Style_Border::BORDER_THIN ,
+			'color' => array(
+					'rgb' => 'FFFFFF'
+				)
+			)
+		)
+	));
+                
+        $estiloInformacion3 = new \PHPExcel_Style();
+	
+	$estiloInformacion3->applyFromArray( array(
+		'font' => array(
+			'name'  => 'Arial',
+			'color' => array(
+				'rgb' => '000000'
+			)
+		),
+		'fill' => array(
+		'type'  => \PHPExcel_Style_Fill::FILL_SOLID,
+		'color' => array(
+				'argb' => 'FFFFDA')
+		),
+		'borders' => array(
+			'left' => array(
+				'style' => \PHPExcel_Style_Border::BORDER_THIN ,
+			'color' => array(
+					'rgb' => 'FFFFFF'
+				)
+			)
+		)
+	));
+                           
+        
+        
+        
+        
+
             $objPHPExcel->getActiveSheet()->getStyle('A1:B1')->applyFromArray($estiloTituloReporte);
-            $objPHPExcel->getActiveSheet()->getStyle('A3:G3')->applyFromArray($estiloTituloColumnas);
+            $objPHPExcel->getActiveSheet()->getStyle('A3:D4')->applyFromArray($estiloTituloColumnas);
+            $objPHPExcel->getActiveSheet()->setSharedStyle($estiloInformacion2, "C15:D16");
+             $objPHPExcel->getActiveSheet()->setSharedStyle($estiloInformacion2, "A9:D9");
+           
             $objPHPExcel->getActiveSheet()->setSharedStyle($estiloInformacion, "A10:D".($v));
 
             for($i = 'A'; $i <= 'D'; $i++){
@@ -542,7 +597,7 @@ class HistorialClienteController extends Controller
 	
 	// Save Excel 2007 file
 	#echo date('H:i:s') . " Write to Excel2007 format\n";
-	$objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+	$objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 	ob_end_clean();
 	// We'll be outputting an excel file
 	header('Content-type: application/vnd.ms-excel');
@@ -551,7 +606,7 @@ class HistorialClienteController extends Controller
         
         
         
-    }
+    }   
      
      
      

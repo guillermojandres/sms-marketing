@@ -98,6 +98,29 @@ class ContabilidadController extends Controller
     }
     
     
+       
+      /**
+     *
+     * @Route("/clientesConMasVentas", name="clientesConMasVentas",options={"expose"=true})
+     * @Method("GET")
+     */
+    public function ClienteConMasVentasAction(Request $request)
+    {
+
+        return $this->render('ERPCRMBundle:contabilidad/indexClienteConMasVentas.html.twig', array(
+
+        ));
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
      /**
@@ -714,6 +737,47 @@ class ContabilidadController extends Controller
     
     
     
+     /**
+     *
+     *
+     * @Route("/verPDFClienteConMasVentas/{fechaInicio}/{fechaFin}", name="verPDFClienteConMasVentas", options={"expose"=true})
+       * @Method({"GET", "POST"})
+     */
+    public function VerPDFClientesConMasVentasProductos($fechaInicio ,$fechaFin) {
+        $em = $this->getDoctrine()->getManager();
+      
+
+        
+         $dqlVenta = "SELECT 	sum(enc.monto) as montos, cli.id, cli.nombre,cli.codigo   FROM ERPAdminBundle:EncabezadoOrden enc
+                                INNER JOIN enc.crmClienteId cli 
+                                WHERE (enc.estado = 1 OR enc.estado=5) and enc.permiso=1 ";
+           
+        if ($fechaInicio !=0 && $fechaFin!=0){
+            
+             $dqlVenta.="and enc.fechaRegistro >= '$fechaInicio' and enc.fechaRegistro <= '$fechaFin' ";
+       
+            
+        }
+       
+        $dqlVenta.=" group by cli.id ORDER BY montos DESC";
+  
+            $ventas = $em->createQuery($dqlVenta)
+               ->getResult();
+
+        ob_start();
+        $html = $this->renderView('ERPCRMBundle:contabilidadReportes/reporteClienteConMasVentas.html.php', array(
+            'ventas'=>$ventas,
+            'fechaInicio'=>$fechaInicio,
+            'fechaFin'=>$fechaFin
+           
+        ));
+        $pdf = new \DOMPDF();
+        $pdf->set_paper('A4', 'portrait');
+        $pdf->load_html($html);
+        $pdf->render();
+        $pdf->stream('ReporteComision.pdf', array('Attachment' => 0));
+        
+    } 
     
     
      

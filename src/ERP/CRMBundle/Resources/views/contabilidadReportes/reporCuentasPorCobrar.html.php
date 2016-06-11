@@ -124,7 +124,7 @@
                     ?>  
     </table>
     </div>
-       <div style="margin-top: 20px; margin-left: 460px;">
+       <div style="margin-top: 20px; margin-left: 467px;">
               <table>
                    <tr>
                       <td class="tdProductoE"><b>Total deuda:</b></td><td class="tdC"><?php echo "$  ".$totaldeuda; ?>     </td>

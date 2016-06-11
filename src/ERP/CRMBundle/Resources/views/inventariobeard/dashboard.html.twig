@@ -175,7 +175,12 @@
                         //{"data":"presen"}                          
                         //{"data":"descripcion"}                                                                              
                     ],
-                    "columnDefs": [{ "orderable": false, "targets": 0 }],
+                            columnDefs: [
+		            {
+		                targets: [ 0, 1, 2,3,4 ],
+		                className: 'mdl-data-table__cell--non-numeric'
+		            }
+		        ],
                     "language": {
                     "info": "Mostrando página _PAGE_ de _PAGES_",
                     "infoEmpty": "",
@@ -187,7 +192,8 @@
                     //"processing": "<h4>Procesando petición...</h4>",
                     "search": "",
                     searchPlaceholder: "Buscar",
-                    "lengthMenu": "Mostrar _MENU_ registros"
+                    "lengthMenu": "Mostrar _MENU_ registros",
+                   
                 }                               
         });
         

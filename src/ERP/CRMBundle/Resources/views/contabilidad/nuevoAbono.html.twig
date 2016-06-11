@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ asset('Resources/select2/dist/css/select2.css')}}">
     <link rel="stylesheet" href="{{ asset('Resources/sweetalert-master/dist/sweetalert.css')}}"> 
-{#    <link rel="stylesheet" href="{{asset('Resources/AdminLTE-2.3.0/dist/css/skins/_all-skins.min.css')}}">#}
+
     <link rel="stylesheet" href="{{ asset('Resources/js/registroCompras/stylemaquina.css')}}">
 {% endblock css%}
 {% block js %}
@@ -14,8 +14,7 @@
        <script src="{{ asset('Resources/sweetalert-master/dist/sweetalert.min.js') }}"></script>
        <script src="{{ asset('Resources/select2/dist/js/select2.js') }}"></script> 
        <script src="{{ asset('Resources/js/contabilidad/abonos.js')}}" ></script>  
-    {#     <script src="{{ asset('Resources/AdminLTE-2.3.0/dist/js/app.js') }}" type="text/javascript"></script>#}
-    
+       
 {% endblock %}
 
 
@@ -112,11 +111,16 @@
                       </div>
                   </div>
          </div>
-       <div class="row" style="margin-left: 0px;margin-top: 25px;" id="contenedorDatosGeneralesClienteN">
+               <div class="row" style="margin-left: 5px;margin-top: 12px; padding-right: 15px;" id="contenedorDatosGeneralesClienteN">
+
+                      <div class="panel panel-default">
+                          <div class="panel-heading"><b>Datos generales</b></div>
+                          <div class="panel-body">
+
                                    <form class="form-inline">
                                        <div class="col-md-2"  style="padding-right: 0px;margin-left: -14px; ">
                                              <label class="control-label" for="nombreClienteN" style=" font-size: 13px !important;"><b>Total deuda:</b></label>
-                                            <label for="deudaTotal" id="totalDeudaN" style="color: blue;margin-left: 5px;"> </label>
+                                            <label for="deudaTotal" id="totalDeudaN"> </label>
                                        </div> 
                                        <div class="col-md-10"></div>
                                        <div class="clearfix"></div>
@@ -133,7 +137,9 @@
                                             <label  class="control-label" id="direccionClienteN" placeholder="Direccion cliente" ></label>
                                         </div>
                                        </form>
-          </div>
+                          </div>
+                      </div>
+               </div>
     
     
     
