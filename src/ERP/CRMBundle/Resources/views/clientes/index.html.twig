@@ -77,7 +77,6 @@
                     <th>Nombre de Empresa</th>
                     <th>Nombre de Contacto</th>
                     <th>Telefono Fijo</th>
-
                 </tr>
             </thead>
 
@@ -111,8 +110,17 @@
 		        columnDefs: [
 		            {
 		                targets: [ 0, 1, 2,3,4 ],
-		                className: 'mdl-data-table__cell--non-numeric'
+		                className: 'mdl-data-table__cell--non-numeric',
+                                                  
 		            },
+                                            {
+                                                "targets": [ 0,1,2,3 ],
+                                                 "orderable": true
+                                            },
+                                             {
+                                                "targets": [4],
+                                                 "orderable": false
+                                            }
                                             
 		        ],
                                         

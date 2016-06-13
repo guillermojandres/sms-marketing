@@ -44,7 +44,7 @@ class DashBoardController extends Controller
     public function OrdenesDeCompraAction()
     {
         
-        return $this->render('ERPCRMBundle:ordenesdecompra/index2.html.twig', array(
+        return $this->render('ERPCRMBundle:ordenesdecompra:index2.html.twig', array(
             
         ));
     }
@@ -58,7 +58,7 @@ class DashBoardController extends Controller
     public function CRMAction()
     {
         
-        return $this->render('ERPCRMBundle:dashboard/dashboardcrm.html.twig', array(
+        return $this->render('ERPCRMBundle:dashboard:dashboardcrm.html.twig', array(
             
         ));
     }

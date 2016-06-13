@@ -186,6 +186,35 @@ class ContabilidadController extends Controller
         $cliente = $request->query->get('param1');
         $fechaini = $request->query->get('param2');
         $fechafin = $request->query->get('param3');
+        
+        
+        
+        $ordenamientoVariable = $request->query->get('order');
+        
+
+        $columna = $ordenamientoVariable[0]['column'];
+        $tipoOrdenamiento = $ordenamientoVariable[0]['dir'];
+        
+        if ($columna=='0'){
+           
+               $orden=" enc.id ".$tipoOrdenamiento;
+                     
+        }else if ($columna=='1'){
+            
+              $orden=" cli.codigo ".$tipoOrdenamiento;
+            
+        }else if ($columna=='2'){
+            $x="fecha_registro_cliente";
+         $orden="enc.".$x." ".$tipoOrdenamiento;
+            
+        }else  if ($columna=='3'){
+         $x="fecha_registro_sistema";
+         $orden="enc.".$x." ".$tipoOrdenamiento;
+
+            
+        }
+        
+        
        
 //        var_dump($cliente);
 //        var_dump($fechaini);
@@ -224,8 +253,8 @@ class ContabilidadController extends Controller
             $sql.="and enc.fecha_registro_cliente >= '$fechafin' and enc.fecha_registro_cliente <= '$fechaini' ";
         }
 
-        $sql.= "ORDER BY enc.fecha_registro_cliente DESC "
-                . "LIMIT $start, $longitud ";
+          $sql.=  "ORDER BY ".$orden
+                     . " LIMIT $start, $longitud ";
         //echo $sql;
         $rsm->addScalarResult('id', 'id');
         $rsm->addScalarResult('codigo', 'codigo');
@@ -265,7 +294,10 @@ class ContabilidadController extends Controller
 //           
            $sql2.="and enc.fecha_registro_cliente >= '$fechafin' and enc.fecha_registro_cliente <= '$fechaini' ";
         }
-
+        
+           $sql2.=  "ORDER BY ".$orden
+                     . " LIMIT $start, $longitud ";
+        
         $rsm2->addScalarResult('id','id');
         $rsm2->addScalarResult('codigo', 'codigo');
         $rsm2->addScalarResult('fecha_registro_cliente', 'fecha_registro_cliente');

@@ -103,7 +103,34 @@ class ProveedorController extends Controller
         //die();
         $arrayFiltro = explode(' ',$busqueda['value']);
         
+
+         $ordenamientoVariable = $request->query->get('order');
         
+//        var_dump($ordenamientoVariable);
+//        die();
+        
+        $columna = $ordenamientoVariable[0]['column'];
+        $tipoOrdenamiento = $ordenamientoVariable[0]['dir'];
+        
+        if ($columna=='0'){
+            
+            $x="id";
+            
+            
+        }else if ($columna=='1'){
+            $x='nombre';
+            
+            
+        }else  if ($columna=='2'){
+            
+            $x='contacto_id';
+        
+            
+        }else{
+              $x='telefono';
+        }
+        
+
         //echo count($arrayFiltro);
         $busqueda['value'] = str_replace(' ', '%', $busqueda['value']);
          if($busqueda['value']!=''){
@@ -112,7 +139,7 @@ class ProveedorController extends Controller
           $sql = "SELECT cp.id as id, cp.nombre as nombre,cp.telefono as telefono, contac.nombre as contacto FROM proveedor cp"
                     . " LEFT OUTER JOIN contacto contac on cp.contacto_id=contac.id "
                     . "WHERE upper(cp.nombre)  LIKE '%".strtoupper($value)."%' AND cp.estado=1 "
-                    . "ORDER BY cp.nombre ASC";
+                    . "ORDER BY cp.".$x." ".$tipoOrdenamiento;
             $stmt = $em->getConnection()->prepare($sql);
             $stmt->execute();
             $territorio['data'] = $stmt->fetchAll();
@@ -123,7 +150,7 @@ class ProveedorController extends Controller
               $sql = "SELECT cp.id as id, cp.nombre as nombre,cp.telefono as telefono, contac.nombre as contacto FROM proveedor cp"
                     . " LEFT OUTER JOIN contacto contac on cp.contacto_id=contac.id "
                     . "WHERE cp.estado=1 "
-                    . "ORDER BY cp.nombre ASC";
+                    . "ORDER BY cp.".$x." ".$tipoOrdenamiento;
             $stmt = $em->getConnection()->prepare($sql);
             $stmt->execute();
             $territorio['data'] = $stmt->fetchAll();

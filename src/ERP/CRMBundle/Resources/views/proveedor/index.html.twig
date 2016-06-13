@@ -87,17 +87,7 @@
 				            </tr>
 				        </thead>
 				        
-				        {#<tbody>
-				            <tr>
-				                <td>Guillermo Jandres</td>
-				                <td>Chiltiupan, La Libertad</td>
-				                <td>Edinburgh</td>
-				                <td><input type="button" value="Ver mas"></td>
-				              
-				            </tr>
-				            
-				        </tbody>#}
-				    </table>
+     </table>
 
     
   </div>
@@ -122,9 +112,13 @@
                                     
 		        columnDefs: [
 		            {
-		                targets: [ 0, 1, 2 ],
+		                targets: [ 0, 1, 2,3 ],
 		                className: 'mdl-data-table__cell--non-numeric'
-		            }
+		            },
+                                            {
+                                                "targets": [ 0,1,2,3],
+                                                 "orderable": true
+                                            }
 		        ],
                                         
                                         "pageLength": 10,

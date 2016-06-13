@@ -90,7 +90,7 @@
                                                     
 				            </tr>
 				        </thead>
-				        <tfoot>
+				     {#   <tfoot>
 				            <tr>
                                                                                  <th>ID Cliente Potencial</th>
 				                <th>Nombre</th>
@@ -99,7 +99,7 @@
                                                                                
                                                                                
 				            </tr>
-				        </tfoot>
+				        </tfoot>#}
 				        {#<tbody>
 				            <tr>
 				                <td>Guillermo Jandres</td>
@@ -135,9 +135,13 @@
                                     
 		        columnDefs: [
 		            {
-		                targets: [ 0, 1, 2 ],
+		                targets: [ 0, 1, 2,3 ],
 		                className: 'mdl-data-table__cell--non-numeric'
-		            }
+		            },
+                                            {
+                                                 "targets": [ 0,1,2,3 ],
+                                                 "orderable": true
+                                            }
 		        ],
                                         
                                         "pageLength": 10,

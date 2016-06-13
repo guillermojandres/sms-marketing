@@ -108,7 +108,33 @@ class ClienteController extends Controller
         $busqueda['value'] = str_replace(' ', '%', $busqueda['value']);
         
         //SQL Nativo
-       
+        
+        $ordenamientoVariable = $request->query->get('order');
+        
+//        var_dump($ordenamientoVariable);
+//        die();
+        
+        $columna = $ordenamientoVariable[0]['column'];
+        $tipoOrdenamiento = $ordenamientoVariable[0]['dir'];
+        
+        if ($columna=='0'){
+            
+            $x="id";
+            
+            
+        }else if ($columna=='1'){
+            $x='codigo';
+            
+            
+        }else  if ($columna=='2'){
+            
+            $x='nombre';
+        
+            
+        }else{
+              $x='contacto_id';
+        }
+        
         
 
         if($busqueda['value']!=''){
@@ -117,7 +143,7 @@ class ClienteController extends Controller
           $sql = "SELECT cp.id as id,cp.codigo as codigo, cp.nombre as nombre,cp.telefono as telefono, contac.nombre as contacto FROM cliente cp"
                     . " LEFT OUTER JOIN contacto contac on cp.contacto_id=contac.id "
                     . "WHERE (upper(cp.nombre)  LIKE '%".strtoupper($value)."%' OR cp.codigo LIKE '%".strtoupper($value)."%') AND cp.estado=1 "
-                    . "ORDER BY cp.nombre ASC";
+                    . "ORDER BY cp.".$x." ".$tipoOrdenamiento;
             $stmt = $em->getConnection()->prepare($sql);
             $stmt->execute();
             $territorio['data'] = $stmt->fetchAll();
@@ -128,7 +154,7 @@ class ClienteController extends Controller
               $sql = "SELECT cp.id as id,cp.codigo as codigo, cp.nombre as nombre,cp.telefono as telefono, contac.nombre as contacto FROM cliente cp"
                     . " LEFT OUTER JOIN contacto contac on cp.contacto_id=contac.id "
                     . "WHERE cp.estado=1 "
-                    . "ORDER BY cp.nombre ASC";
+                    . "ORDER BY cp.".$x." ".$tipoOrdenamiento;
             $stmt = $em->getConnection()->prepare($sql);
             $stmt->execute();
             $territorio['data'] = $stmt->fetchAll();

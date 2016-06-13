@@ -178,6 +178,28 @@ class HistorialClienteController extends Controller
         $cliente = $request->query->get('param1');
         $fechaini = $request->query->get('param2');
         $fechafin = $request->query->get('param3');
+        
+
+         $ordenamientoVariable = $request->query->get('order');
+        
+
+        $columna = $ordenamientoVariable[0]['column'];
+        $tipoOrdenamiento = $ordenamientoVariable[0]['dir'];
+        
+        if ($columna=='0'){
+            
+              $orden=" cli.codigo ".$tipoOrdenamiento;
+            
+        }else if ($columna=='1'){
+             $orden=" cli.nombre ".$tipoOrdenamiento;
+            
+        }else  if ($columna=='2'){
+         $x="fecha_registro";
+         $orden="enc.".$x." ".$tipoOrdenamiento;
+
+            
+        }
+        
        
 //        var_dump($cliente);
 //        var_dump($fechaini);
@@ -191,7 +213,7 @@ class HistorialClienteController extends Controller
        
         $busqueda['value'] = str_replace(' ', '%', $busqueda['value']);
         $rsm = new ResultSetMapping();
-
+        
         $sql = "SELECT enc.id as encabezado, "
                 . "concat_ws(cli.nombre, '<div class=\"text-left\">', '</div>') as nombre, "
                 . "concat_ws(cli.codigo, '<div class=\"text-center\">', '</div>') as codigo, "
@@ -209,6 +231,7 @@ class HistorialClienteController extends Controller
                 . "concat_ws(enc.id, '<i class=\" colorAnclas fa fa-file-pdf-o verPDF\" id=\"', '\" title=\"Ver PDF\"></i>&nbsp;&nbsp;<i class=\" colorAnclas fa fa-file-excel-o verExcel\" id=\"', '\" title=\"Descargar excel\"></i>'  ) as link "
                 . "FROM encabezado_orden enc  inner join cliente cli on enc.crm_cliente_id = cli.id "
                 . "WHERE 1 = 1 AND enc.permiso =1 ";
+              
 
         if($cliente != 'null'){
             $sql.="and enc.crm_cliente_id = '$cliente' ";
@@ -224,8 +247,8 @@ class HistorialClienteController extends Controller
             $sql.="and enc.fecha_registro >= '$fechaini' and enc.fecha_registro <= '$fechafin' ";
         }
 
-        $sql.= "ORDER BY enc.fecha_registro DESC "
-                . "LIMIT $start, $longitud ";
+        $sql.=  "ORDER BY ".$orden
+                     . " LIMIT $start, $longitud ";
         //echo $sql;
         $rsm->addScalarResult('codigo','codigo');
         $rsm->addScalarResult('nombre','nombre');
@@ -252,9 +275,10 @@ class HistorialClienteController extends Controller
                 . "concat_ws(enc.id, '<i class=\" colorAnclas fa fa-file-pdf-o verPDF\" id=\"', '\" title=\"Ver PDF\"></i>') as link "
                 . "FROM encabezado_orden enc  inner join cliente cli on enc.crm_cliente_id = cli.id "
                 . "WHERE 1 = 1 AND enc.permiso =1 ";
-
+             
+          
         if($cliente != 'null'){
-            $sql2.="and enc.crm_cliente_id = '$cliente' ";
+            $sql2.=" and enc.crm_cliente_id = '$cliente' ";
         }
        
       
@@ -265,8 +289,11 @@ class HistorialClienteController extends Controller
 //            $fi = $inicio[2]."-".$inicio[1]."-".$inicio[0];
 //            $ff = $fin[2]."-".$fin[1]."-".$fin[0];
 //           
-           $sql2.="and enc.fecha_registro >= '$fechaini' and enc.fecha_registro <= '$fechafin' ";
+           $sql2.=" and enc.fecha_registro >= '$fechaini' and enc.fecha_registro <= '$fechafin' ";
         }
+        
+         $sql2.=  "ORDER BY ".$orden
+                     . " LIMIT $start, $longitud ";
 
        $rsm2->addScalarResult('codigo','codigo');
         $rsm2->addScalarResult('nombre','nombre');

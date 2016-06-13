@@ -108,6 +108,31 @@ class ClientePotencialController extends Controller
         //die();
         $arrayFiltro = explode(' ',$busqueda['value']);
         
+         $ordenamientoVariable = $request->query->get('order');
+        
+//        var_dump($ordenamientoVariable);
+//        die();
+        
+        $columna = $ordenamientoVariable[0]['column'];
+        $tipoOrdenamiento = $ordenamientoVariable[0]['dir'];
+        
+        if ($columna=='0'){
+           
+            $x="id";
+
+        }else if ($columna=='1'){
+            $x='nombre';
+            
+            
+        }else  if ($columna=='2'){
+            
+            $x='telefono';
+        
+            
+        }else{
+              $x='direccion';
+        }
+        
         
         //echo count($arrayFiltro);
         $busqueda['value'] = str_replace(' ', '%', $busqueda['value']);
@@ -116,7 +141,7 @@ class ClientePotencialController extends Controller
                     $dql = "SELECT cp.id as id, cp.nombre as nombre,cp.telefono as telefono, cp.direccion as direccion, concat(concat('<input type=\"checkbox\" class=\"checkbox idClientePotencial\" id=\"',cp.id), '\">' as link "
                             . ", concat('<a class=\"btn btn-success CP\" id=\"',cp.id, '\">Ver mas</a>') as link2 FROM ERPAdminBundle:ClientePotencial cp  "
                         . "WHERE upper(cp.nombre)  LIKE upper(:busqueda) AND cp.estado=1 "
-                        . "ORDER BY cp.nombre DESC ";
+                        . "ORDER BY cp.".$x." ".$tipoOrdenamiento;
                     
                     //Aqui estas trabjando
                    $territorio['data'] = $em->createQuery($dql)
@@ -128,7 +153,7 @@ class ClientePotencialController extends Controller
                     $dql = "SELECT cp.id as id , cp.nombre as nombre,cp.telefono as telefono, cp.direccion as direccion, concat(concat('<input type=\"checkbox\" class=\"checkbox idClientePotencial\" id=\"',cp.id), '\">' as link"
                             . ", concat('<a class=\"btn btn-success CP \" id=\"',cp.id, '\">Ver mas</a>') as link2 FROM ERPAdminBundle:ClientePotencial cp  "
                         . "WHERE upper(cp.nombre)  LIKE upper(:busqueda)  AND cp.estado=1 "
-                        . "ORDER BY cp.nombre DESC ";
+                        . "ORDER BY cp.".$x." ".$tipoOrdenamiento;
                    
                    $territorio['data'] = $em->createQuery($dql)
                             ->setParameters(array('busqueda'=>"%".$busqueda['value']."%"))
@@ -141,7 +166,7 @@ class ClientePotencialController extends Controller
             $dql = "SELECT cp.id as id , cp.nombre as nombre,cp.telefono as telefono, cp.direccion as direccion, concat(concat('<input type=\"checkbox\" class=\"checkbox idClientePotencial\" id=\"',cp.id), '\">' as link,"
                     . " concat('<a class=\"btn btn-success CP\" id=\"',cp.id, '\">Ver mas</a>') as link2 FROM ERPAdminBundle:ClientePotencial cp  "
                     . " WHERE  cp.estado=1"
-                    . " ORDER BY cp.nombre  DESC ";
+                    . " ORDER BY cp.".$x." ".$tipoOrdenamiento;
                     $territorio['data'] = $em->createQuery($dql)
                     ->setFirstResult($start)
                     ->setMaxResults($longitud)

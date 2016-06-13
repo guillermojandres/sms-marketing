@@ -99,12 +99,40 @@ class ContactoController extends Controller
         $territorio['recordsFiltered']= count($territoriosTotal);
         
         $territorio['data']= array();
-        //var_dump($busqueda);
-        //die();
+  
         $arrayFiltro = explode(' ',$busqueda['value']);
+        $ordenamientoVariable = $request->query->get('order');
         
         
-        //echo count($arrayFiltro);
+//        var_dump($ordenamientoVariable);
+//        die();
+        
+        $columna = $ordenamientoVariable[0]['column'];
+        $tipoOrdenamiento = $ordenamientoVariable[0]['dir'];
+        
+//        var_dump($columna);
+//        die();
+//        
+        if($columna=='0'){
+            $x="id";
+        }else if ($columna=='1'){
+            
+            $x="id";
+            
+            
+        }else if ($columna=='2'){
+            $x='nombre';
+            
+            
+        }else{
+              $x='correoelectronico';
+        }
+        
+        
+        
+        
+        
+
         $busqueda['value'] = str_replace(' ', '%', $busqueda['value']);
         
          if($busqueda['value']!=''){
@@ -112,7 +140,7 @@ class ContactoController extends Controller
            
           $sql = "SELECT cp.id as id, cp.nombre as nombre,cp.telefono as telefono, cp.correoelectronico as contacto FROM contacto cp "
                     . "WHERE upper(cp.nombre)  LIKE '%".strtoupper($value)."%' AND cp.estado=1 "
-                    . "ORDER BY cp.nombre ASC";
+                    . "ORDER BY cp.".$x." ".$tipoOrdenamiento;
             $stmt = $em->getConnection()->prepare($sql);
             $stmt->execute();
             $territorio['data'] = $stmt->fetchAll();
@@ -122,7 +150,7 @@ class ContactoController extends Controller
         else{
               $sql = "SELECT cp.id as id, cp.nombre as nombre,cp.telefono as telefono, cp.correoelectronico as contacto FROM contacto cp "
                     . "WHERE cp.estado=1 "
-                    . "ORDER BY cp.nombre ASC";
+                    . "ORDER BY cp.".$x." ".$tipoOrdenamiento;
             $stmt = $em->getConnection()->prepare($sql);
             $stmt->execute();
             $territorio['data'] = $stmt->fetchAll();

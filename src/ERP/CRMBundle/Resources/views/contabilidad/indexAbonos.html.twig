@@ -220,11 +220,18 @@
                         { "data": "link" }
                     ],
                     "columnDefs": [
-                           { "orderable": false, "targets": 0 },
-                           { "orderable": false, "targets": 1 },
-                           { "orderable": false, "targets": 2 },
-                           { "orderable": false, "targets": 3 },
+                           { "orderable": true, "targets": 0 },
+                           { "orderable": true, "targets": 1 },
+                           { "orderable": true, "targets": 2 },
+                           { "orderable": true, "targets": 3 },
                            { "orderable": false, "targets": 4 },
+                           { "orderable": false, "targets": 5 },
+                           
+                           
+                            {
+		                targets: [ 0, 1, 2,3,4,5 ],
+		                className: 'mdl-data-table__cell--non-numeric'
+                            }
            
                           
                           
