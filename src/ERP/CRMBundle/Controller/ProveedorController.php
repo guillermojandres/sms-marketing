@@ -256,6 +256,8 @@ class ProveedorController extends Controller
             $correoElectronico = $request->get('correoElectronico');
             $paginaWeb = $request->get('paginaWeb');
             $descripcion = $request->get('descripcion');
+            
+           
         
             $referidoPor = $request->get('referidoPor'); 
             

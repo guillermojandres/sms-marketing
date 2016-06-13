@@ -8,17 +8,18 @@
     <link rel="stylesheet" href="{{ asset('Resources/lobibox-master/dist/css/lobibox.min.css')}}">
     <link rel="stylesheet" href="{{ asset('Resources/select2/dist/css/select2.css')}}">
     <link rel="stylesheet" href="{{ asset('Resources/js/maquina/css/stylemaquina.css')}}">
-       <link rel="stylesheet" href="{{ asset('Resources/sweetalert-master/dist/sweetalert.css')}}"> 
+    <link rel="stylesheet" href="{{ asset('Resources/sweetalert-master/dist/sweetalert.css')}}"> 
+    <link rel="stylesheet" href="{{ asset('Resources/js/general/general.css')}}"> 
 
 
 {% endblock css%}
 {% block js %}
      {{parent()}}
-          <script src="{{ asset('Resources/sweetalert-master/dist/sweetalert.min.js') }}"></script>
-    <script src="{{ asset('Resources/jQuery-Mask/src/jquery.mask.js') }}"></script>
-    <script src="{{ asset('Resources/js/cliente/cliente.js') }}"></script>
-    <script src="{{ asset('Resources/lobibox-master/dist/js/lobibox.min.js') }}"></script>
-         <script src="{{ asset('Resources/select2/dist/js/select2.js') }}"></script>
+     <script src="{{ asset('Resources/sweetalert-master/dist/sweetalert.min.js') }}"></script>
+     <script src="{{ asset('Resources/jQuery-Mask/src/jquery.mask.js') }}"></script>
+     <script src="{{ asset('Resources/js/cliente/cliente.js') }}"></script>
+     <script src="{{ asset('Resources/lobibox-master/dist/js/lobibox.min.js') }}"></script>
+     <script src="{{ asset('Resources/select2/dist/js/select2.js') }}"></script>
 {% endblock %}
 
 
@@ -129,8 +130,9 @@
                    <div class="col-md-3">
                     <div class="form-group">
                     <label for="fecha inicio" class="control-label ">Correo Electronico</label>
-                    <input type="text" class="form-control" id="correoCp" 
+                    <input type="text" class="form-control correo" id="correoCp" 
                            placeholder="example@yourdomian.com" name="correoCp" value="{{data.correoelectronico}}">
+                            <span class="msg error">Direccion de correo elctronico invalido</span>
                     </div>
                  </div>  
                   
@@ -214,7 +216,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                           <label for="fecha inicio" class="control-label ">Descripcion</label>
-                          <textarea class="form-control" id="descripcionCp">{{data.descripcion}}</textarea>
+                          <textarea class="form-control" id="descripcionCp" maxlength="245">{{data.descripcion}}</textarea>
                       </div>   
                     </div>
                      <div class="clearfix"></div>

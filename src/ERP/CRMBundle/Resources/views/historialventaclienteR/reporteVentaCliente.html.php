@@ -72,14 +72,14 @@
                                     }   
                                     ?>
                       </td>
-                        <td class="tdProductoE"><b>N° orden:</b></td><td class="tdProducto"> <?php echo "".$encabezado[0]["numeroOrden"]; ?> </td>
+                      
                  </tr>
                   <tr>
                        <td class="tdProductoE">  <b>Tipo de pago:</b></td><td class="tdProducto"><?php echo "".$encabezado[0]["tipoPago"]; ?></td>          
                         <td class="tdProductoE">  <b>Nombre cliente:</b></td><td class="tdProducto"> <?php echo "".$encabezado[0]["nombre"]; ?></td>                     
                  </tr>
                  <tr>
-                     
+                       <td class="tdProductoE"><b>N° orden:</b></td><td class="tdProducto"> <?php echo "".$encabezado[0]["numeroOrden"]; ?> </td>
                               
                  </tr>
                          

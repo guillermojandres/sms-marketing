@@ -1,5 +1,34 @@
  $(document).ready(function(){
           
+   var permisoCorreo =false;
+     
+  $(document).on("input",".correo",function() {
+
+       var email = $(this).val();
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/igm;
+        if (email==""){
+         
+                 $(".msg").hide();
+                   $(".error").hide();      
+                   
+     }else if (re.test(email)) {
+            $('.msg').hide();
+            $('.success').show();
+            permisoCorreo=true;
+        } else {
+            $('.msg').hide();
+            $('.error').show();
+            permisoCorreo=false;
+        }
+       
+     
+  });        
+           
+          
+          
+          
+          
+          
          $('.telefono').mask('0000-0000', {placeholder: "0000-0000"});
          $('#nitCP').mask('0000-000000-000-0', {placeholder: "0000-000000-000-0"});
          $('#nrcCP').mask('000000-0', {placeholder: "000000-0"});
@@ -20,12 +49,31 @@
                descripcion=$("#descripcionCp").val();
                referidoPor=$("#referidoPor").val();
                
+               
+               
+                  var num=0;
+                  
+                  
+                 $('.requerido').each( function (){
+                       
+                       var x=$(this).val();
+            
+                       if(x==""){
+                           num=num+1;
+                       }
+
+                       });
+           
+               
+                       if (num==0){
+               
+            if (correoElectronico=="" || permisoCorreo==true){
                       $.ajax({
                                     type: 'POST',
                                     async: false,
                                     dataType: 'json',
                                     data: {nombre:nombre,direccion:direccion,telefono:telefono,telefonoM:telefonoM,nrc:nrc,
-                                     nit:nit,correoElectronico:correoElectronico,paginaWeb:paginaWeb,descipcion:descripcion,referidoPor:referidoPor},
+                                     nit:nit,correoElectronico:correoElectronico,paginaWeb:paginaWeb,descripcion:descripcion,referidoPor:referidoPor},
                                     url: Routing.generate('insertarcontacto'),
                                     success: function (data)
                                     {
@@ -59,6 +107,14 @@
                       
                     }
             });
+        }else{
+            swal("Error!", "Direccion de correo electonico no valido", "error");
+       }     
+         
+      }else{
+          swal("Error!", "No debes dejar campos ruqueridos vacios", "error");
+          
+      }
 
  });
      
@@ -76,7 +132,22 @@
                paginaWeb=$("#paginaWebCp").val();
                descripcion=$("#descripcionCp").val();
                referidoPor=$("#referidoPor").val();
-        
+               
+                       var num=0;       
+               
+     $('.requeridoE').each( function (){
+                       
+                       var x=$(this).val();
+            
+                       if(x==""){
+                           num=num+1;
+                       }
+
+                       });
+           
+               
+                       if (num==0){     
+         if (correoElectronico=="" || permisoCorreo==true){
           $.ajax({
                                     type: 'POST',
                                     async: false,
@@ -116,7 +187,14 @@
                       
                     }
             });
-
+        }else{
+            
+               swal("Error!", "Direccion de correo electonico no valido", "error");
+            
+        }
+       }else{
+             swal("Error!", "No debes dejar campos que son requeridos, vacios.", "error");
+       }
         
         
          

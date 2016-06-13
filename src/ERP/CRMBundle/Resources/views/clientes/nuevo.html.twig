@@ -8,14 +8,8 @@
     <link rel="stylesheet" href="{{ asset('Resources/lobibox-master/dist/css/lobibox.min.css')}}">
     <link rel="stylesheet" href="{{ asset('Resources/select2/dist/css/select2.css')}}">
     <link rel="stylesheet" href="{{ asset('Resources/sweetalert-master/dist/sweetalert.css')}}"> 
-    <style>
-        .form-group.required .control-label:after {
-            content:"*";
-            color:red;
-            
-            
-        }
-    </style>
+     <link rel="stylesheet" href="{{ asset('Resources/js/general/general.css')}}"> 
+    
 {% endblock css%}
 {% block js %}
      {{parent()}}
@@ -131,8 +125,10 @@
                    <div class="col-md-3">
                     <div class="form-group">
                     <label for="fecha inicio" class="control-label ">Correo Electronico</label>
-                    <input type="text" class="form-control" id="correoCp" 
+                    <input type="text" class="form-control correo" id="correoCp" 
                            placeholder="example@yourdomian.com" name="correoCp">
+                    <span class="msg error" >Direccion de correo elctronico invalido</span>
+
                     </div>
                  </div>  
                   
@@ -186,7 +182,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                           <label for="fecha inicio" class="control-label ">Descripcion</label>
-                          <textarea class="form-control" id="descripcionCp"></textarea>
+                          <textarea class="form-control" id="descripcionCp" maxlength="245"></textarea>
                       </div>   
                     </div>
                   <div class="clearfix"></div>
