@@ -13,7 +13,7 @@
                 .tdProductoE{
                      height: 10px;
                     width: 100px;
-                     text-align: right; 
+                     text-align: justify; 
                 }
                 
                 .tdC{
@@ -52,9 +52,13 @@
                     </tr>
                     <tr>
                       <td class="tdProductoE"><b>Fecha de registro:</b></td><td class="tdProducto"> <?php echo "".$encabezado[0]["fechaRegistro"]; ?> </td>
+                       <td class="tdProducto"><b>N° orden:</b></td><td class="tdProducto"> <?php echo "".$encabezado[0]["numeroOrden"]; ?> </td>
+
+                     
                       
-                      
-                      <td class="tdProductoE"><b> Estado de venta:</b></td>
+                 </tr>
+                  <tr>
+                       <td class="tdProductoE"><b> Estado de venta:</b></td>
                       <td class="tdProducto">  <?php if($encabezado[0]["estado"]==1){
                                          echo "Pago Recibido";
                                     }elseif($encabezado[0]["estado"]==2){
@@ -74,18 +78,17 @@
                       </td>
                       
                  </tr>
-                  <tr>
-                       <td class="tdProductoE">  <b>Tipo de pago:</b></td><td class="tdProducto"><?php echo "".$encabezado[0]["tipoPago"]; ?></td>          
-                        <td class="tdProductoE">  <b>Nombre cliente:</b></td><td class="tdProducto"> <?php echo "".$encabezado[0]["nombre"]; ?></td>                     
+                 <tr>
+                     <td class="tdProductoE">  <b>Nombre cliente:</b></td><td class="tdProducto"> <?php echo "".$encabezado[0]["nombre"]; ?></td>                   
+                              
                  </tr>
                  <tr>
-                       <td class="tdProductoE"><b>N° orden:</b></td><td class="tdProducto"> <?php echo "".$encabezado[0]["numeroOrden"]; ?> </td>
-                              
+                    <td class="tdProductoE">  <b>Tipo de pago:</b></td><td class="tdProducto"><?php echo "".$encabezado[0]["tipoPago"]; ?></td>          
                  </tr>
                          
               </table>
                     
-                <img src="http://marvinvigil.info/imagenesbeard/barba1.png" style="width: 100px; height: auto; float: right;margin-top: -80px;"/>
+                <img src="http://marvinvigil.info/imagenesbeard/barba1.png" style="width: 100px; height: auto; float: right;margin-top: -105px;"/>
         </div>
 			
           <div style="border-top: 2px solid #888888;"></div>   

@@ -147,6 +147,7 @@ class ClienteController extends Controller
             $stmt = $em->getConnection()->prepare($sql);
             $stmt->execute();
             $territorio['data'] = $stmt->fetchAll();
+             $territorio['recordsFiltered']= count($territorio['data']);
                  
        
         }
@@ -158,6 +159,7 @@ class ClienteController extends Controller
             $stmt = $em->getConnection()->prepare($sql);
             $stmt->execute();
             $territorio['data'] = $stmt->fetchAll();
+             $territorio['recordsFiltered']= count($territorio['data']);
 
 
 

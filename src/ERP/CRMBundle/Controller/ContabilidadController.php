@@ -113,16 +113,6 @@ class ContabilidadController extends Controller
         
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
      /**
      *
      * @Route("/cuentasPorCobrar", name="cuentasPorCobrar",options={"expose"=true})
@@ -162,12 +152,46 @@ class ContabilidadController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $abono = $em->getRepository('ERPAdminBundle:Abono')->findById($id);
-     
-        
+
         return $this->render('ERPCRMBundle:contabilidad/edicionAbono.html.twig', array(
             'abono' => $abono
         ));
     }
+    
+    
+      /**
+     * @Route("/abonos/eliminar", name="eliminarAbonos", options={"expose"=true})
+     * @@Method("POST")
+     */
+    public function EliminarAbonoAction(Request $request)
+    {
+
+        $isAjax = $this->get('Request')->isXMLhttpRequest();
+ 
+         if($isAjax){
+            $em = $this->getDoctrine()->getEntityManager();
+            $idRegistroAbono = $request->get('idRegistroAbono'); 
+           
+            $abono = $em->getRepository('ERPAdminBundle:Abono')->findById($idRegistroAbono);
+            $abono[0]->setEstado(0);
+            $em->persist($abono[0]);
+            $em->flush();
+            $data['estado']=true;
+
+             return new Response(json_encode($data)); 
+            
+            
+         }
+        
+        
+        
+        
+    }
+    
+    
+    
+    
+    
     
  
     /**
@@ -237,7 +261,7 @@ class ContabilidadController extends Controller
                 . "concat_ws(enc.monto_abono, '<div class=\"text-center\">', '</div>') as monto_abono, "
                 . "concat_ws(enc.id, '<i class=\" colorAnclas fa fa-file-pdf-o verPDFAbono\" id=\"', '\" title=\"Ver PDF\"></i>'  ) as link "
                 . "FROM abono enc  inner join cliente cli on enc.id_cliente = cli.id "
-                . "WHERE 1 = 1 ";
+                . "WHERE 1 = 1 AND enc.estado=1 ";
 
         if($cliente != 'null'){
             $sql.="and enc.id_cliente = '$cliente' ";
@@ -250,7 +274,7 @@ class ContabilidadController extends Controller
 //            $fi = $inicio[2]."-".$inicio[1]."-".$inicio[0];
 //            $ff = $fin[2]."-".$fin[1]."-".$fin[0];
            
-            $sql.="and enc.fecha_registro_cliente >= '$fechafin' and enc.fecha_registro_cliente <= '$fechaini' ";
+            $sql.="and enc.fecha_registro_cliente >= '$fechaini' and enc.fecha_registro_cliente <= '$fechafin' ";
         }
 
           $sql.=  "ORDER BY ".$orden
@@ -276,7 +300,7 @@ class ContabilidadController extends Controller
                 . "concat_ws(enc.monto_abono, '<div class=\"text-center\">', '</div>') as monto_abono, "
                 . "concat_ws(enc.id, '<i class=\" colorAnclas fa fa-file-pdf-o verPDFAbono\" id=\"', '\" title=\"Ver PDF\"></i>'  ) as link "
                 . "FROM abono enc  inner join cliente cli on enc.id_cliente = cli.id "
-                . "WHERE 1 = 1 ";
+                . "WHERE 1 = 1  AND enc.estado=1 ";
 
         if($cliente != 'null'){
             $sql2.="and enc.id_cliente = '$cliente' ";
@@ -292,7 +316,7 @@ class ContabilidadController extends Controller
 //            $fi = $inicio[2]."-".$inicio[1]."-".$inicio[0];
 //            $ff = $fin[2]."-".$fin[1]."-".$fin[0];
 //           
-           $sql2.="and enc.fecha_registro_cliente >= '$fechafin' and enc.fecha_registro_cliente <= '$fechaini' ";
+           $sql2.="and enc.fecha_registro_cliente >= '$fechaini' and enc.fecha_registro_cliente <= '$fechafin' ";
         }
         
            $sql2.=  "ORDER BY ".$orden
@@ -336,7 +360,8 @@ class ContabilidadController extends Controller
             $sql = "SELECT SUM(monto) as total  from encabezado_orden enc  WHERE enc.crm_cliente_id=".$idCliente
                            . " AND (enc.estado=4 OR enc.estado=3 OR enc.estado=2)  AND enc.permiso=1";
                    
-            $sqlAbono = "SELECT SUM(monto_abono) as totalAbono  from abono enc  WHERE enc.id_cliente=".$idCliente;
+            $sqlAbono = "SELECT SUM(monto_abono) as totalAbono  from abono enc  WHERE enc.id_cliente=".$idCliente
+                    . " AND enc.estado=1";
 
             $stmt = $em->getConnection()->prepare($sql);
             $stmt->execute();
@@ -393,7 +418,7 @@ class ContabilidadController extends Controller
                    
                    $sqlAbono = "SELECT SUM(monto_abono) as totalAbono  from abono enc  "
                             . "INNER JOIN  cliente cli  ON enc.id_cliente=cli.id"
-                           . " WHERE enc.id_cliente=".$idCliente. " AND cli.estado=1";
+                           . " WHERE enc.id_cliente=".$idCliente. " AND cli.estado=1  AND enc.estado=1 ";
                            
 
             $stmt = $em->getConnection()->prepare($sql);
@@ -463,6 +488,7 @@ class ContabilidadController extends Controller
             $objeto->setCliente($cliente[0]);
             $objeto->setDescripcion($descripcion);
             $objeto->setTipoPago($tipoPago);
+            $objeto->setEstado(1);
             $em->persist($objeto);
             $em->flush();
             $data['estado']=true;

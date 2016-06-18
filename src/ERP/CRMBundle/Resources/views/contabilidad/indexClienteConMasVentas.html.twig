@@ -115,17 +115,32 @@
       <script  type="text/javascript">
           $(document).ready(function(){
            
-            $('#txtFechaInicio').Zebra_DatePicker({
-                format: 'Y-m-d',
-               direction: false,
-               pair: $('#txtFechaFin')
-           });
+       var fecha =new   Date();
+var dia = fecha.getDate();
+var mes = fecha.getMonth();
+var anho = fecha.getFullYear();
 
-            $('#txtFechaFin').Zebra_DatePicker({
-               format: 'Y-m-d',
-               direction: true
-          });   
-              
+    if (mes<10){
+        mes=mes+1;
+    }
+
+
+ var fechaFinal = anho+"-"+"0"+mes+"-"+dia;
+
+  
+
+$('#txtFechaInicio').Zebra_DatePicker({
+     format: 'Y-m-d',
+    direction: -1,
+    pair: $('#txtFechaFin')
+});
+
+
+     
+  $('#txtFechaFin').Zebra_DatePicker({
+     format: 'Y-m-d',
+     direction: [true, fechaFinal]
+});   
         
 
            

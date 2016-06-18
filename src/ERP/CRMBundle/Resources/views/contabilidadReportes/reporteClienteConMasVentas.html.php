@@ -2,37 +2,37 @@
 <html lang="Es">
 <head>
     <title>Reporte de clientes con mas ventas</title>
-	<style type="text/css">
-		body{font-size:0.80em;}
-		.Cabecera{}
+    <style type="text/css">
+            body{font-size:0.80em;}
+            .Cabecera{}
                 
-                .thClass{
-                    height: 20px;
-                    width: 150px;
-                }
-                .tdProductoE{
-                     height: 10px;
-                    width: 100px;
-                     text-align: right; 
-                }
+            .thClass{
+                height: 20px;
+                width: 150px;
+            }
+            .tdProductoE{
+                 height: 10px;
+                width: 100px;
+                 text-align: right; 
+            }
                 
-                .tdC{
-                    text-align: right;
+            .tdC{
+                text-align: right;
                     
-                }
-                .tdProducto{
-                    text-align: left; 
-                }
+            }
+            .tdProducto{
+                text-align: left; 
+            }
                 
-                .encabezado{
+            .encabezado{
                    
-                    font-size: 15px;
+                font-size: 15px;
                     
-                }
-                body {
-                    font-family: 'Open Sans', sans-serif;
-                }
-	</style>
+            }
+            body {
+                font-family: 'Open Sans', sans-serif;
+            }
+    </style>
 
 
 </head>
@@ -73,15 +73,15 @@
                          
               </table>
                     
-                <img src="http://marvinvigil.info/imagenesbeard/barba1.png" style="width: 100px; height: auto; float: right;margin-top: -80px;"/>
+                <img src="http://marvinvigil.info/imagenesbeard/barba1.png" style="width: 100px; height: auto; float: right;margin-top: -55px;"/>
         </div>
 			
 			
           <div style="border-top: 2px solid #888888;"></div>   
 	
-    <div style="margin-top: 20px;">
+    <div style="margin-top: 20px; margin-left: 30px;">
         <div>
-            <p style="font-size: 17px; font-weight: 600;  text-transform: uppercase;">Detalle de ventas realizadas</p>
+            <p style="font-size: 17px; font-weight: 600;  text-transform: uppercase;">Detalle de ventas</p>
         </div>  
         
        <table style="border: 2px solid #3C2D2D; ">
@@ -129,7 +129,7 @@
                     ?>  
     </table>
     </div>
-       <div style="margin-top: 20px; margin-left: 470px;">
+       <div style="margin-top: 20px; margin-left: 500px;">
               <table>
                    <tr>
                       <td class="tdProductoE"><b>Total de ventas:</b></td><td class="tdC"><?php echo "$  ".$totalDeVentas ?>     </td>

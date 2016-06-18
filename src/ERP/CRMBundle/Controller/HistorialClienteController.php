@@ -74,6 +74,8 @@ class HistorialClienteController extends Controller
         
     }
     
+    
+    
     function llamarDetalleOrden($idEncabezado) {
         
         

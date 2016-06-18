@@ -1,5 +1,6 @@
  $(document).ready(function(){
    var correlativoEdicion=0;
+   var numeroEliminacion=0;   
    var correlativo=0;  
    
     var x=0;
@@ -98,6 +99,15 @@ $('#fechaRCE').Zebra_DatePicker({
                                                                      
                                                         $("#"+idDetalleOrden).parent().remove();
                                                           llenarTotalPagarE();
+                                                           numeroEliminacion=numeroEliminacion-1;
+                                                            if (numeroEliminacion==0){
+                                                                
+                                                                $(".totalRCE").hide();
+                                                                $(".totalComisionClienteEdi").hide();
+                                                                $("#botonesInsercionE").hide();
+                                                                
+                                                            }
+                                                          
 
                                                             } else {
                                                                 
@@ -203,6 +213,7 @@ $('#fechaRCE').Zebra_DatePicker({
      
        $(document).on("click",".verMasDetalles",function() {
            x=1;
+           
                                   $("#comprasVistaDetalle").click();
                                     $("#comprasVistaDetalle").show();     
            clickVermasDetalles();
@@ -244,6 +255,7 @@ $('#fechaRCE').Zebra_DatePicker({
 
                                     var formulario="";
                                    $.each(data.nombre, function( key, value ) {
+                                       numeroEliminacion=numeroEliminacion+1;
                                        var precio=data.precio[key];
                                        var cantidad =data.cantidad[key];
                                        var subtotal =precio*cantidad;
@@ -366,7 +378,7 @@ $('#fechaRCE').Zebra_DatePicker({
        //Add detalles
        
              $(document).on("click",".addCompraProductoE",function() {
- 
+               numeroEliminacion=numeroEliminacion+1;
            $(".totalRCE").show();
            
            
@@ -403,13 +415,13 @@ $('#fechaRCE').Zebra_DatePicker({
                                   <div >\n\
                                     <div class="form-column col-md-2"" >\n\
                                         <label for="subtotal" class="control-label">Sub Total</label>\n\
-                                            <input type="text" class="form-control subtotalE subtotalEditacionNuevo" id="subtotal-'+correlativoEdicion+'"  name="subtotal" value="0">\n\
+                                            <input type="text" class="form-control subtotalE subtotalEditacionNuevo" id="subtotal-'+correlativoEdicion+'"  name="subtotal" value="0" readonly>\n\
                                     </div>\n\
                                  </div>\n\
                                     <div class="form-column" style="display:none;">\n\
                                         <div class="form-group" >\n\
                                             <label for="subtotal" class="control-label">PorcentajeComision</label>\n\
-                                                <input type="text" class="form-control comision" id="comision-'+correlativoEdicion+'"  name="comision" value="0" readonly>\n\
+                                                <input type="text" class="form-control comision" id="comision-'+correlativoEdicion+'" disabled name="comision" value="0" readonly>\n\
                                         </div>\n\
                                  </div>\n\
                                     <div class="fa fa-close col-md-1 eliminarDiv" id="eliminacion-'+correlativoEdicion+'" style="margin-top: 3%;margin-left:-20px;" title="Eliminar"></div>\n\
@@ -646,6 +658,19 @@ $('#fechaRCE').Zebra_DatePicker({
 
                                                                             $("#"+idDetalleOrden).parent().parent().remove();
                                                                              llenarTotalPagarE();
+                                                                                  numeroEliminacion=numeroEliminacion-1;
+                                                                                  
+                                                                                    if (numeroEliminacion==0){
+
+                                                                                        $("#totalRCE").hide();
+                                                                                        $("#totalComisionClienteEdi").hide();
+                                                                                        $("#botonesInsercionE").hide();
+
+                                                                                    }else{
+                                                                                        
+                                                                                        alert(numeroEliminacion);
+                                                                                    }
+                                                                                    
                                                                         }
 
                                                                     },

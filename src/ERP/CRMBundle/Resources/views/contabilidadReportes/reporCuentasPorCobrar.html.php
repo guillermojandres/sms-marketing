@@ -44,7 +44,7 @@
 	
       <div >
     
-             <div style="height: 120px; margin-bottom: -20px;">
+             <div style="height: 120px; margin-bottom: -150px;">
              
                  
               
@@ -56,13 +56,13 @@
                                           
               </table>
                     
-                <img src="http://marvinvigil.info/imagenesbeard/barba1.png" style="width: 100px; height: auto; float: right;margin-top: -80px;"/>
+                <img src="http://marvinvigil.info/imagenesbeard/barba1.png" style="width: 100px; height: auto; float: right;margin-top: -55px;"/>
         </div>
 			
 			
-          <div style="border-top: 2px solid #888888;"></div>   
+     <div style="border-top: 2px solid #888888;"></div>   
 	
-    <div style="margin-top: 20px;  margin-left: 20px;">
+    <div style="margin-top: 20px;  margin-left: 40px;">
         <div>
             <p style="font-size: 17px; font-weight: 600;  text-transform: uppercase;">Detalle de cuentas por cobrar a  clientes</p>
         </div>  
@@ -123,8 +123,9 @@
                              }
                     ?>  
     </table>
+        
     </div>
-       <div style="margin-top: 20px; margin-left: 467px;">
+       <div style="margin-top: 10px; margin-left: 495px;">
               <table>
                    <tr>
                       <td class="tdProductoE"><b>Total deuda:</b></td><td class="tdC"><?php echo "$  ".$totaldeuda; ?>     </td>

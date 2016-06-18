@@ -118,7 +118,7 @@
 
      
      
-                        var num=0;
+                 var num=0;
                 $('.requeridoInsercion').each( function (){
             
                        var x=$(this).val();
@@ -136,10 +136,8 @@
                      var montoAbono= $('#montoAbonoN').val();
                      var tipoPago = $("#tipoPago").val();
                      var descripcion = $("#descripcionAbono").val();
-                   
-                   
-                    
-                    
+                   if (isNaN(montoAbono)!=true){
+
                           $.ajax({
                                     type: 'POST',
                                     async: false,
@@ -185,26 +183,22 @@
                                              
                                                 swal("Error!", "Error al ingresar los datos", "error");
                                             location.reload();
-                                            
-                                             
+
                                          }
-                                        
-                                             
-                    
-                                         
-                                          
+  
                                     },
                                     error: function (xhr, status)
                                     {
                       
                     }
             });
-                   
-                   
-                
+          }else{
+              
+              swal("Error!", "El monto del abono no pueden ser letras", "error");
+          }   
+
                 }else{
-                    
-                    
+
                     swal("Error!", "No debe dejar datos vacios a la hora de guardar", "error");
                 }
             
@@ -236,7 +230,7 @@
                     var idDetalle=$('#idDetalle').val();
                     var tipoPago = $("#tipoPagoE").val();
                      var descripcion = $("#descripcionAbonoE").val();
-                    
+                    if (isNaN(montoAbono)!=true){
                  $.ajax({
                                     type: 'POST',
                                     async: false,
@@ -283,20 +277,18 @@
                                              
                                                 swal("Error!", "Error al ingresar los datos", "error");
                                             location.reload();
-                                            
-                                             
+
                                          }
-                                        
-                                             
-                    
-                                         
-                                          
+
                                     },
                                     error: function (xhr, status)
                                     {
                       
                     }
             });
+       }else{
+                     swal("Error!", "El monto del abono no pueden ser letras", "error");
+                }
                    
                    
                 
@@ -322,11 +314,23 @@ $('#txtFechaInicioN').Zebra_DatePicker({
     direction: false
 });
 
+var fecha =new   Date();
+var dia = fecha.getDate();
+var mes = fecha.getMonth();
+var anho = fecha.getFullYear();
 
+    if (mes<10){
+        mes=mes+1;
+    }
+
+
+ var fechaFinal = anho+"-"+"0"+mes+"-"+dia;
+
+  
 
 $('#txtFechaInicio').Zebra_DatePicker({
      format: 'Y-m-d',
-    direction: false,
+    direction: -1,
     pair: $('#txtFechaFin')
 });
 
@@ -334,8 +338,10 @@ $('#txtFechaInicio').Zebra_DatePicker({
      
   $('#txtFechaFin').Zebra_DatePicker({
      format: 'Y-m-d',
-     direction: false
+     direction: [true, fechaFinal]
 });   
+     
+     
      
        $(document).on("click",".verPDFAbono",function() {
            var idDetalle =$(this).attr("id");

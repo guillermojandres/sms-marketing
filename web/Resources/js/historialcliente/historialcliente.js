@@ -41,16 +41,34 @@
 
 
      
-          
+var fecha =new   Date();
+var dia = fecha.getDate();
+var mes = fecha.getMonth();
+var anho = fecha.getFullYear();
+
+    if (mes<10){
+        mes=mes+1;
+    }
+
+
+ var fechaFinal = anho+"-"+"0"+mes+"-"+dia;
+
+  
+
 $('#txtFechaInicio').Zebra_DatePicker({
-     format: 'Y-m-d'
+     format: 'Y-m-d',
+    direction: -1,
+    pair: $('#txtFechaFin')
 });
 
 
      
   $('#txtFechaFin').Zebra_DatePicker({
-     format: 'Y-m-d'
+     format: 'Y-m-d',
+     direction: [true, fechaFinal]
 });   
+
+
      
        $(document).on("click",".verPDF",function() {
            var idDetalle =$(this).attr("id");

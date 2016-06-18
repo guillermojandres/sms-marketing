@@ -18,6 +18,11 @@
                 .tdProducto{
                     text-align: left; 
                 }
+                   .tdProductoE{
+                     height: 10px;
+                    width: 100px;
+                     text-align:justify; 
+                }
                 
                 .encabezado{
                    
@@ -39,8 +44,8 @@
           <div style="height: 120px;">
               <p style="font-size: 20px; font-weight: 600; float: left; text-transform: uppercase;">Reporte de Abono <br/> 
                   <span style="font-size: 13px; color: #c3c3c3; font-weight: 400px; text-transform: none !important;">
-                      <b style="text-align: right;">Fecha de registro dentro del sistema:</b>&nbsp;&nbsp;<?php echo "".$abono[0]['fechaRegistroSistema']; ?><br>
-                      <b style="text-align: right;">Moto total de deuda del cliente:</b>&nbsp;&nbsp;<?php echo "".$deuda; ?>
+                      <b style="text-align: right;">Registro de abono dentro del sistema:</b>&nbsp;&nbsp;<?php echo "".$abono[0]['fechaRegistroSistema']; ?><br>
+                      <b style="text-align: right;">Total de deuda del cliente:</b>&nbsp;&nbsp;<?php echo "".$deuda; ?>
                 </span>                 
                   
                   
@@ -64,7 +69,7 @@
                     </tr>
                     <tr>
                         <td class="tdProductoE">  <b>Nombre cliente:</b></td><td class="tdProducto"><?php echo "" . $abono[0]['nombre']; ?></td> 
-                         <td class="tdProductoE">  <b>Codigo:</b></td><td class="tdProducto"><?php echo "" . $abono[0]['codigo']; ?></td>
+                         <td class="">  <b>Codigo:</b></td><td class="tdProducto"><?php echo "" . $abono[0]['codigo']; ?></td>
 
                     </tr>
                     <tr>
@@ -76,7 +81,7 @@
                         <td class="tdProductoE">  <b>Tipo de pago:</b></td><td class="tdProducto"><?php echo "".$abono[0]['tipoPago']; ?> </td>          
                     </tr>
                      <tr>
-                         <td class="tdProductoE">  <b>Descripcion</b></td><td class="tdProducto" colspan="3"><?php echo "".$abono[0]['descripcion']; ?> </td>          
+                         <td class="tdProductoE">  <b>Descripcion:</b></td><td class="tdProducto" colspan="3"><?php echo "".$abono[0]['descripcion']; ?> </td>          
                     </tr>
                                       
               </table>

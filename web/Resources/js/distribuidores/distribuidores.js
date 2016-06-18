@@ -1,5 +1,5 @@
  $(document).ready(function(){
-      
+   var numeroEliminacion=0;   
    var correlativo=0;  
 
    $("#botonesInsercion").hide();
@@ -61,9 +61,23 @@ $('#fechaRC').Zebra_DatePicker({
     
        
        $(document).on("click",".addCompraProducto",function() {
+         numeroEliminacion=numeroEliminacion+1;  
+         var val=0;
+
+                 $('.requeridos').each( function (){
+                       
+                       var x=$(this).val();
+                       if(x==null || x==""){
+                           val=val+1;
+                       }
+                       
+
+                       });    
         var validacionCliente = $("#clientes").val();
         if (validacionCliente != null) {
 
+              if (val==0){  
+                
             $(".totalRC").show();
             $(".totalComisionCliente").show();
             correlativo = correlativo + 1;
@@ -156,7 +170,12 @@ $('#fechaRC').Zebra_DatePicker({
             });
 
             $("#botonesInsercion").show();
-
+            
+              }
+              else{
+                  swal("Campo fecha vacio!", "Debes ingresar la fecha", "warning");
+              }
+              
         } else {
 
             swal("Cliente no seleccionado!", "Debes seleccionar un cliente", "error");
@@ -268,12 +287,9 @@ $('#fechaRC').Zebra_DatePicker({
          var idNombre=  $(this).attr("id");
          var idProducto= $(this).val();
          var numero = idNombre.replace("producto-","");
-           var idCliente = $("#clientes").val();
+         var idCliente = $("#clientes").val();
          
          
-         
-         
-//            alert(idProducto);
         
                      $.ajax({
                                                   type: 'POST',
@@ -333,11 +349,17 @@ $('#fechaRC').Zebra_DatePicker({
                                                                      
                                                         $("#"+idDetalleOrden).parent().parent().remove();
                                                             llenarTotalPagar();
+                                                            numeroEliminacion=numeroEliminacion-1;
+                                                            if (numeroEliminacion==0){
+                                                                
+                                                                $(".totalRC").hide();
+                                                                $(".totalComisionCliente").hide();
+                                                                $("#botonesInsercion").hide();
+                                                                
+                                                            }
 
                                                             } else {
-                                                                
-                                                                
-                                                                
+                     
                                                             }
                                                             
                                                             
@@ -541,18 +563,6 @@ $('#fechaRC').Zebra_DatePicker({
 
      
      
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-
 
 
       

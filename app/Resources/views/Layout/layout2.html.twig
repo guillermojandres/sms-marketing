@@ -13,11 +13,13 @@
                 <!-- Stylesheet Personales -->
                 <link href="{{ asset('Resources/src/css/style.css')}}" rel="stylesheet">
                 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-                {#<link href="{{ asset('Resources/datatable/css/datatable.css')}}" rel="stylesheet">#}
+            
                 <link rel="stylesheet" href="{{ asset('Resources/Zebra/css/bootstrap.css') }}">
                  <style>
                                 .colorAnclas{
                                     color: black;
+                                    font-size: 12px !important;
+                                    line-height: 15px!important;
                                     
                                 }
                                 .control-label{
@@ -25,7 +27,7 @@
                                     font-weight: 400;
                                 }
 
-                            </style>
+                   </style>
                 {% block css_extend %}        
                 {% endblock %}    
             {% endblock css%}
@@ -40,8 +42,7 @@
             <script type="text/javascript" src="{{ asset('Resources/jquery/jquery-1.11.3.min.js') }}"></script>
             <script src="{{ asset('Resources/Zebra/javascript/zebra_datepicker.js') }}"></script>
             <script src="{{ asset('Resources/Zebra/inicializacioncalendarios.js') }}"></script>
-            {# <script src="{{ asset('Resources/src/js/gridstack.js')}}" ></script>  #}
-            {#<script src="{{ asset('Resources/datatable/js/datatable.js')}}" ></script>  #}
+
             {% block js %}
 
             {% endblock %}   

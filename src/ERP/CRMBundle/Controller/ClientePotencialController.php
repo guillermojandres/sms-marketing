@@ -171,6 +171,7 @@ class ClientePotencialController extends Controller
                     ->setFirstResult($start)
                     ->setMaxResults($longitud)
                     ->getResult();
+                     $territorio['recordsFiltered']= count($territorio['data']);
         }
      
         

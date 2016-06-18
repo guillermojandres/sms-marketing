@@ -830,17 +830,19 @@ class CrmClienteController extends Controller
             $idEncabezado = $request->get('idEncabezado');
             
             $objE = $em->getRepository('ERPAdminBundle:EncabezadoOrden')->find($idEncabezado);
-            $obj = $em->getRepository('ERPAdminBundle:Orden')->find($idDetalleOrden);
+            $objOrden = $em->getRepository('ERPAdminBundle:Orden')->find($idDetalleOrden);
             
             $montoActual = $objE->getMonto();
-            $precio=$obj->getPrecio();
-            $cantidad = $obj->getCantidad();
-            $porcentajeC=$obj->getDescuento();
             $comisionActual =$objE->getMontoComision();
             
-            $subtoalRes = $cantidad*$precio;
-            $porcentajeRestar=$subtoalRes*$porcentajeC;
             
+            $precio=$objOrden->getPrecio();
+            $cantidad = $objOrden->getCantidad();
+            $porcentajeC=$objOrden->getDescuento();
+           
+            $subtoalRes = ($cantidad*$precio)-(($cantidad*$precio)*($porcentajeC/100));
+            $porcentajeRestar=$subtoalRes*($porcentajeC/100);
+
             $nuevoMontoComision= $comisionActual-$porcentajeRestar;
             $nuevoTotal = $montoActual-$subtoalRes;
             
@@ -850,7 +852,7 @@ class CrmClienteController extends Controller
            $em->merge($objE);
            $em->flush();
 
-            $em->remove($obj);
+            $em->remove($objOrden);
             $em->flush();
            
     

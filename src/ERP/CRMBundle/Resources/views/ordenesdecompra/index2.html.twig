@@ -1,11 +1,7 @@
 {% extends ':Layout:layout2.html.twig' %}
 {% block css %}
     {{parent()}}
-   {# <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.11/css/dataTables.material.min.css">#}
   
-
 {% endblock css%}
 {% block js %}
      {{parent()}}
@@ -79,7 +75,19 @@
                          </a>
                      </div>
                  </div>
+                             
+{#Esta sseccion es parte del modulo de contabilidad pero se tiene que poner aqui #}
+  <div class="row module ">
+            <div class="row">
+                <a href="{{ path('nuevo_abono_index') }}">
+                    <div class="col-md-10 colorAnclas">
+                        <p class="text-left" style="font-size: 14px; margin-top: 10px; margin-bottom: 0px;"><strong>Nuevo Abono</strong></p>
+                        <p class="text-left" style="font-size: 12px; #8D99A6 !important;">Registro de nuevo abonos</p>
+                    </div>
 
+                </a>
+            </div>
+        </div>
      
        
         
@@ -89,18 +97,7 @@
 
         </div>
 {% endblock %}
- {% block js_extend %}
-
-  
-      <script  type="text/javascript">
-          $(document).ready(function(){
-             
-            $('#listaProveedores').DataTable();
-        });
-        
-      
-      </script>
-      
+ {% block js_extend %}      
       
   {% endblock %} 
 

@@ -73,21 +73,21 @@
                          
               </table>
                     
-                <img src="http://marvinvigil.info/imagenesbeard/barba1.png" style="width: 100px; height: auto; float: right;margin-top: -80px;"/>
+                <img src="http://marvinvigil.info/imagenesbeard/barba1.png" style="width: 100px; height: auto; float: right;margin-top: -40px;"/>
         </div>
 			
 			
           <div style="border-top: 2px solid #888888;"></div>   
-	
-    <div style="margin-top: 20px;">
-        <div>
+         <div>
             <p style="font-size: 17px; font-weight: 600;  text-transform: uppercase;">Detalle de comisiones</p>
-        </div>  
+        </div>  	
+    <div style="margin-top: 10px; margin-left: 40px;">
+      
         
        <table style="border: 2px solid #3C2D2D; ">
         <thead>
             <tr style="background-color: #f2f2f2;">
-                <th class="thClass">Codigo</th>
+                <th class="thClass">Codigo cliente</th>
                 <th class="thClass">Nombre</th>
                <th class="thClass">Total de comision</th>
             </tr>
@@ -122,14 +122,15 @@
                              }
                     ?>  
     </table>
-    </div>
-       <div style="margin-top: 20px; margin-left: 460px;">
+        <div style="margin-top: 20px; margin-left: 460px;">
               <table>
                    <tr>
                       <td class="tdProductoE"><b>Total comision:</b></td><td class="tdC"><?php echo "$  ".$totalComision ?>     </td>
                   </tr>
                  </table>
-          </div>    
+          </div>  
+    </div>
+         
           
           
 </div>

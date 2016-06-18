@@ -2,9 +2,7 @@
 
 {% block css %}
     {{parent()}}
-{#        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css">
-      <link rel="stylesheet" href="https://cdn.datatables.net/1.10.11/css/dataTables.material.min.css">#}
+
        <link rel="stylesheet" href="{{ asset('Resources/select2/dist/css/select2.css')}}">
           <link rel="stylesheet" href="{{ asset('Resources/sweetalert-master/dist/sweetalert.css')}}"> 
           
@@ -125,14 +123,14 @@
                  <div class="form-column col-md-3" style="padding-top: 0%;">
                      <div class="form-group">
                          <label for="fechaRC" class="control-label" style="font-size: 13px!important;">Fecha</label></br>
-                         <input type="text" name="fechaRC" id="fechaRC"  required class="form-control">
+                         <input type="text" name="fechaRC" id="fechaRC"  required class="form-control requeridos">
 
                      </div>
                  </div>
                  <div class="form-column col-md-3"><div class="form-group" style="margin-right: 2%;" >
                            <label for="costo" class="control-label" style="font-size: 13px!important;">Estado</label>
                         
-                         <select name="tipoEstado" id="tipoEstado" style="width: 100%" class="form-control" required>
+                         <select name="tipoEstado" id="tipoEstado" style="width: 100%" class="form-control requeridos" required>
                              <option value="1">Pago Recibido</option>
                              <option value="3">Procesado</option>
                              <option value="2">En proceso</option>
@@ -143,7 +141,7 @@
                  </div>
                   <div class="form-column col-md-3"><div class="form-group" style="margin-right: 2%;" >
                         <label for="tipoEstado" class="control-label" style="font-size: 13px!important;">Tipo de pago</label>
-                         <select name="tipoPago" id="tipoPago" style="width: 100%" class="form-control" required>
+                         <select name="tipoPago" id="tipoPago" style="width: 100%" class="form-control requeridos" required>
                              <option value="Efectivo">Efectivo</option>
                              <option value="Credito">Credito</option>
                                 
@@ -204,14 +202,15 @@
                      <div class="col-md-3"></div>
                      <div class="col-md-3"></div>
                      <div class="col-md-3">
+                           <div class="btn-group totalComisionCliente">
+                             <label for="totalRC" class="control-label totalRC" >Total comision cliente</label>
+                             <input type="text" class="form-control cle" id="totalComision"  name="totalComision"  placeholder="$ " readonly>
+                         </div>
                          <div class="btn-group totalRC">
                              <label for="totalRC" class="control-label totalRC" >Total a recibir</label>
                              <input type="text" class="form-control cle" id="totalRC"  name="totalRC"  placeholder="$ " readonly>
                          </div>
-                         <div class="btn-group totalComisionCliente">
-                             <label for="totalRC" class="control-label totalRC" >Total a comision cliente</label>
-                             <input type="text" class="form-control cle" id="totalComision"  name="totalComision"  placeholder="$ " readonly>
-                         </div>
+                       
                      </div>
         </div>
         </div> 
@@ -233,52 +232,7 @@ var numero_edicion =0;
   $(".cancelarRC").hide();
 
  $(".delete").hide();
-           {# $('#lista_cliente').DataTable( {
-                                    
-		              columnDefs: [
-		            {
-		                targets: [ 0, 1, 2,3,4 ],
-		                className: 'mdl-data-table__cell--non-numeric',
-		            }
-                          
-		        ],
-                                        
-                                        
-                                        "pageLength": 10,
-                                        "lengthMenu": [ 20 ],
-                                        "dom": "ftp",
-                                        "processing": true,
-                                        "serverSide": true,
-                                        "ajax": {
-                                            "url": '{{path('cliente_distribuidores_data')}}',
-                                            "type": 'GET'
-                                        },
-                                        "columns": [
-                                             
-                                        { "data":"id" },
-                                        {"data":"codigo"},
-                                        { "data":"nombreCompleto" },
-                                        {"data":"direccion"},
-                                        {"data":"credito"}
-                                            
-                                             
-                              ],
-                                            "language": {
-                                            "info": "Mostrando página _PAGE_ de _PAGES_",
-                                            "infoEmpty": "",
-                                            "emptyTable": "No se encontraron registros",
-                                            "paginate": {
-                                                "next": "Siguiente",
-                                                "previous": "Anterior"
-                                            },
-                                            "processing": "<p>Procesando petición...</p>",
-                                            "search": "<p>Buscar registros:</p>",
-                                            "lengthMenu": "Mostrar _MENU_ registros"
-                                        }
-
- 
-		    } );
-#}
+         
 var idEliminar=0;
 
   $(document).on("click","tr",function() {
@@ -297,17 +251,10 @@ var idEliminar=0;
       
             }
        
-         
-             
-             
-           
                 
        });
            
-
-
-         
-           
+ 
      $(document).on("click",".insertar",function() {
         var url = Routing.generate('nuevocliente');
         window.open(url, "_self");
@@ -316,53 +263,7 @@ var idEliminar=0;
          
          
      });
-    
-    
-        
-       
-        
-        
-        
-        //Eventos de los CheckBoxs para poder controlar los seleccionados
-         
-            
-            
-            
-  //Envento del search que hace que se escondan los botones cuando busco algo dentro del filtro
-            var table = $('#lista_cliente').DataTable();
 
-            table.on( 'search.dt', function () {
-              $(".delete").hide();
-              $(".modificar").hide();
-              
-                } );
-                
- // Handle click on "Select all" control
-            $('#select_all').on('click', function(){
-               
-               
-                  if( $(this).is(':checked') ) {
-                        $(".delete").show();
-                        var table = $('#lista_cliente').DataTable();
-                        var rows = table.rows({ 'search': 'applied' }).nodes();
-                        $('input[type="checkbox"]', rows).prop('checked', this.checked);
-                        
-                          
-                   }else{
-                       $(".delete").hide();
-                       var table = $('#lista_cliente').DataTable();
-                        var rows = table.rows({ 'search': 'applied' }).nodes();
-                        $('input[type="checkbox"]', rows).prop('checked', this.checked);
-                       
-                   }
-                   
-                   });  
-       
- //Eliminar desde la seleccion de los checkboxs
-
-           
-           
-           
   });
         
         
