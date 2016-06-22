@@ -13,9 +13,9 @@ use ERP\AdminBundle\Entity\Abono;
 use ERP\AdminBundle\Form\ClienteType;
 use Symfony\Component\HttpKernel\Exception;
 use Doctrine\ORM\Query\ResultSetMapping;
-include_once '../src/ERP/CRMBundle/Resources/dompdf/dompdf_config.inc.php'; 
-include_once "../src/ERP/CRMBundle/Resources/phpexcel/lib/PHPExcel/IOFactory.php";
-include_once "../src/ERP/CRMBundle/Resources/phpexcel/lib/PHPExcel.php";
+include_once 'src/ERP/CRMBundle/Resources/dompdf/dompdf_config.inc.php'; 
+include_once "src/ERP/CRMBundle/Resources/phpexcel/lib/PHPExcel/IOFactory.php";
+include_once "src/ERP/CRMBundle/Resources/phpexcel/lib/PHPExcel.php";
 /**
  * Cliente controller.
  *
