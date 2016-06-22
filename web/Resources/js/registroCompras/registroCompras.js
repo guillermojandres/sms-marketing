@@ -20,7 +20,7 @@ $('#fechaRC').Zebra_DatePicker({
 
 
 $('#fechaRCE').Zebra_DatePicker({
-     format: 'Y m, d',
+     format: 'Y-m-d',
      direction: false
 });
 

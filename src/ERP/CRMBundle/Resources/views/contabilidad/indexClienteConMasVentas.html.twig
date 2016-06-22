@@ -75,7 +75,7 @@
                                     <div class="form-column col-sm-12" style=" padding: 20px;">
                                         <div class="form-group">
                                             <div class="row" style="margin-right: 2px;">
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-6">
                                                     <div class="row">
                                                         <div class="col-sm-12">
                                                             <label>Seleccione periodo de busqueda:</label>
@@ -89,7 +89,13 @@
                                                                    style=" width: 100%;"   placeholder="Fecha fin">
                                                         </div>
                                                     </div>
-                                                </div>  
+                                                </div>
+                                                 <div class="col-sm-3">
+                                                            <label class="control-label" style="font-size: 13px!important;">Cliente</label>
+                                                            <select id="clientes" name="" class="form-control input-sm " data-rule-required="true" style=" width: 100%;">
+                                                                <option value="0" disabled selected>Seleccione un cliente ...</option>
+                                                            </select>
+                                                 </div>
                                                 <div class="col-sm-1"  >
                                                     <label style="color: #FFF;">Buscar</label>
                                                     <a class="btn btn-sm btn-info btn-flat pull-left" id="btnbuscarComisionPorCliente"><i class="fa  fa-search"></i>&nbsp;Ver</a>
@@ -149,6 +155,11 @@ $('#txtFechaInicio').Zebra_DatePicker({
                
                     var fechaInicio = $("#txtFechaInicio").val();
                     var fechaFin = $("#txtFechaFin").val();
+                    var idCliente = $("#clientes").val();
+                    
+                      if(idCliente==null){
+                        idCliente=0;
+                    }
                     
 
                         if(fechaInicio=="" && fechaFin==""){
@@ -156,7 +167,7 @@ $('#txtFechaInicio').Zebra_DatePicker({
                             fechaFin=0;                        
 
                         }
-                                        var url=Routing.generate('verPDFClienteConMasVentas',{fechaInicio: fechaInicio, fechaFin: fechaFin});
+                                        var url=Routing.generate('verPDFClienteConMasVentas',{fechaInicio: fechaInicio, fechaFin: fechaFin,idCliente:idCliente});
                                         window.open(url,"_blank"); 
                                         
                                         
@@ -164,9 +175,68 @@ $('#txtFechaInicio').Zebra_DatePicker({
                
             });
             
+            
+         $('#clientes').select2({
+                ajax: {
+                    url: Routing.generate('busqueda_abogado_select'),
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            q: params.term,
+                            page: params.page
+                        };
+                    },
+                    processResults: function (data, params) {
+                        var select2Data = $.map(data.data, function (obj) {
+                            obj.id = obj.abogadoid;
+                            obj.text = obj.codigo + ' - ' + obj.nombres;
+
+                            return obj;
+                        });
+
+                        return {
+                            results: select2Data
+                        };
+                    },
+                    cache: true
+                },
+                escapeMarkup: function (markup) { return markup; },
+                minimumInputLength: 1,
+                templateResult: formatRepo2,
+                templateSelection: formatRepoSelection2,
+                formatInputTooShort: function () {
+                    return "Enter 1 Character";
+                }
+            });     
+            
           
          
         });
+        
+        
+        function formatRepo2 (data) {
+            console.log(data);
+            if(data.nombres){
+                var markup = "<div class='select2-result-repository clearfix'>" +
+                             "<div class='select2-result-repository__meta'>" +
+                             "<div class='select2-result-repository__title'>" + data.codigo + " - " + data.nombres + "</div>" +
+                             "</div></div>";
+            } else {
+                var markup = "Busque un cliente";
+            }
+
+            return markup;
+        }
+
+        function formatRepoSelection2 (data) {
+            if(data.nombres){
+                return data.codigo + " - " + data.nombres;
+            } else {
+                return "Seleccione un cliente";
+            }   
+        }
+
         
       </script>
       

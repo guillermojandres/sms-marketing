@@ -188,11 +188,6 @@ class ContabilidadController extends Controller
         
     }
     
-    
-    
-    
-    
-    
  
     /**
      *
@@ -651,18 +646,25 @@ class ContabilidadController extends Controller
     /**
      *
      *
-     * @Route("/verPDFComisiones/{fechaInicio}/{fechaFin}", name="verPDFComisiones", options={"expose"=true})
+     * @Route("/verPDFComisiones/{fechaInicio}/{fechaFin}/{idCliente}", name="verPDFComisiones", options={"expose"=true})
        * @Method({"GET", "POST"})
      */
-    public function VerPDFComisiones($fechaInicio ,$fechaFin) {
+    public function VerPDFComisiones($fechaInicio ,$fechaFin, $idCliente) {
         $em = $this->getDoctrine()->getManager();
       
-
+        if ($idCliente==0){
+            
+            $cliente = "";
+            
+        }else{
+            $cliente= " AND cli.id=".$idCliente." ";
+            
+        }
         
          $dqlComision = "SELECT  cli.codigo, cli.nombre, SUM(enc.montoComision) as comision 
                                     FROM  ERPAdminBundle:EncabezadoOrden enc
                                     JOIN enc.crmClienteId cli 
-                                    WHERE enc.estado=1 and enc.permiso=1";
+                                    WHERE enc.estado=1 and enc.permiso=1".$cliente;
            
         if ($fechaInicio !=0 && $fechaFin!=0){
             
@@ -700,30 +702,38 @@ class ContabilidadController extends Controller
     /**
      *
      *
-     * @Route("/verPDFIngresosPorProducto/{fechaInicio}/{fechaFin}", name="verPDFIngresosPorProducto", options={"expose"=true})
+     * @Route("/verPDFIngresosPorProducto/{fechaInicio}/{fechaFin}/{idProducto}", name="verPDFIngresosPorProducto", options={"expose"=true})
        * @Method({"GET", "POST"})
      */
-    public function VerPDFIngresosPorProductos($fechaInicio ,$fechaFin) {
+    public function VerPDFIngresosPorProductos($fechaInicio ,$fechaFin, $idProducto) {
         $em = $this->getDoctrine()->getManager();
       
-
+           if ($idProducto==0){
+            
+            $producto="";
+        }else{
+            $producto= " and pro.id= ".$idProducto. " ";
+        }
         
-         $dqlComision = "SELECT  cli.codigo, cli.nombre, SUM(enc.monto) as montoTotal 
-                                    FROM  ERPAdminBundle:EncabezadoOrden enc
-                                    JOIN enc.crmClienteId cli 
-                                    WHERE enc.estado=1 and enc.permiso=1";
+         $dqlIngresoPorProducto = "SELECT sum((orde.precio *orde.cantidad)-((orde.precio *orde.cantidad)*(orde.descuento/100))) as montoTotal, pro.nombre as nombrePro
+                                        FROM orden orde INNER JOIN producto pro
+                                        ON orde.id_producto = pro.id
+                                        INNER JOIN encabezado_orden enc 
+                                        ON orde.encabezado_orden_id=enc.id
+                                        WHERE (enc.estado=1 OR enc.estado =5)  and enc.permiso=1 ".$producto;  
            
         if ($fechaInicio !=0 && $fechaFin!=0){
             
-             $dqlComision.="and enc.fechaRegistro >= '$fechaInicio' and enc.fechaRegistro <= '$fechaFin' ";
+             $dqlIngresoPorProducto.="and enc.fecha_registro >= '$fechaInicio' and enc.fecha_registro <= '$fechaFin' ";
        
             
         }
        
-        $dqlComision.=" group by cli.nombre ";
+        $dqlIngresoPorProducto.=" GROUP by pro.id order by montoTotal desc ";
   
-            $monto = $em->createQuery($dqlComision)
-               ->getResult();
+            $stmt = $em->getConnection()->prepare($dqlIngresoPorProducto);
+            $stmt->execute();
+            $monto= $stmt->fetchAll();
 
 
         ob_start();
@@ -798,17 +808,25 @@ class ContabilidadController extends Controller
      /**
      *
      *
-     * @Route("/verPDFClienteConMasVentas/{fechaInicio}/{fechaFin}", name="verPDFClienteConMasVentas", options={"expose"=true})
+     * @Route("/verPDFClienteConMasVentas/{fechaInicio}/{fechaFin}/{idCliente}", name="verPDFClienteConMasVentas", options={"expose"=true})
        * @Method({"GET", "POST"})
      */
-    public function VerPDFClientesConMasVentasProductos($fechaInicio ,$fechaFin) {
+    public function VerPDFClientesConMasVentasProductos($fechaInicio ,$fechaFin,$idCliente) {
         $em = $this->getDoctrine()->getManager();
       
-
+             
+        if ($idCliente==0){
+            
+            $cliente = "";
+            
+        }else{
+            $cliente= " AND cli.id=".$idCliente." ";
+            
+        }
         
-         $dqlVenta = "SELECT 	sum(enc.monto) as montos, cli.id, cli.nombre,cli.codigo   FROM ERPAdminBundle:EncabezadoOrden enc
+         $dqlVenta = "SELECT sum(enc.monto) as montos, cli.id, cli.nombre,cli.codigo   FROM ERPAdminBundle:EncabezadoOrden enc
                                 INNER JOIN enc.crmClienteId cli 
-                                WHERE (enc.estado = 1 OR enc.estado=5) and enc.permiso=1 ";
+                                WHERE (enc.estado = 1 OR enc.estado=5) and enc.permiso=1 ".$cliente." ";
            
         if ($fechaInicio !=0 && $fechaFin!=0){
             
@@ -835,7 +853,8 @@ class ContabilidadController extends Controller
         $pdf->render();
         $pdf->stream('ReporteComision.pdf', array('Attachment' => 0));
         
-    } 
+    }
+    
     
     
      

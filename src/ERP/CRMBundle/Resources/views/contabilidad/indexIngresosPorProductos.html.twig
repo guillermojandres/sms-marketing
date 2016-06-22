@@ -75,7 +75,7 @@
                                     <div class="form-column col-sm-12" style=" padding: 20px;">
                                         <div class="form-group">
                                             <div class="row" style="margin-right: 2px;">
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-6">
                                                     <div class="row">
                                                         <div class="col-sm-12">
                                                             <label>Seleccione periodo de busqueda:</label>
@@ -88,8 +88,17 @@
                                                            <input type="text"  name="txtFechaFin" id="txtFechaFin" class="form-control input-sm txtFechaFin " data-rule-required="true"
                                                                    style=" width: 100%;"   placeholder="Fecha fin">
                                                         </div>
+                                                      
                                                     </div>
-                                                </div>  
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="producto" class="control-label">Producto</label>
+                                                        <select  name="producto" class="form-control producto" style="width: 100%" id="producto" >
+                                                            <option value="" disabled selected>Producto...</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
                                                 <div class="col-sm-1"  >
                                                     <label style="color: #FFF;">Buscar</label>
                                                     <a class="btn btn-sm btn-info btn-flat pull-left" id="btnbuscarComisionPorCliente"><i class="fa  fa-search"></i>&nbsp;Ver</a>
@@ -114,6 +123,48 @@
   
       <script  type="text/javascript">
           $(document).ready(function(){
+              
+              
+              
+              
+              
+              $('#producto').select2({
+                ajax: {
+                    url: Routing.generate('buscarProducto'),
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            q: params.term,
+                            page: params.page
+                        };
+                    },
+                    processResults: function (data, params) {
+                        var select2Data = $.map(data.data, function (obj) {
+                            obj.id = obj.abogadoid;
+                            obj.text = obj.nombre;
+
+                            return obj;
+                        });
+
+                        return {
+                            results: select2Data
+                        };
+                    },
+                    cache: true
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                },
+                minimumInputLength: 1,
+                templateResult: formatRepo,
+                templateSelection: formatRepoSelection,
+                formatInputTooShort: function () {
+                    return "Ingrese un caracter para la busqueda";
+                }
+            });
+            
+            
            
 var fecha =new   Date();
 var dia = fecha.getDate();
@@ -150,6 +201,13 @@ $('#txtFechaInicio').Zebra_DatePicker({
                
                     var fechaInicio = $("#txtFechaInicio").val();
                     var fechaFin = $("#txtFechaFin").val();
+                    var idProducto = $("#producto").val();
+                    
+        
+                    if(idProducto==null){
+                        idProducto=0;
+                        
+                    }
                     
 
                         if(fechaInicio=="" && fechaFin==""){
@@ -157,7 +215,7 @@ $('#txtFechaInicio').Zebra_DatePicker({
                             fechaFin=0;                        
 
                         }
-                                        var url=Routing.generate('verPDFIngresosPorProducto',{fechaInicio: fechaInicio, fechaFin: fechaFin});
+                                        var url=Routing.generate('verPDFIngresosPorProducto',{fechaInicio: fechaInicio, fechaFin: fechaFin, idProducto:idProducto});
                                         window.open(url,"_blank"); 
                                         
                                         
@@ -168,6 +226,27 @@ $('#txtFechaInicio').Zebra_DatePicker({
           
          
         });
+        
+        function formatRepo (data) {
+            if(data.nombre){
+                var markup = "<div class='select2-result-repository clearfix'>" +
+                             "<div class='select2-result-repository__meta'>" +
+                             "<div class='select2-result-repository__title'>" + data.nombre+ "</div>" +
+                             "</div></div>";
+            } else {
+                var markup = "Seleccione un producto";
+            }
+
+            return markup;
+        }
+
+        function formatRepoSelection (data) {
+            if(data.nombre){
+                return  data.nombre;
+            } else {
+                   var markup = "Seleccione un producto";
+            }   
+        }
         
       </script>
       

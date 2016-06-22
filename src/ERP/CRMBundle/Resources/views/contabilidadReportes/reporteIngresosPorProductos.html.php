@@ -8,7 +8,7 @@
                 
                 .thClass{
                     height: 20px;
-                    width: 200px;
+                    width: 225px;
                 }
                 .tdProductoE{
                      height: 10px;
@@ -58,7 +58,7 @@
                             if ($fechaInicio!=0 && $fechaFin!=0 ){
                                
                                 
-                                 echo ''.$fechaInicio ." ".$fechaFin;
+                                 echo 'Del '.$fechaInicio ." Al ".$fechaFin;
 
                             }else{
                                 echo "No ha seleccionado un rango de fechas";
@@ -79,16 +79,16 @@
 			
           <div style="border-top: 2px solid #888888;"></div>   
 	
-    <div style="margin-top: 20px;  margin-left: 20px;">
+    <div style="margin-top: 20px;  margin-left: 125px;">
         <div>
-            <p style="font-size: 17px; font-weight: 600;  text-transform: uppercase;">Detalle de de ingresos por clientes</p>
+            <p style="font-size: 17px; font-weight: 600;  text-transform: uppercase;">Detalle de de ingresos por producto</p>
         </div>  
         
        <table style="border: 2px solid #3C2D2D;">
         <thead>
             <tr style="background-color: #f2f2f2;">
-                <th class="thClass">Codigo</th>
-                <th class="thClass">Nombre</th>
+              
+                <th class="thClass">Nombre producto</th>
                <th class="thClass">Total de ingreso neto</th>
             </tr>
         </thead>
@@ -101,14 +101,10 @@
                     
                     ?>  
                   <tr>
+                      
                       <td class="tdProducto">
                             <?php
-                            echo $monto[$i]['codigo'];
-                             ?>
-                        </td>
-                      <td class="tdProducto">
-                            <?php
-                            echo $monto[$i]['nombre'];
+                            echo $monto[$i]['nombrePro'];
                              ?>
                         </td>
                          <td class="tdC">
@@ -123,10 +119,10 @@
                     ?>  
     </table>
     </div>
-       <div style="margin-top: 20px; margin-left: 460px;">
+       <div style="margin-top: 20px; margin-left: 420px;">
               <table>
                    <tr>
-                      <td class="tdProductoE"><b>Total de ingresos:</b></td><td class="tdC"><?php echo "$  ".$totalIngreso ?>     </td>
+                       <td class="tdProductoE"><b>Total de ingresos:</b></td><td class="tdC"><?php echo "$  ".number_format($totalIngreso,2) ?>     </td>
                   </tr>
                  </table>
           </div>    
