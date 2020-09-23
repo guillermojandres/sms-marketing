@@ -1,3 +1,3 @@
 # erp
-Contiene los modulos del erp incluido crm y panel adminbeard
+Sistema de envio de mensajes desarrollado en Symfony usando la API de Twillio 
 # sms-marketing
