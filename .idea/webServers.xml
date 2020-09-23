@@ -3,9 +3,9 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="d338c06c-9893-429f-ac3f-2d77916bb5a9" name="SMS-Marketing" url="http://programadores503.com">
-        <fileTransfer host="programadores503.com" port="21" accessType="FTPS">
+        <fileTransfer host="programadores503.com" port="21" rootFolder="/public_html/sms-marketing">
           <advancedOptions>
-            <advancedOptions dataProtectionLevel="Private" shareSSLContext="true" />
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
           <option name="port" value="21" />
         </fileTransfer>

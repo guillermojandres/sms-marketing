@@ -1,0 +1,172 @@
+{% extends ':Layout:layout2.html.twig' %}
+
+{% block css %}
+    {{parent()}}
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('Resources/lobibox-master/dist/css/lobibox.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('Resources/select2/dist/css/select2.css')}}">
+    <link rel="stylesheet" href="{{ asset('Resources/sweetalert-master/dist/sweetalert.css')}}"> 
+     <link rel="stylesheet" href="{{ asset('Resources/general/general.css')}}"> 
+ <link rel="stylesheet"  href="{{ asset('Resources/timePicker/css/bootstrap-datetimepicker.min.css')}}" >
+{% endblock css%}
+{% block js %}
+     {{parent()}}
+      <script src="{{ asset('Resources/sweetalert-master/dist/sweetalert.min.js') }}"></script>
+    <script src="{{ asset('Resources/jQuery-Mask/src/jquery.mask.js') }}"></script>
+    <script src="{{ asset('Resources/js/mensajes/mensajes.js') }}"></script>
+    <script src="{{ asset('Resources/lobibox-master/dist/js/lobibox.min.js') }}"></script>
+    <script type="text/javascript"
+     src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js">
+    </script>
+    <script type="text/javascript"
+     src="https://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js">
+    </script>
+
+  <script type="text/javascript" src="{{ asset('Resources/timePicker/js/bootstrap-datetimepicker.min.js') }}"></script>
+  <script src="{{ asset('Resources/select2/dist/js/select2.js') }}"></script>
+
+
+
+{% endblock %}
+
+
+{% block descripcion_y_acciones %}
+
+    
+ <div class="row">
+ {% block descripcion %}
+        <div class="col-md-8">
+            <p class="robo" style="font-weight: 300; margin-bottom: 0px; font-size: 30px;">Mensajes</p>
+            <p class="robo" style="font-weight: 300; font-size: 14px; height: 40px;">Gesti&oacute;n  de Mensajes</p>
+        </div>
+ {% endblock%}
+ {% block acciones %}
+     
+      <div class="col-md-4" style="margin-top: 50px;">
+                                {{parent()}}
+
+  </div>
+     
+ {% endblock %}
+    
+    </div>
+
+{% endblock %}
+{% block navegacion_Y_body %}
+      <div class="row">
+        {% block navegacion %}
+    <hr style="margin-top: 10px !important;">
+                <div class="col-md-2" style="border-right: 1px solid #f3f3f3;">
+                    <!-- Left Navigation -->
+                    <ul style="list-style: none; padding: 0;">
+                      
+                        <a href="{{ path('listaMensajes') }}" class="leftnava">
+                        <li class="leftnav left active">Menu<span class="pull-right right"></span></li></a>
+                        
+
+                    </ul>
+                </div>  
+       
+            
+            
+       {% endblock %}
+
+{% block cuerpo %}
+    {{parent()}}
+    <div class="col-md-10" style="margin-top: 10px;">
+
+         <div class="row">
+                <div class="form-column col-md-4">
+                     <div class="form-group required" style="margin-right: 2%;">
+                            <label  class="control-label">Tipo de envio</label>
+                                <select id="idTipoEnvio" name="idTipoEnvio" class="form-control requerido" style="width: 100%">
+                                            <option value="1">Programado</option>
+                                            <option value="2">En el momento</option>
+                            </select>  
+                                            
+                    </div>
+                </div>
+                <div class="col-md-8"></div>
+                <div class="clearfix"></div>
+                 <div class="form-column col-md-4">
+                     <div class="form-group required" style="margin-right: 2%;">
+                            <label  class="control-label">Negocio</label>
+                                <select id="idRestaurante" name="idRestaurante" class="form-control requerido" style="width: 100%">
+                                            <option value="" disabled selected>Seleccione un negocio ...</option>
+                            </select>  
+                                            
+                    </div>
+                </div>
+             <div class='col-md-4' id="hora">
+              <div class="form-group required">
+                  <label  class="control-label">Hora de envio</label>
+                        <div id="horaEnvio" class="input-append">
+                          <input data-format="hh:mm:ss" type="text" class="form-control" style="width: 250px; height:30px; !important">
+                          <span class="add-on"style="height:30px; !important">
+                            <i data-time-icon="icon-time" data-date-icon="icon-calendar" >
+                            </i>
+                          </span>
+                        </div>
+                      </div>
+              </div>
+                <div class="col-md-4" id="fecha">
+                   <div class="form-group required">
+                    <label  class="control-label">Fecha de envio</label>
+                     <input type="text"  name="txtFechaEnvio" class="form-control " data-rule-required="true" style="width: 100%; height:30px; !important" id="txtFechaEnvio"   placeholder="Fecha de envio" >
+                   </div>
+                </div>
+             
+                 <div class="clearfix"></div>
+              
+                 <div class="clearfix"></div>
+              <div class="form-column col-md-4">
+                  <div class="form-group required">
+                 <label class="control-label ">Titulo</label>
+                    <input type="text" class="form-control requerido" id="titulo" 
+                           placeholder="Titulo del mensaje" name="serie"  required style="width: 100%; height:30px; !important">
+                </div>
+              </div>
+                  
+
+                 <div class="col-md-8">
+                     <div class="form-group required">
+                    <label  class="control-label">Texto</label>
+                    <textarea class="form-control requerido" placeholder="Cuerpo del mensaje" id="texto" required maxlength="160" minlength="20"></textarea>
+                    </div>
+                 </div>
+                
+               
+
+              <div class="clearfix"></div>
+                  <div class="col-md-4">
+                      <div class="form-group" style="margin-right: 2%;">
+                          
+                              <a class="btn btn-default  btn-sm "  id="cancelarNuevoMensaje">Cancelar</a>
+                        
+                          
+                              <button class="btn btn-primary  btn-sm " id="nuevoM">Guardar</button>
+                          
+                      </div>
+                  </div>
+         </div>
+    {#row1#}
+                 
+ </div>
+ 
+    
+    
+{% endblock %}
+
+       </div>
+{% endblock %}
+ 
+ {% block js_extend %}
+     
+                
+               
+     
+      
+      
+  {% endblock %} 
+
+

@@ -1,414 +1,264 @@
 <?php
 
 namespace ERP\CRMBundle\Controller;
-
+use ERP\AdminBundle\Entity\DetalleRestauranteCliente;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\Query\ResultSetMapping;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use ERP\AdminBundle\Entity\Cliente;
-use ERP\AdminBundle\Form\ClienteType;
 use Symfony\Component\HttpKernel\Exception;
+use ERP\AdminBundle\Entity\Cliente;
 
 /**
- * Cliente controller.
+ * restaurante controller.
  *
- * @Route("admin/cliente")
+ * @Route("admin/clientes")
  */
 class ClienteController extends Controller
 {
     /**
-     * Lists all ClientePotencial entities.
+     * Lists all clientes entities.
      *
      * @Route("/", name="admin_cliente_index",options={"expose"=true})
      * @Method("GET")
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $cliente = $em->getRepository('ERPAdminBundle:Cliente')->findAll();
         
         return $this->render('ERPCRMBundle:clientes/index.html.twig', array(
-            'cliente' => $cliente,
         ));
     }
 
-    /**
-     * Lists all ClientePotencial entities.
-     *
-     * @Route("/nuevocliente", name="nuevocliente",options={"expose"=true})
-     * @Method("GET")
-     */
-    public function NuevoClientePotencialAction()
-    {
-        
-        return $this->render('ERPCRMBundle:clientes/nuevo.html.twig', array(
-            
-        ));
-    }
- 
-    /**
-     * @Route("/admin/{id}", name="editarClientes", options={"expose"=true})
-     * @Method("GET")
-     */
-    public function EditarClientePotencialAction($id)
-    {
-        
-      
-        
-        $em = $this->getDoctrine()->getManager();
-        $cliente = $em->getRepository('ERPAdminBundle:Cliente')->findById($id);
-     
-        
-        return $this->render('ERPCRMBundle:clientes/editar.html.twig', array(
-            'cliente' => $cliente,
-        ));
-    }
-    
-
-   
-   /**
-     * 
-     *
-     * @Route("/cliente/data", name="cliente_data")
-     */
-    public function DataClientePotencialAction(Request $request)
-    {
-        
-        /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	 * Easy set variables
-	 */
-	
-	/* Array of database columns which should be read and sent back to DataTables. Use a space where
-	 * you want to insert a non-database field (for example a counter or static image)
-	 */
-        $entity = new Cliente();
-        
-        $start = $request->query->get('start');
-        $draw = $request->query->get('draw');
-        $longitud = $request->query->get('length');
-        $busqueda = $request->query->get('search');
-        
-        $em = $this->getDoctrine()->getEntityManager();
-        $territoriosTotal = $em->getRepository('ERPAdminBundle:Cliente')->findAll();
-        $territorio['draw']=$draw++;  
-        $territorio['recordsTotal'] = count($territoriosTotal);
-        $territorio['recordsFiltered']= count($territoriosTotal);
-        
-        $territorio['data']= array();
-        //var_dump($busqueda);
-        //die();
-        $arrayFiltro = explode(' ',$busqueda['value']);
-        
-        
-        //echo count($arrayFiltro);
-        $busqueda['value'] = str_replace(' ', '%', $busqueda['value']);
-        
-        //SQL Nativo
-        
-        $ordenamientoVariable = $request->query->get('order');
-        
-//        var_dump($ordenamientoVariable);
-//        die();
-        
-        $columna = $ordenamientoVariable[0]['column'];
-        $tipoOrdenamiento = $ordenamientoVariable[0]['dir'];
-        
-        if ($columna=='0'){
-            
-            $x="id";
-            
-            
-        }else if ($columna=='1'){
-            $x='codigo';
-            
-            
-        }else  if ($columna=='2'){
-            
-            $x='nombre';
-        
-            
-        }else{
-              $x='contacto_id';
-        }
-        
-        
-
-        if($busqueda['value']!=''){
-          $value = $busqueda['value'];  
-           
-          $sql = "SELECT cp.id as id,cp.codigo as codigo, cp.nombre as nombre,cp.telefono as telefono, contac.nombre as contacto FROM cliente cp"
-                    . " LEFT OUTER JOIN contacto contac on cp.contacto_id=contac.id "
-                    . "WHERE (upper(cp.nombre)  LIKE '%".strtoupper($value)."%' OR cp.codigo LIKE '%".strtoupper($value)."%') AND cp.estado=1 "
-                    . "ORDER BY cp.".$x." ".$tipoOrdenamiento;
-            $stmt = $em->getConnection()->prepare($sql);
-            $stmt->execute();
-            $territorio['data'] = $stmt->fetchAll();
-             $territorio['recordsFiltered']= count($territorio['data']);
-                 
-       
-        }
-        else{
-              $sql = "SELECT cp.id as id,cp.codigo as codigo, cp.nombre as nombre,cp.telefono as telefono, contac.nombre as contacto FROM cliente cp"
-                    . " LEFT OUTER JOIN contacto contac on cp.contacto_id=contac.id "
-                    . "WHERE cp.estado=1 "
-                    . "ORDER BY cp.".$x." ".$tipoOrdenamiento;
-            $stmt = $em->getConnection()->prepare($sql);
-            $stmt->execute();
-            $territorio['data'] = $stmt->fetchAll();
-             $territorio['recordsFiltered']= count($territorio['data']);
-
-
-
-        }
-     
-        
-        return new Response(json_encode($territorio));
-    }
-    
-    
-    /**
-     * @Route("/insertarcliente/", name="insertarcliente", options={"expose"=true})
-     * @Method("POST")
-     */
-    
-    
-      public function InsertarClienteAction(Request $request) {
-        
-        $isAjax = $this->get('Request')->isXMLhttpRequest();
-
-         if($isAjax){
-            
-             
-            $em = $this->getDoctrine()->getManager();
-            
-            $credito = $request->get('credito'); 
-            $categoria = $request->get('categoria'); 
-            $nombre = $request->get('nombre'); 
-            $direccion = $request->get('direccion'); 
-            $telefono = $request->get('telefono'); 
-            $telefonoM = $request->get('telefonoM'); 
-            $nrc = $request->get('nrc'); 
-            $nit = $request->get('nit'); 
-            $correoElectronico = $request->get('correoElectronico');
-            $paginaWeb = $request->get('paginaWeb');
-            $descripcion = $request->get('descripcion');
-
-            $referidoPor = $request->get('referidoPor');
-            $contactoId = $request->get('contactoId');
-            $codigo = $this->generarCorrelativoCliente();
-        
-             $objeto = new Cliente();
-             if ($contactoId !=""){
-                  $idContacto = $this->getDoctrine()->getRepository('ERPAdminBundle:Contacto')->findById($contactoId);
-                  $objeto->setContactoId($idContacto[0]);
-             }else{
-                 $objeto->setContactoId(null);
-             }
-            $objeto->setCodigo($codigo);
-            $objeto->setNombre($nombre);
-            $objeto->setDireccion($direccion);
-            $objeto->setTelefono($telefono);
-            $objeto->setMovil($telefonoM);
-            $objeto->setNrc($nrc);
-            $objeto->setNit($nit);
-            $objeto->setCorreoelectronico($correoElectronico);
-            $objeto->setPaginaWeb($paginaWeb);
-            $objeto->setReferidoPor($referidoPor);
-            $objeto->setDescripcion($descripcion);
-            $objeto->setEstado(1);
-            $objeto->setCategoria($categoria);
-            $objeto->setCredito($credito);
-            $em->persist($objeto);
-            $em->flush();
-            $data['estado']=true;
-                       
-            
-            
-            
-            
-             return new Response(json_encode($data)); 
-            
-            
-         }
-        
-        
-        
-    }
-   /**
-     * @Route("/editarcliente/", name="editarcliente", options={"expose"=true})
-     * @Method("POST")
-     */
-    
-    
-      public function EditarClienteAction(Request $request) {
-        
-        $isAjax = $this->get('Request')->isXMLhttpRequest();
-
-         if($isAjax){
-            
-             $id= $request->get('idCliente');
-           
-             $em = $this->getDoctrine()->getManager();
-             
-            $objeto = $em->getRepository('ERPAdminBundle:Cliente')->findById($id);
-            
-            $credito = $request->get('credito'); 
-            $categoria = $request->get('categoria'); 
-            $nombre = $request->get('nombre');
-            $direccion = $request->get('direccion'); 
-            $telefono = $request->get('telefono'); 
-            $telefonoM = $request->get('telefonoM'); 
-            $nrc = $request->get('nrc'); 
-            $nit = $request->get('nit'); 
-            $correoElectronico = $request->get('correoElectronico');
-            $paginaWeb = $request->get('paginaWeb');
-            $descripcion = $request->get('descripcion');
-        
-            $referidoPor = $request->get('referidoPor'); 
-            $contactoId = $request->get('contactoId');
-            
-        
-              if ($contactoId !=""){
-                  $idContacto = $this->getDoctrine()->getRepository('ERPAdminBundle:Contacto')->findById($contactoId);
-               
-                  $objeto[0]->setContactoId($idContacto[0]);
-             }else{
-                 $objeto[0]->setContactoId(null);
-             }
-            
-            $objeto[0]->setNombre($nombre);
-            $objeto[0]->setDireccion($direccion);
-            $objeto[0]->setTelefono($telefono);
-            $objeto[0]->setMovil($telefonoM);
-            $objeto[0]->setNrc($nrc);
-            $objeto[0]->setNit($nit);
-            $objeto[0]->setCorreoelectronico($correoElectronico);
-            $objeto[0]->setPaginaWeb($paginaWeb);
-            $objeto[0]->setReferidoPor($referidoPor);
-            $objeto[0]->setDescripcion($descripcion);
-            $objeto[0]->setCategoria($categoria);
-            $objeto[0]->setCredito($credito);
-            $em->merge($objeto[0]);
-            $em->flush();
-            
-            $data['estado']=true;
-                       
-            
-            
-            
-            
-             return new Response(json_encode($data)); 
-            
-            
-         }
-        
-        
-        
-    }
-    
- /**
-     * Displays a form to edit an existing Orden entity.
-     *
-     * @Route("/admin/eliminarcliente", name="eliminarcliente")
-     */
-    public function EliminarClienteAction()
-    {
-        
-        $isAjax = $this->get('Request')->isXMLhttpRequest();
-        $response = new JsonResponse();
-        
-            $idcliente = $this->get('request')->request->get('idcliente');
-     
-            foreach($idcliente as $row){
-                $em = $this->getDoctrine()->getManager();
-                $cliente = $em->getRepository('ERPAdminBundle:Cliente')->find($row);    
-                $cliente->setEstado(0);
-                $em->persist($cliente);
-                $em->flush();
-                
-            }
-   
-            $response->setData(array(
-                            'flag' => 0,
-                            
-                    ));    
-            return $response; 
-       
-        
-        
-        
-    }
     
       /**
-    * Ajax utilizado para buscar informacion de contactos
-    * 
-    * @Route("/buscarContacto", name="buscarContacto",options={"expose"=true})
-    */
-    public function BuscarContactoAction(Request $request)
+     *
+     *
+     * @Route("/allClientesData/data", name="all_clientes_data", options={"expose"=true})
+     */
+    public function dataFacturacionAction(Request $request)
     {
-        $busqueda = $request->query->get('q');
-        $page = $request->query->get('page');
-       
-        $em = $this->getDoctrine()->getEntityManager();
-        $dql = "SELECT abo.id abogadoid, abo.nombre  "
-                        . "FROM ERPAdminBundle:Contacto abo "
-                        . "WHERE upper(abo.nombre) LIKE upper(:busqueda)"
-                        . " AND abo.estado=1 "
-                        . "ORDER BY abo.nombre ASC ";
-       
-        $abogado['data'] = $em->createQuery($dql)
-                ->setParameters(array('busqueda'=>"%".$busqueda."%"))
-                ->setMaxResults( 10 )
-                ->getResult();
-       
-        return new Response(json_encode($abogado));
-    }
-    
-    
-    
-     public function generarCorrelativoCliente(){
-    
-       
-        $em = $this->getDoctrine()->getManager();
-        $dqlNumerocorrelativo = "SELECT COUNT(u.id) as numero FROM ERPAdminBundle:Cliente u"
-                . " WHERE u.codigo like '%BA%' ";
-        $resultCorrelativo = $em->createQuery($dqlNumerocorrelativo)->getArrayResult();
-        $numero_base = $resultCorrelativo[0]['numero'];
-        
-        
-       $primerLetras="BA"; 
-       $valor ="";
-        
-       $numero = $numero_base+1;
-        switch (strlen($numero_base)){
-            case 1:
-                $valor=$primerLetras.="0000".$numero;
-            break;
-            case 2:    
-                $valor=$primerLetras.="000".$numero;
-            break;
-            case 3:    
-                 $valor=$primerLetras.="00".$numero;
-            break;
-            case 4:    
-                $valor=$primerLetras.="0".$numero;
-            break;
-            case 5:    
-                  $valor=$primerLetras.=$numero;
-            break;
-            
-              
-            
-        }
-        return $valor;
-     }
-     
-    
+                $em = $this->getDoctrine()->getManager();
+                $start = $request->query->get('start');
+                $draw = $request->query->get('draw');
+                $longitud = $request->query->get('length');
+                $busqueda = $request->query->get('search');
+               
+                $restaurante = $request->query->get('param1');
+                $fechaini = $request->query->get('param2');
+                $fechafin = $request->query->get('param3');
+                
 
-    
-    
+                 $ordenamientoVariable = $request->query->get('order');
+                
+
+                $columna = $ordenamientoVariable[0]['column'];
+                $tipoOrdenamiento = $ordenamientoVariable[0]['dir'];
+                
+                if ($columna=='0'){
+                    
+                      $orden=" c.id ".$tipoOrdenamiento;
+                    
+                }else if ($columna=='1'){
+                     $orden=" c.telefono ".$tipoOrdenamiento;
+                    
+                }else  if ($columna=='2'){
+                 $x="fecha_creacion";
+                 $orden="c.".$x." ".$tipoOrdenamiento;
+
+                    
+                }
+                
+               
+              // $restaurante);
+              //  var_dump($fechaini);
+              //  var_dump($fechafin);
+              //  die();
+               
+                $facturacionTotal = $em->getRepository('ERPAdminBundle:Cliente')->findAll();
+                $facturacion['draw']=$draw++; 
+                $facturacion['data']= array();
+               
+                $busqueda['value'] = str_replace(' ', '%', $busqueda['value']);
+                $rsm = new ResultSetMapping();
+                
+                $sql = "SELECT concat_ws(c.id, '<div class=\"text-center\">', '</div>') as id, "
+                        . "concat_ws(c.telefono, '<div class=\"text-center\">', '</div>') as telefono, "
+                        . "concat_ws(DATE_FORMAT(det.fecha_creacion,'%d-%m-%Y'), '<div class=\"text-center\">', '</div>') as fecha_creacion, "
+                        . "concat_ws(CASE 
+                             WHEN det.estado='1' THEN 'Activo'
+                             WHEN det.estado='2' THEN 'Inactivo'
+                            END, '<div class=\"text-center\">', '</div>') as estado "
+                        . "FROM detalle_restaurante_cliente det inner join cliente c on  det.cliente_id = c.id "
+                        . "WHERE 1 = 1 ";
+                      
+
+                if($restaurante != NULL){
+                    $sql.="AND det.restaurante_id=$restaurante ";
+                }
+               
+             
+                if($fechaini != "" && $fechafin != ""){
+
+                   
+                    $sql.=" AND  det.fecha_creacion >= '$fechaini' AND det.fecha_creacion <= '$fechafin' ";
+                }
+
+                //echo $sql;
+                $rsm->addScalarResult('id','id');
+                $rsm->addScalarResult('telefono','telefono');
+                $rsm->addScalarResult('fecha_creacion','fecha_creacion');
+                $rsm->addScalarResult('estado','estado');
+               
+
+                $facturacion['data'] = $em->createNativeQuery($sql, $rsm)
+                                          ->getResult();
+                $facturacion['recordsTotal'] = count($facturacionTotal);
+                $facturacion['recordsFiltered']= count($facturacionTotal);
+               
+                return new Response(json_encode($facturacion));
+    }
+     
+     /**
+     * Insertar indentificador entities.
+     *
+     * @Route("/extraerUsuarios/", name="extraer_usuarios",options={"expose"=true})
+     * @Method("POST")
+     */
+    public function ExtraerUsuriosMensajeAction(Request $request)
+    {
+        $isAjax = $this->get('Request')->isXMLhttpRequest();
+       
+        if($isAjax){
+            
+            $em = $this->getDoctrine()->getManager();
+            
+            $id = $request->get('id');
+             $idRestaurante= $request->get('idRestaurante');
+
+            if ($id==1) {
+                    $sql1 = "SELECT count(*) as numero FROM detalle_restaurante_cliente det WHERE det.estado=1  ";
+                    $stmt1 = $em->getConnection()->prepare($sql1);
+                    $stmt1->execute();
+                    $data['activos'] = $stmt1->fetchAll();
+
+                     $sql2 = "SELECT count(*) as numero FROM detalle_restaurante_cliente det WHERE det.estado=0  ";
+                    $stmt2 = $em->getConnection()->prepare($sql2);
+                    $stmt2->execute();
+                    $data['inactivos'] = $stmt2->fetchAll();
+
+                    $data["estado"]=true;
+                    return new Response(json_encode($data)); 
+            }
+
+            if ($idRestaurante!=0) {
+                 $sql1 = "SELECT count(*) as numero FROM detalle_restaurante_cliente det WHERE det.estado=1 AND det.restaurante_id=$idRestaurante ";
+                    $stmt1 = $em->getConnection()->prepare($sql1);
+                    $stmt1->execute();
+                    $data['activos'] = $stmt1->fetchAll();
+
+                     $sql2 = "SELECT count(*) as numero FROM detalle_restaurante_cliente det WHERE det.estado=0  AND det.restaurante_id=$idRestaurante ";
+                    $stmt2 = $em->getConnection()->prepare($sql2);
+                    $stmt2->execute();
+                    $data['inactivos'] = $stmt2->fetchAll();
+
+                    $data["estado"]=true;
+                    return new Response(json_encode($data)); 
+                
+            }
+            
+            
+
+            
+            
+         }
+        
+        
+    }
+
+
+    /**
+     * @Route("/insertarListaCliente/data", name="insertarListaCliente", options={"expose"=true})
+     * @Method("POST")
+     */
+
+    public function InsertarListaClienteAction(Request $request)
+    {
+
+        $isAjax = $this->get('Request')->isXMLhttpRequest();
+
+
+        if ($isAjax) {
+//        try{
+            $em = $this->getDoctrine()->getManager();
+            if (count($_FILES) > 0) {
+                $idNegocio = $_POST["idNegocio"];
+                $restaurante = $em->getRepository('ERPAdminBundle:Restaurante')->findBy(array("id"=>$idNegocio));
+                $path = $this->container->getParameter('clienteFiles');
+
+                $nombreReal = $_FILES["archivos"]["name"];
+                $nombreTemp = $_FILES["archivos"]["tmp_name"];
+                $success = move_uploaded_file($nombreTemp, $path . "/" . $nombreReal);
+                if ($success) {
+                    $i=0;
+                    $file = fopen($path.$nombreReal, 'r');
+                    while (($line = fgetcsv($file)) !== FALSE) {
+                       if ($i>0){
+//Aqui comienza la validacion de los datos de ingreso
+                           $banderacliente =false;
+                           $sqlCliente ="select count(c.id) as numero from cliente c where c.telefono ='".$line[0]."'";
+                           $stmt = $em->getConnection()->prepare($sqlCliente);
+                           $stmt->execute();
+                           $info= $stmt->fetchAll();
+                           $banderacliente =$info[0]['numero'];
+                           if ($banderacliente==0){
+                               $objCliente = new Cliente();
+                               $objCliente->setTelefono("+503".$line[0]);
+                               $objCliente->setEstado(1);
+                               $objCliente->setFechaInsercion(new \DateTime("now"));
+                               $objCliente->setFechaModificacion(new \DateTime("now"));
+                               $objCliente->setFechaBaja(new \DateTime("now"));
+                               $em->persist($objCliente);
+                               $em->flush();
+
+                               $cliente = $em->getRepository('ERPAdminBundle:Cliente')->findBy(array("id"=>$objCliente->getId()));
+                               $objDetalleRestaurante = new DetalleRestauranteCliente();
+                               $objDetalleRestaurante->setFechaInsercion(new \DateTime("now"));
+                               $objDetalleRestaurante->setFechaModificacion(new \DateTime("now"));
+                               $objDetalleRestaurante->setFechaBaja(new \DateTime("now"));
+                               $objDetalleRestaurante->setEstado(1);
+                               $objDetalleRestaurante->setCliente($cliente[0]);
+                               $objDetalleRestaurante->setRestaurante($restaurante[0]);
+                               $em->persist($objDetalleRestaurante);
+                               $em->flush();
+                           }
+
+
+                       }
+                       $i++;
+                    }
+
+                    $data['estado'] = true;
+                    $data['descripcion'] = 'Cliente y contactos ingresados exitosamente!!';
+                }
+
+            }
+
+
+//            } catch (\Exception $exc) {
+//        $data["estado"]=false;
+//        $data['descripcion']='Error al ingresar el registro!'.$exc;
+//        return new JsonResponse($data);
+//
+//    }
+
+
+        }
+
+        return new Response(json_encode($data));
+
+
+    }
 }

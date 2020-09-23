@@ -1,0 +1,945 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="651d8d97-8f29-4378-b622-117fd088089c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/webServers.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webServers.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/datatable/css/datatable.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/datatable/css/datatable2.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/datatable/js/datatable.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/jquery/jquery-1.11.3.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/jquery/jquery-1.11.3.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/js/Rrhh.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/js/cliente/cliente.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/js/clientepotencial/clientepotencial.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/js/contabilidad/abonos.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/js/contacto/contacto.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/js/distribuidores/distribuidores.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/js/general/general.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/js/historialcliente/historialcliente.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/js/maquina/css/stylemaquina.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/js/maquina/maquina.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/js/proveedor/proveedor.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/js/registroCompras/registroCompras.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/js/registroCompras/stylemaquina.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/src/img/my-icons-collection-24ce6f95f0e1cb0606b0fba35a2994b8/png/business-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/src/img/my-icons-collection-24ce6f95f0e1cb0606b0fba35a2994b8/png/business-2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/src/img/my-icons-collection-24ce6f95f0e1cb0606b0fba35a2994b8/png/business-3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/src/img/my-icons-collection-24ce6f95f0e1cb0606b0fba35a2994b8/png/business.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/src/img/my-icons-collection-24ce6f95f0e1cb0606b0fba35a2994b8/png/days.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/src/img/my-icons-collection-24ce6f95f0e1cb0606b0fba35a2994b8/png/money.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/src/img/my-icons-collection-24ce6f95f0e1cb0606b0fba35a2994b8/png/other.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/src/img/my-icons-collection-24ce6f95f0e1cb0606b0fba35a2994b8/png/transport.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/src/img/my-icons-collection-f621166af23e731628e3ab448e94383a/license/license.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/src/img/profile.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/app.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/Layout/layout2.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/app/Resources/views/Layout/layout2.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/Layout/nav2.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/app/Resources/views/Layout/nav2.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/crmcliente/edit.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/crmcliente/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/crmcliente/new.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/crmcliente/show.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/crmclientepotencial/edit.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/crmclientepotencial/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/crmclientepotencial/new.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/crmclientepotencial/show.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/crmcontacto/edit.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/crmcontacto/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/crmcontacto/new.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/crmcontacto/show.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/crmempresacliente/edit.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/crmempresacliente/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/crmempresacliente/new.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/crmempresacliente/show.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctlcategoriacliente/edit.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctlcategoriacliente/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctlcategoriacliente/new.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctlcategoriacliente/show.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctlciudad/edit.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctlciudad/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctlciudad/new.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctlciudad/show.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctldepartamentoempresa/edit.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctldepartamentoempresa/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctldepartamentoempresa/new.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctldepartamentoempresa/show.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctlestado/edit.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctlestado/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctlestado/new.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctlestado/show.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctlestadoclientepotencial/edit.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctlestadoclientepotencial/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctlestadoclientepotencial/new.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctlestadoclientepotencial/show.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctlindustriacliente/edit.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctlindustriacliente/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctlindustriacliente/new.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctlindustriacliente/show.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctlpais/edit.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctlpais/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctlpais/new.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctlpais/show.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctlreferenciacliente/edit.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctlreferenciacliente/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctlreferenciacliente/new.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctlreferenciacliente/show.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctlsucursal/edit.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctlsucursal/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctlsucursal/new.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctlsucursal/show.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctlterritorio/edit.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctlterritorio/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctlterritorio/new.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctlterritorio/show.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctltipoempleo/edit.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctltipoempleo/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctltipoempleo/new.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/ctltipoempleo/show.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/default/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/invproveedor/edit.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/invproveedor/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/invproveedor/new.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/invproveedor/show.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/rhestructurasalarios/edit.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/rhestructurasalarios/new.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/rhestructurasalarios/show.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/rhpersona/edit.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/rhpersona/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/rhpersona/new.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/rhpersona/show.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/rhpuestoperfil/edit.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/rhpuestoperfil/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/rhpuestoperfil/new.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/rhpuestoperfil/show.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/rhtipodeduccion/edit.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/rhtipodeduccion/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/rhtipodeduccion/new.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/rhtipodeduccion/show.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/rhtipoingreso/edit.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/rhtipoingreso/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/rhtipoingreso/new.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Resources/views/rhtipoingreso/show.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/config/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/config/config.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/config/config_prod.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/config/config_prod.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_dev.php" beforeDir="false" afterPath="$PROJECT_DIR$/app_dev.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bundles/fosjsrouting" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bundles/framework" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Controller/CrmClienteController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Controller/CrmClientePotencialController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Controller/CrmContactoController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Controller/CrmEmpresaClienteController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Controller/CtlCategoriaClienteController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Controller/CtlCiudadController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Controller/CtlDepartamentoEmpresaController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Controller/CtlEstadoClientePotencialController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Controller/CtlEstadoController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Controller/CtlIndustriaClienteController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Controller/CtlPaisController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Controller/CtlReferenciaClienteController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Controller/CtlSucursalController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Controller/CtlTerritorioController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Controller/CtlTipoEmpleoController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Controller/DefaultController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Controller/InvProveedorController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Controller/RhEstructuraSalariosController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Controller/RhPersonaController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Controller/RhPuestoPerfilController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Controller/RhTipoDeduccionController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Controller/RhTipoIngresoController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/Abono.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/BeardAtributoProducto.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/BeardImagenProducto.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/BeardProducto.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/Cliente.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/Cliente.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/ClientePotencial.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/CltCatProducto.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/Contacto.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/CrmBoletinNoticias.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/CrmCliente.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/CrmClientePotencial.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/CrmComunicacion.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/CrmContacto.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/CrmDetallePlantilla.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/CrmDetalleReferenciaCliente.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/CrmEmpresaCliente.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/CrmEstadoComunicacion.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/CrmHistorialComunicacion.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/CrmPlantilla.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/CtlBoletinNombres.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/CtlCategoriaCliente.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/CtlCategoriaProducto.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/CtlCiudad.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/CtlDepartamentoEmpresa.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/CtlEmpresa.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/CtlEstado.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/CtlEstadoClientePotencial.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/CtlEstadoCootizacion.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/CtlImpuesto.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/CtlIndustriaCliente.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/CtlPais.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/CtlReferenciaCliente.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/CtlSubCategoriaProducto.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/CtlSucursal.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/CtlTerminosDePago.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/CtlTerritorio.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/CtlTipoEmpleo.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/CtlTipoInventario.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/DetalleRestauranteCliente.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/DetalleRestauranteCliente.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/Empresa.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/EncabezadoOrden.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/FactCootizacion.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/FactDetalleCootizacion.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/FactDetalleFactura.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/FactEstadoFactura.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/FactFactura.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/FactFootCootizacion.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/FactFootFactura.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/InvAtributoPersonalizado.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/InvBarCode.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/InvFotoProducto.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/InvProducto.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/InvProductoTransaccion.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/InvProveedor.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/InvSelect.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/InvSucursal.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/InvTipoAtributo.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/InvZona.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/Orden.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/Proveedor.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/RhAreasResultado.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/RhDeduccion.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/RhDetalleContacto.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/RhDetalleEmpleo.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/RhEstructuraSalarios.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/RhEvaluacion.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/RhExperienciaLaboral.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/RhFormacionAcademica.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/RhGasto.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/RhOportunidadEmpleo.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/RhPersona.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/RhPersonaPuestoPerfil.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/RhPlantillaEvaluacion.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/RhPuestoPerfil.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/RhResultadoValuacion.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/RhSalario.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/RhSolicitudTrabajo.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/RhSubgasto.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/RhTipoDeduccion.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/RhTipoIngreso.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Controller/ClienteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ERP/CRMBundle/Controller/ClienteController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Controller/ClientePotencialController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Controller/ContabilidadController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Controller/ContactoController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Controller/CrmClienteController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Controller/CrmClientePotencialController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Controller/CrmContactoController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Controller/CrmEmpresaClienteController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Controller/CtlCategoriaClienteController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Controller/CtlEstadoClientePotencialController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Controller/CtlIndustriaClienteController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Controller/CtlReferenciaClienteController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Controller/CtlTerritorioController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Controller/HistorialClienteController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Controller/InvProveedorController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Controller/InventariobeardController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Controller/InventariobeardDeleteController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Controller/InventariobeardModifyProdController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Controller/InventariobeardNewProdController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Controller/ProveedorController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/dompdf/lib/fonts/log.htm" beforeDir="false" afterPath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/dompdf/lib/fonts/log.htm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/Secured/login.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/Secured/login.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/clientepotencial/editar.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/clientepotencial/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/clientepotencial/nuevo.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/clientes/editar.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/clientes/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/clientes/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/clientes/nuevo.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/contabilidad/edicionAbono.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/contabilidad/indexAbonos.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/contabilidad/indexClienteConMasVentas.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/contabilidad/indexComision.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/contabilidad/indexContabilidad.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/contabilidad/indexCuentasPorCobrar.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/contabilidad/indexIngresosPorProductos.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/contabilidad/indexReportes.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/contabilidad/nuevoAbono.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/contabilidadReportes/reporCuentasPorCobrar.html.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/contabilidadReportes/reporteClienteConMasVentas.html.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/contabilidadReportes/reporteComisionPorCliente.html.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/contabilidadReportes/reporteIngresosPorProductos.html.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/contactos/editar.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/contactos/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/contactos/nuevo.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/crmcliente/edit.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/crmcliente/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/crmcliente/indexclientesdistribuidores.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/crmcliente/indexregistroscompras.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/crmcliente/new.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/crmclientepotencial/edit.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/crmclientepotencial/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/crmclientepotencial/new.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/crmcontacto/edit.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/crmcontacto/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/crmcontacto/new.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/crmempresacliente/edit.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/crmempresacliente/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/crmempresacliente/new.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/ctlcategoriacliente/edit.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/ctlcategoriacliente/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/ctlcategoriacliente/new.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/ctlestadoclientepotencial/edit.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/ctlestadoclientepotencial/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/ctlestadoclientepotencial/new.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/ctlindustriacliente/edit.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/ctlindustriacliente/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/ctlindustriacliente/new.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/ctlindustriacliente/show.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/ctlreferenciacliente/edit.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/ctlreferenciacliente/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/ctlreferenciacliente/new.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/ctlterritorio/edit.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/ctlterritorio/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/ctlterritorio/new.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/ctlterritorio/show.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/dashboard/dashboardcrm.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/dashboard/dashboardhistorialcliente.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/dashboard/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/dashboard/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/dashboard/navegacionCRM.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/historialcliente/indexRegistroComprasCliente.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/historialventaclienteR/reporteAbonoCliente.html.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/historialventaclienteR/reporteVentaCliente.html.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/inventariobeard/dashboard.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/inventariobeard/modifyprod.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/inventariobeard/newprod.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/invproveedor/edit.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/invproveedor/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/invproveedor/new.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/ordenesdecompra/completado.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/ordenesdecompra/comprasEntregadas.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/ordenesdecompra/comprasEnviados.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/ordenesdecompra/comprasPendientesCanceladas.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/ordenesdecompra/comprasProcesadas.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/ordenesdecompra/formularioedicion.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/ordenesdecompra/index2.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/proveedor/editar.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/proveedor/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/proveedor/nuevo.html.twig" beforeDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="-1935436013">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="9" />
+          <entry key="project.open.time.0" value="1" />
+          <entry key="project.open.time.1" value="5" />
+          <entry key="project.open.time.7" value="1" />
+          <entry key="project.open.time.8" value="2" />
+          <entry key="project.open.time.9" value="1" />
+          <entry key="project.opened" value="10" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="LICENSE" value="1" />
+          <entry key="dist" value="1" />
+          <entry key="gitignore" value="1" />
+          <entry key="htaccess" value="1" />
+          <entry key="jpeg" value="4" />
+          <entry key="jpg" value="6" />
+          <entry key="js" value="7" />
+          <entry key="json" value="1" />
+          <entry key="md" value="1" />
+          <entry key="php" value="30" />
+          <entry key="png" value="2" />
+          <entry key="twig" value="34" />
+          <entry key="xml" value="1" />
+          <entry key="yml" value="4" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="Image" value="12" />
+          <entry key="JSON" value="1" />
+          <entry key="JavaScript" value="7" />
+          <entry key="Markdown" value="1" />
+          <entry key="PHP" value="30" />
+          <entry key="PLAIN_TEXT" value="3" />
+          <entry key="Twig" value="34" />
+          <entry key="XML" value="1" />
+          <entry key="YAML" value="4" />
+          <entry key="htaccess" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="js" value="324" />
+          <entry key="php" value="1129" />
+          <entry key="twig" value="523" />
+          <entry key="yml" value="47" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="JavaScript" value="324" />
+          <entry key="PHP" value="1129" />
+          <entry key="Twig" value="523" />
+          <entry key="YAML" value="47" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.php.new.class">
+        <counts>
+          <entry key="PHP Class.type" value="1" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/envioMensajes/envioMensajesEnMomento.html.php" />
+        <option value="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/envioMensajes/envioMensajes.html.php" />
+        <option value="$PROJECT_DIR$/src/ERP/CRMBundle/Controller/PruebaMensaje.php" />
+        <option value="$PROJECT_DIR$/app/config/parameters.yml" />
+        <option value="$PROJECT_DIR$/src/ERP/CRMBundle/Controller/MensajesController.php" />
+        <option value="$PROJECT_DIR$/app/Resources/views/Layout/nav2.html.twig" />
+        <option value="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/restaurantes/dashboardRestaurantes.html.twig" />
+        <option value="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/restaurantes/editar.html.twig" />
+        <option value="$PROJECT_DIR$/src/ERP/CRMBundle/Controller/RestauranteController.php" />
+        <option value="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/restaurantes/index.html.twig" />
+        <option value="$PROJECT_DIR$/src/ERP/CRMBundle/Controller/IdentificadoresController.php" />
+        <option value="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/identificadores/nuevo.html.twig" />
+        <option value="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/Secured/login.html.twig" />
+        <option value="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/dashboard/index.html.twig" />
+        <option value="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/identificadores/dashboardIdentificadores.html.twig" />
+        <option value="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/identificadores/index.html.twig" />
+        <option value="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/identificadores/editar.html.twig" />
+        <option value="$PROJECT_DIR$/app/Resources/views/Layout/layout2.html.twig" />
+        <option value="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/mensajes/index.html.twig" />
+        <option value="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/mensajes/nuevo.html.twig" />
+        <option value="$PROJECT_DIR$/app/config/config.yml" />
+        <option value="$PROJECT_DIR$/Resources/jquery/jquery-1.11.3.min.js" />
+        <option value="$PROJECT_DIR$/Resources/js/clientes/clientes.js" />
+        <option value="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/Cliente.php" />
+        <option value="$PROJECT_DIR$/src/ERP/AdminBundle/Entity/DetalleRestauranteCliente.php" />
+        <option value="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/restaurantes/nuevo.html.twig" />
+        <option value="$PROJECT_DIR$/src/ERP/CRMBundle/Controller/ClienteController.php" />
+        <option value="$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/clientes/index.html.twig" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths>
+      <path value="$PROJECT_DIR$/Resources/AdminLTE-2.3.0/package.json" />
+      <path value="$PROJECT_DIR$/Resources/bValidator/package.json" />
+      <path value="$PROJECT_DIR$/Resources/jQuery-Mask/package.json" />
+      <path value="$PROJECT_DIR$/Resources/jquery-validation/package.json" />
+      <path value="$PROJECT_DIR$/Resources/lobibox-master/package.json" />
+      <path value="$PROJECT_DIR$/Resources/select2/package.json" />
+      <path value="$PROJECT_DIR$/Resources/src/js/gridstack.js-master/package.json" />
+      <path value="$PROJECT_DIR$/Resources/sweetalert-master/package.json" />
+    </packageJsonPaths>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/doctrine/lexer" />
+      <path value="$PROJECT_DIR$/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/vendor/friendsofsymfony/jsrouting-bundle" />
+      <path value="$PROJECT_DIR$/vendor/twig/twig" />
+      <path value="$PROJECT_DIR$/vendor/willdurand/jsonp-callback-validator" />
+      <path value="$PROJECT_DIR$/vendor/beberlei/DoctrineExtensions" />
+      <path value="$PROJECT_DIR$/vendor/ircmaxell/password-compat" />
+      <path value="$PROJECT_DIR$/vendor/jdorn/sql-formatter" />
+      <path value="$PROJECT_DIR$/vendor/paragonie/random_compat" />
+      <path value="$PROJECT_DIR$/vendor/swiftmailer/swiftmailer" />
+      <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-apcu" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-icu" />
+      <path value="$PROJECT_DIR$/vendor/symfony/swiftmailer-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php56" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php54" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php55" />
+      <path value="$PROJECT_DIR$/vendor/symfony/symfony" />
+      <path value="$PROJECT_DIR$/vendor/symfony/phpunit-bridge" />
+      <path value="$PROJECT_DIR$/vendor/symfony/security-acl" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-util" />
+      <path value="$PROJECT_DIR$/vendor/symfony/monolog-bundle" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-cache-bundle" />
+      <path value="$PROJECT_DIR$/vendor/incenteev/composer-parameter-handler" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php70" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/vendor/sensio/generator-bundle" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/common" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/collections" />
+      <path value="$PROJECT_DIR$/vendor/sensio/framework-extra-bundle" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/cache" />
+      <path value="$PROJECT_DIR$/vendor/sensiolabs/security-checker" />
+      <path value="$PROJECT_DIR$/vendor/sensio/distribution-bundle" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-bundle" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/inflector" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/orm" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/dbal" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/annotations" />
+    </include_path>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="85" />
+    <option name="y" value="25" />
+    <option name="width" value="1750" />
+    <option name="height" value="970" />
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="sms-marketing-old" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sms-marketing-old" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sms-marketing-old" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sms-marketing-old" type="462c0819:PsiDirectoryNode" />
+              <item name="Photos" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sms-marketing-old" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sms-marketing-old" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sms-marketing-old" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sms-marketing-old" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="AppBundle" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sms-marketing-old" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sms-marketing-old" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="ERP" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sms-marketing-old" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sms-marketing-old" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="ERP" type="462c0819:PsiDirectoryNode" />
+              <item name="AdminBundle" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sms-marketing-old" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sms-marketing-old" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="ERP" type="462c0819:PsiDirectoryNode" />
+              <item name="CRMBundle" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../practica3" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="651d8d97-8f29-4378-b622-117fd088089c" name="Default Changelist" comment="" />
+      <created>1565811122018</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1565811122018</updated>
+      <workItem from="1565811123340" duration="3635000" />
+      <workItem from="1565817697420" duration="13125000" />
+      <workItem from="1566663013063" duration="1487000" />
+      <workItem from="1566738840807" duration="14940000" />
+      <workItem from="1566826763236" duration="44000" />
+      <workItem from="1566846609896" duration="995000" />
+      <workItem from="1568496656919" duration="719000" />
+      <workItem from="1574173475584" duration="5897000" />
+      <workItem from="1574694533144" duration="2803000" />
+      <workItem from="1575911605816" duration="1275000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="44920000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2590604" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Terminal" order="10" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" weight="0.32907802" />
+      <window_info anchor="bottom" id="File Transfer" order="12" weight="0.22836879" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/Photos/producto/producto_2016-07-01-141522_3.jpeg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Photos/producto/producto_2016-07-01-141522_4.jpeg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Photos/producto/producto_2016-07-01-141522_5.jpeg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Photos/producto/producto_2016-07-01-141604_honda_1.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Photos/producto/producto_2016-07-01-141604_honda_2.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Photos/producto/producto_2016-07-01-141604_honda_5.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Photos/producto/producto_2017-01-30-213022_descarga.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Resources/src/img/icon.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Resources/src/img/add.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/restaurantes/editar.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1394">
+          <caret line="121" column="29" lean-forward="true" selection-start-line="121" selection-start-column="29" selection-end-line="121" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/restaurantes/dashboardRestaurantes.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="61" column="129" selection-start-line="61" selection-start-column="129" selection-end-line="61" selection-end-column="129" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/restaurantes/index.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1037">
+          <caret line="5" selection-start-line="5" selection-end-line="10" selection-end-column="108" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ERP/CRMBundle/Controller/IdentificadoresController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-357">
+          <caret line="37" column="21" selection-start-line="37" selection-start-column="21" selection-end-line="37" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/identificadores/nuevo.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-136">
+          <caret line="76" column="113" lean-forward="true" selection-start-line="76" selection-start-column="113" selection-end-line="76" selection-end-column="113" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/Secured/login.html.twig">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/identificadores/dashboardIdentificadores.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="55" column="62" selection-start-line="55" selection-start-column="62" selection-end-line="55" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/identificadores/index.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="137" column="38" lean-forward="true" selection-start-line="137" selection-start-column="38" selection-end-line="137" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/identificadores/editar.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="76" column="65" selection-start-line="76" selection-start-column="65" selection-end-line="76" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/dashboard/index.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="117" lean-forward="true" selection-start-line="20" selection-start-column="28" selection-end-line="21" selection-end-column="117" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ERP/CRMBundle/Controller/DashBoardController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="26" column="40" selection-start-line="26" selection-start-column="25" selection-end-line="26" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/Layout/nav2.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="136" selection-start-line="16" selection-start-column="136" selection-end-line="16" selection-end-column="136" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/mensajes/index.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="30" column="98" selection-start-line="30" selection-start-column="98" selection-end-line="30" selection-end-column="98" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Photos/producto/producto_2016-07-01-141604_honda_3.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/config/parameters.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="31" lean-forward="true" selection-start-line="6" selection-start-column="31" selection-end-line="6" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Resources/jquery/jquery.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Resources/jquery/jquery-1.11.3.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/Layout/layout2.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="76" column="65" selection-start-line="76" selection-start-column="65" selection-end-line="76" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/config/config.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="4" lean-forward="true" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ERP/AdminBundle/Entity/Restaurante.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2091" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ERP/CRMBundle/Controller/RestauranteController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="86" column="83" lean-forward="true" selection-start-line="86" selection-start-column="5" selection-end-line="86" selection-end-column="83" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ERP/AdminBundle/Entity/Identificador.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="140" column="72" lean-forward="true" selection-start-line="140" selection-start-column="37" selection-end-line="140" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ERP/AdminBundle/Entity/Cliente.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="31" selection-start-line="31" selection-end-line="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ERPCRMBundle/Resources/config/doctrine/metadata/orm/InvProducto.orm.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ERP/CRMBundle/Controller/MensajesController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-391">
+          <caret line="149" column="39" selection-start-line="149" selection-start-column="34" selection-end-line="149" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/restaurantes/nuevo.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="309">
+          <caret line="76" column="63" selection-start-line="76" selection-start-column="63" selection-end-line="76" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Resources/js/clientes/clientes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="132" column="76" selection-start-line="132" selection-start-column="64" selection-end-line="132" selection-end-column="76" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/programacion/conexion.html.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="17" selection-start-line="9" selection-start-column="11" selection-end-line="9" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ERP/CRMBundle/Controller/PruebaMensaje.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="15" column="25" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/programacion/pruebaMensaje.html.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="88" column="78" selection-start-line="88" selection-start-column="73" selection-end-line="88" selection-end-column="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ERP/AdminBundle/Entity/DetalleRestauranteCliente.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="623">
+          <caret line="146" column="15" selection-start-line="146" selection-start-column="15" selection-end-line="146" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ERP/AdminBundle/Entity/Mensaje.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="50" column="27" selection-start-line="50" selection-start-column="12" selection-end-line="50" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/mensajes/nuevo.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="782">
+          <caret line="46" selection-start-line="46" selection-end-line="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ERP/CRMBundle/Controller/ClienteController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1581">
+          <caret line="102" column="55" selection-start-line="102" selection-start-column="55" selection-end-line="102" selection-end-column="55" />
+          <folding>
+            <element signature="e#43#96#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/clientes/index.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3383">
+          <caret line="199" column="18" selection-start-line="199" selection-start-column="18" selection-end-line="199" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ERP/CRMBundle/Controller/EnvioMensaje.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="27" column="73" selection-start-line="27" selection-start-column="44" selection-end-line="27" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/envioMensajes/envioMensajes.html.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="473">
+          <caret line="65" column="11" selection-start-line="65" selection-start-column="11" selection-end-line="65" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/composer.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-526" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LICENSE">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="17">
+            <caret line="1" selection-start-line="1" selection-end-line="1" selection-end-column="60" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ERP/CRMBundle/Resources/views/envioMensajes/envioMensajesEnMomento.html.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="18" selection-start-line="19" selection-start-column="18" selection-end-line="19" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

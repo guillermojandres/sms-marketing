@@ -4,7 +4,7 @@
             <meta charset="utf-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>Monkey Systems Latinoamerica</title>
+            <title>Programadores 503</title>
             <meta name="robots" content="noindex">
 
             {% block css %}
@@ -74,17 +74,21 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="{{ path('dashboard_indexCRM') }}">CRM</a>
+                                <a href="{{ path('dashboard_index') }}">Home</a>
                             </li>
                             <li>
-                                <a href="{{ path('ordenesdecompra') }}">Ventas</a>
+                                <a href="{{ path('listaRestaurantes') }}">Negocios</a>
                             </li>
                             <li>
-                                <a href="{{ path('inventariobeard_listprod') }}">Productos</a>
+                                <a href="{{ path('listaIdentificadores') }}">Identificadores</a>
                             </li>
-                             <li>
-                                <a href="{{ path('admin_contabilidad_index') }}">Contabilidad</a>
+                            <li>
+                                <a href="{{ path('listaMensajes') }}">Mensajes</a>
                             </li>
+                            <li>
+                                <a href="{{ path('admin_cliente_index') }}">Clientes</a>
+                            </li>
+                        
                         </ul>
                     </div> 
                     

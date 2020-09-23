@@ -1,0 +1,290 @@
+{% extends ':Layout:layout2.html.twig' %}
+
+{% block css %}
+    {{parent()}}
+
+    <link rel="stylesheet" href="{{ asset('Resources/dataTable/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('Resources/dataTable/material.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('Resources/dataTable/dataTables.material.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('Resources/select2/dist/css/select2.css') }}">
+    <link rel="stylesheet" href="{{ asset('Resources/sweetalert-master/dist/sweetalert.css') }}">
+    <link rel="stylesheet" href="{{ asset('Resources/AdminLTE-2.3.0/dist/css/skins/_all-skins.min.css') }}">
+{% endblock css%}
+{% block js %}
+       {{parent()}}
+    <script src="{{ asset('Resources/dataTable/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('Resources/dataTable/dataTables.material.min.js') }}"></script>
+    <script src="{{ asset('Resources/sweetalert-master/dist/sweetalert.min.js') }}"></script>
+    <script src="{{ asset('Resources/select2/dist/js/select2.js') }}"></script>
+    <script src="{{ asset('Resources/AdminLTE-2.3.0/dist/js/app.js') }}" type="text/javascript"></script>
+
+
+
+    
+{% endblock %}
+
+
+{% block descripcion_y_acciones %}
+
+ <div class="row">
+ {% block descripcion %}
+        <div class="col-md-8">
+            <p class="robo" style="font-weight: 300; margin-bottom: 0px; font-size: 30px;">Negocios</p>
+            <p class="robo" style="font-weight: 300; font-size: 14px; height: 40px;">Gesti&oacute;n  de negocios</p>
+        </div>
+ {% endblock%}
+ {% block acciones %}
+                
+     
+                    
+     	<div class="col-md-4" style="margin-top: 50px;">
+                          {{parent()}}
+                                <div class="btn-group pull-right">
+                                  <a href="{{ path('nuevo_restaurante') }}" class="admin-menu-navi">
+                                        <button class="btn btn-primary  btn-sm " style="margin-left: 5px;" id="nuevoRestaurante">Nuevo</button>
+                                  </a>
+                                </div>
+                                   <div class="btn-group pull-right">
+                                        <button class="btn btn-danger  btn-sm " style="margin-left: 5px;" id="eliminarRestaurante">Eliminar</button>
+                                    </div>
+                                        	
+	</div>
+     
+ {% endblock %}
+		
+</div>
+
+{% endblock %}
+{% block navegacion_Y_body %}
+  <div class="row">
+        {% block navegacion %}
+                 <hr style="margin-top: 10px !important;">
+                <div class="col-md-2 colorAnclas" style="border-right: 1px solid #f3f3f3;">
+                    <!-- Left Navigation -->
+                    <ul style="list-style: none; padding: 0;">
+                        <a href="{{ path('restaurantes_dashboard') }}" class="leftnava colorAnclas"><li class="leftnav left active">Menu<span class="pull-right right"></span></li></a>
+        
+
+                    </ul>
+                </div>         
+       {% endblock %}
+
+{% block cuerpo %}
+     {{parent()}}
+     <div class="col-md-10" style="margin-top: 10px;">
+     
+              
+    <div >
+     
+        <table id="listaRestaurantes" class="listados mdl-data-table" cellspacing="0" width="100%">
+
+            <thead>
+
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre Negocio</th>
+                    <th>Nombre contacto</th>
+                    <th>Telefono</th>
+                    <th>Email</th>
+                    <th>Telefono Twillio</th>
+                </tr>
+            </thead>
+
+        </table>
+
+    
+  </div>
+</div>
+     
+{% endblock %}
+
+       </div>
+{% endblock %}
+ 
+ {% block js_extend %}
+    <script src="{{ asset('Resources/sweetalert-master/dist/sweetalert.min.js') }}"></script>
+      <script src="{{ asset('Resources/datatable/js/datatable.js') }}"></script>
+    
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+
+      $("#eliminarRestaurante").hide();
+                  
+var url = Routing.generate('restaurante_data');
+   var table = $('#listaRestaurantes').DataTable({
+                    //searching:true,
+                    //"order":[[1,"desc"]],
+                    "dom": "tp",
+                    "processing": false,
+                    "serverSide": true,
+                    "ajax": {
+                        "url": url,
+                        "type": 'GET'
+                    },
+                    "columns": [
+                       { "data":"id" },
+                      { "data":"nombre" },
+                       {"data":"contacto"},
+                      { "data":"telefono" },
+                      {"data":"correo"},
+                      {"data":"telefonoT"}
+                                             
+                          
+                    ],
+                    "columnDefs": [
+                           { "orderable": true, "targets": 0 },
+                           { "orderable": true, "targets": 1 },
+                           { "orderable": true, "targets": 2 },
+                           { "orderable": true, "targets": 3 },
+                           { "orderable": false, "targets": 4 },
+                           { "orderable": false, "targets": 5 },
+                          { "orderable": false, "targets": 5 },
+                           
+                           
+                            {
+                    targets: [ 0, 1, 2,3,4,5 ],
+                    className: 'mdl-data-table__cell--non-numeric'
+                            }
+           
+                          
+                          
+                           //{ "orderData": [ 2, 3, 4 ], "targets": 2 }
+                    ],
+                    "language": {
+                    "info": "Mostrando página _PAGE_ de _PAGES_",
+                    "infoEmpty": "No hay informacion",
+                    "emptyTable": "No se encontraron registros",
+                    "paginate": {
+                        "next": "<b>Siguiente </b> ",
+                        "previous": " <b>Anterior</b>"
+                    },
+                    "processing": "Procesando petición...",
+                    "search": "Buscar registros:",
+                    "lengthMenu": "Mostrar _MENU_ registros"
+                },
+                   
+            });
+
+//Para la eliminacion y edicion
+
+
+var idEliminar=0;
+       
+       $(document).on("click","tbody>tr",function() {
+        var rol = $(this).attr("role");
+        if(rol=="row"){
+             var idRestaurante =  $(this).children().html();
+            $("tr").css('background-color', 'white');
+            $(this).css('background-color', '#E9E6E6');
+            
+            
+             $("#eliminarRestaurante").show();   
+             idEliminar=idRestaurante;
+         }
+                
+       });
+         
+         
+     $(document).on("dblclick","tbody>tr",function() {
+            var rol = $(this).attr("role");
+        if(rol=="row"){
+             var idRestaurante =  $(this).children().html();
+             
+               var numero = idRestaurante;
+                  var url=Routing.generate('editar_restaurante',{id:numero});
+                  window.open(url,"_self"); 
+             $("#eliminarRestaurante").hide();   
+         }
+                
+       });
+       
+       
+     
+ 
+$("#eliminarRestaurante").on("click",function (){
+       
+                  swal({
+                                                    title: "Advertencia",
+                                                    text: "&iquest;Estas seguro de eliminar el registro de la lista de restaurantes?",
+                                                    type: "warning",
+                                                    showCancelButton: true,
+                                                    cancelButtonText: "No",
+                                                    confirmButtonText: "Si",
+                                                    confirmButtonColor: "#00A59D",
+                                                    closeOnConfirm: true,
+                                                    closeOnCancel: true,
+                                                    html:true
+                                                },
+                                        function (isConfirm) {
+                                              if (isConfirm) {
+                                                                   
+                                                $.ajax({
+                                    type: 'POST',
+                                    async: false,
+                                    dataType: 'json',
+                                    data: {idEliminar:idEliminar},
+                                    url: Routing.generate('eliminar_restaurante'),
+                                    success: function (data)
+                                    {
+                                         if (data.estado==true){
+                                          
+                                        swal({
+                                            title: "Exito!",
+                                            text: "Datos eliminados exitosamente",
+                                            timer: 1500,
+                                            type: 'success',
+                                            showConfirmButton: false
+                                          });
+                                          
+                                            var table = $('#listaRestaurantes').DataTable();
+                                                      $("#eliminarRestaurante").hide();
+                                                          table.ajax.reload( function ( json ) {
+
+                                                      } );
+
+                                        
+                                        
+                                             
+                                         }
+                                         else{
+                                             
+                                                swal("Error!", "Error al eliminar los datos", "error");
+                                            location.reload();
+                                            
+                                             
+                                         }
+
+                                    },
+                                    error: function (xhr, status)
+                                    {
+                      
+                    }
+            });
+
+              
+
+          
+                                              
+                                                          
+
+                                              }else{
+                                                                
+                                                                 $("#eliminarRestaurante").hide();  
+                                                                
+                                                   }
+                                                            
+                                                            
+                                    });
+                        
+                    
+});
+
+});
+</script>
+  
+     
+      
+      
+  {% endblock %} 
+
