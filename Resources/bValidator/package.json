@@ -36,7 +36,7 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-ejs": "^0.3.0",
     "grunt-jscs": "^2.6.0",
-    "jquery": "^2"
+    "jquery": "^3"
   },
   "files": [
     "*",
